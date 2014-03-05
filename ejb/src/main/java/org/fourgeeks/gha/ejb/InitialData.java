@@ -1271,8 +1271,8 @@ public class InitialData {
 		facilityTestData();
 		// //
 		eiaTypeCategoryTestData();
-		// eiaTypeTestData();
-		// eiaTestData();
+		eiaTypeTestData();
+		eiaTestData();
 		//
 		maintenanceActivityTestData();
 		subProtocolAndChecklistTestData();

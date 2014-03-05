@@ -25,7 +25,7 @@ Material,2,01,Alimentación,0102,7,,0,1
 Material,2,01,Aplicadores y Baja Lenguas,0103,3,,0,1
 Material,2,01,Asepsia/Higiene,0104,23,,0,1
 Material,2,01,Aspiradores/Succionadores,0130,8,,0,1
-Material,2,01,Autosuturas,Tijeras,Cargas y Pistolas,0105,0,,0,1
+Material,2,01,Autosuturas Tijeras Cargas y Pistolas,0105,0,,0,1
 Material,2,01,Bandejas,0106,0,,0,1
 Material,2,01,Bolsas,0107,0,,0,1
 Material,2,01,Cánulas,0108,19,,0,1
@@ -473,7 +473,7 @@ Material,3,0168,SUSPENSORIO,016820,0,,0,1
 #
 Material,3,0149,ENDOLUMINAL - STENT,014900,0,,0,1
 #
-Material,3,0150,CLIPS, CINCHAS, SHUNTS,015000,0,,0,1
+Material,3,0150,CLIPS CINCHAS SHUNTS,015000,0,,0,1
 Material,3,0150,COTONOIDES,015002,0,,0,1
 Material,3,0150,ESFINTEROTOMO,015004,0,,0,1
 Material,3,0150,GASTROSTOMO,015006,0,,0,1
