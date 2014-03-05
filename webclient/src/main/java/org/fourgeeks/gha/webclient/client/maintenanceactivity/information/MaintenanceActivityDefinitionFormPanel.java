@@ -27,9 +27,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaintenanceActivityDefinitionFormPanel extends GHAFormLayout
-implements ClosableListener, HideableListener,
-MaintenanceActivitySelectionListener,
-MaintenanceActivitySelectionProducer {
+		implements ClosableListener, HideableListener,
+		MaintenanceActivitySelectionListener,
+		MaintenanceActivitySelectionProducer {
 
 	private final MaintenanceActivityForm form = new MaintenanceActivityForm();
 
@@ -45,11 +45,11 @@ MaintenanceActivitySelectionProducer {
 						update();
 					}
 				}), new GHAUndoButton(new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						undo();
-					}
-				}));
+			@Override
+			public void onClick(ClickEvent event) {
+				undo();
+			}
+		}));
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
@@ -74,18 +74,19 @@ MaintenanceActivitySelectionProducer {
 				return true;
 			}
 
-			GHAAlertManager.askYesNoCancel("unsaved-changes", new ClickHandler() {
-				@Override
-				public void onClick(ClickEvent event) {
-					GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
-				}
-			}, new ClickHandler() {
-				@Override
-				public void onClick(ClickEvent event) {
-					GHAPlaceSet
-					.closeCurrentPlace(HideCloseAction.DISCARD);
-				}
-			}, null);
+			GHAAlertManager.askYesNoCancel("unsaved-changes",
+					new ClickHandler() {
+						@Override
+						public void onClick(ClickEvent event) {
+							GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
+						}
+					}, new ClickHandler() {
+						@Override
+						public void onClick(ClickEvent event) {
+							GHAPlaceSet
+									.closeCurrentPlace(HideCloseAction.DISCARD);
+						}
+					}, null);
 			return false;
 		}
 		return true;
@@ -101,18 +102,19 @@ MaintenanceActivitySelectionProducer {
 				return true;
 			}
 
-			GHAAlertManager.askYesNoCancel("unsaved-changes", new ClickHandler() {
-				@Override
-				public void onClick(ClickEvent event) {
-					GHAPlaceSet.hideCurrentPlace(HideCloseAction.SAVE);
-				}
-			}, new ClickHandler() {
-				@Override
-				public void onClick(ClickEvent event) {
-					GHAPlaceSet
-					.hideCurrentPlace(HideCloseAction.DISCARD);
-				}
-			}, null);
+			GHAAlertManager.askYesNoCancel("unsaved-changes",
+					new ClickHandler() {
+						@Override
+						public void onClick(ClickEvent event) {
+							GHAPlaceSet.hideCurrentPlace(HideCloseAction.SAVE);
+						}
+					}, new ClickHandler() {
+						@Override
+						public void onClick(ClickEvent event) {
+							GHAPlaceSet
+									.hideCurrentPlace(HideCloseAction.DISCARD);
+						}
+					}, null);
 			return false;
 		}
 		return true;
