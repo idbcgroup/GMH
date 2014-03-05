@@ -354,3 +354,10 @@ ES,resources-delete-confirm,¿Esta seguro que desea eliminar los recursos?
 ES,autogen-field,Autogenerado
 ES,citizen,Ciudadano
 ES,citizens,Ciudadanos
+ES,relative,Familiar
+ES,relatives,Familiares
+ES,citizen-basic-information-title,Información básica del ciudadano
+ES,citizen-familiar-basic-information-title,Información básica del familiar
+ES,citizen-physical-features-title,Características físicas
+ES,citizen-personal-contacts-title,Contactos personales
+ES,citizen-emergency-notify-title,Notificar en caso de emergencia

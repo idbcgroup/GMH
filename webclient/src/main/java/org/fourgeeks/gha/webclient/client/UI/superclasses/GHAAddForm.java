@@ -12,7 +12,7 @@ import com.smartgwt.client.widgets.events.ClickHandler;
  * 
  */
 public abstract class GHAAddForm<T> extends GHASlideInWindow {
-	private final GHALabel label;
+	private final GHALabel titleLabel;
 	protected GHAForm<T> form;
 
 	/**
@@ -22,8 +22,8 @@ public abstract class GHAAddForm<T> extends GHASlideInWindow {
 		super();
 		setWidth100();
 		setMinWidth(GHAUiHelper.MIN_WIDTH);
-		label = new GHALabel(title);
-		addMember(label);
+		titleLabel = new GHALabel(title);
+		addMember(titleLabel);
 	}
 
 	/**

@@ -11,7 +11,7 @@ import com.smartgwt.client.widgets.events.ClickHandler;
  * 
  */
 public abstract class GHAUpdateForm<T> extends GHASlideInWindow {
-	private final GHALabel label;
+	private final GHALabel titleLabel;
 	protected GHAForm<T> form;
 
 	/**
@@ -19,8 +19,8 @@ public abstract class GHAUpdateForm<T> extends GHASlideInWindow {
 	 */
 	public GHAUpdateForm(String title) {
 		super();
-		label = new GHALabel(title);
-		addMember(label);
+		titleLabel = new GHALabel(title);
+		addMember(titleLabel);
 	}
 
 	/**
@@ -52,7 +52,7 @@ public abstract class GHAUpdateForm<T> extends GHASlideInWindow {
 	 * @param title
 	 */
 	public void setFormTitle(String title) {
-		label.setContents(title);
+		titleLabel.setContents(title);
 	}
 
 	protected abstract void update();

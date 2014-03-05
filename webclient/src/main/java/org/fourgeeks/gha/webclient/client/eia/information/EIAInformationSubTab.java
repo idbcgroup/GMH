@@ -15,7 +15,7 @@ import com.smartgwt.client.widgets.tab.events.TabSelectedHandler;
  * @author alacret, emiliot Equipments sub tab
  */
 public class EIAInformationSubTab extends GHASubTab implements
-		EIASelectionListener {
+EIASelectionListener {
 
 	private final EIAInformationFormPanel form;
 
@@ -62,6 +62,9 @@ public class EIAInformationSubTab extends GHASubTab implements
 		form.select(eia);
 	}
 
+	/**
+	 * 
+	 */
 	public void show() {
 		form.show();
 	}
