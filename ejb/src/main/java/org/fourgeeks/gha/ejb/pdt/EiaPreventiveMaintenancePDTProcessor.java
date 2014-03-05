@@ -37,9 +37,6 @@ public class EiaPreventiveMaintenancePDTProcessor implements PDTProcessor {
 
 	@Override
 	public void processMessage(HashMap<String, Object> params) {
-		logger.log(Level.INFO,
-				"entro en el EiaPreventiveMaintenancePDTProcessor");
-
 		long time = Calendar.getInstance().getTimeInMillis();
 
 		try {
@@ -64,9 +61,6 @@ public class EiaPreventiveMaintenancePDTProcessor implements PDTProcessor {
 			serviceOrder.setState(ServiceOrderState.ACTIVE);
 			serviceOrder.setMaintenanceProvider(bsp);
 			serviceOrder = serviceOrderService.save(serviceOrder);
-
-			logger.log(Level.INFO,
-					"termino el EiaPreventiveMaintenancePDTProcessor");
 
 		} catch (Exception e) {
 			String msg = "ERROR: procesando mensaje en PreventiveMaintenancePDTProcessor: ";
