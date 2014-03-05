@@ -2,8 +2,8 @@ package org.fourgeeks.gha.webclient.client.res.citizen;
 
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
-import org.fourgeeks.gha.webclient.client.res.citizen.body.CitizenRESBodyForm;
-import org.fourgeeks.gha.webclient.client.res.citizen.top.CitizenRESTopForm;
+import org.fourgeeks.gha.webclient.client.res.citizen.body.CitizenRESBottomBodyForm;
+import org.fourgeeks.gha.webclient.client.res.citizen.top.CitizenRESTopInformationview;
 
 import com.google.gwt.user.client.History;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -32,9 +32,8 @@ public class CitizenTab extends GHATab {
 				History.newItem("res/" + citizenId);
 			}
 		});
-		addMember(new CitizenRESTopForm());
-		addMember(new CitizenRESBodyForm());
-
+		addMember(new CitizenRESTopInformationview());
+		addMember(new CitizenRESBottomBodyForm());
 	}
 
 	@Override

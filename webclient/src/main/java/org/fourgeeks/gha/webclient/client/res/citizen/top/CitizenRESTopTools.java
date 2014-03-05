@@ -1,6 +1,5 @@
 package org.fourgeeks.gha.webclient.client.res.citizen.top;
 
-import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 
@@ -21,17 +20,24 @@ public class CitizenRESTopTools extends VLayout {
 	public CitizenRESTopTools() {
 		setWidth(30);
 		setLayoutMargin(5);
-		setMembersMargin(10);
+		setMembersMargin(5);
 		setDefaultLayoutAlign(Alignment.CENTER);
 		setBackgroundColor("#C2D1FF");// TODO
 		final ClickHandler clickHandler = new ClickHandler() {
-
 			@Override
 			public void onClick(ClickEvent event) {
+				//TODO:
 			}
 		};
-		addMember(new GHASaveButton(clickHandler));
+
+		final ClickHandler closeHandler = new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				//TODO: close
+			}
+		};
 		addMember(new GHACleanButton(clickHandler));
-		addMember(new GHACancelButton(clickHandler));
+		addMember(new GHASaveButton(clickHandler));
+		//		addMember(new GHACancelButton(closeHandler));
 	}
 }

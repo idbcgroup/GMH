@@ -6,13 +6,12 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAHorizontalLayout;
  * @author alacret
  * 
  */
-public class CitizenRESBodyForm extends GHAHorizontalLayout {
+public class CitizenRESBottomBodyForm extends GHAHorizontalLayout {
 
 	/**
 	 * 
 	 */
-	public CitizenRESBodyForm() {
-		setBackgroundColor("#CCFF99");
+	public CitizenRESBottomBodyForm() {
 		addMember(new CitizenRESInternalTabSet());
 		addMember(new CitizenRESBodyTools());
 	}

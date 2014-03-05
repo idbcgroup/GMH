@@ -18,9 +18,9 @@ import com.smartgwt.client.widgets.tab.events.TabDeselectedHandler;
  * 
  */
 public class GHASubTab extends Tab implements ClosableListener,
-		ClosableProducer, HideableProducer, HideableListener {
-	private List<ClosableListener> closables = new ArrayList<ClosableListener>();
-	private List<HideableListener> hideables = new ArrayList<HideableListener>();
+ClosableProducer, HideableProducer, HideableListener {
+	private final List<ClosableListener> closables = new ArrayList<ClosableListener>();
+	private final List<HideableListener> hideables = new ArrayList<HideableListener>();
 
 	/**
 	 * @param title

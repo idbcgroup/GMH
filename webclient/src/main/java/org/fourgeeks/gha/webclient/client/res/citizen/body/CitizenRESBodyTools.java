@@ -13,6 +13,7 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHAUndoButton;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
@@ -27,13 +28,14 @@ public class CitizenRESBodyTools extends VLayout {
 	public CitizenRESBodyTools() {
 		setWidth(30);
 		setLayoutMargin(5);
-		setMembersMargin(10);
+		setMembersMargin(5);
 		setDefaultLayoutAlign(Alignment.CENTER);
-		setBackgroundColor("#FF4D4D");
+		setBackgroundColor("#C2D1FF");
 		final ClickHandler clickHandler = new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
+				//TODO:
 			}
 		};
 		addMember(new GHACancelButton(clickHandler));
@@ -42,6 +44,7 @@ public class CitizenRESBodyTools extends VLayout {
 		addMember(new GHADeleteButton(clickHandler));
 		addMember(new GHAEditButton(clickHandler));
 		addMember(new GHANewButton(clickHandler));
+		addMember(new LayoutSpacer());
 		addMember(new GHASaveButton(clickHandler));
 		addMember(new GHASearchButton(clickHandler));
 		addMember(new GHAUndoButton(clickHandler));

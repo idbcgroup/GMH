@@ -34,13 +34,13 @@ public class RESTabbedPanel extends GHATabbedPanel {
 		citizenSearchForm.addCitizenSelectionListener(new CitizenSelectionListener() {
 			@Override
 			public void onCitizenSelect(Citizen citizen) {
-				place.updateToken("res/" + citizen.getId());
+				place.updateToken("res/" +/* citizen.getIdNumber()+"-"+*/citizen.getId());
 			}
 		});
 		citizenAddForm.addCitizenSelectionListener(new CitizenSelectionListener() {
 			@Override
 			public void onCitizenSelect(Citizen citizen) {
-				place.updateToken("res/" + citizen.getId());
+				place.updateToken("res/" +/* citizen.getIdNumber()+"-"*/citizen.getId());
 			}
 		});
 

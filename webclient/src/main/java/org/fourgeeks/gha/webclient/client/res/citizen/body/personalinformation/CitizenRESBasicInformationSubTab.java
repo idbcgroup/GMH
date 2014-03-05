@@ -14,12 +14,12 @@ import com.smartgwt.client.widgets.layout.SectionStackSection;
  * @author alacret
  * 
  */
-public class CitizenRESBasicInformationTab extends GHASubTab {
+public class CitizenRESBasicInformationSubTab extends GHASubTab {
 
 	/**
 	 * @param title
 	 */
-	public CitizenRESBasicInformationTab() {
+	public CitizenRESBasicInformationSubTab() {
 		super(GHAStrings.get("basic-information"));
 
 		final HTMLFlow htmlFlow = new HTMLFlow();
@@ -29,42 +29,43 @@ public class CitizenRESBasicInformationTab extends GHASubTab {
 		final String contents = "<b>Severity 1</b> - Critical problem<br>System is unavailable in production or "
 				+ "is corrupting data, and the error severely impacts the user's operations."
 				+ "<br><br><b>Severity 2</b> - Major problem<br>An important function of the system "
-				+ "is not available in production, and the user's operations are restricted."
-				+ "<br><br><b>Severity 3</b> - Minor problem<br>Inability to use a function of the "
-				+ "system occurs, but it does not seriously affect the user's operations.";
+				+ "is not available in production, and the user's operations are restricted.";
 
 		htmlFlow.setContents(contents);
 
 		final SectionStack sectionStack = new SectionStack();
 		sectionStack.setVisibilityMode(VisibilityMode.MULTIPLE);
-		sectionStack.setWidth(300);
-		sectionStack.setHeight(350);
+		sectionStack.setWidth100();
+		sectionStack.setHeight(400);
 
 		final SectionStackSection section1 = new SectionStackSection(
-				"Información básica");
+				"Información Básica del Ciudadano");
 		section1.setExpanded(true);
+		section1.addItem(htmlFlow);
 		sectionStack.addSection(section1);
 
 		final SectionStackSection section2 = new SectionStackSection(
-				"Familiares");
+				"Caracteristicas Físicas");
 		section2.setExpanded(true);
-		section2.setCanCollapse(true);
 		section2.addItem(htmlFlow);
 		sectionStack.addSection(section2);
 
 		final SectionStackSection section3 = new SectionStackSection(
-				"Teléfonos");
+				"Contactos Personales");
 		section3.setExpanded(true);
-		section3.setCanCollapse(false);
+		section3.addItem(htmlFlow);
 		sectionStack.addSection(section3);
 
 		final SectionStackSection section4 = new SectionStackSection(
-				"Direcciones");
+				"Notificar en caso de Emergencia");
 		section4.setExpanded(false);
+		section3.addItem(htmlFlow);
 		sectionStack.addSection(section4);
 
 		final HLayout layout = new HLayout();
-		layout.setMembersMargin(20);
+		layout.setWidth100();
+		layout.setHeight("*");
+		//		layout.setMembersMargin(20);
 		layout.addMember(sectionStack);
 
 		setPane(layout);

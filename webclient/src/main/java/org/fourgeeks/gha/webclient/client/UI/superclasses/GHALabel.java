@@ -17,6 +17,7 @@ public class GHALabel extends Label {
 		super();
 		setContents(title);
 		setHeight("25px");
+		setWrap(false);
 		setWidth100();
 		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		setStyleName("gha-label");

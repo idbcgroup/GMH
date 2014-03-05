@@ -196,10 +196,11 @@ public abstract class GHAUiHelper {
 	/**
 	 * the default height for the pation top component
 	 */
-	public static final int DEFAULT_PATIENT_TOP_HEIGHT = 80;
+	public static final int DEFAULT_PATIENT_TOP_HEIGHT = 72;
 	/**
 	 * a blank space
 	 */
+	@Deprecated
 	public static final String BLANK_SPACE = "&nbsp";
 	/**
 	 * 

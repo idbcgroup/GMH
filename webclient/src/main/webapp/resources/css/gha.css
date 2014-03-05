@@ -4,9 +4,6 @@
 	font-size: small;
 	font-family: Helvetica !important;
 }
-.margin{
-	margin-right:10px;
-}
 b {
 	font-weight: normal !important;
 }
@@ -341,16 +338,29 @@ input[type="text"]:disabled,.inputDisabled {
 	text-transform: capitalize;
 }
 
-.gha-title-label {
+.gha-medium-title-label {
 	font-weight: bold;
 	color: #008EFE;
 	font-size: 12px;
 	text-transform: capitalize;
 }
 
-.gha-text-label {
+.gha-small-title-label {
+	font-weight: bold;
+	color: #008EFE;
+	font-size: 11px;
+	text-transform: capitalize;
+}
+
+.gha-medium-text-label {
 	color: black;
 	font-size: 12px;
+	text-transform: capitalize;
+}
+
+.gha-small-text-label {
+	color: black;
+	font-size: 11px;
 	text-transform: capitalize;
 }
 
@@ -527,6 +537,12 @@ table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFile
 
 .margin-right {
 	margin-right: 10px;
+}
+
+.margin-items {
+	margin-left: 10px;
+/* 	margin-top: 3px; */
+/* 	margin-bottom: 3px; */
 }
 
 .top-8 {
