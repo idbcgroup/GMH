@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gmh.Eia;
@@ -68,7 +69,7 @@ public class EIADamageAndPlanificationSearchForm extends GHASearchForm<Eia>
 			}
 		});
 
-		form = new GHADynamicForm(3,FormType.SECTIONFORM_FORM);
+		form = new GHADynamicForm(3, FormType.SECTIONFORM_FORM);
 	}
 
 	/**
@@ -260,6 +261,8 @@ public class EIADamageAndPlanificationSearchForm extends GHASearchForm<Eia>
 	 * @param eia
 	 */
 	private void search(final Eia eia) {
+		// Finds only eias that are in operation.
+		eia.setState(EiaStateEnum.IN_OPERATION);
 		EIAModel.find(eia, new GHAAsyncCallback<List<Eia>>() {
 
 			@Override
