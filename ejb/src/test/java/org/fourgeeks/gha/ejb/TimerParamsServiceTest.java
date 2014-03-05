@@ -91,8 +91,8 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.gmh.RequiredResources;
 import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
@@ -144,8 +144,8 @@ import org.fourgeeks.gha.ejb.gmh.MaintenanceActivityService;
 import org.fourgeeks.gha.ejb.gmh.MaintenanceActivityServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.MaintenancePlanService;
 import org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote;
-import org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolsService;
-import org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolsServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolService;
+import org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistService;
 import org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistServiceLocal;
 import org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistServiceRemote;
@@ -255,7 +255,7 @@ public class TimerParamsServiceTest {
 				.addClass(MaintenancePlanType.class)
 				.addClass(EiaMaintenanceState.class)
 				.addClass(MaintenancePlanificationType.class)
-				.addClass(MaintenanceProtocols.class)
+				.addClass(MaintenanceProtocol.class)
 				.addClass(ActivityState.class)
 				.addClass(ActivityCategoryEnum.class)
 				.addClass(Manufacturer.class)
@@ -317,8 +317,8 @@ public class TimerParamsServiceTest {
 				.addClass(EiaTypeMaintenancePlanServiceRemote.class)
 				.addClass(MaintenancePlanService.class)
 				.addClass(MaintenancePlanServiceRemote.class)
-				.addClass(MaintenanceProtocolsService.class)
-				.addClass(MaintenanceProtocolsServiceRemote.class)
+				.addClass(MaintenanceProtocolService.class)
+				.addClass(MaintenanceProtocolServiceRemote.class)
 				.addClass(MaintenancePlanStadisticData.class)
 				.addClass(MaintenanceProtocolStadisticData.class)
 				.addClass(BpuService.class)
