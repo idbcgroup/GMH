@@ -19,8 +19,8 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.GHAUtil;
 
@@ -74,7 +74,7 @@ public class MaintenanceProtocolService extends GHAEJBExceptionService
 
 			// obtengo el ultimo ordinal del protocolo del plan
 			TypedQuery<Integer> queryOrd = em.createNamedQuery(
-					"MaintenanceProtocols.getLastOrdinal", Integer.class);
+					"MaintenanceProtocol.getLastOrdinal", Integer.class);
 
 			List<Integer> ordinalList = queryOrd.setParameter("plan", planTo)
 					.getResultList();
@@ -85,8 +85,8 @@ public class MaintenanceProtocolService extends GHAEJBExceptionService
 			for (AbstractEntity entity : entitiesToCopy) {
 				ordinal++;
 				MaintenanceActivity activity = (MaintenanceActivity) entity;
-				MaintenanceProtocol protocol = new MaintenanceProtocol(
-						planTo, activity, ordinal);
+				MaintenanceProtocol protocol = new MaintenanceProtocol(planTo,
+						activity, ordinal);
 				em.persist(protocol);
 			}
 
@@ -209,7 +209,7 @@ public class MaintenanceProtocolService extends GHAEJBExceptionService
 			throws GHAEJBException {
 		try {
 			final TypedQuery<MaintenanceProtocol> query = em.createNamedQuery(
-					"MaintenanceProtocols.findByMaintenancePlan",
+					"MaintenanceProtocol.findByMaintenancePlan",
 					MaintenanceProtocol.class);
 
 			return query.setParameter("plan", plan).getResultList();

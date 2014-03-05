@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.ServiceOrderState;
 import org.fourgeeks.gha.domain.ess.MaintenanceServiceOrder;
+import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
@@ -53,11 +54,13 @@ public class EiaCorrectiveMaintenancePDTProcessor implements PDTProcessor {
 			// se cambia el estado del equipo a dañado
 			eia.setState(EiaStateEnum.DAMAGED);
 			eia = eiaService.update(eia);
+			Bsp bsp = eia.getMaintenanceProvider();
 
 			// se crea el mantenimiento correctivo
 			EiaCorrectiveMaintenance cm = new EiaCorrectiveMaintenance();
 			cm.setDamageReport(report);
 			cm.setDescription(report.getDamageMotive());
+			cm.setProvider(bsp);
 			cm = maintenanceService.saveCorrectiveMaintenance(cm);
 
 			// se crea la orden de servicio de mantenimiento
@@ -66,7 +69,7 @@ public class EiaCorrectiveMaintenancePDTProcessor implements PDTProcessor {
 			serviceOrder.setOpeningTimestamp(new Timestamp(time));
 			serviceOrder.setServiceOrderNumber("MSO0001");
 			serviceOrder.setState(ServiceOrderState.ACTIVE);
-			serviceOrder.setMaintenanceProvider(eia.getMaintenanceProvider());
+			serviceOrder.setMaintenanceProvider(bsp);
 			serviceOrder = serviceOrderService.save(serviceOrder);
 
 		} catch (Exception e) {

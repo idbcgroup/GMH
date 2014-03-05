@@ -33,10 +33,8 @@ public class EiaPreventiveMaintenanceTimerServiceHandler implements
 	@EJB
 	PDTMessageProducerLocal messageService;
 
-	// @EJB(lookup =
-	// "java:global/ear-1/ejb-1/EiaMaintenancePlanificationService!"
-	// + "org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceLocal")
-	@EJB
+	@EJB(lookup = "java:global/ear-1/ejb-1/EiaMaintenancePlanificationService!"
+			+ "org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceLocal")
 	EiaMaintenancePlanificationServiceLocal planifService;
 
 	@Override
@@ -47,12 +45,15 @@ public class EiaPreventiveMaintenanceTimerServiceHandler implements
 			Calendar calendar = Calendar.getInstance();
 			List<EiaMaintenancePlanification> planifs = planifService.getAll();
 
+			logger.log(Level.INFO, "planifs.size = " + planifs.size());
+
 			// para cada planificacion de mantenimiento
 			for (EiaMaintenancePlanification planif : planifs) {
 				// si el equipo no esta EN OPERACION no se programan nuevos
 				// mantenimientos
 				Eia eia = planif.getEia();
-				if (eia.getState() == EiaStateEnum.IN_OPERATION)
+				logger.log(Level.INFO, "eia.getState() = " + eia.getState());
+				if (eia.getState() != EiaStateEnum.IN_OPERATION)
 					continue;
 
 				// obtengo la fecha del ultimo mantenimiento programado
@@ -69,6 +70,17 @@ public class EiaPreventiveMaintenanceTimerServiceHandler implements
 				// verifico si la fecha actual es mayor que la ultima de fecha
 				// de programacion
 				long actualTime = calendar.getTimeInMillis();
+
+				logger.log(Level.INFO,
+						"beginningDateTime = " + beginningDate.getTime());
+				logger.log(Level.INFO, "lastMaintenanceDateTime = "
+						+ (lastMaintenanceDate == null ? "es nulo"
+								: lastMaintenanceDate.getTime()));
+				logger.log(Level.INFO, "actualTime = " + actualTime
+						+ " - lastScheduleTime = " + lastScheduleTime);
+				logger.log(Level.INFO, "actualTime >= lastScheduleTime? "
+						+ (actualTime >= lastScheduleTime));
+
 				if (actualTime >= lastScheduleTime) {
 					calendar.setTimeInMillis(lastScheduleTime);
 					MaintenancePlan maintenancePlan = planif.getPlan()
@@ -88,6 +100,12 @@ public class EiaPreventiveMaintenanceTimerServiceHandler implements
 					// programar en el rango de tiempo dado
 					int cantOfMaintenances = timeRange / planFrequency;
 
+					logger.log(Level.INFO, "timeRange= " + timeRange
+							+ " - planFrequency = " + planFrequency);
+					logger.log(Level.INFO,
+							"cantOfMaintenances (timeRange / planFrequency) = "
+									+ cantOfMaintenances);
+
 					// realizo la programacion de las nuevas planificaciones
 					for (int i = 0; i < cantOfMaintenances; i++) {
 						// nueva fecha de programación del mantenimiento
@@ -99,8 +117,13 @@ public class EiaPreventiveMaintenanceTimerServiceHandler implements
 						params.put("planif", planif);
 
 						// envio los datos al PDT
+						logger.log(Level.INFO, "calendar.getTime() = "
+								+ calendar.getTime());
+
 						messageService.sendMessage("preventive-maintenance",
 								params);
+
+						logger.log(Level.INFO, "se mandó el mensaje");
 					}
 				}
 
