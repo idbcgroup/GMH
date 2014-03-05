@@ -21,7 +21,7 @@ import org.fourgeeks.gha.domain.enu.CCDIValueStatusEnum;
 @NamedQueries(value = {
 		@NamedQuery(name = "CCDILevelValue.findByCode", query = "SELECT e from CCDILevelValue e WHERE e.code=:code"),
 		@NamedQuery(name = "CCDILevelValue.findAll", query = "SELECT e from CCDILevelValue e ORDER BY e.code"),
-		@NamedQuery(name = "CCDILevelValue.findAllByDefinitionCode", query = "SELECT e from CCDILevelValue e WHERE LOWER(e.levelDefinition.definition.code) = LOWER(:code)") })
+		@NamedQuery(name = "CCDILevelValue.findAllByDefinitionCode", query = "SELECT e from CCDILevelValue e WHERE e.levelDefinition.definition.code = :code") })
 public class CCDILevelValue extends AbstractEntity {
 
 	/**
