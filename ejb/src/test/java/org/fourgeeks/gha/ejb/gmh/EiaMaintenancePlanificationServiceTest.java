@@ -41,7 +41,6 @@ import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanStatus;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationState;
-import org.fourgeeks.gha.domain.enu.MaintenancePlanificationType;
 import org.fourgeeks.gha.domain.enu.ProviderPreferenceEnum;
 import org.fourgeeks.gha.domain.enu.ProviderQualEnum;
 import org.fourgeeks.gha.domain.enu.ProviderRepresentEnum;
@@ -233,7 +232,6 @@ public class EiaMaintenancePlanificationServiceTest {
 				.addClass(MaintenancePlanState.class)
 				.addClass(MaintenancePlanType.class)
 				.addClass(EiaMaintenanceState.class)
-				.addClass(MaintenancePlanificationType.class)
 				.addClass(MaintenanceProtocol.class)
 				.addClass(ActivityState.class)
 				.addClass(ActivityCategoryEnum.class)
