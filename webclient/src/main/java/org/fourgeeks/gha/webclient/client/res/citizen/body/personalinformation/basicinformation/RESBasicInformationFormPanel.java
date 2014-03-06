@@ -24,6 +24,7 @@ public class RESBasicInformationFormPanel extends GHAVerticalLayout {
 		setWidth100();
 		setHeight(GHAUiHelper.DEFAULT_PATIENT_BASIC_INFO_HEIGHT);
 		setMaxHeight(GHAUiHelper.DEFAULT_PATIENT_BASIC_INFO_HEIGHT);
+		setBorder("1px solid #666666");
 		setOverflow(Overflow.AUTO);
 		//		setBackgroundColor("cyan");
 
