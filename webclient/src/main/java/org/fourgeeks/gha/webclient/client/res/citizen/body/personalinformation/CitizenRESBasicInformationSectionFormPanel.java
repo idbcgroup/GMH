@@ -85,6 +85,8 @@ ClosableListener{
 		sectionForm.addSection(GHAStrings.get("relatives"), new Canvas());
 
 		addMember(sectionForm);
+
+		sectionForm.openFirst();
 	}
 
 	@Override
