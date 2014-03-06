@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
+import org.fourgeeks.gha.domain.ess.MaintenanceServiceOrder;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenance;
@@ -22,6 +23,16 @@ public interface EiaMaintenanceServiceRemote {
 	 * @throws GHAEJBException
 	 */
 	public List<EiaMaintenance> find(EiaType eiaType) throws GHAEJBException;
+
+	/**
+	 * @param eiaMaintenance
+	 *            the {@link EiaMaintenance} that have the service order
+	 * @return the MaintenanceServiceOrder associated with this
+	 *         {@link EiaMaintenance}
+	 * @throws GHAEJBException
+	 */
+	public MaintenanceServiceOrder findServiceOrder(
+			EiaMaintenance eiaMaintenance) throws GHAEJBException;
 
 	/**
 	 * Save a new corrective maintenace in the database
