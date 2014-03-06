@@ -30,22 +30,22 @@ public class CitizenRESInternalTabSet extends GHAInternalTabSet implements Citiz
 		super();
 		//hideables
 		hideables.add(citizenRESBasicInformationTab);
-		hideables.add(citizenRESDemograficSubTab);
-		hideables.add(citizenRESSocialEconomicsSubTab);
-		hideables.add(citizenRESInsuranceCompanySubTab);
-		hideables.add(citizenRESOccupationalSubTab);
+		//		hideables.add(citizenRESDemograficSubTab);
+		//		hideables.add(citizenRESSocialEconomicsSubTab);
+		//		hideables.add(citizenRESInsuranceCompanySubTab);
+		//		hideables.add(citizenRESOccupationalSubTab);
 		//closables
 		closables.add(citizenRESBasicInformationTab);
-		closables.add(citizenRESDemograficSubTab);
-		closables.add(citizenRESSocialEconomicsSubTab);
-		closables.add(citizenRESInsuranceCompanySubTab);
-		closables.add(citizenRESOccupationalSubTab);
+		//		closables.add(citizenRESDemograficSubTab);
+		//		closables.add(citizenRESSocialEconomicsSubTab);
+		//		closables.add(citizenRESInsuranceCompanySubTab);
+		//		closables.add(citizenRESOccupationalSubTab);
 
 		addTab(citizenRESBasicInformationTab);
-		addTab(citizenRESDemograficSubTab);
-		addTab(citizenRESSocialEconomicsSubTab);
-		addTab(citizenRESInsuranceCompanySubTab);
-		addTab(citizenRESOccupationalSubTab);
+		//		addTab(citizenRESDemograficSubTab);
+		//		addTab(citizenRESSocialEconomicsSubTab);
+		//		addTab(citizenRESInsuranceCompanySubTab);
+		//		addTab(citizenRESOccupationalSubTab);
 	}
 
 	@Override
