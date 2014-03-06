@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.enu.EiaMaintenanceState;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
-import org.fourgeeks.gha.domain.enu.MaintenancePlanificationType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.glm.Bsp;
@@ -456,12 +455,12 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 		selectedMaintenance = entity;
 
 		if (formIsActive)
-			toogleTypeSection(selectedMaintenance.getType());
+			toogleTypeSection(entity);
 
 		if (selectedEiaType != null)
 			maintenacePlanSelectItem.fillByEiaType(selectedEiaType);
 
-		if (entity.getType() == MaintenancePlanificationType.CORRECTIVE) {
+		if (entity instanceof EiaCorrectiveMaintenance) {
 			maintenanceStatusSelectItem.setValueMap(EiaMaintenanceState
 					.toValueMap(EiaMaintenanceState.EIA_DAMAGE));
 		} else {
@@ -639,8 +638,8 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 	 * @param type
 	 *            the type of maintenance to active its form's items
 	 */
-	private void toogleTypeSection(MaintenancePlanificationType type) {
-		boolean active = (type == MaintenancePlanificationType.CORRECTIVE);
+	private void toogleTypeSection(EiaMaintenance entity) {
+		boolean active = (entity instanceof EiaCorrectiveMaintenance);
 
 		// corrective maintenance
 		estimatedMaintenanceTimeTextItem.setDisabled(!active);
