@@ -1,6 +1,8 @@
 package org.fourgeeks.gha.ejb.gmh;
 
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -11,6 +13,7 @@ import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.HasKey;
+import org.fourgeeks.gha.domain.TimerParams;
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.ActivityState;
 import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
@@ -18,6 +21,11 @@ import org.fourgeeks.gha.domain.enu.BpiInstitutionRelationTypeEnum;
 import org.fourgeeks.gha.domain.enu.BpiOriginEnum;
 import org.fourgeeks.gha.domain.enu.BpiRiskEnum;
 import org.fourgeeks.gha.domain.enu.BpiTypeEnum;
+import org.fourgeeks.gha.domain.enu.CCDICodeTypeEnum;
+import org.fourgeeks.gha.domain.enu.CCDIEndValueActionEnum;
+import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
+import org.fourgeeks.gha.domain.enu.CCDIValueStatusEnum;
+import org.fourgeeks.gha.domain.enu.CCDIValueTypeEnum;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.DepreciationMethodEnum;
 import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
@@ -55,9 +63,10 @@ import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.ess.ui.App;
-import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
+import org.fourgeeks.gha.domain.ess.ui.AppView;
 import org.fourgeeks.gha.domain.ess.ui.Module;
 import org.fourgeeks.gha.domain.ess.ui.View;
+import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
@@ -90,6 +99,10 @@ import org.fourgeeks.gha.domain.gmh.RequiredResources;
 import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
+import org.fourgeeks.gha.domain.gom.CCDIDefinition;
+import org.fourgeeks.gha.domain.gom.CCDILevelDefinition;
+import org.fourgeeks.gha.domain.gom.CCDILevelValue;
+import org.fourgeeks.gha.domain.gom.Concept;
 import org.fourgeeks.gha.domain.logs.GHALog;
 import org.fourgeeks.gha.domain.logs.UILog;
 import org.fourgeeks.gha.domain.mix.Bpi;
@@ -101,6 +114,8 @@ import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
+import org.fourgeeks.gha.ejb.TimerParamsService;
+import org.fourgeeks.gha.ejb.TimerParamsServiceLocal;
 import org.fourgeeks.gha.ejb.ess.auth.RoleService;
 import org.fourgeeks.gha.ejb.ess.auth.RoleServiceRemote;
 import org.fourgeeks.gha.ejb.ess.auth.SSOUserService;
@@ -111,6 +126,9 @@ import org.fourgeeks.gha.ejb.gar.ObuService;
 import org.fourgeeks.gha.ejb.gar.ObuServiceRemote;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderService;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderServiceRemote;
+import org.fourgeeks.gha.ejb.gom.CCDIService;
+import org.fourgeeks.gha.ejb.gom.CCDIServiceLocal;
+import org.fourgeeks.gha.ejb.gom.CCDIServiceRemote;
 import org.fourgeeks.gha.ejb.log.UILogService;
 import org.fourgeeks.gha.ejb.log.UILogServiceLocal;
 import org.fourgeeks.gha.ejb.log.UILogServiceRemote;
@@ -118,6 +136,8 @@ import org.fourgeeks.gha.ejb.mix.InstitutionService;
 import org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote;
 import org.fourgeeks.gha.ejb.mix.LegalEntityService;
 import org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote;
+import org.fourgeeks.gha.ejb.pdt.PDTMessageProducer;
+import org.fourgeeks.gha.ejb.pdt.PDTMessageProducerLocal;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -141,6 +161,7 @@ public class EiaMaintenanceServiceTest {
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap
 				.create(WebArchive.class, "test.war")
+				.addClass(AppView.class)
 				.addClass(AbstractEntity.class)
 				.addClass(AbstractCodeEntity.class)
 				.addClass(App.class)
@@ -280,6 +301,23 @@ public class EiaMaintenanceServiceTest {
 				.addClass(MaintenanceProtocolStadisticData.class)
 				.addClass(BpuService.class)
 				.addClass(BpuServiceRemote.class)
+				.addClass(TimerParams.class)
+				.addClass(TimerParamsService.class)
+				.addClass(TimerParamsServiceLocal.class)
+				.addClass(CCDIEndValueActionEnum.class)
+				.addClass(CCDICodeTypeEnum.class)
+				.addClass(CCDIValueStatusEnum.class)
+				.addClass(CCDIValueTypeEnum.class)
+				.addClass(CCDIStatusEnum.class)
+				.addClass(CCDILevelDefinition.class)
+				.addClass(CCDILevelValue.class)
+				.addClass(CCDIDefinition.class)
+				.addClass(CCDIService.class)
+				.addClass(CCDIServiceLocal.class)
+				.addClass(CCDIServiceRemote.class)
+				.addClass(PDTMessageProducer.class)
+				.addClass(PDTMessageProducerLocal.class)
+				.addClass(Concept.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -403,6 +441,9 @@ public class EiaMaintenanceServiceTest {
 				+ sep);
 		getLastEffectuatedPlanificationDateTest(maintenancePlan);
 
+		System.out.println(sep + "getScheduleDateOfLastMaintenance" + sep);
+		getScheduleDateOfLastMaintenance(planif);
+
 		System.out.println(sep + "deleteTest" + sep);
 		deleteTest(cEntity, pEntity);
 	}
@@ -440,12 +481,16 @@ public class EiaMaintenanceServiceTest {
 
 	/** */
 	private EiaPreventiveMaintenance savePreventiveMaintenance() {
+		long time = Calendar.getInstance().getTimeInMillis();
+		Timestamp finishTimestamp = new Timestamp(time);
+		Date scheduledDate = new Date(time);
+
 		try {
 			EiaPreventiveMaintenance prevEntity = new EiaPreventiveMaintenance();
 			prevEntity.setPlanification(planif);
 			prevEntity.setState(EiaMaintenanceState.ACCOMPLISHED);
-			Timestamp time = new Timestamp((new java.util.Date()).getTime());
-			prevEntity.setFinishTimestamp(time);
+			prevEntity.setFinishTimestamp(finishTimestamp);
+			prevEntity.setScheduledDate(scheduledDate);
 
 			EiaPreventiveMaintenance result = service
 					.savePreventiveMaintenance(prevEntity);
@@ -520,6 +565,18 @@ public class EiaMaintenanceServiceTest {
 		try {
 			final Timestamp result = planifServiceLocal
 					.getLastEffectuatedPlanificationDate(plan);
+
+			Assert.assertNotNull(result);
+		} catch (GHAEJBException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void getScheduleDateOfLastMaintenance(
+			EiaMaintenancePlanification planif) {
+		try {
+			final Date result = planifServiceLocal
+					.getScheduleDateOfLastMaintenance(planif);
 
 			Assert.assertNotNull(result);
 		} catch (GHAEJBException e) {

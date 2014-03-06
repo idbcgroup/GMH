@@ -8,21 +8,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
-import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.AbstractCodeEntity;
 
 /**
  * @author emiliot
  * 
  */
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "code" }))
-@NamedQueries(value = {
-		@NamedQuery(name = "EiaTypeCategory.getAll", query = "SELECT category from EiaTypeCategory category ORDER BY category.code"),
-		@NamedQuery(name = "EiaTypeCategory.findByCode", query = "SELECT category from EiaTypeCategory category WHERE LOWER(category.code)=LOWER(:code)") })
-public class EiaTypeCategory extends AbstractEntity implements
+@NamedQueries(value = { @NamedQuery(name = "EiaTypeCategory.getAll", query = "SELECT category from EiaTypeCategory category ORDER BY category.code") })
+public class EiaTypeCategory extends AbstractCodeEntity implements
 		Comparable<EiaTypeCategory> {
 
 	/**
@@ -35,7 +30,6 @@ public class EiaTypeCategory extends AbstractEntity implements
 	private ServiceResourceCategory sRCategory;
 
 	private String name;
-	private String code;
 
 	/**
 	 * 
@@ -65,10 +59,6 @@ public class EiaTypeCategory extends AbstractEntity implements
 		return this.code.equals(other.getCode());
 	}
 
-	public String getCode() {
-		return code;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -80,10 +70,6 @@ public class EiaTypeCategory extends AbstractEntity implements
 	@Override
 	public int hashCode() {
 		return code.hashCode();
-	}
-
-	public void setCode(String code) {
-		this.code = code;
 	}
 
 	public void setName(String name) {

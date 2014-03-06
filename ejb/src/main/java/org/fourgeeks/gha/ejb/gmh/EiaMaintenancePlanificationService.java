@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.ejb.gmh;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Level;
@@ -33,6 +34,20 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 	private final static Logger logger = Logger
 			.getLogger(EiaMaintenancePlanificationService.class.getName());
 
+	@Override
+	public void delete(long Id) throws GHAEJBException {
+		try {
+			EiaMaintenancePlanification entity = em.find(
+					EiaMaintenancePlanification.class, Id);
+			em.remove(entity);
+		} catch (Exception e) {
+			logger.log(Level.INFO,
+					"ERROR: unable to delete EiaMaintenancePlanification", e);
+			throw super.generateGHAEJBException(
+					"EiaMaintenancePlanification-delete-fail", em);
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -58,28 +73,20 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceRemote#save
-	 * (org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification)
-	 */
 	@Override
-	public EiaMaintenancePlanification save(EiaMaintenancePlanification planif)
-			throws GHAEJBException {
+	public List<EiaMaintenancePlanification> getAll() throws GHAEJBException {
 		try {
-			em.persist(planif);
-			em.flush();
+			List<EiaMaintenancePlanification> resultList = em.createNamedQuery(
+					"EiaMaintenancePlanification.getAll",
+					EiaMaintenancePlanification.class).getResultList();
 
-			return em.find(EiaMaintenancePlanification.class, planif.getId());
+			return resultList;
 		} catch (Exception e) {
 			logger.log(Level.INFO,
-					"ERROR: saving EiaMaintenancePlanification ", e);
-			throw super.generateGHAEJBException("eia-save-fail", em);
-
+					"Error: finding all EiaMaintenancePlanification", e);
+			throw super.generateGHAEJBException(
+					"eiaMaintenancePlanification-getAll-fail", em);
 		}
-
 	}
 
 	@Override
@@ -112,30 +119,6 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public Long getPlanificationsCount(MaintenancePlan maintenancePlan)
-			throws GHAEJBException {
-		try {
-			String stringQuery = "SELECT COUNT(epm) FROM EiaMaintenancePlanification epm "
-					+ "JOIN epm.plan plan "
-					+ "WHERE plan.maintenancePlan = :maintenancePlan ";
-
-			Long result = em.createQuery(stringQuery, Long.class)
-					.setParameter("maintenancePlan", maintenancePlan)
-					.getSingleResult();
-
-			return result;
-		} catch (Exception e) {
-			logger.log(
-					Level.INFO,
-					"Error: geting the number of maintenance planifications associated to the given maintenancePlan",
-					e);
-			throw super.generateGHAEJBException(
-					"eiaPreventiveMaintenance-getPlanificationsCount-fail", em);
-		}
-	}
-
-	@Override
-	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public Timestamp getLastEffectuatedPlanificationDate(
 			MaintenancePlan maintenancePlan) throws GHAEJBException {
 		try {
@@ -160,28 +143,85 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 			return finishTimestamp;
 
 		} catch (Exception e) {
-			logger.log(
-					Level.INFO,
-					"Error: geting the last date of an effectuated preventive maintenance for the given maintenancePlan",
-					e);
-			throw super
-					.generateGHAEJBException(
-							"eiaPreventiveMaintenance-getEffectuatedPlanificationsCount-fail",
-							em);
+			String msg = "Error: getting the last date of an effectuated preventive maintenance for the given maintenancePlan";
+			logger.log(Level.INFO, msg, e);
+			String messageCode = "eiaMaintenancePlanification-getLastEffectuatedPlanificationDate-fail";
+			throw super.generateGHAEJBException(messageCode, em);
 		}
 	}
 
 	@Override
-	public void delete(long Id) throws GHAEJBException {
+	public Date getScheduleDateOfLastMaintenance(
+			EiaMaintenancePlanification planif) throws GHAEJBException {
 		try {
-			EiaMaintenancePlanification entity = em.find(
-					EiaMaintenancePlanification.class, Id);
-			em.remove(entity);
+			String stringQuery = "SELECT epm FROM EiaPreventiveMaintenance epm JOIN epm.planification planif "
+					+ "WHERE planif = :planif ORDER BY epm.scheduledDate desc ";
+
+			List<EiaPreventiveMaintenance> resultList = em
+					.createQuery(stringQuery, EiaPreventiveMaintenance.class)
+					.setParameter("planif", planif).getResultList();
+
+			if (resultList.isEmpty())
+				return null;
+
+			EiaPreventiveMaintenance maintenance = resultList.get(0);
+			Date finishTimestamp = maintenance.getScheduledDate();
+
+			return finishTimestamp;
+
+		} catch (Exception e) {
+			String msg = "Error: geting the schedule date of the last maintenance for the given EiaMaintenancePlanification";
+			logger.log(Level.INFO, msg, e);
+			String messageCode = "eiaMaintenancePlanification-getScheduleDateOfLastMaintenance-fail";
+			throw super.generateGHAEJBException(messageCode, em);
+		}
+	}
+
+	@Override
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public Long getPlanificationsCount(MaintenancePlan maintenancePlan)
+			throws GHAEJBException {
+		try {
+			String stringQuery = "SELECT COUNT(epm) FROM EiaMaintenancePlanification epm "
+					+ "JOIN epm.plan plan "
+					+ "WHERE plan.maintenancePlan = :maintenancePlan ";
+
+			Long result = em.createQuery(stringQuery, Long.class)
+					.setParameter("maintenancePlan", maintenancePlan)
+					.getSingleResult();
+
+			return result;
+		} catch (Exception e) {
+			logger.log(
+					Level.INFO,
+					"Error: geting the number of maintenance planifications associated to the given maintenancePlan",
+					e);
+			throw super.generateGHAEJBException(
+					"eiaPreventiveMaintenance-getPlanificationsCount-fail", em);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceRemote#save
+	 * (org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification)
+	 */
+	@Override
+	public EiaMaintenancePlanification save(EiaMaintenancePlanification planif)
+			throws GHAEJBException {
+		try {
+			em.persist(planif);
+			em.flush();
+
+			return em.find(EiaMaintenancePlanification.class, planif.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO,
-					"ERROR: unable to delete EiaMaintenancePlanification", e);
-			throw super.generateGHAEJBException(
-					"EiaMaintenancePlanification-delete-fail", em);
+					"ERROR: saving EiaMaintenancePlanification ", e);
+			throw super.generateGHAEJBException("eia-save-fail", em);
+
 		}
+
 	}
 }

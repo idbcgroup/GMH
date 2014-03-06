@@ -6,11 +6,46 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 
 /**
  * @author naramirez
  */
 public class GHAUtil {
+
+	/**
+	 * @param duration
+	 * @param pot
+	 * @return the time in seconds
+	 */
+	public static int getDurationInSeconds(int duration, TimePeriodEnum pot) {
+
+		if (pot == TimePeriodEnum.HOURS)
+			return (int) Math.ceil(duration * 3600);
+		if (pot == TimePeriodEnum.DAYS)
+			return (int) Math.ceil(duration * 86400);
+		if (pot == TimePeriodEnum.WEEKS)
+			return (int) Math.ceil(duration * 604800);
+		if (pot == TimePeriodEnum.MONTHS)
+			return (int) Math.ceil(duration * 2629743.83);
+		if (pot == TimePeriodEnum.SEMESTERS)
+			return (int) Math.ceil(duration * 15778463);
+		if (pot == TimePeriodEnum.YEARS)
+			return (int) Math.ceil(duration * 31556926);
+
+		return -1;
+	}
+
+	/**
+	 * Get the estimated duration of a plan based on its activities in a period
+	 * of days
+	 * 
+	 * @param protocol
+	 *            the list with the maintenance activities of the plan (the
+	 *            protocol)
+	 * @return the ceil value of the estimated duration
+	 */
+
 	/**
 	 * @param all
 	 * @param blackList

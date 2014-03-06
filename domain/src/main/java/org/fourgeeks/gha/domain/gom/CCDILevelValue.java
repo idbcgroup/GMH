@@ -5,10 +5,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
-import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.enu.CCDIValueStatusEnum;
 
 /**
@@ -17,12 +15,10 @@ import org.fourgeeks.gha.domain.enu.CCDIValueStatusEnum;
  */
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "code" }))
 @NamedQueries(value = {
-		@NamedQuery(name = "CCDILevelValue.findByCode", query = "SELECT e from CCDILevelValue e WHERE e.code=:code"),
 		@NamedQuery(name = "CCDILevelValue.findAll", query = "SELECT e from CCDILevelValue e ORDER BY e.code"),
 		@NamedQuery(name = "CCDILevelValue.findAllByDefinitionCode", query = "SELECT e from CCDILevelValue e WHERE e.levelDefinition.definition.code = :code") })
-public class CCDILevelValue extends AbstractEntity {
+public class CCDILevelValue extends AbstractCodeEntity {
 
 	/**
 	 * 
@@ -38,8 +34,6 @@ public class CCDILevelValue extends AbstractEntity {
 	private CCDILevelValue parentValue;
 
 	private String name;
-
-	private String code;
 
 	private int nextValue;
 	private String fixedValue;
@@ -75,13 +69,6 @@ public class CCDILevelValue extends AbstractEntity {
 		this.fixedValue = fixedValue;
 		this.status = status;
 		this.nextElement = 1;
-	}
-
-	/**
-	 * @return the code
-	 */
-	public String getCode() {
-		return code;
 	}
 
 	/**
@@ -128,14 +115,6 @@ public class CCDILevelValue extends AbstractEntity {
 	 */
 	public CCDIValueStatusEnum getStatus() {
 		return status;
-	}
-
-	/**
-	 * @param code
-	 *            the code to set
-	 */
-	public void setCode(String code) {
-		this.code = code;
 	}
 
 	/**

@@ -55,14 +55,14 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * 
  */
 public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
-MaintenanceProtocolsSelectionListener, MaintenancePlanSelectionProducer {
+		MaintenanceProtocolsSelectionListener, MaintenancePlanSelectionProducer {
 
 	private List<MaintenancePlanSelectionListener> listeners;
 
 	private GHATitletextItem planStadistics_TitleItem;
 	private GHATextItem nameItem, frequencyItem, estimatedTimeItem,
-	protocolActivitiesItem, estimatedCostItem, effectuatedTimesItem,
-	eiasWithThisPlanItem;
+			protocolActivitiesItem, estimatedCostItem, effectuatedTimesItem,
+			eiasWithThisPlanItem;
 	private GHATextAreaItem descriptionItem;
 	private GHAPeriodOfTimeSelectItem frecuencyPoTItem;
 	private GHAPeriodOfTimeSelectItem estimatedTimePoTSelectItem;
@@ -87,14 +87,16 @@ MaintenanceProtocolsSelectionListener, MaintenancePlanSelectionProducer {
 				changedHandler);
 		frequencyItem.setLength(3);
 		frequencyItem.validateNumbers();
-		frequencyItem.setTooltip(GHAStrings.get("maintenance-plan-frequency-tooltip"));
+		frequencyItem.setTooltip(GHAStrings
+				.get("maintenance-plan-frequency-tooltip"));
 
 		frecuencyPoTItem = new GHAPeriodOfTimeSelectItem(true, changedHandler);
 
 		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"),
 				changedHandler);
 		descriptionItem.setColSpan(3);
-		descriptionItem.setTooltip(GHAStrings.get("maintenance-plan-description-tooltip"));
+		descriptionItem.setTooltip(GHAStrings
+				.get("maintenance-plan-description-tooltip"));
 
 		typeItem = new GHAMaintenancePlanTypeSelectItem(true, changedHandler);
 
@@ -185,15 +187,15 @@ MaintenanceProtocolsSelectionListener, MaintenancePlanSelectionProducer {
 		super.clear();
 		nameItem.clearValue();
 		frequencyItem.clearValue();
-		frecuencyPoTItem.clearValue();
 		descriptionItem.clearValue();
 		stateItem.clearValue();
 		typeItem.clearValue();
-		cancelationOptionItem.clearValue();
+		cancelationOptionItem.clearValue();//
 		roleSelectItem.clearValue();
 		providerSelectItem.clearValue();
-		cancelationOptionItem.clearValue();
-		frecuencyPoTItem.clearValue();
+		frecuencyPoTItem.clearValue();//
+		estimatedTimePoTSelectItem.clearValue();
+
 	}
 
 	@Override
@@ -262,7 +264,7 @@ MaintenanceProtocolsSelectionListener, MaintenancePlanSelectionProducer {
 					.iterator(); it.hasNext();) {
 				violationsList.add(it.next().getMessage());
 			}
-			//			GHAAlertManager.alert(violationsList);
+			// GHAAlertManager.alert(violationsList);
 			GHAAlertManager.alert(violationsList.get(0));
 		}
 		return null;
@@ -294,47 +296,50 @@ MaintenanceProtocolsSelectionListener, MaintenancePlanSelectionProducer {
 		MaintenancePlanModel.save(maintenancePlan,
 				new GHAAsyncCallback<MaintenancePlan>() {
 
-			@Override
-			public void onSuccess(MaintenancePlan result) {
-				hasUnCommittedChanges = false;
-				notifyMaintenancePlan(result);
-				clear();
-				if (callback != null)
-					callback.onSuccess(result);
-			}
-		});
+					@Override
+					public void onSuccess(MaintenancePlan result) {
+						hasUnCommittedChanges = false;
+						notifyMaintenancePlan(result);
+						clear();
+						if (callback != null)
+							callback.onSuccess(result);
+					}
+				});
 	}
 
 	@Override
 	public void select(MaintenanceProtocol entity) {
 		MaintenancePlanModel.getStadisticInfo(originalEntity,
 				new GHAAsyncCallback<MaintenancePlanStadisticData>() {
-			@Override
-			public void onSuccess(MaintenancePlanStadisticData result) {
-				final long numActivities = result.getNumberActivities();
-				protocolActivitiesItem.setValue(numActivities);
+					@Override
+					public void onSuccess(MaintenancePlanStadisticData result) {
+						final long numActivities = result.getNumberActivities();
+						protocolActivitiesItem.setValue(numActivities);
 
-				final long estimatedDuration = result.getEstimatedDuration();
-				estimatedTimeItem.setValue(estimatedDuration);
+						final long estimatedDuration = result
+								.getEstimatedDuration();
+						estimatedTimeItem.setValue(estimatedDuration);
 
-				final String potName = result.getPot().name();
-				estimatedTimePoTSelectItem.setValue(potName);
+						final String potName = result.getPot().name();
+						estimatedTimePoTSelectItem.setValue(potName);
 
-				final long numberOfEias = result.getNumberOfEias();
-				eiasWithThisPlanItem.setValue(numberOfEias);
+						final long numberOfEias = result.getNumberOfEias();
+						eiasWithThisPlanItem.setValue(numberOfEias);
 
-				final long timesEffectuated = result.getTimesEffectuated();
-				effectuatedTimesItem.setValue(timesEffectuated);
+						final long timesEffectuated = result
+								.getTimesEffectuated();
+						effectuatedTimesItem.setValue(timesEffectuated);
 
-				final BigDecimal estimatedCost = result.getEstimatedCost();
-				estimatedCostItem.setValue(estimatedCost);
+						final BigDecimal estimatedCost = result
+								.getEstimatedCost();
+						estimatedCostItem.setValue(estimatedCost);
 
-				estimatedCostCurrencyItem.setValue(CurrencyTypeEnum.BS);
+						estimatedCostCurrencyItem.setValue(CurrencyTypeEnum.BS);
 
-				final Timestamp time = result.getLastTimeEffectuated();
-				lastEffectuatedDateItem.setValue(time);
-			}
-		});
+						final Timestamp time = result.getLastTimeEffectuated();
+						lastEffectuatedDateItem.setValue(time);
+					}
+				});
 
 	}
 
@@ -393,14 +398,14 @@ MaintenanceProtocolsSelectionListener, MaintenancePlanSelectionProducer {
 
 		MaintenancePlanModel.update(maintenancePlan,
 				new GHAAsyncCallback<MaintenancePlan>() {
-			@Override
-			public void onSuccess(MaintenancePlan result) {
-				hasUnCommittedChanges = false;
-				notifyMaintenancePlan(result);
-				if (callback != null)
-					callback.onSuccess(result);
-			}
-		});
+					@Override
+					public void onSuccess(MaintenancePlan result) {
+						hasUnCommittedChanges = false;
+						notifyMaintenancePlan(result);
+						if (callback != null)
+							callback.onSuccess(result);
+					}
+				});
 	}
 
 }

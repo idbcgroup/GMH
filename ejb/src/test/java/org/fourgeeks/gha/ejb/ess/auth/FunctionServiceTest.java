@@ -288,6 +288,8 @@ public class FunctionServiceTest {
 	 */
 	@Test
 	public void test() {
+		System.out.println("\n TESTING FUNCTION SERVICE\n\n");
+
 		final String code = "TESTCODE" + Math.random() / 10;
 
 		Assert.assertNotNull(functionService);

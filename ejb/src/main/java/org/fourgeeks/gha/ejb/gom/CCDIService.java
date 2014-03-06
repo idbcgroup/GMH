@@ -33,12 +33,8 @@ public class CCDIService extends GHAEJBExceptionService implements
 			throws GHAEJBException {
 		try {
 			em.persist(definition);
-			CCDIDefinition result = em
-					.createNamedQuery("CCDIDefinition.findByCode",
-							CCDIDefinition.class)
-					.setParameter("code", definition.getCode())
-					.getSingleResult();
-
+			CCDIDefinition result = em.find(CCDIDefinition.class,
+					definition.getCode());
 			return result;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: creating CCDI Definition", e);
@@ -72,8 +68,7 @@ public class CCDIService extends GHAEJBExceptionService implements
 			if (levelDefinition.getLevel() >= levelDefinition.getDefinition()
 					.getLevels()) {
 				// ABORT CATEGORIES ARE NOT ALLOWED IN THIS LEVEL
-				throw new Exception(
-						"Categories not allowed in this level of CCDI");
+				throw new Exception("categories-add-failed-last-level");
 			}
 
 			String valueCode = "";
@@ -94,16 +89,11 @@ public class CCDIService extends GHAEJBExceptionService implements
 			levelValue.setParentValue(parentValue);
 			em.persist(levelValue);
 			em.flush();
-			levelValue = em
-					.createNamedQuery("CCDILevelValue.findByCode",
-							CCDILevelValue.class)
-					.setParameter("code", levelValue.getCode())
-					.getSingleResult();
-
+			levelValue = em.find(CCDILevelValue.class, levelValue.getCode());
 			return levelValue;
 		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: delete CCDIDefinition failed", e);
-			throw super.generateGHAEJBException("ccdi-delete-fail",
+			logger.log(Level.INFO, "ERROR: create CCDI Level Value failed", e);
+			throw super.generateGHAEJBException("ccdi-level-value-create-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}
@@ -130,11 +120,7 @@ public class CCDIService extends GHAEJBExceptionService implements
 	public CCDIDefinition findCCDIDefinitionByCode(String code)
 			throws GHAEJBException {
 		try {
-			return em
-					.createNamedQuery("CCDIDefinition.findByCode",
-							CCDIDefinition.class).setParameter("code", code)
-					.getSingleResult();
-
+			return em.find(CCDIDefinition.class, code);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: delete CCDIDefinition failed", e);
 			throw super.generateGHAEJBException("ccdi-find-fail",
@@ -178,10 +164,7 @@ public class CCDIService extends GHAEJBExceptionService implements
 	 */
 	private int getNextCode(CCDILevelValue parentValue) {
 		// TODO HANDLE FIXED
-		parentValue = em
-				.createNamedQuery("CCDILevelValue.findByCode",
-						CCDILevelValue.class)
-				.setParameter("code", parentValue.getCode()).getSingleResult();
+		parentValue = em.find(CCDILevelValue.class, parentValue.getCode());
 
 		// TODO SYNCRONIZATION
 		int next = parentValue.getNextValue();
@@ -194,10 +177,7 @@ public class CCDIService extends GHAEJBExceptionService implements
 	@Override
 	public String getNextElementCode(String code) throws GHAEJBException {
 		try {
-			CCDILevelValue levelValue = em
-					.createNamedQuery("CCDILevelValue.findByCode",
-							CCDILevelValue.class).setParameter("code", code)
-					.getSingleResult();
+			CCDILevelValue levelValue = em.find(CCDILevelValue.class, code);
 
 			// TODO SYNCRONIZATION
 			int nextElement = levelValue.getNextElement();

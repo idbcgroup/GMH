@@ -20,6 +20,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.Activity;
+import org.fourgeeks.gha.domain.TimerParams;
 import org.fourgeeks.gha.domain.TransactionParams;
 import org.fourgeeks.gha.domain.conf.Parameter;
 import org.fourgeeks.gha.domain.conf.ParameterGroup;
@@ -245,14 +246,16 @@ public class InitialData {
 	 * 
 	 *
 	 */
-	// TODO emilio tirador
 	private void ccdiLevelDefinitionTestData() {
 		InputStream in = null;
 		CSVReader reader = null;
 
-		final String query = "SELECT t from CCDILevelDefinition t WHERE t.id = 1";
+		final String query = "SELECT COUNT(t) from CCDILevelDefinition t";
 		try {
-			em.createQuery(query).getSingleResult();
+			int count = ((Number) em.createQuery(query).getSingleResult())
+					.intValue();
+			if (count <= 0)
+				throw new NoResultException();
 		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test ccdiLevelDefinition");
@@ -318,9 +321,12 @@ public class InitialData {
 		InputStream in = null;
 		CSVReader reader = null;
 
-		final String query = "SELECT t from CCDILevelValue t WHERE t.id = 1";
+		final String query = "SELECT COUNT(t) from CCDILevelValue t";
 		try {
-			em.createQuery(query).getSingleResult();
+			int count = ((Number) em.createQuery(query).getSingleResult())
+					.intValue();
+			if (count <= 0)
+				throw new NoResultException();
 		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test ccdiLevelValue");
@@ -335,10 +341,8 @@ public class InitialData {
 							|| strings[0].startsWith("//"))
 						continue;
 
-					final CCDIDefinition definition = em
-							.createNamedQuery("CCDIDefinition.findByCode",
-									CCDIDefinition.class)
-							.setParameter("code", strings[0]).getSingleResult();
+					final CCDIDefinition definition = em.find(
+							CCDIDefinition.class, strings[0]);
 					final CCDILevelDefinition levelDefinition = em
 							.createNamedQuery(
 									"CCDILevelDefinition.findByLevel",
@@ -351,10 +355,7 @@ public class InitialData {
 					levelValue.setLevelDefinition(levelDefinition);
 
 					final CCDILevelValue parentValue = strings[2].equals("") ? null
-							: em.createNamedQuery("CCDILevelValue.findByCode",
-									CCDILevelValue.class)
-									.setParameter("code", strings[2])
-									.getSingleResult();
+							: em.find(CCDILevelValue.class, strings[2]);
 					levelValue.setParentValue(parentValue);
 					levelValue.setName(strings[3]);
 					levelValue.setCode(strings[4]);
@@ -393,9 +394,12 @@ public class InitialData {
 		InputStream in = null;
 		CSVReader reader = null;
 
-		final String query = "SELECT t from CCDIDefinition t WHERE t.id = 1";
+		final String query = "SELECT COUNT(t) from CCDIDefinition t";
 		try {
-			em.createQuery(query).getSingleResult();
+			int count = ((Number) em.createQuery(query).getSingleResult())
+					.intValue();
+			if (count <= 0)
+				throw new NoResultException();
 		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test ccdiDefinition");
@@ -518,9 +522,12 @@ public class InitialData {
 	}
 
 	private void eiaTypeCategoryTestData() {
-		final String query = "SELECT t from EiaTypeCategory t WHERE t.id = 1";
+		final String query = "SELECT COUNT(t) from EiaTypeCategory t";
 		try {
-			em.createQuery(query).getSingleResult();
+			int count = ((Number) em.createQuery(query).getSingleResult())
+					.intValue();
+			if (count <= 0)
+				throw new NoResultException();
 		} catch (final NoResultException e) {
 			try {
 				logger.info("Creating test data: EiaTypeCategory");
@@ -574,10 +581,8 @@ public class InitialData {
 					eiaType.setName(strings[2]);
 					eiaType.setMobility(EiaMobilityEnum.values()[Integer
 							.parseInt(strings[3])]);
-					eiaType.setEiaTypeCategory(em
-							.createNamedQuery("EiaTypeCategory.findByCode",
-									EiaTypeCategory.class)
-							.setParameter("code", strings[4]).getSingleResult());
+					eiaType.setEiaTypeCategory(em.find(EiaTypeCategory.class,
+							strings[4]));
 					eiaType.setSubtype(EiaSubTypeEnum.values()[Integer
 							.parseInt(strings[5])]);
 					eiaType.setModel(strings[6]);
@@ -1241,6 +1246,7 @@ public class InitialData {
 
 	private void testData() {
 		transactionParamsTestData();
+		timerParamsTestData();
 
 		ccdiTestData();
 		ccdiLevelDefinitionTestData();
@@ -1322,27 +1328,94 @@ public class InitialData {
 			try {
 				reader.close();
 			} catch (final IOException e1) {
-				logger.log(Level.SEVERE, "ERROR in UisTrings", e1);
+				logger.log(Level.SEVERE, "ERROR in TransactionParams", e1);
 			}
 			try {
 				in.close();
 			} catch (final IOException e1) {
-				logger.log(Level.SEVERE, "ERROR in UisTrings", e1);
+				logger.log(Level.SEVERE, "ERROR in TransactionParams", e1);
 			}
-			logger.log(Level.INFO, "error Reading file uistrings test data", e);
+			logger.log(Level.INFO,
+					"error Reading file TransactionParams test data", e);
 
 		} finally {
 			try {
 				if (reader != null)
 					reader.close();
 			} catch (final IOException e) {
-				logger.log(Level.SEVERE, "ERROR in UisTrings", e);
+				logger.log(Level.SEVERE, "ERROR in TransactionParams", e);
 			}
 			try {
 				if (in != null)
 					in.close();
 			} catch (final IOException e) {
-				logger.log(Level.SEVERE, "ERROR in UisTrings", e);
+				logger.log(Level.SEVERE, "ERROR in TransactionParams", e);
+			}
+		}
+	}
+
+	private void timerParamsTestData() {
+		InputStream in = null;
+		CSVReader reader = null;
+
+		try {
+			logger.info("creating TimerParams test data");
+			in = InitialData.class.getResourceAsStream("/timerParams.csv");
+			reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',');
+			final List<String[]> readAll = reader.readAll();
+			final Map<String, Boolean> words = new HashMap<String, Boolean>();
+
+			for (final String[] strings : readAll) {
+				final String code = strings[0];
+				if (code.startsWith("#") || code.startsWith("//"))
+					continue;
+				if (words.containsKey(code)) {
+					logger.info("Repeated key in timerParams: " + code);
+					continue;
+				}
+				words.put(code, true);
+
+				final TimerParams entity = new TimerParams();
+				entity.setCode(code);
+				entity.setJndiProcessorName(strings[1]);
+				entity.setSeconds(Integer.valueOf(strings[2]));
+				entity.setMinutes(Integer.valueOf(strings[3]));
+				entity.setHours(Integer.valueOf(strings[4]));
+				entity.setDays(Integer.valueOf(strings[5]));
+				entity.setYears(Integer.valueOf(strings[6]));
+				entity.setDuration(Integer.valueOf(strings[7]));
+				entity.setDurationPot(TimePeriodEnum.valueOf(strings[8]));
+
+				em.merge(entity);
+				em.flush();
+			}
+
+		} catch (final IOException e) {
+			try {
+				reader.close();
+			} catch (final IOException e1) {
+				logger.log(Level.SEVERE, "ERROR in TransactionParams", e1);
+			}
+			try {
+				in.close();
+			} catch (final IOException e1) {
+				logger.log(Level.SEVERE, "ERROR in TransactionParams", e1);
+			}
+			logger.log(Level.INFO,
+					"error Reading file TransactionParams test data", e);
+
+		} finally {
+			try {
+				if (reader != null)
+					reader.close();
+			} catch (final IOException e) {
+				logger.log(Level.SEVERE, "ERROR in TransactionParams", e);
+			}
+			try {
+				if (in != null)
+					in.close();
+			} catch (final IOException e) {
+				logger.log(Level.SEVERE, "ERROR in TransactionParams", e);
 			}
 		}
 	}

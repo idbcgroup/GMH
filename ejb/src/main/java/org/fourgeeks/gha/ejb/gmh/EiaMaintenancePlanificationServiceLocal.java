@@ -2,10 +2,12 @@ package org.fourgeeks.gha.ejb.gmh;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.ejb.Local;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 
 /**
@@ -13,6 +15,13 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
  */
 @Local
 public interface EiaMaintenancePlanificationServiceLocal {
+
+	/**
+	 * 
+	 * @return a list of all the EiaMaintenancePlanification
+	 * @throws GHAEJBException
+	 */
+	public List<EiaMaintenancePlanification> getAll() throws GHAEJBException;
 
 	/**
 	 * Return the number of effectued preventive maintenance planifications for
@@ -49,4 +58,13 @@ public interface EiaMaintenancePlanificationServiceLocal {
 	 */
 	public Timestamp getLastEffectuatedPlanificationDate(
 			MaintenancePlan maintenancePlan) throws GHAEJBException;
+
+	/**
+	 * 
+	 * @param planif
+	 * @return the last preventive maintenance date
+	 * @throws GHAEJBException
+	 */
+	public Date getScheduleDateOfLastMaintenance(EiaMaintenancePlanification planif)
+			throws GHAEJBException;
 }
