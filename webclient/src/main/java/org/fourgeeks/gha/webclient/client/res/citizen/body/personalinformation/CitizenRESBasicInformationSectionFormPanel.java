@@ -86,11 +86,12 @@ ClosableListener{
 
 		final VLayout informationLayout = new VLayout();
 		informationLayout.setWidth100();
+
 		informationLayout.addMembers(basicInformationFormPanel,physicalFeaturesGridPanel,personalContactsGridPanel,emergencyNotifierGridPanel);
+
 
 		sectionForm.addSection(GHAStrings.get("basic-information"), informationLayout);
 		//		sectionForm.addSection(GHAStrings.get("relatives"), new Canvas());
-
 		addMember(sectionForm);
 
 		sectionForm.openFirst();

@@ -13,6 +13,7 @@ public class RESPersonalContactsGridPanel extends GHAFormLayout {
 	 * 
 	 */
 	public RESPersonalContactsGridPanel() {
+		super();
 		setWidth100();
 		setHeight(GHAUiHelper.DEFAULT_PATIENT_MINIGRID_HEIGHT);
 		setBackgroundColor("green");

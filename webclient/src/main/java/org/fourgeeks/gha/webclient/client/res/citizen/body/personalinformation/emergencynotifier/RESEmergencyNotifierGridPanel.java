@@ -13,6 +13,7 @@ public class RESEmergencyNotifierGridPanel extends GHAFormLayout {
 	 * 
 	 */
 	public RESEmergencyNotifierGridPanel() {
+		super();
 		setWidth100();
 		setHeight(GHAUiHelper.DEFAULT_PATIENT_MINIGRID_HEIGHT);
 		setBackgroundColor("yellow");

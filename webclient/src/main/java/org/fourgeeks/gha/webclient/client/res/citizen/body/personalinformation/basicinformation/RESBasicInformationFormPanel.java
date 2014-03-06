@@ -13,6 +13,7 @@ public class RESBasicInformationFormPanel extends GHAFormLayout {
 	 * 
 	 */
 	public RESBasicInformationFormPanel() {
+		super();
 		setWidth100();
 		setHeight(GHAUiHelper.DEFAULT_PATIENT_BASIC_INFO_HEIGHT);
 		setBackgroundColor("cyan");

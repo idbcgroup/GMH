@@ -9,12 +9,13 @@ import org.fourgeeks.gha.webclient.client.citizen.CitizenSelectionListener;
  * 
  */
 public class CitizenRESBottomBodyForm extends GHAHorizontalLayout implements
-		CitizenSelectionListener {
+CitizenSelectionListener {
 
 	/**
 	 * 
 	 */
 	public CitizenRESBottomBodyForm() {
+		super();
 		addMember(new CitizenRESInternalTabSet());
 		addMember(new CitizenRESBodyTools());
 	}

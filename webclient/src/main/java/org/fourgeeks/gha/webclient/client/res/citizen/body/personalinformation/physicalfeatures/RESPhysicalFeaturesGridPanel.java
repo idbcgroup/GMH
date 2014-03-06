@@ -13,6 +13,7 @@ public class RESPhysicalFeaturesGridPanel extends GHAFormLayout {
 	 * 
 	 */
 	public RESPhysicalFeaturesGridPanel() {
+		super();
 		setWidth100();
 		setHeight(GHAUiHelper.DEFAULT_PATIENT_MINIGRID_HEIGHT);
 		setBackgroundColor("red");

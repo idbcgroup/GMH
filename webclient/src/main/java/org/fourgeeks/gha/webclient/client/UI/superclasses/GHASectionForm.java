@@ -171,7 +171,7 @@ ClosableListener {
 	 * Open the first section
 	 */
 	public void openFirst() {
-		final SectionFormSideLabel option = optionLabelList.get(2);
+		final SectionFormSideLabel option = optionLabelList.get(0);
 		if (option != null) {
 			option.activate();
 			selectedOption = option;

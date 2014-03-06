@@ -47,12 +47,12 @@ public class CitizenTab extends GHATab {
 		CitizenModel.find(Long.valueOf(citizenId),
 				new GHAAsyncCallback<Citizen>() {
 
-					@Override
-					public void onSuccess(Citizen citizen) {
-						top.onCitizenSelect(citizen);
-						body.onCitizenSelect(citizen);
-					}
-				});
+			@Override
+			public void onSuccess(Citizen citizen) {
+				top.onCitizenSelect(citizen);
+				body.onCitizenSelect(citizen);
+			}
+		});
 	}
 
 	@Override
