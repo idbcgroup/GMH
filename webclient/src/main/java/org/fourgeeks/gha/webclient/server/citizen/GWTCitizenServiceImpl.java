@@ -59,8 +59,8 @@ public class GWTCitizenServiceImpl extends RemoteServiceServlet implements
 	 * org.fourgeeks.gha.webclient.client.citizen.GWTCitizenService#find(long)
 	 */
 	@Override
-	public Citizen find(long Id) throws GHAEJBException {
-		return service.find(Id);
+	public Citizen find(long id) throws GHAEJBException {
+		return service.find(id);
 	}
 
 	/*

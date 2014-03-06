@@ -8,15 +8,22 @@ import com.smartgwt.client.widgets.Label;
  */
 public class GHATextLabelSmallSize extends Label {
 	/**
-	 * @param title
+	 * 
 	 */
-	public GHATextLabelSmallSize(String title) {
+	public GHATextLabelSmallSize() {
 		super();
-		setContents(title);
 		setHeight("20px");
 		setAutoFit(true);
 		setWrap(false);
 		setStyleName("gha-small-text-label");
+	}
+
+	/**
+	 * @param title
+	 */
+	public GHATextLabelSmallSize(String title) {
+		this();
+		setContents(title);
 	}
 
 	/**
