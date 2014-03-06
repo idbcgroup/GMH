@@ -10,6 +10,7 @@ import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
+import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -26,6 +27,7 @@ import org.fourgeeks.gha.webclient.client.eiatype.EiaTypeCategoryModel;
 import org.fourgeeks.gha.webclient.client.externalprovider.ExternalProviderModel;
 import org.fourgeeks.gha.webclient.client.facility.FacilityModel;
 import org.fourgeeks.gha.webclient.client.manufacturer.ManufacturerModel;
+import org.fourgeeks.gha.webclient.client.materialcategory.MaterialCategoryModel;
 import org.fourgeeks.gha.webclient.client.obu.BspModel;
 import org.fourgeeks.gha.webclient.client.obu.ObuModel;
 import org.fourgeeks.gha.webclient.client.rolebase.RoleModel;
@@ -60,6 +62,7 @@ public enum GHACache {
 	private List<Bpi> bpis;
 	private List<Bpu> bpus;
 	private List<EiaTypeCategory> eiaTypeCategories;
+	private List<MaterialCategory> materialCategories;
 	private List<Bsp> bsps;
 
 	{
@@ -362,6 +365,27 @@ public enum GHACache {
 		}
 	}
 
+	public void getMaterialCategories(
+			GHAAsyncCallback<List<MaterialCategory>> callback) {
+		if (materialCategories == null)
+			getMaterialCategoriesFromServer(callback);
+		else
+			callback.onSuccess(materialCategories);
+	}
+
+	private void getMaterialCategoriesFromServer(
+			final GHAAsyncCallback<List<MaterialCategory>> callback) {
+		MaterialCategoryModel
+				.getAll(new GHAAsyncCallback<List<MaterialCategory>>() {
+
+					@Override
+					public void onSuccess(List<MaterialCategory> result) {
+						materialCategories = result;
+						callback.onSuccess(result);
+					}
+				});
+	}
+
 	/**
 	 * @param callback
 	 */
@@ -418,6 +442,8 @@ public enum GHACache {
 		workingAreas = null;
 		facilities = null;
 		bpis = null;
+		materialCategories = null;
+		eiaTypeCategories = null;
 	}
 
 }

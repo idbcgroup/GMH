@@ -1,13 +1,16 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.client.UI;
+package org.fourgeeks.gha.webclient.client.materialcategory;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
+import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHACache;
+import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAIPickTreeItem;
 
 import com.smartgwt.client.widgets.tree.Tree;
@@ -17,13 +20,13 @@ import com.smartgwt.client.widgets.tree.TreeNode;
  * @author emiliot
  * 
  */
-public class GHAEiaTypeCategoryPickTreeItem extends GHAIPickTreeItem {
+public class GHAMaterialCategoryPickTreeItem extends GHAIPickTreeItem {
 	private final TreeNode root = new TreeNode("root");
 
 	/**
 	 * 
 	 */
-	public GHAEiaTypeCategoryPickTreeItem() {
+	public GHAMaterialCategoryPickTreeItem() {
 		super();
 		setDisplayField("categoryName");
 		setValueField("categoryCode");
@@ -33,7 +36,7 @@ public class GHAEiaTypeCategoryPickTreeItem extends GHAIPickTreeItem {
 	/**
 	 * @param name
 	 */
-	public GHAEiaTypeCategoryPickTreeItem(String name) {
+	public GHAMaterialCategoryPickTreeItem(String name) {
 		this();
 		this.setName(name);
 	}
@@ -42,7 +45,7 @@ public class GHAEiaTypeCategoryPickTreeItem extends GHAIPickTreeItem {
 	 * @param name
 	 * @param title
 	 */
-	public GHAEiaTypeCategoryPickTreeItem(String name, String title) {
+	public GHAMaterialCategoryPickTreeItem(String name, String title) {
 		this();
 		this.setName(name);
 		this.setTitle(title);
@@ -54,10 +57,10 @@ public class GHAEiaTypeCategoryPickTreeItem extends GHAIPickTreeItem {
 	private void fill() {
 		final Tree tree = new Tree();
 		GHACache.INSTANCE
-				.getEiaTypeCategories(new GHAAsyncCallback<List<EiaTypeCategory>>() {
+				.getMaterialCategories(new GHAAsyncCallback<List<MaterialCategory>>() {
 
 					@Override
-					public void onSuccess(List<EiaTypeCategory> result) {
+					public void onSuccess(List<MaterialCategory> result) {
 						Collections.sort(result);
 
 						String codes[] = new String[result.size()];
@@ -96,8 +99,9 @@ public class GHAEiaTypeCategoryPickTreeItem extends GHAIPickTreeItem {
 						}
 						root.setChildren(new TreeNode[] { nodes[0] });
 						tree.setRoot(root);
-						GHAEiaTypeCategoryPickTreeItem.this.setValueTree(tree);
+						GHAMaterialCategoryPickTreeItem.this.setValueTree(tree);
 					}
 				});
 	}
+
 }
