@@ -11,7 +11,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 
 /**
@@ -24,7 +24,7 @@ import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 @NamedQueries(value = {
 		@NamedQuery(name = "MaterialCategory.getAll", query = "SELECT e from MaterialCategory e order by e.name"),
 		@NamedQuery(name = "MaterialCategory.findByCode", query = "SELECT category from MaterialCategory category WHERE category.code=:code") })
-public class MaterialCategory extends AbstractEntity implements
+public class MaterialCategory extends AbstractCodeEntity implements
 		Comparable<MaterialCategory> {
 
 	/**
@@ -35,9 +35,7 @@ public class MaterialCategory extends AbstractEntity implements
 	@ManyToOne
 	@JoinColumn(name = "serviceResourceCategoryFk")
 	private ServiceResourceCategory sRCategory;
-
 	private String name;
-	private String code;
 
 	/**
 	 * 
@@ -62,10 +60,6 @@ public class MaterialCategory extends AbstractEntity implements
 		return this.code.equals(other.getCode());
 	}
 
-	public String getCode() {
-		return code;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -77,10 +71,6 @@ public class MaterialCategory extends AbstractEntity implements
 	@Override
 	public int hashCode() {
 		return this.code.hashCode();
-	}
-
-	public void setCode(String code) {
-		this.code = code;
 	}
 
 	public void setName(String name) {

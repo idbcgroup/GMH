@@ -69,20 +69,21 @@ public class EIATypeMaterialGridPanel extends GHAFormLayout implements
 			public void select(Material material) {
 				// clean the search form
 				EIATypeMaterialGridPanel.this.searchForm.clean();
-
-				final EiaTypeMaterial eiaTypeMaterial = new EiaTypeMaterial();
-				eiaTypeMaterial
-						.setEiaType(EIATypeMaterialGridPanel.this.eiaType);
-				eiaTypeMaterial.setMaterial(material);
-				EIATypeMaterialModel.save(eiaTypeMaterial,
-						new GHAAsyncCallback<EiaTypeMaterial>() {
-
-							@Override
-							public void onSuccess(EiaTypeMaterial result) {
-								loadData();
-							}
-
-						});
+				// TODO
+				// final EiaTypeMaterial eiaTypeMaterial = new
+				// EiaTypeMaterial();
+				// eiaTypeMaterial
+				// .setEiaType(EIATypeMaterialGridPanel.this.eiaType);
+				// eiaTypeMaterial.setMaterial(material);
+				// EIATypeMaterialModel.save(eiaTypeMaterial,
+				// new GHAAsyncCallback<EiaTypeMaterial>() {
+				//
+				// @Override
+				// public void onSuccess(EiaTypeMaterial result) {
+				// loadData();
+				// }
+				//
+				// });
 			}
 		};
 		addForm = new MaterialAddFormSub(GHAStrings.get("new-material"));
@@ -204,7 +205,7 @@ public class EIATypeMaterialGridPanel extends GHAFormLayout implements
 			blackList = new ArrayList<Material>();
 			for (int i = 0; i < records.length; i++)
 				blackList.add(((EIATypeMaterialRecord) records[i]).toEntity()
-						.getMaterial());
+						.getMaterialBrand().getMaterial());
 		}
 		searchForm.filterBy(blackList);
 		searchForm.open();

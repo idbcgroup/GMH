@@ -37,10 +37,10 @@ public class Material extends ServiceAndResource {
 	@Column(nullable = false)
 	private MaterialTypeEnum type;
 
-	// @ManyToOne
-	// @NotNull(message = "material-category-not-null")
-	// @JoinColumn(name = "materialCategoryFk"/* , nullable = false */)
-	// private MaterialCategory materialCategory;
+	@ManyToOne
+	@NotNull(message = "material-category-not-null")
+	@JoinColumn(name = "materialCategoryFk"/* , nullable = false */)
+	private MaterialCategory materialCategory;
 
 	private String description;
 	private String name;
@@ -95,9 +95,9 @@ public class Material extends ServiceAndResource {
 		return externalCode;
 	}
 
-	// public MaterialCategory getMaterialCategory() {
-	// return materialCategory;
-	// }
+	public MaterialCategory getMaterialCategory() {
+		return materialCategory;
+	}
 
 	/**
 	 * @return the model
@@ -160,9 +160,9 @@ public class Material extends ServiceAndResource {
 		this.externalCode = externalCode;
 	}
 
-	// public void setMaterialCategory(MaterialCategory materialCategory) {
-	// this.materialCategory = materialCategory;
-	// }
+	public void setMaterialCategory(MaterialCategory materialCategory) {
+		this.materialCategory = materialCategory;
+	}
 
 	/**
 	 * @param model

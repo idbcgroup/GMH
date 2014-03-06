@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.glm.Material;
+import org.fourgeeks.gha.domain.glm.MaterialBrand;
 
 /**
  * @author emiliot
@@ -30,14 +30,17 @@ public class EiaTypeMaterial extends AbstractEntity {
 	private EiaType eiaType;
 
 	@ManyToOne
-	@JoinColumn(name = "materialFk", nullable = false, columnDefinition = "varchar(255) REFERENCES material(code) ON UPDATE CASCADE ON DELETE CASCADE")
-	private Material material;
+	@JoinColumn(name = "materialBrandFk")
+	private MaterialBrand materialBrand;
 
 	private int amount = 0;
 
 	/**
-	 * @return the amount
+	 * 
 	 */
+	public EiaTypeMaterial() {
+	}
+
 	public int getAmount() {
 		return amount;
 	}
@@ -46,17 +49,10 @@ public class EiaTypeMaterial extends AbstractEntity {
 		return eiaType;
 	}
 
-	/**
-	 * @return the material
-	 */
-	public Material getMaterial() {
-		return material;
+	public MaterialBrand getMaterialBrand() {
+		return materialBrand;
 	}
 
-	/**
-	 * @param amount
-	 *            the amount to set
-	 */
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
@@ -65,11 +61,7 @@ public class EiaTypeMaterial extends AbstractEntity {
 		this.eiaType = eiaType;
 	}
 
-	/**
-	 * @param material
-	 *            the material to set
-	 */
-	public void setMaterial(Material material) {
-		this.material = material;
+	public void setMaterialBrand(MaterialBrand materialBrand) {
+		this.materialBrand = materialBrand;
 	}
 }

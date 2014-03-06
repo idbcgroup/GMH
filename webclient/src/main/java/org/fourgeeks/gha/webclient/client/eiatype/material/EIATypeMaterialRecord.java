@@ -9,11 +9,11 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
  * 
  */
 public class EIATypeMaterialRecord extends GHAGridRecord<EiaTypeMaterial> {
-	private EiaTypeMaterial eiaTypeMaterial;
+	private final EiaTypeMaterial eiaTypeMaterial;
 
 	public EIATypeMaterialRecord(EiaTypeMaterial eiaTypeMaterial) {
 		this.eiaTypeMaterial = eiaTypeMaterial;
-		Material material = eiaTypeMaterial.getMaterial();
+		Material material = eiaTypeMaterial.getMaterialBrand().getMaterial();
 		setAttribute("code", material.getCode());
 		setAttribute("name", material.getName());
 		setAttribute("description", material.getDescription());
