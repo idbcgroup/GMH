@@ -25,7 +25,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class CitizenRESTopInformationview extends GHAHorizontalLayout implements
-CitizenSelectionListener {
+		CitizenSelectionListener {
 	private static class SmallBox extends HLayout {
 		public SmallBox() {
 			setWidth100();
@@ -66,30 +66,30 @@ CitizenSelectionListener {
 	// }
 	// text for the values
 	private final GHATextLabelSmallSize documentNumberText = new GHATextLabelSmallSize()
-	.bold();
+			.bold();
 	private final GHATextLabelSmallSize firstNameText = new GHATextLabelSmallSize()
-	.bold();
+			.bold();
 	private final GHATextLabelSmallSize secondNameText = new GHATextLabelSmallSize()
-	.bold();
+			.bold();
 	private final GHATextLabelSmallSize firstLastNameText = new GHATextLabelSmallSize()
-	.bold();
+			.bold();
 	private final GHATextLabelSmallSize secondLastNameText = new GHATextLabelSmallSize()
-	.bold();
+			.bold();
 	private final GHATextLabelSmallSize dobText = new GHATextLabelSmallSize();
 	private final GHATextLabelSmallSize ageText = new GHATextLabelSmallSize();
 	private final GHATextLabelSmallSize bpiText = new GHATextLabelSmallSize();
 	private final GHATextLabelSmallSize bTypeText = new GHATextLabelSmallSize()
-	.bold();
+			.bold();
 	private final GHATextLabelSmallSize weightTypeText = new GHATextLabelSmallSize()
-	.bold();
+			.bold();
 	private final GHATextLabelSmallSize heightTypeText = new GHATextLabelSmallSize()
-	.bold();
+			.bold();
 	private final GHATextLabelSmallSize bsaTypeText = new GHATextLabelSmallSize()
-	.bold();
+			.bold();
 	private final GHATextLabelSmallSize bmiTypeText = new GHATextLabelSmallSize()
-	.bold();
+			.bold();
 	private final GHATextLabelSmallSize mainDiagnosisText = new GHATextLabelSmallSize()
-	.bold();
+			.bold();
 	// {
 	// mainDiagnosisText.setAutoFit(false);
 	// mainDiagnosisText.setWidth(300);
@@ -129,7 +129,6 @@ CitizenSelectionListener {
 		setHeight(GHAUiHelper.DEFAULT_PATIENT_TOP_HEIGHT);
 		addMember(getLeftSideLayout());
 		addMember(getRightSideLayout());
-		addMember(new CitizenRESTopTools());
 	}
 
 	// private final VLayout centerLayout = new VLayout();
@@ -227,6 +226,7 @@ CitizenSelectionListener {
 		bmiTypeText.setContents("TODO");
 		bsaTypeText.setContents("TODO");
 		mainDiagnosisText.setContents("TODO");
+
 	}
 
 }

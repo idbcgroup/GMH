@@ -11,6 +11,8 @@ import org.fourgeeks.gha.webclient.client.res.citizen.top.CitizenRESTopInformati
 import com.google.gwt.user.client.History;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author alacret
@@ -41,18 +43,26 @@ public class CitizenTab extends GHATab {
 			}
 		});
 
-		addMember(top);
-		addMember(body);
+		final VLayout verticalLayout = new VLayout();
+		verticalLayout.addMember(top);
+		verticalLayout.addMember(body);
+
+		final HLayout bodyLayout = new HLayout();
+		bodyLayout.addMember(verticalLayout);
+
+		bodyLayout.addMember(new CitizenTabTools());
+
+		addMember(bodyLayout);
 
 		CitizenModel.find(Long.valueOf(citizenId),
 				new GHAAsyncCallback<Citizen>() {
 
-			@Override
-			public void onSuccess(Citizen citizen) {
-				top.onCitizenSelect(citizen);
-				body.onCitizenSelect(citizen);
-			}
-		});
+					@Override
+					public void onSuccess(Citizen citizen) {
+						top.onCitizenSelect(citizen);
+						body.onCitizenSelect(citizen);
+					}
+				});
 	}
 
 	@Override

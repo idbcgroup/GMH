@@ -12,6 +12,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
+@Deprecated
 public class CitizenRESTopTools extends VLayout {
 
 	/**
@@ -26,18 +27,18 @@ public class CitizenRESTopTools extends VLayout {
 		final ClickHandler clickHandler = new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				//TODO:
+				// TODO:
 			}
 		};
 
 		final ClickHandler closeHandler = new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				//TODO: close
+				// TODO: close
 			}
 		};
 		addMember(new GHACleanButton(clickHandler));
 		addMember(new GHASaveButton(clickHandler));
-		//		addMember(new GHACancelButton(closeHandler));
+		// addMember(new GHACancelButton(closeHandler));
 	}
 }

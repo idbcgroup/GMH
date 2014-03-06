@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.res.citizen.body;
+package org.fourgeeks.gha.webclient.client.res.citizen;
 
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
@@ -20,13 +20,12 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-@Deprecated
-public class CitizenRESBodyTools extends VLayout {
+public class CitizenTabTools extends VLayout {
 
 	/**
 	 * 
 	 */
-	public CitizenRESBodyTools() {
+	public CitizenTabTools() {
 		setWidth(30);
 		setLayoutMargin(5);
 		setMembersMargin(5);
@@ -39,16 +38,21 @@ public class CitizenRESBodyTools extends VLayout {
 				// TODO:
 			}
 		};
-		addMember(new GHACancelButton(clickHandler));
+
 		addMember(new GHACleanButton(clickHandler));
+		addMember(new GHASaveButton(clickHandler));
 		addMember(new GHACloseButton(clickHandler));
+		final LayoutSpacer spacer = new LayoutSpacer();
+		spacer.setHeight(30);
+		addMember(spacer);
 		addMember(new GHADeleteButton(clickHandler));
 		addMember(new GHAEditButton(clickHandler));
 		addMember(new GHANewButton(clickHandler));
-		addMember(new LayoutSpacer());
-		addMember(new GHASaveButton(clickHandler));
+		addMember(spacer);
+
 		addMember(new GHASearchButton(clickHandler));
 		addMember(new GHAUndoButton(clickHandler));
+		addMember(new GHACancelButton(clickHandler));
 
 	}
 }
