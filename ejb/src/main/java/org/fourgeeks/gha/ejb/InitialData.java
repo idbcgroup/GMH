@@ -62,6 +62,7 @@ import org.fourgeeks.gha.domain.gar.Job;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
+import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -920,21 +921,35 @@ public class InitialData {
 	 * 
 	 */
 	private void materialCategoryTestData() {
-		final String query = "SELECT t from MaterialCategory t WHERE t.code = 'mat-cat-000' ";
+		final String query = "SELECT COUNT(t) from MaterialCategory t";
 		try {
-			em.createQuery(query).getSingleResult();
+			int count = ((Number) em.createQuery(query).getSingleResult())
+					.intValue();
+			if (count <= 0)
+				throw new NoResultException();
 		} catch (final NoResultException e) {
 			try {
-				logger.info("creating test data : materialCategory");
-				// for (int j = 0; j < 3; j++) {
-				// em.persist(new MaterialCategory("mat-cat-00" + j,
-				// "material-category-00" + j, MaterialTypeEnum
-				// .values()[j % 3]));
-				// }
+				logger.info("Creating test data: MaterialCategory");
+				final List<CCDILevelValue> ccdiCategories = em
+						.createNamedQuery(
+								"CCDILevelValue.findAllByDefinitionCode",
+								CCDILevelValue.class)
+						.setParameter("code", "Material").getResultList();
+				for (final CCDILevelValue ccdi : ccdiCategories) {
+					if (!ccdi.getLevelDefinition().getDefinition().getCode()
+							.equals("Material"))
+						continue;
+					final MaterialCategory category = new MaterialCategory();
+					category.setName(ccdi.getName());
+					category.setCode(ccdi.getCode());
+					em.persist(category);
+					em.flush();
+				}
+
 				em.flush();
 			} catch (final Exception e1) {
 				logger.log(Level.INFO,
-						"error creating test data: external provider", e);
+						"error Creating Material Category test data", e1);
 			}
 		}
 	}
