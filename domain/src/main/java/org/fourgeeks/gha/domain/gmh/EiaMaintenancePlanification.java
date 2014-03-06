@@ -72,6 +72,7 @@ public class EiaMaintenancePlanification extends AbstractEntity {
 	private MaintenancePlanificationState planificationState;
 
 	/** fecha en que ha de comenzar el mantenimiento. */
+	@NotNull(message = "beginning-date-not-null")
 	private Date beginningDate;
 
 	/** */

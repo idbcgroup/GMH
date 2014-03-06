@@ -230,6 +230,7 @@ ES,encounter,encuentro
 ES,active,Activo
 ES,inactive,Inactivo
 ES,preventive,Preventivo
+ES,corrective,Correctivo
 ES,overhaul,Exhaustivo
 ES,asociated,Asociado
 ES,planificated,Planificado
@@ -352,3 +353,4 @@ ES,occupational-information,información ocupacional
 ES,resource-delete-confirm,¿Esta seguro que desea eliminar el recurso?
 ES,resources-delete-confirm,¿Esta seguro que desea eliminar los recursos?
 ES,autogen-field,Autogenerado
+ES,maintenance-technician,Tecnico de mantenimiento

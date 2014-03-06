@@ -14,20 +14,20 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
 public class GHABpuSelectItem extends GHASelectItem {
 	public static final String labelKey = "bpu-select-item";
-	
+
 	/**
 	 * 
 	 */
 	public GHABpuSelectItem() {
-		super(GHAStrings.get("bpu-select-item"));
+		super(GHAStrings.get("bpu"));
 		fill();
 	}
-	
+
 	public GHABpuSelectItem(String title) {
 		super(title);
 		fill();
 	}
-	
+
 	/**
 	 * @param width
 	 */
@@ -47,7 +47,7 @@ public class GHABpuSelectItem extends GHASelectItem {
 		setRequired(required);
 		addChangedHandler(changedHandler);
 	}
-	
+
 	/**
 	 * @param required
 	 * @param changedHandler
@@ -65,9 +65,9 @@ public class GHABpuSelectItem extends GHASelectItem {
 	 */
 	public GHABpuSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
-		this(required,changedHandler);
+		this(required, changedHandler);
 		setWidth(width);
-	}	
+	}
 
 	public void fill() {
 		GHACache.INSTANCE.getBpus(new GHAAsyncCallback<List<Bpu>>() {

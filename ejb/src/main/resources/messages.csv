@@ -543,3 +543,4 @@ ES,eiatypecategory-getall-fail,Hubo un fallo en la búsqueda de las categorías 
 ES,maintenance-delete-success,El plan de mantenimiento ha sido borrado exitosamente,SUCCESS
 ES,maintenance-activity-delete-confirm,¿Desea eliminar esta actividad de mantenimiento?. Si desea hacerlo esta actividad se elimará de los protocolos asociados,CONFIRMATION
 ES,maintenance-activity-delete-success,La actividad de mantenimiento ha sido borrado exitosamente,SUCCESS
+ES,beginning-date-not-null,Debe indicar la fecha de inicio,WARNING
