@@ -1,5 +1,8 @@
 package org.fourgeeks.gha.webclient.client.res.citizen.top;
 
+import java.sql.Date;
+
+import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
@@ -7,8 +10,12 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAlertLabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAHorizontalLayout;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATextLabelSmallSize;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATitleLabelSmallSize;
+import org.fourgeeks.gha.webclient.client.citizen.CitizenSelectionListener;
 
+import com.google.gwt.user.datepicker.client.CalendarUtil;
+import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.VerticalAlignment;
+import com.smartgwt.client.util.DateUtil;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -17,7 +24,22 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class CitizenRESTopInformationview extends GHAHorizontalLayout {
+public class CitizenRESTopInformationview extends GHAHorizontalLayout implements
+		CitizenSelectionListener {
+	private static class SmallBox extends HLayout {
+		public SmallBox() {
+			setWidth100();
+			setMembersMargin(5);
+			addStyleName("margin-items");
+		}
+
+		public SmallBox(int width) {
+			this();
+			setWidth(width);
+		}
+
+	}
+
 	// labels
 	private final GHATitleLabelSmallSize documentTypeTitleLabel = new GHATitleLabelSmallSize(
 			"Cédula:");// TODO document type value
@@ -43,45 +65,43 @@ public class CitizenRESTopInformationview extends GHAHorizontalLayout {
 	// mainDiagnosisTitleLabel.setWidth(150);
 	// }
 	// text for the values
-	private final GHATextLabelSmallSize documentNumberText = new GHATextLabelSmallSize(
-			"V-18064066").bold();
-	private final GHATextLabelSmallSize firstNameText = new GHATextLabelSmallSize(
-			"Angel").bold();
-	private final GHATextLabelSmallSize secondNameText = new GHATextLabelSmallSize(
-			"Ernesto").bold();
-	private final GHATextLabelSmallSize firstLastNameText = new GHATextLabelSmallSize(
-			"Lacret").bold();
-	private final GHATextLabelSmallSize secondLastNameText = new GHATextLabelSmallSize(
-			"Silva").bold();
-	private final GHATextLabelSmallSize dobText = new GHATextLabelSmallSize(
-			"25/05/1987");
-	private final GHATextLabelSmallSize ageText = new GHATextLabelSmallSize(
-			"26 años 7 meses");// &nbsp;
-	private final GHATextLabelSmallSize bpiText = new GHATextLabelSmallSize(
-			"Hospital HOCS");
-	private final GHATextLabelSmallSize bTypeText = new GHATextLabelSmallSize(
-			"A+").bold();
-	private final GHATextLabelSmallSize weightTypeText = new GHATextLabelSmallSize(
-			"90kgs").bold();
-	private final GHATextLabelSmallSize heightTypeText = new GHATextLabelSmallSize(
-			"1,65mts").bold();
-	private final GHATextLabelSmallSize bsaTypeText = new GHATextLabelSmallSize(
-			"25,2 Kg/m2").bold();
-	private final GHATextLabelSmallSize bmiTypeText = new GHATextLabelSmallSize(
-			"22 m2").bold();
-	private final GHATextLabelSmallSize mainDiagnosisText = new GHATextLabelSmallSize(
-			"Trastorno de menisco debido a desgarro").bold();
-	//	{
-	//		mainDiagnosisText.setAutoFit(false);
-	//		mainDiagnosisText.setWidth(300);
-	//	}
+	private final GHATextLabelSmallSize documentNumberText = new GHATextLabelSmallSize()
+			.bold();
+	private final GHATextLabelSmallSize firstNameText = new GHATextLabelSmallSize()
+			.bold();
+	private final GHATextLabelSmallSize secondNameText = new GHATextLabelSmallSize()
+			.bold();
+	private final GHATextLabelSmallSize firstLastNameText = new GHATextLabelSmallSize()
+			.bold();
+	private final GHATextLabelSmallSize secondLastNameText = new GHATextLabelSmallSize()
+			.bold();
+	private final GHATextLabelSmallSize dobText = new GHATextLabelSmallSize();
+	private final GHATextLabelSmallSize ageText = new GHATextLabelSmallSize();
+	private final GHATextLabelSmallSize bpiText = new GHATextLabelSmallSize();
+	private final GHATextLabelSmallSize bTypeText = new GHATextLabelSmallSize()
+			.bold();
+	private final GHATextLabelSmallSize weightTypeText = new GHATextLabelSmallSize()
+			.bold();
+	private final GHATextLabelSmallSize heightTypeText = new GHATextLabelSmallSize()
+			.bold();
+	private final GHATextLabelSmallSize bsaTypeText = new GHATextLabelSmallSize()
+			.bold();
+	private final GHATextLabelSmallSize bmiTypeText = new GHATextLabelSmallSize()
+			.bold();
+	private final GHATextLabelSmallSize mainDiagnosisText = new GHATextLabelSmallSize()
+			.bold();
+	// {
+	// mainDiagnosisText.setAutoFit(false);
+	// mainDiagnosisText.setWidth(300);
+	// }
 	// boxes
 	private final SmallBox documentTypeBox = new SmallBox(120),
-			nameBox = new SmallBox(150), dobBox = new SmallBox(120), ageBox = new SmallBox(120),
-			bpiBox = new SmallBox(150), bTypeBox = new SmallBox(120),
-			weightBox = new SmallBox(100), heightBox = new SmallBox(100),
-			bmiBox = new SmallBox(100), bsaBox = new SmallBox(120),
-			mainDiagnosisBox = new SmallBox();
+			nameBox = new SmallBox(150), dobBox = new SmallBox(120),
+			ageBox = new SmallBox(120), bpiBox = new SmallBox(150),
+			bTypeBox = new SmallBox(120), weightBox = new SmallBox(100),
+			heightBox = new SmallBox(100), bmiBox = new SmallBox(100),
+			bsaBox = new SmallBox(120), mainDiagnosisBox = new SmallBox(300);
+
 	{
 		documentTypeBox.addMembers(documentTypeTitleLabel, documentNumberText);
 		nameBox.addMembers(firstNameText, secondNameText, firstLastNameText,
@@ -96,41 +116,20 @@ public class CitizenRESTopInformationview extends GHAHorizontalLayout {
 		bsaBox.addMembers(bsaTitleLabel, bsaTypeText);
 		mainDiagnosisBox.addMembers(mainDiagnosisTitleLabel, mainDiagnosisText);
 	}
-
 	// columns layouts
 	private final HLayout firstHorizontalLayout = new HLayout();
 	private final HLayout secondHorizontalLayout = new HLayout();
+
 	private final HLayout thirdHorizontalLayout = new HLayout();
 
-	// layout for the boxes
-	private VLayout getLeftSideLayout() {
-		final VLayout leftSideLayout = new VLayout();
-
-		initializeHorizontalLayouts();
-		leftSideLayout.setAlign(VerticalAlignment.CENTER);
-		leftSideLayout.setLayoutMargin(5);
-		leftSideLayout.setBorder("1px solid #000000");
-		leftSideLayout.setBackgroundColor("white");
-		leftSideLayout.addMember(firstHorizontalLayout);
-		leftSideLayout.addMember(secondHorizontalLayout);
-		leftSideLayout.addMember(thirdHorizontalLayout);
-
-		return leftSideLayout;
-	}
-
-	private void initializeHorizontalLayouts() {
-		firstHorizontalLayout.setMembersMargin(10);
-		firstHorizontalLayout.setHeight(20);
-		secondHorizontalLayout.setMembersMargin(10);
-		secondHorizontalLayout.setHeight(20);
-		thirdHorizontalLayout.setMembersMargin(10);
-		thirdHorizontalLayout.setHeight(20);
-
-		firstHorizontalLayout.addMembers(documentTypeBox, nameBox, dobBox, ageBox,
-				bpiBox,new LayoutSpacer());
-		secondHorizontalLayout.addMembers(bTypeBox, weightBox, heightBox,
-				bmiBox, bsaBox,new LayoutSpacer());
-		thirdHorizontalLayout.addMembers(mainDiagnosisBox,new LayoutSpacer());
+	/**
+	 * 
+	 */
+	public CitizenRESTopInformationview() {
+		setHeight(GHAUiHelper.DEFAULT_PATIENT_TOP_HEIGHT);
+		addMember(getLeftSideLayout());
+		addMember(getRightSideLayout());
+		addMember(new CitizenRESTopTools());
 	}
 
 	// private final VLayout centerLayout = new VLayout();
@@ -146,46 +145,88 @@ public class CitizenRESTopInformationview extends GHAHorizontalLayout {
 	// centerLayout.addMember(addOption);
 	// }
 
+	// layout for the boxes
+	private VLayout getLeftSideLayout() {
+		final VLayout leftSideLayout = new VLayout();
+
+		initializeHorizontalLayouts();
+		leftSideLayout.setAlign(VerticalAlignment.CENTER);
+		leftSideLayout.setLayoutMargin(5);
+		leftSideLayout.addMember(firstHorizontalLayout);
+		leftSideLayout.addMember(secondHorizontalLayout);
+		leftSideLayout.addMember(thirdHorizontalLayout);
+
+		return leftSideLayout;
+	}
+
 	// Right Side Layout
 	private HLayout getRightSideLayout() {
 		final HLayout rightSideLayout = new HLayout();
-		final GHAImg photoImg = new GHAImg("../resources/img/photo.jpg", 60, 60);
-		final VLayout alertLayout = new VLayout();
-
-		rightSideLayout.setWidth(150);
+		rightSideLayout.setWidth(300);
 		rightSideLayout.setLayoutMargin(5);
-		rightSideLayout.setBorder("1px solid #000000");
-		rightSideLayout.addMembers(photoImg, alertLayout);
-		rightSideLayout.setBackgroundColor("white");
-		alertLayout.addMembers(new GHAAlertLabel("Alergia", "yellow"),
-				new GHAAlertLabel("Cardiopatia", "red"), new GHAAlertLabel(
-						"Diabetes", "green"));
+		rightSideLayout.setMembersMargin(5);
+		rightSideLayout.setBackgroundColor("light gray");// TODO
+
+		final VLayout alertLayout = new VLayout();
+		alertLayout.setAlign(Alignment.CENTER);
+		alertLayout.addMember(new GHATitleLabelSmallSize(GHAStrings
+				.get("notifications-and-alarms")));
+
+		final HLayout horizontalLayout1 = new HLayout();
+		horizontalLayout1.addMembers(new GHAAlertLabel("Alergia", "yellow"),
+				new GHAAlertLabel("Cardiopatia", "red"));
+
+		final HLayout horizontalLayout2 = new HLayout();
+		horizontalLayout2.addMembers(new GHAAlertLabel("Diabetes", "green"),
+				new GHAAlertLabel("Cardiopatia", "red"));
+
+		alertLayout.addMembers(horizontalLayout1, horizontalLayout2);
+
+		rightSideLayout.addMembers(new GHAImg("../resources/img/photo.jpg", 60,
+				60), alertLayout);
+
 		return rightSideLayout;
 	}
 
-	/**
-	 * 
-	 */
-	public CitizenRESTopInformationview() {
-		setHeight(GHAUiHelper.DEFAULT_PATIENT_TOP_HEIGHT);
-		//		setBackgroundColor("#FFFF4D");// TODO
-		addMember(getLeftSideLayout());
-		addMember(getRightSideLayout());
-		addMember(new CitizenRESTopTools());
+	private void initializeHorizontalLayouts() {
+		firstHorizontalLayout.setMembersMargin(10);
+		firstHorizontalLayout.setHeight(20);
+		secondHorizontalLayout.setMembersMargin(10);
+		secondHorizontalLayout.setHeight(20);
+		thirdHorizontalLayout.setMembersMargin(10);
+		thirdHorizontalLayout.setHeight(20);
+
+		firstHorizontalLayout.addMembers(documentTypeBox, nameBox, dobBox,
+				ageBox, new LayoutSpacer());
+		secondHorizontalLayout.addMembers(bTypeBox, weightBox, heightBox,
+				bmiBox, bsaBox, new LayoutSpacer());
+		thirdHorizontalLayout.addMembers(mainDiagnosisBox, bpiBox,
+				new LayoutSpacer());
 	}
 
-	private static class SmallBox extends HLayout {
-		public SmallBox() {
-			setWidth100();
-			setMembersMargin(5);
-			addStyleName("margin-items");
+	@Override
+	public void onCitizenSelect(Citizen citizen) {
+		firstNameText.setContents(citizen.getFirstName());
+		secondNameText.setContents(citizen.getSecondName());
+		firstLastNameText.setContents(citizen.getFirstLastName());
+		secondLastNameText.setContents(citizen.getSecondLastName());
+		documentNumberText.setContents(citizen.getIdNumber());
+
+		final Date birthDate = citizen.getBirthDate();
+		if (birthDate != null) {
+			dobText.setContents(birthDate.toString());
+			final int daysBetween = CalendarUtil.getDaysBetween(birthDate,
+					DateUtil.create());
+			ageText.setContents("" + daysBetween);
 		}
 
-		public SmallBox(int width) {
-			this();
-			setWidth(width);
-		}
-
+		bpiText.setContents("TODO");
+		bTypeText.setContents("TODO");
+		weightTypeText.setContents("TODO");
+		heightTypeText.setContents("TODO");
+		bmiTypeText.setContents("TODO");
+		bsaTypeText.setContents("TODO");
+		mainDiagnosisText.setContents("TODO");
 	}
 
 }
