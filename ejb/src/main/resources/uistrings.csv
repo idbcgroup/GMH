@@ -215,7 +215,7 @@ ES,total-cost,Costo total
 ES,emh,Historia médica
 ES,gender,sexo
 ES,city,ciudad
-ES,age,edad
+ES,age,Edad
 ES,document-type,tipo de documento
 ES,document-number,número de documento
 ES,diagnosis,Diagnóstico
@@ -285,7 +285,7 @@ ES,eiatype-model-tooltip, El campo del modelo especifica el modelo del tipo de e
 ES,maintenance-plan-name-tooltip,Este campo asigna el nombre al plan de mantenimiento Solo puede contener letras Ej Plan de Mantenimiento
 ES,maintenance-plan-frequency-tooltip,Este campo asigna la frecuencia con la que se realiza el mantenimiento Ej 48
 ES,maintenance-plan-description-tooltip, Este campo especifica la descripción del plan de mantenimiento
-ES,res,registro de salud
+ES,res,Registro de Salud
 ES,citizen-search,buscar ciudadano
 ES,citizen-new,nuevo ciudadano
 ES,user-password,Confirmar Clave
@@ -356,7 +356,7 @@ ES,citizen,Ciudadano
 ES,citizens,Ciudadanos
 ES,relative,Familiar
 ES,relatives,Familiares
-ES,citizen-basic-information-title,Información básica del ciudadano
+ES,citizen-basic-information-title,Información básica del Ciudadano
 ES,citizen-familiar-basic-information-title,Información básica del familiar
 ES,citizen-physical-features-title,Características físicas
 ES,citizen-personal-contacts-title,Contactos personales

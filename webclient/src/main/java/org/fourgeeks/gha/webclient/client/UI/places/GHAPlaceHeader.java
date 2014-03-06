@@ -33,7 +33,7 @@ public class GHAPlaceHeader extends Label {
 			@Override
 			public void onMouseOver(MouseOverEvent event) {
 				if (!selected)
-					setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
+					setBackgroundColor(GHAUiHelper.DEFAULT_PANEL_BAR_BACKGROUND_COLOR);
 			}
 		});
 		addMouseOutHandler(new MouseOutHandler() {
@@ -66,7 +66,7 @@ public class GHAPlaceHeader extends Label {
 	 * mark the button as selected
 	 */
 	public void markSelected() {
-		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
+		setBackgroundColor(GHAUiHelper.DEFAULT_PANEL_BAR_BACKGROUND_COLOR);
 		selected = true;
 	}
 

@@ -1,14 +1,21 @@
 package org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation.basicinformation;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
+
+import com.smartgwt.client.types.Overflow;
 
 /**
  * @author jfuentes
  *
  */
-public class RESBasicInformationFormPanel extends GHAFormLayout {
+public class RESBasicInformationFormPanel extends GHAVerticalLayout {
 
+	private final RESCitizenBasicInformationForm citizenForm = new RESCitizenBasicInformationForm();
+	//	private final RESBpuBasicInformationForm bpuForm = new RESBpuBasicInformationForm();
+	//	private final RESCitizenParentBasicInformationForm parentForm = new RESCitizenParentBasicInformationForm();
 	/**
 	 * 
 	 */
@@ -16,8 +23,12 @@ public class RESBasicInformationFormPanel extends GHAFormLayout {
 		super();
 		setWidth100();
 		setHeight(GHAUiHelper.DEFAULT_PATIENT_BASIC_INFO_HEIGHT);
-		setBackgroundColor("cyan");
-		// TODO Auto-generated constructor stub
+		setMaxHeight(GHAUiHelper.DEFAULT_PATIENT_BASIC_INFO_HEIGHT);
+		setOverflow(Overflow.AUTO);
+		//		setBackgroundColor("cyan");
+
+		final GHALabel title = new GHALabel(GHAStrings.get("citizen-basic-information-title")).colored();
+		addMembers(title,citizenForm/*,bpuForm, parentForm*/);
 	}
 
 }

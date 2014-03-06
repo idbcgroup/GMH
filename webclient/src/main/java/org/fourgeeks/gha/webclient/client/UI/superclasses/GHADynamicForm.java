@@ -17,18 +17,22 @@ public class GHADynamicForm extends DynamicForm {
 	 */
 	public enum FormType {
 		/**
+		 * Type for a SectionForm Mini Form
+		 */
+		SECTIONFORM_MINIFORM,
+		/**
 		 * Type for a SectionForm Form
 		 */
-		SECTIONFORM_FORM, 
+		SECTIONFORM_FORM,
 		/**
 		 * Type for a full-width Form
 		 */
 		NORMAL_FORM;
 	}
-	
+
 	final private int columns;
-	private FormType formtype;
-	
+	private final FormType formtype;
+
 	/**
 	 * @param numCols
 	 * @param type
@@ -36,24 +40,29 @@ public class GHADynamicForm extends DynamicForm {
 	public GHADynamicForm(int numCols, FormType type) {
 		this.formtype=type;
 		this.columns=numCols;
-		initComponents();
+		makeCalculationsAndRender();
 	}
 
 	/**
 	 * 
 	 */
-	public void initComponents() {
-		int fWidth = GHAUiHelper.getFormWidth(formtype, 30);
-		setWidth(fWidth);
+	public void makeCalculationsAndRender() {
+		int fWidth = 400;
 		if(formtype == FormType.NORMAL_FORM){
 			setMinWidth(GHAUiHelper.MIN_NORMAL_FORM_WIDTH);
+			fWidth = GHAUiHelper.getFormWidth(formtype, 130);
+		}else if(formtype == FormType.SECTIONFORM_FORM){
+			setMinWidth(GHAUiHelper.MIN_SECTIONFORM_FORM_WIDTH);
+			fWidth = GHAUiHelper.getFormWidth(formtype, 130);
 		}else{
-			setMinWidth(GHAUiHelper.MIN_SECTION_FORM_FORM_WIDTH);
+			setMinWidth(GHAUiHelper.MIN_SECTIONFORM_MINIFORM_WIDTH);
+			fWidth = GHAUiHelper.getFormWidth(formtype, 280);
 		}
+		setWidth(fWidth);
 		setNumCols(columns);
 		setMinColWidth(50);
 
-		int itemW = fWidth / columns;
+		final int itemW = fWidth / columns;
 
 		// int widths[] = new int[numCols];
 		// Window.alert(widths.length+"");
@@ -68,16 +77,22 @@ public class GHADynamicForm extends DynamicForm {
 
 		// setCanDragResize(true);
 		// setShowEdges(true);
-
 	}
 
 	/**
 	 * 	Function that handles the resize of the form.
 	 */
 	public void resize() {
-		int formWidth = GHAUiHelper.getFormWidth(formtype, 30);
+		int formWidth = 400;
+		if(formtype == FormType.NORMAL_FORM){
+			formWidth = GHAUiHelper.getFormWidth(formtype, 130);
+		}else if(formtype == FormType.SECTIONFORM_FORM){
+			formWidth = GHAUiHelper.getFormWidth(formtype, 130);
+		}else{
+			formWidth = GHAUiHelper.getFormWidth(formtype, 280);
+		}
 		setWidth(formWidth);
-		int itemW = formWidth / columns;
+		final int itemW = formWidth / columns;
 		setColWidths(itemW);
 	}
 }

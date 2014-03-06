@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.res.citizen.body;
 
 import org.fourgeeks.gha.domain.mix.Citizen;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAInternalTabSet;
 import org.fourgeeks.gha.webclient.client.citizen.CitizenSelectionListener;
 import org.fourgeeks.gha.webclient.client.res.citizen.body.demographic.CitizenRESDemographicSubTab;
@@ -28,6 +29,7 @@ public class CitizenRESInternalTabSet extends GHAInternalTabSet implements Citiz
 	 */
 	public CitizenRESInternalTabSet() {
 		super();
+		setHeight(GHAUiHelper.getRESBodyHeight());
 		//hideables
 		hideables.add(citizenRESBasicInformationTab);
 		//		hideables.add(citizenRESDemograficSubTab);
@@ -50,7 +52,7 @@ public class CitizenRESInternalTabSet extends GHAInternalTabSet implements Citiz
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		return;
+		setHeight(GHAUiHelper.getRESBodyHeight());
 	}
 
 	@Override

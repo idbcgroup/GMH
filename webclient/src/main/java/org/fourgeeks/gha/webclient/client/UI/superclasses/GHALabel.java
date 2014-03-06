@@ -16,10 +16,21 @@ public class GHALabel extends Label {
 	public GHALabel(String title) {
 		super();
 		setContents(title);
+		setPadding(5);
 		setHeight("25px");
 		setWrap(false);
 		setWidth100();
 		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		setStyleName("gha-label");
+	}
+
+	/**
+	 * add the text style for bold
+	 * 
+	 * @return the label with the style bold added
+	 */
+	public GHALabel colored() {
+		setBackgroundColor("#D0D0E0");
+		return this;
 	}
 }
