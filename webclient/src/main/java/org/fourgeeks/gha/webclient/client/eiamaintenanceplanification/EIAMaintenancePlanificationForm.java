@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eiamaintenanceplanification;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -17,6 +18,7 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABspSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAJobSelectItem;
@@ -40,8 +42,8 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * @author naramirez
  */
 public class EIAMaintenancePlanificationForm extends
-GHAForm<EiaMaintenancePlanification> implements EIASelectionListener,
-EIATypeSelectionListener, MaintenancePlanificationSelectionProducer {
+		GHAForm<EiaMaintenancePlanification> implements EIASelectionListener,
+		EIATypeSelectionListener, MaintenancePlanificationSelectionProducer {
 
 	private List<MaintenancePlanificationSelectionListener> listeners;
 	private Eia selectedEia;
@@ -54,6 +56,7 @@ EIATypeSelectionListener, MaintenancePlanificationSelectionProducer {
 	private GHAMaintenancePlanificationStateSelectItem planificationStateSelectItem;
 	private GHAMaintenancePlanSelectItem planSelectItem;
 	private EiaType selectedEiaType;
+	private GHASelectItem selectDateItem;
 
 	{
 		listeners = new ArrayList<MaintenancePlanificationSelectionListener>();
@@ -70,6 +73,22 @@ EIATypeSelectionListener, MaintenancePlanificationSelectionProducer {
 		planSelectItem.setColSpan(2);
 		beginningDateDateItem = new GHADateItem("Fecha de inicio",
 				changedHandler);
+
+		beginningDateDateItem.setRequired(true);
+
+		beginningDateDateItem.setDisabled(true);
+
+		selectDateItem = new GHASelectItem("Fecha de Seleccion");
+
+		LinkedHashMap<String, String> map;
+
+		map = new LinkedHashMap<String, String>();
+		map.put("FIE", "Fecha de Instalacion del Equipo");
+		map.put("FAE", "Fecha de Aceptacion del Equipo");
+		map.put("IF", "Introducir Fecha de Inicio");
+
+		selectDateItem.setValueMap(map);
+		// selectDateItem.setDefaultValue(VAL_SOME_EIATYPES);
 
 		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
 
@@ -91,13 +110,32 @@ EIATypeSelectionListener, MaintenancePlanificationSelectionProducer {
 				planStateSelectItem.setValue(mPlan.getState());
 			}
 		});
+
+		selectDateItem.addChangedHandler(new ChangedHandler() {
+			@Override
+			public void onChanged(ChangedEvent event) {
+
+				String filterType = selectDateItem.getValueAsString();
+
+				if (filterType.equals("FAE"))
+					beginningDateDateItem.setValue(selectedEia
+							.getAcceptationDate());
+				else if (filterType.equals("FIE"))
+					beginningDateDateItem.setValue(selectedEia
+							.getInstallationDate());
+				else if (filterType.equals("IF"))
+					beginningDateDateItem.setDisabled(false);
+
+			}
+		});
+
 	}
 
 	/** */
 	public EIAMaintenancePlanificationForm() {
 		final HLayout mainPanel = new HLayout();
-		form.setItems(beginningDateDateItem, new GHASpacerItem(3),
-				planSelectItem, new GHASpacerItem(2), providerSelectItem,
+		form.setItems(beginningDateDateItem, selectDateItem, new GHASpacerItem(
+				2), planSelectItem, new GHASpacerItem(2), providerSelectItem,
 				roleSelectItem, new GHASpacerItem(2),
 				planificationStateSelectItem, planStateSelectItem,
 				new GHASpacerItem(2));
@@ -171,7 +209,7 @@ EIATypeSelectionListener, MaintenancePlanificationSelectionProducer {
 			final List<String> violationsList = new ArrayList<String>();
 			for (final ConstraintViolation<EiaMaintenancePlanification> violation : violations)
 				violationsList.add(violation.getMessage());
-			//			GHAAlertManager.alert(violationsList);
+			// GHAAlertManager.alert(violationsList);
 			GHAAlertManager.alert(violationsList.get(0));
 		}
 		return null;
@@ -204,15 +242,15 @@ EIATypeSelectionListener, MaintenancePlanificationSelectionProducer {
 
 		EiaMaintenancePlanificationModel.save(entity,
 				new GHAAsyncCallback<EiaMaintenancePlanification>() {
-			@Override
-			public void onSuccess(EiaMaintenancePlanification result) {
-				hasUnCommittedChanges = false;
-				notifyMaintenancePlanification(result);
-				clear();
-				if (callback != null)
-					callback.onSuccess(result);
-			}
-		});
+					@Override
+					public void onSuccess(EiaMaintenancePlanification result) {
+						hasUnCommittedChanges = false;
+						notifyMaintenancePlanification(result);
+						clear();
+						if (callback != null)
+							callback.onSuccess(result);
+					}
+				});
 	}
 
 	@Override
