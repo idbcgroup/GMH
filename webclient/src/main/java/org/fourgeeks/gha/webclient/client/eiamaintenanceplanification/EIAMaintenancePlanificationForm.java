@@ -57,6 +57,7 @@ public class EIAMaintenancePlanificationForm extends
 	private GHAMaintenancePlanSelectItem planSelectItem;
 	private EiaType selectedEiaType;
 	private GHASelectItem selectDateItem;
+	final ChangedHandler handler;
 
 	{
 		listeners = new ArrayList<MaintenancePlanificationSelectionListener>();
@@ -111,7 +112,7 @@ public class EIAMaintenancePlanificationForm extends
 			}
 		});
 
-		selectDateItem.addChangedHandler(new ChangedHandler() {
+		handler = new ChangedHandler() {
 			@Override
 			public void onChanged(ChangedEvent event) {
 
@@ -127,7 +128,8 @@ public class EIAMaintenancePlanificationForm extends
 					beginningDateDateItem.setDisabled(false);
 
 			}
-		});
+		};
+		selectDateItem.addChangedHandler(handler);
 
 	}
 
@@ -260,11 +262,13 @@ public class EIAMaintenancePlanificationForm extends
 
 		beginningDateDateItem.setValue(eia.getInstallationDate());
 
-		if (eia.getProvider() != null)
-			providerSelectItem.setValue(eia.getProvider().getId());
+		if (eia.getProvider() != null) {
 
-		if (eia.getResponsibleRole() != null)
-			roleSelectItem.setValue(eia.getResponsibleRole().getId());
+			providerSelectItem.setValue(eia.getProvider().getId());
+			roleSelectItem.fill(providerSelectItem.getValueAsBsp());
+			roleSelectItem.setValue(eia.getResponsibleRole().getId() + "");
+		}
+
 	}
 
 	@Override
@@ -282,6 +286,7 @@ public class EIAMaintenancePlanificationForm extends
 		final MaintenancePlan plan = entity.getPlan().getMaintenancePlan();
 		planStateSelectItem.setValue(plan.getState().name());
 		planSelectItem.setValue(plan.getId());
+
 	}
 
 	private void toggleForm(boolean active) {
