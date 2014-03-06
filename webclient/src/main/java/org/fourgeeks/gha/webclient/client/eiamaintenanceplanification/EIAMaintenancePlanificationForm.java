@@ -262,9 +262,10 @@ public class EIAMaintenancePlanificationForm extends
 
 		beginningDateDateItem.setValue(eia.getInstallationDate());
 
-		if (eia.getProvider() != null) {
+		if (eia.getMaintenanceProvider() != null){
 
-			providerSelectItem.setValue(eia.getProvider().getId());
+			providerSelectItem.setValue(eia.getMaintenanceProvider().getId());
+
 			roleSelectItem.fill(providerSelectItem.getValueAsBsp());
 			roleSelectItem.setValue(eia.getResponsibleRole().getId() + "");
 		}
