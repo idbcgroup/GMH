@@ -9,7 +9,7 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
  * 
  */
 public class MaterialRecord extends GHAGridRecord<Material> {
-	private Material material;
+	private final Material material;
 
 	/**
 	 * @param material
@@ -22,7 +22,7 @@ public class MaterialRecord extends GHAGridRecord<Material> {
 		setAttribute("description", material.getDescription());
 		setAttribute("model", material.getModel());
 		setAttribute("extCode", material.getExternalCode());
-		setAttribute("brand", material.getBrand());
+		// setAttribute("brand", material.getBrand());
 
 		// if (materialCategory.getType() != null)
 		// setAttribute("type", materialCategory.getType().toString());

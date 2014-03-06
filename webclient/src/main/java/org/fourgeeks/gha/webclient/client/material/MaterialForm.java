@@ -9,7 +9,6 @@ import javax.validation.ConstraintViolation;
 
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
-import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
@@ -30,7 +29,7 @@ import com.google.gwt.event.logical.shared.ResizeEvent;
  * 
  */
 public class MaterialForm extends GHAForm<Material> implements
-MaterialSelectionProducer {
+		MaterialSelectionProducer {
 	private List<MaterialSelectionListener> listeners;
 	private GHATextItem codeItem, externalCodeItem, nameItem, modelItem;
 	private GHATextAreaItem descriptionItem;
@@ -71,6 +70,12 @@ MaterialSelectionProducer {
 	}
 
 	@Override
+	public void activate() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	public void addMaterialSelectionListener(
 			MaterialSelectionListener materialSelectionListener) {
 		listeners.add(materialSelectionListener);
@@ -89,16 +94,22 @@ MaterialSelectionProducer {
 		brandItem.clearValue();
 	}
 
+	@Override
+	public void deactivate() {
+		// TODO Auto-generated method stub
+
+	}
+
 	/**
 	 * @return
 	 */
 	private Material extract() {
 		final Material material = new Material();
 
-		if (brandItem.getValue() != null) {
-			material.setBrand(new Brand(Integer.valueOf(brandItem
-					.getValueAsString())));
-		}
+		// if (brandItem.getValue() != null) {
+		// material.setBrand(new Brand(Integer.valueOf(brandItem
+		// .getValueAsString())));
+		// }
 
 		material.setCode(codeItem.getValueAsString());
 		material.setExternalCode(externalCodeItem.getValueAsString());
@@ -121,7 +132,7 @@ MaterialSelectionProducer {
 				violationsList.add(it.next().getMessage());
 			}
 
-			//			GHAAlertManager.alert(violationsList);
+			// GHAAlertManager.alert(violationsList);
 			GHAAlertManager.alert(violationsList.get(0));
 		}
 		return null;
@@ -138,6 +149,12 @@ MaterialSelectionProducer {
 	public void notifyMaterial(Material material) {
 		for (final MaterialSelectionListener listener : listeners)
 			listener.select(material);
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		// TODO Auto-generated method stub
+		form.resize();
 	}
 
 	@Override
@@ -207,24 +224,6 @@ MaterialSelectionProducer {
 		else
 			this.set(originalEntity);
 		hasUnCommittedChanges = false;
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		// TODO Auto-generated method stub
-		form.resize();
-	}
-
-	@Override
-	public void activate() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void deactivate() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

@@ -41,11 +41,11 @@ public class MaterialService extends GHAEJBExceptionService implements
 			CriteriaBuilder cb, Root<Material> root) {
 		Predicate predicate = cb.conjunction();
 
-		if (material.getBrand() != null) {
-			ParameterExpression<Brand> p = cb.parameter(Brand.class, "brand");
-			predicate = cb.and(predicate,
-					cb.equal(root.<Brand> get("brand"), p));
-		}
+		// if (material.getBrand() != null) {
+		// ParameterExpression<Brand> p = cb.parameter(Brand.class, "brand");
+		// predicate = cb.and(predicate,
+		// cb.equal(root.<Brand> get("brand"), p));
+		// }
 
 		if (material.getType() != null) {
 			ParameterExpression<MaterialTypeEnum> p = cb.parameter(
@@ -102,17 +102,6 @@ public class MaterialService extends GHAEJBExceptionService implements
 		}
 	}
 
-	@Override
-	public Material find(String Id) throws GHAEJBException {
-		try {
-			return em.find(Material.class, Id);
-		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: finding Material", e);
-			throw super.generateGHAEJBException("material-find-fail",
-					RuntimeParameters.getLang(), em);
-		}
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -138,9 +127,9 @@ public class MaterialService extends GHAEJBExceptionService implements
 				cQuery.where(criteria);
 				q = em.createQuery(cQuery);
 
-				if (entity.getBrand() != null) {
-					q.setParameter("brand", entity.getBrand());
-				}
+				// if (entity.getBrand() != null) {
+				// q.setParameter("brand", entity.getBrand());
+				// }
 
 				if (entity.getCode() != null) {
 					q.setParameter("code", entity.getCode());
@@ -170,6 +159,41 @@ public class MaterialService extends GHAEJBExceptionService implements
 			logger.log(Level.SEVERE,
 					"Error obteniendo los eiaTypes por eiatype", e);
 			throw super.generateGHAEJBException("eiaType-find-fail",
+					RuntimeParameters.getLang(), em);
+		}
+	}
+
+	@Override
+	public Material find(String Id) throws GHAEJBException {
+		try {
+			return em.find(Material.class, Id);
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: finding Material", e);
+			throw super.generateGHAEJBException("material-find-fail",
+					RuntimeParameters.getLang(), em);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.MaterialServiceRemote#findByBrand(org.fourgeeks
+	 * .gha.domain.gmh.Brand)
+	 */
+	@Override
+	public List<Material> findByBrand(Brand brand) throws GHAEJBException {
+		try {
+			// TODO
+
+			return null;
+			// return em.createNamedQuery("Material.findByBrand",
+			// Material.class)
+			// .setParameter("brand", brand).getResultList();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE,
+					"Error retrieving all Materials filtered by brand", ex);
+			throw super.generateGHAEJBException("material-findByBrand-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}
@@ -276,26 +300,6 @@ public class MaterialService extends GHAEJBExceptionService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update Material ", e);
 			throw super.generateGHAEJBException("material-update-fail",
-					RuntimeParameters.getLang(), em);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.ejb.gmh.MaterialServiceRemote#findByBrand(org.fourgeeks
-	 * .gha.domain.gmh.Brand)
-	 */
-	@Override
-	public List<Material> findByBrand(Brand brand) throws GHAEJBException {
-		try {
-			return em.createNamedQuery("Material.findByBrand", Material.class)
-					.setParameter("brand", brand).getResultList();
-		} catch (Exception ex) {
-			logger.log(Level.SEVERE,
-					"Error retrieving all Materials filtered by brand", ex);
-			throw super.generateGHAEJBException("material-findByBrand-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}
