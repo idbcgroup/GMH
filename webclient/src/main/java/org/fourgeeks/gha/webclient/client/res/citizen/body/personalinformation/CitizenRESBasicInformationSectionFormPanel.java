@@ -11,7 +11,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 
 import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.types.VisibilityMode;
-import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.HTMLFlow;
 import com.smartgwt.client.widgets.layout.SectionStack;
 import com.smartgwt.client.widgets.layout.SectionStackSection;
@@ -82,7 +81,7 @@ ClosableListener{
 		sectionStack.addSection(section4);
 
 		sectionForm.addSection(GHAStrings.get("basic-information"), sectionStack);
-		sectionForm.addSection(GHAStrings.get("relatives"), new Canvas());
+		//		sectionForm.addSection(GHAStrings.get("relatives"), new Canvas());
 
 		addMember(sectionForm);
 
