@@ -41,4 +41,5 @@ public interface EiaMaintenancePlanificationServiceRemote {
 	 */
 	public List<EiaMaintenancePlanification> find(EiaType eiaType)
 			throws GHAEJBException;
+
 }

@@ -20,6 +20,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.Activity;
+import org.fourgeeks.gha.domain.TimerParams;
 import org.fourgeeks.gha.domain.TransactionParams;
 import org.fourgeeks.gha.domain.conf.Parameter;
 import org.fourgeeks.gha.domain.conf.ParameterGroup;
@@ -1260,6 +1261,7 @@ public class InitialData {
 
 	private void testData() {
 		transactionParamsTestData();
+		timerParamsTestData();
 
 		ccdiTestData();
 		ccdiLevelDefinitionTestData();
@@ -1341,27 +1343,94 @@ public class InitialData {
 			try {
 				reader.close();
 			} catch (final IOException e1) {
-				logger.log(Level.SEVERE, "ERROR in UisTrings", e1);
+				logger.log(Level.SEVERE, "ERROR in TransactionParams", e1);
 			}
 			try {
 				in.close();
 			} catch (final IOException e1) {
-				logger.log(Level.SEVERE, "ERROR in UisTrings", e1);
+				logger.log(Level.SEVERE, "ERROR in TransactionParams", e1);
 			}
-			logger.log(Level.INFO, "error Reading file uistrings test data", e);
+			logger.log(Level.INFO,
+					"error Reading file TransactionParams test data", e);
 
 		} finally {
 			try {
 				if (reader != null)
 					reader.close();
 			} catch (final IOException e) {
-				logger.log(Level.SEVERE, "ERROR in UisTrings", e);
+				logger.log(Level.SEVERE, "ERROR in TransactionParams", e);
 			}
 			try {
 				if (in != null)
 					in.close();
 			} catch (final IOException e) {
-				logger.log(Level.SEVERE, "ERROR in UisTrings", e);
+				logger.log(Level.SEVERE, "ERROR in TransactionParams", e);
+			}
+		}
+	}
+
+	private void timerParamsTestData() {
+		InputStream in = null;
+		CSVReader reader = null;
+
+		try {
+			logger.info("creating TimerParams test data");
+			in = InitialData.class.getResourceAsStream("/timerParams.csv");
+			reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',');
+			final List<String[]> readAll = reader.readAll();
+			final Map<String, Boolean> words = new HashMap<String, Boolean>();
+
+			for (final String[] strings : readAll) {
+				final String code = strings[0];
+				if (code.startsWith("#") || code.startsWith("//"))
+					continue;
+				if (words.containsKey(code)) {
+					logger.info("Repeated key in timerParams: " + code);
+					continue;
+				}
+				words.put(code, true);
+
+				final TimerParams entity = new TimerParams();
+				entity.setCode(code);
+				entity.setJndiProcessorName(strings[1]);
+				entity.setSeconds(Integer.valueOf(strings[2]));
+				entity.setMinutes(Integer.valueOf(strings[3]));
+				entity.setHours(Integer.valueOf(strings[4]));
+				entity.setDays(Integer.valueOf(strings[5]));
+				entity.setYears(Integer.valueOf(strings[6]));
+				entity.setDuration(Integer.valueOf(strings[7]));
+				entity.setDurationPot(TimePeriodEnum.valueOf(strings[8]));
+
+				em.merge(entity);
+				em.flush();
+			}
+
+		} catch (final IOException e) {
+			try {
+				reader.close();
+			} catch (final IOException e1) {
+				logger.log(Level.SEVERE, "ERROR in TransactionParams", e1);
+			}
+			try {
+				in.close();
+			} catch (final IOException e1) {
+				logger.log(Level.SEVERE, "ERROR in TransactionParams", e1);
+			}
+			logger.log(Level.INFO,
+					"error Reading file TransactionParams test data", e);
+
+		} finally {
+			try {
+				if (reader != null)
+					reader.close();
+			} catch (final IOException e) {
+				logger.log(Level.SEVERE, "ERROR in TransactionParams", e);
+			}
+			try {
+				if (in != null)
+					in.close();
+			} catch (final IOException e) {
+				logger.log(Level.SEVERE, "ERROR in TransactionParams", e);
 			}
 		}
 	}

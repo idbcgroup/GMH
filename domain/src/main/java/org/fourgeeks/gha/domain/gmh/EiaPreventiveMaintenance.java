@@ -1,7 +1,5 @@
 package org.fourgeeks.gha.domain.gmh;
 
-import java.sql.Date;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -26,13 +24,6 @@ public class EiaPreventiveMaintenance extends EiaMaintenance {
 	@JoinColumn(name = "maintenancePlanificationFk", nullable = false)
 	private EiaMaintenancePlanification planification;
 
-	/**
-	 * Fecha programada para realizar el mantenimiento preventivo. es calculado
-	 * a partir de la fecha de inicio de la planificacion de mantenimiento y la
-	 * frecuencia del plan asociado a dicha planificación
-	 */
-	private Date scheduledDate;
-
 	// TODO lista de consumibles y partes cambiadas al equipo
 
 	/**
@@ -50,13 +41,6 @@ public class EiaPreventiveMaintenance extends EiaMaintenance {
 	}
 
 	/**
-	 * 
-	 */
-	public Date getScheduledDate() {
-		return scheduledDate;
-	}
-
-	/**
 	 * @param planification
 	 *            the planification to set
 	 */
@@ -64,10 +48,4 @@ public class EiaPreventiveMaintenance extends EiaMaintenance {
 		this.planification = planification;
 	}
 
-	/**
-	 * 
-	 */
-	public void setScheduledDate(Date scheduledDate) {
-		this.scheduledDate = scheduledDate;
-	}
 }

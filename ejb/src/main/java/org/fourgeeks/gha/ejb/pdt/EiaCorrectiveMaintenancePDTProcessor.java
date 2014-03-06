@@ -1,7 +1,7 @@
 package org.fourgeeks.gha.ejb.pdt;
 
 import java.sql.Timestamp;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.ServiceOrderState;
 import org.fourgeeks.gha.domain.ess.MaintenanceServiceOrder;
+import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
@@ -43,7 +44,7 @@ public class EiaCorrectiveMaintenancePDTProcessor implements PDTProcessor {
 
 	@Override
 	public void processMessage(HashMap<String, Object> params) {
-		long time = (new Date()).getTime();
+		long time = Calendar.getInstance().getTimeInMillis();
 
 		try {
 			Eia eia = (Eia) params.get("eia");
@@ -53,11 +54,14 @@ public class EiaCorrectiveMaintenancePDTProcessor implements PDTProcessor {
 			// se cambia el estado del equipo a dañado
 			eia.setState(EiaStateEnum.DAMAGED);
 			eia = eiaService.update(eia);
+			Bsp bsp = eia.getMaintenanceProvider();
 
 			// se crea el mantenimiento correctivo
 			EiaCorrectiveMaintenance cm = new EiaCorrectiveMaintenance();
 			cm.setDamageReport(report);
 			cm.setDescription(report.getDamageMotive());
+			cm.setProvider(bsp);
+			cm.setScheduledDate(new java.sql.Date(time));
 			cm = maintenanceService.saveCorrectiveMaintenance(cm);
 
 			// se crea la orden de servicio de mantenimiento
@@ -66,7 +70,7 @@ public class EiaCorrectiveMaintenancePDTProcessor implements PDTProcessor {
 			serviceOrder.setOpeningTimestamp(new Timestamp(time));
 			serviceOrder.setServiceOrderNumber("MSO0001");
 			serviceOrder.setState(ServiceOrderState.ACTIVE);
-			serviceOrder.setMaintenanceProvider(eia.getMaintenanceProvider());
+			serviceOrder.setMaintenanceProvider(bsp);
 			serviceOrder = serviceOrderService.save(serviceOrder);
 
 		} catch (Exception e) {
