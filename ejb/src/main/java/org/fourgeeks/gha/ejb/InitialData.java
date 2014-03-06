@@ -62,8 +62,6 @@ import org.fourgeeks.gha.domain.gar.Job;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
-import org.fourgeeks.gha.domain.glm.Material;
-import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -642,7 +640,7 @@ public class InitialData {
 		} catch (final NoResultException e) {
 			logger.info("Creating test data : facility");
 			final String facilityNames[] = { "Sala 1 Rayos X",
-					"Sala 1 Tomografía" };
+					"Sala 1 Tomografia" };
 			for (int i = 3, j = 0; i < 5; ++i, ++j) {
 				final Facility facility = new Facility();
 				facility.setName(facilityNames[j]);
@@ -948,19 +946,21 @@ public class InitialData {
 		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test data : material");
-				final String names[] = { "aguja", "sutura", "inyectadora",
-						"algodón", "alcohol" };
-				int i = 1;
-				for (final String name : names) {
-					final Material next = new Material();
-					next.setName(name);
-					next.setCode("material-test-00" + i);
-					next.setDescription(name);
-					next.setType(MaterialTypeEnum.values()[i % 3]);
-					next.setExternalCode("ex-code-00" + i);
-					i++;
-					em.persist(next);
-				}
+
+				// TODO
+				// final String names[] = { "aguja", "sutura", "inyectadora",
+				// "algodon", "alcohol" };
+				// int i = 1;
+				// for (final String name : names) {
+				// final Material next = new Material();
+				// next.setName(name);
+				// next.setCode("material-test-00" + i);
+				// next.setDescription(name);
+				// next.setType(MaterialTypeEnum.values()[i % 3]);
+				// next.setExternalCode("ex-code-00" + i);
+				// i++;
+				// em.persist(next);
+				// }
 			} catch (final Exception e1) {
 				logger.log(Level.INFO,
 						"error creating test data: external provider", e);

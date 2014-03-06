@@ -17,7 +17,7 @@ import org.fourgeeks.gha.domain.glm.MaterialBrand;
  */
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "eiaTypeFk",
-		"materialFk" }))
+		"materialBrandFk" }))
 @NamedQueries(value = { @NamedQuery(name = "EiaTypeMaterial.findByEiaType", query = "SELECT etm FROM EiaTypeMaterial etm WHERE etm.eiaType = :eiaType ORDER BY etm.id") })
 public class EiaTypeMaterial extends AbstractEntity {
 
