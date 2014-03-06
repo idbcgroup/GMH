@@ -8,12 +8,12 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
+import org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation.basicinformation.RESBasicInformationFormPanel;
+import org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation.emergencynotifier.RESEmergencyNotifierGridPanel;
+import org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation.personalcontacts.RESPersonalContactsGridPanel;
+import org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation.physicalfeatures.RESPhysicalFeaturesGridPanel;
 
-import com.smartgwt.client.types.Overflow;
-import com.smartgwt.client.types.VisibilityMode;
-import com.smartgwt.client.widgets.HTMLFlow;
-import com.smartgwt.client.widgets.layout.SectionStack;
-import com.smartgwt.client.widgets.layout.SectionStackSection;
+import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author jfuentes
@@ -21,16 +21,20 @@ import com.smartgwt.client.widgets.layout.SectionStackSection;
  */
 public class CitizenRESBasicInformationSectionFormPanel extends GHAFormLayout implements HideableListener,
 ClosableListener{
-	/**
-	 * 
-	 */
-	public GHALabel titleLabel;
-	/**
-	 * 
-	 */
-	public GHASectionForm sectionForm;
+
+	private final GHALabel titleLabel;
+
+	private GHASectionForm sectionForm;
+	private RESBasicInformationFormPanel basicInformationFormPanel;
+	private RESPhysicalFeaturesGridPanel physicalFeaturesGridPanel;
+	private RESPersonalContactsGridPanel personalContactsGridPanel;
+	private RESEmergencyNotifierGridPanel emergencyNotifierGridPanel;
 	{
 		sectionForm = new GHASectionForm(GHAStrings.get("citizen"));
+		basicInformationFormPanel = new RESBasicInformationFormPanel();
+		physicalFeaturesGridPanel = new RESPhysicalFeaturesGridPanel();
+		personalContactsGridPanel = new RESPersonalContactsGridPanel();
+		emergencyNotifierGridPanel = new RESEmergencyNotifierGridPanel();
 	}
 
 	/**
@@ -44,43 +48,47 @@ ClosableListener{
 		titleLabel = new GHALabel(GHAStrings.get("citizen-basic-information-title"));
 		addMember(titleLabel);
 
-		final HTMLFlow htmlFlow = new HTMLFlow();
-		htmlFlow.setOverflow(Overflow.AUTO);
-		htmlFlow.setPadding(10);
+		//		final HTMLFlow htmlFlow = new HTMLFlow();
+		//		htmlFlow.setOverflow(Overflow.AUTO);
+		//		htmlFlow.setPadding(10);
+		//
+		//		final String contents = "<b>Severity 1</b> - Critical problem<br>System is unavailable in production or "
+		//				+ "is corrupting data, and the error severely impacts the user's operations."
+		//				+ "<br><br><b>Severity 2</b> - Major problem<br>An important function of the system "
+		//				+ "is not available in production, and the user's operations are restricted.";
+		//
+		//		htmlFlow.setContents(contents);
+		//
+		//		final SectionStack sectionStack = new SectionStack();
+		//		sectionStack.setVisibilityMode(VisibilityMode.MULTIPLE);
+		//		sectionStack.setWidth100();
+		//		sectionStack.setHeight(400);
+		//
+		//		final SectionStackSection section1 = new SectionStackSection(GHAStrings.get("citizen-basic-information-title"));
+		//		section1.setExpanded(true);
+		//		section1.addItem(htmlFlow);
+		//		sectionStack.addSection(section1);
+		//
+		//		final SectionStackSection section2 = new SectionStackSection(GHAStrings.get("citizen-physical-features-title"));
+		//		section2.setExpanded(true);
+		//		section2.addItem(htmlFlow);
+		//		sectionStack.addSection(section2);
+		//
+		//		final SectionStackSection section3 = new SectionStackSection(GHAStrings.get("citizen-personal-contacts-title"));
+		//		section3.setExpanded(true);
+		//		section3.addItem(htmlFlow);
+		//		sectionStack.addSection(section3);
+		//
+		//		final SectionStackSection section4 = new SectionStackSection(GHAStrings.get("citizen-emergency-notify-title"));
+		//		section4.setExpanded(false);
+		//		section3.addItem(htmlFlow);
+		//		sectionStack.addSection(section4);
 
-		final String contents = "<b>Severity 1</b> - Critical problem<br>System is unavailable in production or "
-				+ "is corrupting data, and the error severely impacts the user's operations."
-				+ "<br><br><b>Severity 2</b> - Major problem<br>An important function of the system "
-				+ "is not available in production, and the user's operations are restricted.";
+		final VLayout informationLayout = new VLayout();
+		informationLayout.setWidth100();
+		informationLayout.addMembers(basicInformationFormPanel,physicalFeaturesGridPanel,personalContactsGridPanel,emergencyNotifierGridPanel);
 
-		htmlFlow.setContents(contents);
-
-		final SectionStack sectionStack = new SectionStack();
-		sectionStack.setVisibilityMode(VisibilityMode.MULTIPLE);
-		sectionStack.setWidth100();
-		sectionStack.setHeight(400);
-
-		final SectionStackSection section1 = new SectionStackSection(GHAStrings.get("citizen-basic-information-title"));
-		section1.setExpanded(true);
-		section1.addItem(htmlFlow);
-		sectionStack.addSection(section1);
-
-		final SectionStackSection section2 = new SectionStackSection(GHAStrings.get("citizen-physical-features-title"));
-		section2.setExpanded(true);
-		section2.addItem(htmlFlow);
-		sectionStack.addSection(section2);
-
-		final SectionStackSection section3 = new SectionStackSection(GHAStrings.get("citizen-personal-contacts-title"));
-		section3.setExpanded(true);
-		section3.addItem(htmlFlow);
-		sectionStack.addSection(section3);
-
-		final SectionStackSection section4 = new SectionStackSection(GHAStrings.get("citizen-emergency-notify-title"));
-		section4.setExpanded(false);
-		section3.addItem(htmlFlow);
-		sectionStack.addSection(section4);
-
-		sectionForm.addSection(GHAStrings.get("basic-information"), sectionStack);
+		sectionForm.addSection(GHAStrings.get("basic-information"), informationLayout);
 		//		sectionForm.addSection(GHAStrings.get("relatives"), new Canvas());
 
 		addMember(sectionForm);

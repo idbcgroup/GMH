@@ -10,7 +10,7 @@ import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 public class CitizenRESDemographicSubTab extends GHASubTab {
 
 	/**
-	 * @param title
+	 * 
 	 */
 	public CitizenRESDemographicSubTab() {
 		super(GHAStrings.get("demographic-information"));

@@ -171,7 +171,7 @@ body {
 	color: #666666;
 	font-size: 12px;
 	font-weight: bold;
-	text-transform: first-letter;
+	text-transform: capitalize;
 	line-height: 30px;
 	text-align: left;
 }
@@ -181,7 +181,7 @@ body {
 	color: #666666;
 	font-size: 12px;
 	font-weight: bold;
-	text-transform: first-letter;
+	text-transform: capitalize;
 	line-height: 30px;
 	text-align: left;
 }
@@ -198,14 +198,14 @@ body {
 .gha-alert-label{
 	font-weight: bold;
 	text-align: center;
-	text-transform: first-letter;
+	text-transform: capitalize;
 	margin:2px;	
 }
 .tab-header-title {
 	padding-left: 6px;
 	color: #666666;
 	font-size: 12px;
-	text-transform: first-letter;
+	text-transform: capitalize;
 	font-weight: bold;
 /* 	line-height: 25px; */
 	text-align: left;
@@ -215,7 +215,7 @@ body {
 	padding-left: 6px;
 	color: #666666;
 	font-size: 10px;
-	text-transform: first-letter;
+	text-transform: capitalize;
 	font-weight: bold;
 /* 	line-height: 25px; */
 	text-align: left;
@@ -335,33 +335,33 @@ input[type="text"]:disabled,.inputDisabled {
 	font-weight: bold;
 	color: black;
 	font-size: 14px;
-	text-transform: first-letter;
+	text-transform: capitalize;
 }
 
 .gha-medium-title-label {
 	font-weight: bold;
 	color: #008EFE;
 	font-size: 12px;
-	text-transform: first-letter;
+	text-transform: capitalize;
 }
 
 .gha-small-title-label {
 	font-weight: bold;
 	color: #008EFE;
 	font-size: 11px;
-	text-transform: first-letter;
+	text-transform: capitalize;
 }
 
 .gha-medium-text-label {
 	color: black;
 	font-size: 12px;
-	text-transform: first-letter;
+	text-transform: capitalize;
 }
 
 .gha-small-text-label {
 	color: black;
 	font-size: 11px;
-	text-transform: first-letter;
+	text-transform: capitalize;
 }
 
 .iconTopPadding {
@@ -405,14 +405,14 @@ input[type=text].round,input[type=password].round {
 	color: #000000 !important;
 	padding: 3px 7px !important;
 	font-size: small !important;
-	text-transform: first-letter;
+	text-transform: capitalize;
 }
 
 .tabButtonTopDown, .tabButtonTopOver {
 	color: #00A0F6 !important;
 	padding: 3px 7px !important;
 	font-size: small !important;
-	text-transform: first-letter;
+	text-transform: capitalize;
 }
 
 .tabButtonTopSelected, .tabButtonTopSelectedOver, .tabButtonTopSelectedDown  {
@@ -421,7 +421,7 @@ input[type=text].round,input[type=password].round {
 	color: #00A0F6 !important;
 	padding: 3px 7px !important;
 	font-size: small !important;
-	text-transform: first-letter;
+	text-transform: capitalize;
 }
 
 .tabBarTop {
@@ -566,7 +566,7 @@ table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFile
 	text-align: left;
 	font-weight: bolder;
 	margin-right: 5px;
-	text-transform: first-letter;
+	text-transform: capitalize;
 }
 
 .side-option {
@@ -574,13 +574,13 @@ table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFile
 	text-align: left;
 	cursor: pointer;
 	margin-right: 5px;
-	text-transform: first-letter;
+	text-transform: capitalize;
 }
 
 .side-option-over {
 	font-weight: bold;
 	background-color: #CECECE;
-	text-transform: first-letter;
+	text-transform: capitalize;
 }
 
 .side-option-selected {
@@ -588,7 +588,7 @@ table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFile
 	background-image: url(../icons/arrow.png);
 	background-position: right center;
 	background-repeat: no-repeat;
-	text-transform: first-letter;
+	text-transform: capitalize;
 }
 
 div#header-bar.header-bar div#user-info.user-info div#isc_HLayout_0_wrapper div#isc_0.user-info div#isc_1 div#isc_5.button-pointer div#isc_4 img

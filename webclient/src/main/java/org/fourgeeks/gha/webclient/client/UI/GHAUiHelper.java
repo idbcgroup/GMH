@@ -194,9 +194,17 @@ public abstract class GHAUiHelper {
 	 */
 	public static final int DEFAULT_TAB_SET_HEIGHT = 30;
 	/**
-	 * the default height for the pation top component
+	 * the default height for the patient top component.
 	 */
 	public static final int DEFAULT_PATIENT_TOP_HEIGHT = 72;
+	/**
+	 * the default height for the patient basic information.
+	 */
+	public static final int DEFAULT_PATIENT_BASIC_INFO_HEIGHT = 180;
+	/**
+	 * the default height for the patient extra information.
+	 */
+	public static final int DEFAULT_PATIENT_MINIGRID_HEIGHT = 120;
 	/**
 	 * a blank space
 	 */
