@@ -55,36 +55,36 @@ import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
  * 
  */
 public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
-EiaSelectionProducer {
+		EiaSelectionProducer {
 	private GHATextItem codeTextItem, serialTextItem, fixedAssetIdTextItem,
-	purchaseOrderNumTextItem, purchaseInvoiceNumTextItem,
-	workingAreaLocationCodeTextItem, facilityLocationCodeTextItem,
-	adquisitionCostTextItem, adquisitionCostLocalTextItem,
-	depreciationTimeTextItem, lifeTimeTextItem, actualCostTextItem,
-	realWarrantyTimeTextItem, intWarrantyTimeTextItem;
+			purchaseOrderNumTextItem, purchaseInvoiceNumTextItem,
+			workingAreaLocationCodeTextItem, facilityLocationCodeTextItem,
+			adquisitionCostTextItem, adquisitionCostLocalTextItem,
+			depreciationTimeTextItem, lifeTimeTextItem, actualCostTextItem,
+			realWarrantyTimeTextItem, intWarrantyTimeTextItem;
 	// codeMant_WarrMant_TextItem;
 	private GHASelectItem obuSelectItem, baseRoleSelectItem, stateSelectItem,
-	adqisitionProviderSelectItem, locationTypeSelectItem,
-	workingAreaLocationSelectItem, facilityLocationSelectItem,
-	adquisitionCostCurrencySelectItem,
-	adquisitionCostCurrencyLocalSelectItem,
-	depreciationMethodSelectItem, actualCostCurrencySelectItem,
-	realWarrantySinceSelectItem, intWarrantySinceSelectItem,
-	// maintenanceLocationSelectItem,
-	eiaTypeSelectItem, installationProviderSelectItem;
+			adqisitionProviderSelectItem, locationTypeSelectItem,
+			workingAreaLocationSelectItem, facilityLocationSelectItem,
+			adquisitionCostCurrencySelectItem,
+			adquisitionCostCurrencyLocalSelectItem,
+			depreciationMethodSelectItem, actualCostCurrencySelectItem,
+			realWarrantySinceSelectItem, intWarrantySinceSelectItem,
+			// maintenanceLocationSelectItem,
+			eiaTypeSelectItem, installationProviderSelectItem;
 	private GHATitletextItem information_TitleItem, adquisition_TitleItem,
-	location_TitleItem, workingArea_TitleItem, facility_TitleItem,
-	adqCost_TitleItem, actualCost_TitleItem, depTime_TitleItem,
-	lifeTime_TitleItem, realWarranty_TitleItem,
-	intermedWarranty_TitleItem, providers_TitleItem;
+			location_TitleItem, workingArea_TitleItem, facility_TitleItem,
+			adqCost_TitleItem, actualCost_TitleItem, depTime_TitleItem,
+			lifeTime_TitleItem, realWarranty_TitleItem,
+			intermedWarranty_TitleItem, providers_TitleItem;
 	private GHADateItem acceptationDateItem, purchaseDateItem,
-	purchaseInvoiceDateItem, purchaseOrderDateItem, receptionDateItem,
-	installationDateItem, contabilizationDateItem,
-	lastDepreciationDate, realWarrantyBeginDate, intWarrantyBeginDate;
+			purchaseInvoiceDateItem, purchaseOrderDateItem, receptionDateItem,
+			installationDateItem, contabilizationDateItem,
+			lastDepreciationDate, realWarrantyBeginDate, intWarrantyBeginDate;
 	// private GHACheckboxItem sameLocationAttendedItem, isInMaintenanceItem;
 	private GHAPeriodOfTimeSelectItem depreciationTimePotSelectItem,
-	lifeTimePotSelectItem, intWarrantyPotSelectItem,
-	realWarrantyPotSelectItem;
+			lifeTimePotSelectItem, intWarrantyPotSelectItem,
+			realWarrantyPotSelectItem;
 	private GHABspSelectItem maintenanceProviderSelectItem;
 	private GHASectionForm sectionForm;
 	private final GHADynamicForm infoBasicaForm;
@@ -812,7 +812,8 @@ EiaSelectionProducer {
 		// --------------------------------------------------------------------
 
 		// VALIDANDO LOS DATOS
-		final Set<ConstraintViolation<Eia>> violations = validator.validate(eia);
+		final Set<ConstraintViolation<Eia>> violations = validator
+				.validate(eia);
 
 		if (infoBasicaForm.validate() && adquisicionForm.validate()
 				&& ubicacionForm.validate() && costosForm.validate()
@@ -820,11 +821,11 @@ EiaSelectionProducer {
 			return eia;
 		} else {
 
-			for (final Iterator<ConstraintViolation<Eia>> it = violations.iterator(); it
-					.hasNext();) {
+			for (final Iterator<ConstraintViolation<Eia>> it = violations
+					.iterator(); it.hasNext();) {
 				violationsList.add(it.next().getMessage());
 			}
-			//			GHAAlertManager.alert(violationsList);
+			// GHAAlertManager.alert(violationsList);
 			GHAAlertManager.alert(violationsList.get(0));
 		}
 		return null;
@@ -832,16 +833,16 @@ EiaSelectionProducer {
 
 	private void fillAdquisitionSelects() {
 		GHACache.INSTANCE
-		.getExternalProviders(new GHAAsyncCallback<List<ExternalProvider>>() {
-			@Override
-			public void onSuccess(List<ExternalProvider> result) {
-				final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for (final ExternalProvider entity : result)
-					valueMap.put(entity.getId() + "", entity
-							.getInstitution().getName() + "");
-				adqisitionProviderSelectItem.setValueMap(valueMap);
-			}
-		});
+				.getExternalProviders(new GHAAsyncCallback<List<ExternalProvider>>() {
+					@Override
+					public void onSuccess(List<ExternalProvider> result) {
+						final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+						for (final ExternalProvider entity : result)
+							valueMap.put(entity.getId() + "", entity
+									.getInstitution().getName() + "");
+						adqisitionProviderSelectItem.setValueMap(valueMap);
+					}
+				});
 	}
 
 	// private DynamicForm getEquiposIT() {
@@ -914,20 +915,20 @@ EiaSelectionProducer {
 
 	private void fillLocationsSelects() {
 		GHACache.INSTANCE
-		.getWorkingAreas(new GHAAsyncCallback<List<WorkingArea>>() {
-			@Override
-			public void onSuccess(List<WorkingArea> result) {
-				final LinkedHashMap<String, String> valueMapWorkingArea = new LinkedHashMap<String, String>();
+				.getWorkingAreas(new GHAAsyncCallback<List<WorkingArea>>() {
+					@Override
+					public void onSuccess(List<WorkingArea> result) {
+						final LinkedHashMap<String, String> valueMapWorkingArea = new LinkedHashMap<String, String>();
 
-				for (final WorkingArea entity : result) {
-					valueMapWorkingArea.put(entity.getId() + "",
-							entity.getName());
-				}
+						for (final WorkingArea entity : result) {
+							valueMapWorkingArea.put(entity.getId() + "",
+									entity.getName());
+						}
 
-				workingAreaLocationSelectItem
-				.setValueMap(valueMapWorkingArea);
-			}
-		});
+						workingAreaLocationSelectItem
+								.setValueMap(valueMapWorkingArea);
+					}
+				});
 		GHACache.INSTANCE.getFacilities(new GHAAsyncCallback<List<Facility>>() {
 			@Override
 			public void onSuccess(List<Facility> result) {
@@ -970,19 +971,21 @@ EiaSelectionProducer {
 		// }
 		// });
 
-		GHACache.INSTANCE
-		.getExternalProviders(new GHAAsyncCallback<List<ExternalProvider>>() {
-			@Override
-			public void onSuccess(List<ExternalProvider> result) {
-				final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for (final ExternalProvider entity : result) {
-					valueMap.put(entity.getId() + "", entity
-							.getInstitution().getName() + "");
-				}
-				maintenanceProviderSelectItem.setValueMap(valueMap);
-				installationProviderSelectItem.setValueMap(valueMap);
-			}
-		});
+		// GHACache.INSTANCE
+		// .getExternalProviders(new GHAAsyncCallback<List<ExternalProvider>>()
+		// {
+		// @Override
+		// public void onSuccess(List<ExternalProvider> result) {
+		// final LinkedHashMap<String, String> valueMap = new
+		// LinkedHashMap<String, String>();
+		// for (final ExternalProvider entity : result) {
+		// valueMap.put(entity.getId() + "", entity
+		// .getInstitution().getName() + "");
+		// }
+		// maintenanceProviderSelectItem.setValueMap(valueMap);
+		// installationProviderSelectItem.setValueMap(valueMap);
+		// }
+		// });
 	}
 
 	/**
@@ -1012,7 +1015,8 @@ EiaSelectionProducer {
 	 * @return
 	 */
 	private GHADynamicForm getCostosForm() {
-		final GHADynamicForm res = new GHADynamicForm(4, FormType.SECTIONFORM_FORM);
+		final GHADynamicForm res = new GHADynamicForm(4,
+				FormType.SECTIONFORM_FORM);
 
 		res.setItems(adqCost_TitleItem, adquisitionCostTextItem,
 				adquisitionCostCurrencySelectItem, contabilizationDateItem,
@@ -1223,7 +1227,7 @@ EiaSelectionProducer {
 		if (eia.getWorkingArea() != null) {
 			workingAreaLocationSelectItem.setDisabled(false);
 			workingAreaLocationSelectItem
-			.setValue(eia.getWorkingArea().getId());
+					.setValue(eia.getWorkingArea().getId());
 			workingAreaLocationCodeTextItem.setValue(eia.getWorkingArea()
 					.getId());
 			locationTypeSelectItem.setValue("0");
