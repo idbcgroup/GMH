@@ -302,22 +302,6 @@ public abstract class GHAUiHelper {
 	}
 
 	/**
-	 * @return the height for the bottom section
-	 */
-	public static int getRESBodyHeight() {
-		final int biggerTabHeight = getPanelHeight();
-		final int innerTopSection = DEFAULT_PATIENT_TOP_HEIGHT
-				+ 25;
-
-		final int ret = biggerTabHeight - innerTopSection;
-		if (ret < MIN_RES_BODY_HEIGHT) {
-			return MIN_RES_BODY_HEIGHT;
-		} else {
-			return ret;
-		}
-	}
-
-	/**
 	 * @param extrasHeight
 	 * @return the height of the grid.
 	 */
@@ -347,14 +331,14 @@ public abstract class GHAUiHelper {
 				return MIN_NORMAL_FORM_WIDTH;
 			else
 				return ret;
-		} else if(type == FormType.SECTIONFORM_FORM){
+		} else if (type == FormType.SECTIONFORM_FORM) {
 			ret = rootPanelWidth - (SECTION_FORM_OPTION_WIDTH + 50)
 					- extraSpace;
 			if (ret < MIN_SECTIONFORM_FORM_WIDTH)
 				return MIN_SECTIONFORM_FORM_WIDTH;
 			else
 				return ret;
-		}else{
+		} else {
 			ret = rootPanelWidth - (SECTION_FORM_OPTION_WIDTH + 50)
 					- extraSpace;
 			if (ret < MIN_SECTIONFORM_MINIFORM_WIDTH)
@@ -389,6 +373,21 @@ public abstract class GHAUiHelper {
 		final int ret = tabHeight - MENU_BAR_HEIGTH;
 		if (ret < MIN_PANEL_HEIGHT) {
 			return MIN_PANEL_HEIGHT;
+		} else {
+			return ret;
+		}
+	}
+
+	/**
+	 * @return the height for the bottom section
+	 */
+	public static int getRESBodyHeight() {
+		final int biggerTabHeight = getPanelHeight();
+		final int innerTopSection = DEFAULT_PATIENT_TOP_HEIGHT + 25;
+
+		final int ret = biggerTabHeight - innerTopSection;
+		if (ret < MIN_RES_BODY_HEIGHT) {
+			return MIN_RES_BODY_HEIGHT;
 		} else {
 			return ret;
 		}

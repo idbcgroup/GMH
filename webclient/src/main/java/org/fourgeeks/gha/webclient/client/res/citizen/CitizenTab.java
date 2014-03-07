@@ -59,6 +59,8 @@ public class CitizenTab extends GHATab {
 
 					@Override
 					public void onSuccess(Citizen citizen) {
+						header.setContents(citizen.getFirstName() + " "
+								+ citizen.getFirstLastName());
 						top.onCitizenSelect(citizen);
 						body.onCitizenSelect(citizen);
 					}
