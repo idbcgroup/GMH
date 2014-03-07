@@ -24,7 +24,6 @@ ClosableProducer, HideableProducer, HideableListener {
 
 	/**
 	 * @param title
-	 * @param tab
 	 */
 	public GHASubTab(String title) {
 		setTitle(title);

@@ -49,6 +49,7 @@ public class UploadXLSHttpServlet extends UploadAction {
 		if (session.getAttribute(ATTR_ARCHIVOS) == null)
 			session.setAttribute(ATTR_ARCHIVOS, new ArrayList<String>());
 
+		@SuppressWarnings("unchecked")
 		List<String> xls = (List<String>) session
 				.getAttribute(ATTR_ARCHIVOS);
 
@@ -87,8 +88,6 @@ public class UploadXLSHttpServlet extends UploadAction {
 					response += "Filem saved as: " + file.getAbsolutePath();
 					
 					DataLoader dl = new DataLoader(file);
-					TableServiceImpl.list = dl.getList();
-					TableServiceImpl.columns = dl.getColumns();
 
 				} catch (Exception e) {
 					throw new UploadActionException(e);

@@ -16,14 +16,10 @@ import com.smartgwt.client.types.Overflow;
  * 
  */
 public class RESBasicInformationFormPanel extends GHAVerticalLayout implements
-		CitizenSelectionListener {
+CitizenSelectionListener {
 
 	private final CitizenForm citizenForm = new CitizenForm();
 
-	// private final RESBpuBasicInformationForm bpuForm = new
-	// RESBpuBasicInformationForm();
-	// private final RESCitizenParentBasicInformationForm parentForm = new
-	// RESCitizenParentBasicInformationForm();
 	/**
 	 * 
 	 */
@@ -34,13 +30,13 @@ public class RESBasicInformationFormPanel extends GHAVerticalLayout implements
 		// setHeight(GHAUiHelper.DEFAULT_PATIENT_BASIC_INFO_HEIGHT);
 		// setMaxHeight(GHAUiHelper.DEFAULT_PATIENT_BASIC_INFO_HEIGHT);
 		// setBorder("1px solid #666666");
+		setMembersMargin(5);
 		setOverflow(Overflow.AUTO);
 		// setBackgroundColor("cyan");
 		citizenForm.setHeight(150);
 		final GHALabel title = new GHALabel(
 				GHAStrings.get("citizen-basic-information-title")).colored();
-		addMembers(title, citizenForm/* ,bpuForm, parentForm */,
-				new RESPhysicalFeaturesGridPanel(),
+		addMembers(title, citizenForm,
 				new RESPhysicalFeaturesGridPanel(),
 				new RESPersonalContactsGridPanel(),
 				new RESEmergencyNotifierGridPanel());

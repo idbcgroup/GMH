@@ -13,25 +13,31 @@ ejb/bin/**
 webclient/bin/**
 domain/bin/**
 ear/bin/**
+dbadmin/bin/**
 
 ejb/target/**
 webclient/target/**
 domain/target/**
 ear/target/**
+dbadmin/target/**
 
 ejb/.settings/**
 webclient/.settings/**
 domain/.settings/**
 ear/.settings/**
+dbadmin/.settings/**
 
 ejb/.classpath
 webclient/.classpath
 domain/.classpath
 ear/.classpath
+dbadmin/.classpath
 
 ejb/.project
 webclient/.project
 domain/.project
 ear/.project
+dbadmin/.project
+
 /build
 /bin
