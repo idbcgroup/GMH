@@ -16,6 +16,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.DataGrid;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -36,12 +37,12 @@ public class CRUDApp implements EntryPoint {
 	DockLayoutPanel mainPanel;
 	HorizontalPanel selectTablePanel;
 	LayoutPanel tablePanel;
-	DataGrid<GHARecord<String>> dataGrid;
-	DataGrid<GHARecord<String>> popupGrid;
+	DataGrid<GHARecord> dataGrid;
+	DataGrid<GHARecord> popupGrid;
 	
 	GHARecordTable table;
 	
-	GHARecord<String> entry;
+	GHARecord entry;
 	
 	Label selectTableLabel;
 	TextBox selectTableBox;
@@ -55,39 +56,40 @@ public class CRUDApp implements EntryPoint {
 	
 	public DBServiceAsync service;
 	
-	public void editEntry(GHARecord<String> record) {
+	public void editEntry(GHARecord record) {
 		entryPopupPanel.center();
-		ArrayList<GHARecord<String>> list = new ArrayList<GHARecord<String>>();
+		ArrayList<GHARecord> list = new ArrayList<GHARecord>();
 		list.add(record);
 		entry = record;
 		popupGrid.setRowData(list);
 	}
 	
-	public void build(GHARecordTable table) {
+	public void build(final GHARecordTable table) {
+		table.setTableName(selectTableBox.getText());
 		for (int i = 0; i < table.getColumns().size(); i++) {
 			final int index = i;
-			Column<GHARecord<String>, String> textCol = new Column<GHARecord<String>, String>(new TextCell()){
+			Column<GHARecord, String> textCol = new Column<GHARecord, String>(new TextCell()){
 	
 				@Override
-				public String getValue(GHARecord<String> object) {
+				public String getValue(GHARecord object) {
 					// TODO Auto-generated method stub
-					return object.get(index);
+					return object.getList().get(index);
 				}};
 			dataGrid.addColumn(textCol, table.getColumns().get(i));
 			dataGrid.setColumnWidth(i, "100px");
 		}
 		
-		Column<GHARecord<String>, String> buttonCol = new Column<GHARecord<String>, String>(new ButtonCell()){
+		Column<GHARecord, String> buttonCol = new Column<GHARecord, String>(new ButtonCell()){
 
 			@Override
-			public String getValue(GHARecord<String> object) {
+			public String getValue(GHARecord object) {
 				// TODO Auto-generated method stub
 				return "Edit";
 			}};
-		buttonCol.setFieldUpdater(new FieldUpdater<GHARecord<String>, String>() {
+		buttonCol.setFieldUpdater(new FieldUpdater<GHARecord, String>() {
 
 			@Override
-			public void update(int index, GHARecord<String> object, String value) {
+			public void update(int index, GHARecord object, String value) {
 				editEntry(object);
 			}});
 		dataGrid.addColumn(buttonCol, "Buttons");
@@ -95,25 +97,25 @@ public class CRUDApp implements EntryPoint {
 		
 		dataGrid.setRowData(table.getRecords());
 		
-		popupGrid = new DataGrid<GHARecord<String>>();
+		popupGrid = new DataGrid<GHARecord>();
 		
 		for (int i = 0; i < table.getColumns().size(); i++) {
 			final int index = i;
-			Column<GHARecord<String>, String> textCol = new Column<GHARecord<String>, String>(new TextInputCell()){
+			Column<GHARecord, String> textCol = new Column<GHARecord, String>(new TextInputCell()){
 	
 				@Override
-				public String getValue(GHARecord<String> object) {
+				public String getValue(GHARecord object) {
 					// TODO Auto-generated method stub
-					return object.get(index);
+					return object.getList().get(index);
 				}};
 			popupGrid.addColumn(textCol, table.getColumns().get(i));
 			popupGrid.setColumnWidth(i, "200px");
-			textCol.setFieldUpdater(new FieldUpdater<GHARecord<String>, String>() {
+			textCol.setFieldUpdater(new FieldUpdater<GHARecord, String>() {
 
 				@Override
-				public void update(int index, GHARecord<String> object,
+				public void update(int index, GHARecord object,
 						String value) {
-					object.set(index, value);
+					object.getList().set(index, value);
 				}});
 		}
 		
@@ -126,7 +128,18 @@ public class CRUDApp implements EntryPoint {
 			@Override
 			public void onClick(ClickEvent event) {
 				entryPopupPanel.hide();
-				//TODO update db
+				service.addRecord(entry, table, new AsyncCallback<Void>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Void result) {
+						Window.alert("Succesful");
+					}});
 			}});
 		popupLayoutPanel.addSouth(popupCloseButton, 3);
 		popupLayoutPanel.add(popupGrid);
@@ -139,7 +152,7 @@ public class CRUDApp implements EntryPoint {
 		
 		service = GWT.create(DBService.class);
 		
-		dataGrid = new DataGrid<GHARecord<String>>();
+		dataGrid = new DataGrid<GHARecord>();
 		//dataGrid.setMinimumTableWidth(140, Unit.EM);
 		
 		mainPanel = new DockLayoutPanel(Unit.EM);
@@ -158,7 +171,7 @@ public class CRUDApp implements EntryPoint {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				GHARecord<String> record = new GHARecord<String>();
+				GHARecord record = new GHARecord();
 				for(int i = 0; i < table.getColumns().size(); i++)
 					record.add("");
 				editEntry(record);

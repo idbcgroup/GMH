@@ -15,23 +15,26 @@ public class DBServiceImpl extends RemoteServiceServlet implements DBService {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private Connection connect() throws ClassNotFoundException, SQLException {
+		Class.forName("org.postgresql.Driver");
+		return DriverManager.getConnection("jdbc:postgresql://localhost:5432/gha", "postgres", "postgres");
+	}
 
 	@Override
 	public GHARecordTable getTable(String table, String schema) {
 		try {
-			Class.forName("org.postgresql.Driver");
-			Connection con =
-					DriverManager.getConnection("jdbc:postgresql://localhost:5432/gha", "postgres", "postgres");
-			Statement stm = con.createStatement();
+			Statement stm = connect().createStatement();
 			ResultSet rs = stm.executeQuery("SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '" + table + "' ORDER BY ordinal_position");
 			GHARecordTable rt = new GHARecordTable();
+			rt.setTableName(table);
 			while(rs.next()) {
 				String tmp = rs.getString("column_name");
 				rt.getColumns().add(tmp);
 			}
 			rs = stm.executeQuery("SELECT * FROM " + table);
 			while(rs.next()) {
-				GHARecord<String> record = new GHARecord<String>();
+				GHARecord record = new GHARecord();
 				for(int i = 0; i < rt.getColumns().size(); i++) {
 					String tmp = rs.getString(rt.getColumns().get(i));
 					record.add(tmp);
@@ -46,6 +49,15 @@ public class DBServiceImpl extends RemoteServiceServlet implements DBService {
 		return null;
 	}
 	
+	@Override
+	public void addRecord(GHARecord record, GHARecordTable table) {
+		try {
+			Statement stm = connect().createStatement();
+			stm.execute(table.getQuery(record));
+		} catch (Exception e) {
+			
+		}
+	}
 	
 
 }
