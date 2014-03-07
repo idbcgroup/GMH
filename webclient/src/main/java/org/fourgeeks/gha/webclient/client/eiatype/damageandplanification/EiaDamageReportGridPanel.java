@@ -25,6 +25,7 @@ import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelecti
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionProducer;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -49,7 +50,7 @@ public class EiaDamageReportGridPanel extends VLayout implements
 		searchForm = new EIADamageAndPlanificationSearchForm(
 				GHAStrings.get("search-eia"));
 		addForm = new EIADamageReportAddForm();
-		addForm.addEiaDamageReportSelectionListener(this);
+		// addForm.addEiaDamageReportSelectionListener(this);
 
 		searchForm.addEiaSelectionListener(new EIASelectionListener() {
 			@Override
@@ -111,6 +112,7 @@ public class EiaDamageReportGridPanel extends VLayout implements
 				new GHAAsyncCallback<List<Eia>>() {
 					@Override
 					public void onSuccess(List<Eia> result) {
+						Window.alert("tamaño del grid: " + result.size());
 						List<EIARecord> gridRecords = EIAUtil
 								.toGridRecords(result);
 						EIARecord[] array = gridRecords
