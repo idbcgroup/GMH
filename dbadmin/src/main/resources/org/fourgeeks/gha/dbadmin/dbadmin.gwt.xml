@@ -33,7 +33,6 @@
 	
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>
-  <source path='model'/>
   <source path='shared'/>
 
   <!-- allow Super Dev Mode -->

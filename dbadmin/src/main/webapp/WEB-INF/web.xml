@@ -28,7 +28,7 @@
   <servlet>
     <servlet-name>uploadServlet</servlet-name>
     <!-- This is the default servlet, it puts files in session -->
-    <servlet-class>org.fourgeeks.dbadmin.server.UploadXLSHttpServlet</servlet-class>
+    <servlet-class>org.fourgeeks.gha.dbadmin.server.UploadXLSHttpServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>uploadServlet</servlet-name>
@@ -37,12 +37,22 @@
   
   <servlet>
     <servlet-name>tableServiceImpl</servlet-name>
-    <servlet-class>org.fourgeeks.dbadmin.server.TableServiceImpl</servlet-class>
+    <servlet-class>org.fourgeeks.gha.dbadmin.server.TableServiceImpl</servlet-class>
   </servlet>
 
   <servlet-mapping>
     <servlet-name>tableServiceImpl</servlet-name>
     <url-pattern>/dbadmin/tableService</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>dbServiceImpl</servlet-name>
+    <servlet-class>org.fourgeeks.gha.dbadmin.server.DBServiceImpl</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>dbServiceImpl</servlet-name>
+    <url-pattern>/dbadmin/dbService</url-pattern>
   </servlet-mapping>
 
 </web-app>
