@@ -1,12 +1,23 @@
 package org.fourgeeks.gha.webclient.client.eiatype.damageandplanification;
 
+import java.util.Date;
+
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 
-public class EIAMaintenancePlanificationGrid extends
-		GhaGrid<EiaDamageReport> {
+import com.google.gwt.i18n.client.DateTimeFormat;
+import com.smartgwt.client.widgets.grid.CellFormatter;
+import com.smartgwt.client.widgets.grid.ListGridRecord;
 
+/**
+ * @author naramirez
+ */
+public class EIAMaintenancePlanificationGrid extends GhaGrid<EiaDamageReport> {
+
+	/**
+	 * 
+	 */
 	public EIAMaintenancePlanificationGrid() {
 		setEmptyMessage("No existen Equipos con Planificaciones de Mantenimiento Preventivo para mostrar");
 
@@ -19,5 +30,18 @@ public class EIAMaintenancePlanificationGrid extends
 
 		setFields(idGridField, planGridField, eiaCodeGridField,
 				initDateGridField);
+
+		initDateGridField.setCellFormatter(new CellFormatter() {
+			@Override
+			public String format(Object value, ListGridRecord record,
+					int rowNum, int colNum) {
+				if (value != null) {
+					Date dateValue = (Date) value;
+					return DateTimeFormat.getFormat("dd/MM/yyyy").format(
+							dateValue);
+				}
+				return "";
+			}
+		});
 	}
 }

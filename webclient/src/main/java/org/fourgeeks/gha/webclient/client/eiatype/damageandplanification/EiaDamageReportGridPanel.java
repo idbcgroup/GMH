@@ -37,7 +37,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class EiaDamageReportGridPanel extends VLayout implements
 		EIATypeSelectionListener, EiaDamageReportSelectionProducer,
-		HideableListener, ClosableListener {
+		EiaDamageReportSelectionListener, HideableListener, ClosableListener {
 
 	private EIAGrid grid;
 	private EIADamageAndPlanificationSearchForm searchForm;
@@ -49,6 +49,7 @@ public class EiaDamageReportGridPanel extends VLayout implements
 		searchForm = new EIADamageAndPlanificationSearchForm(
 				GHAStrings.get("search-eia"));
 		addForm = new EIADamageReportAddForm();
+		addForm.addEiaDamageReportSelectionListener(this);
 
 		searchForm.addEiaSelectionListener(new EIASelectionListener() {
 			@Override
@@ -156,5 +157,10 @@ public class EiaDamageReportGridPanel extends VLayout implements
 
 	@Override
 	public void notifyEiaDamageReport(EiaDamageReport eiaDamageReport) {
+	}
+
+	@Override
+	public void select(EiaDamageReport eiaDamageReport) {
+		loadData();
 	}
 }

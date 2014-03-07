@@ -18,7 +18,6 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.EiaMaintenanceState;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.MaintenanceCancelationCause;
-import org.fourgeeks.gha.domain.enu.MaintenancePlanificationType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.glm.Bsp;
@@ -56,8 +55,6 @@ public abstract class EiaMaintenance extends AbstractEntity {
 	private EiaStateEnum finalEiaState;
 	private Date deliverDate;
 	private Date acceptationDate;
-
-	private MaintenancePlanificationType type;
 
 	/**
 	 * 
@@ -261,40 +258,43 @@ public abstract class EiaMaintenance extends AbstractEntity {
 	}
 
 	/**
-	 * @return the type
+	 * @return
 	 */
-	public MaintenancePlanificationType getType() {
-		return type;
-	}
-
-	/**
-	 * @param type
-	 *            the type to set
-	 */
-	public void setType(MaintenancePlanificationType type) {
-		this.type = type;
-	}
-
 	public MaintenanceCancelationCause getCancelationCause() {
 		return cancelationCause;
 	}
 
+	/**
+	 * @param cancelationCause
+	 */
 	public void setCancelationCause(MaintenanceCancelationCause cancelationCause) {
 		this.cancelationCause = cancelationCause;
 	}
 
+	/**
+	 * @return cancelationResponsable
+	 */
 	public Bpu getCancelationResponsable() {
 		return cancelationResponsable;
 	}
 
+	/**
+	 * @param cancelationResponsable
+	 */
 	public void setCancelationResponsable(Bpu cancelationResponsable) {
 		this.cancelationResponsable = cancelationResponsable;
 	}
 
+	/**
+	 * @return nextMantenanceExecutionDate
+	 */
 	public Date getNextMantenanceExecutionDate() {
 		return nextMantenanceExecutionDate;
 	}
 
+	/**
+	 * @param nextMantenanceExecutionDate
+	 */
 	public void setNextMantenanceExecutionDate(Date nextMantenanceExecutionDate) {
 		this.nextMantenanceExecutionDate = nextMantenanceExecutionDate;
 	}

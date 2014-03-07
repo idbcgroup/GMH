@@ -8,6 +8,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
+import org.fourgeeks.gha.domain.ess.MaintenanceServiceOrder;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenance;
@@ -36,6 +37,15 @@ public class GWTEiaMaintenanceServiceImpl extends RemoteServiceServlet
 
 		List<EiaMaintenance> resultList = serviceRemote.find(eiaType);
 		return resultList;
+	}
+
+	@Override
+	public MaintenanceServiceOrder findServiceOrder(
+			EiaMaintenance eiaMaintenance) throws GHAEJBException {
+
+		MaintenanceServiceOrder serviceOrder = serviceRemote
+				.findServiceOrder(eiaMaintenance);
+		return serviceOrder;
 	}
 
 	@Override
@@ -73,4 +83,5 @@ public class GWTEiaMaintenanceServiceImpl extends RemoteServiceServlet
 				.updatePreventiveMaintenance(entity);
 		return updatedEntity;
 	}
+
 }
