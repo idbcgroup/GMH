@@ -1,7 +1,7 @@
 ES,type,Tipo
 ES,user-error-date-invalido, Debe introducir una fecha valida
 ES,eia-tooltip-type, Debe seleccionar un tipo de equipo
-ES,eia-tooltip-code, El codigo es un identificador para el equipo
+ES,eia-tooltip-code, El código es un identificador para el equipo
 ES,eia-tooltip-serial, Debe agregar el serial del equipo
 ES,eia-tooltip-fixed-asset-identifier, Debe agregar el identificador activo
 ES,eia-tooltip-obu, Debe seleccionar el departamento responsable
@@ -11,24 +11,24 @@ ES,eia-tooltip-adquisition-provider, Debe seleccionar el proveedor del equipo
 ES,eia-tooltip-maintenance-provider, Debe seleccionar el proveedor de mantenimiento
 ES,eia-tooltip-fecha-compra, Debe seleccionar o introducir la fecha en que se compro el equipo
 ES,eia-tooltip-orden-compra, Debe agregar el numero de orden de compra del equipo
-ES,eia-tooltip-provider-inst, Debe seleccionar el proveedor de la institucion
+ES,eia-tooltip-provider-inst, Debe seleccionar el proveedor de la institución
 ES,eia-tooltip-date-orden-compra, Debe seleccionar o introducir la fecha de orden de compra
-ES,eia-tooltip-date-reception, Debe seleccionar o introducir la fecha de recepcion del equipo
-ES,eia-tooltip-date-aceptacion, Debe seleccionar o introducir la fecha de Aceptacion
-ES,eia-tooltip-date-installation, Debe seleccionar o introducir la fecha de instalacion del equipo
-ES,eia-tooltip-date-factura, Debe seleccionar o introducir la fecha de Facturacion del equipo
+ES,eia-tooltip-date-reception, Debe seleccionar o introducir la fecha de recepción del equipo
+ES,eia-tooltip-date-aceptacion, Debe seleccionar o introducir la fecha de Aceptación
+ES,eia-tooltip-date-installation, Debe seleccionar o introducir la fecha de instalación del equipo
+ES,eia-tooltip-date-factura, Debe seleccionar o introducir la fecha de Facturación del equipo
 ES,eia-tooltip-orden-factura, Debe introducir el numero de la factura
-ES,eia-tooltip-type-location, Debe seleccionar el tipo de localizacion
+ES,eia-tooltip-type-location, Debe seleccionar el tipo de localización
 ES,eia-tooltip-working-area-select, Debe seleccionar el nombre del area de trabajo
-ES,eia-tooltip-code-working-area-select, Codigo del area de trabajo
-ES,eia-tooltip-facility-service-select, Debe seleccionar el nombre del servicio o instalacion
-ES,eia-tooltip-facility-service-code, Codigo del servicio o instalacion
-ES,eiatype-type-tooltip, Debe Seleccionar la categoria del equipo
-ES,eiatype-subtype-tooltip, Debe Seleccionar la subcategoria del equipo
+ES,eia-tooltip-code-working-area-select, Código del area de trabajo
+ES,eia-tooltip-facility-service-select, Debe seleccionar el nombre del servicio o instalación
+ES,eia-tooltip-facility-service-code, Código del servicio o instalación
+ES,eiatype-type-tooltip, Debe Seleccionar la categoría del equipo
+ES,eiatype-subtype-tooltip, Debe Seleccionar la subcategoría del equipo
 ES,eiatype-mobility-tooltip, Debe Seleccionar la movilidad del tipo de equipo
 ES,eiatype-manufacturer-tooltip, Debe Seleccionar el fabricante
 ES,eiatype-brand-tooltip, Debe Seleccionar la marca del tipo de equipo
-ES,eiatype-description-tooltip, Debe agregar una descripcion breve del tipo de equipo
+ES,eiatype-description-tooltip, Debe agregar una descripción breve del tipo de equipo
 ES,eiatype-use-description-tooltip, Debe agregar el uso del tipo de equipo
 ES,user-tooltip-first-name, Agregue su primer nombre Ejemplo Pedro
 ES,user-tooltip-second-name, Agregue su segundo nombre Ejemplo Jose
@@ -36,20 +36,20 @@ ES,user-tooltip-last-name, Agregue su primer apellido Ejemplo Gonzales
 ES,user-tooltip-secondlast-name, Agregue su segundo apellido Ejemplo Barboza
 ES,user-tooltip-identification, Puede agregar cedula o pasaporte entre otros Ejemplo V-18722506 
 ES,user-tooltip-email, Agregue su correo Ejemplo: ejemplo@correo.com 
-ES,user-tooltip-email-secundario, Agregue su correo alternativo Ejemplo alternativocorreo.com 
+ES,user-tooltip-email-secundario, Agregue su correo alternativo Ejemplo alternativocorreo@correo.com 
 ES,user-tooltip-genero, Debe seleccionar un genero Ejemplo masculino o femenino 
 ES,user-tooltip-birthdate, Debe seleccionar o introducir una fecha 
-ES,user-tooltip-institution, Debe seleccionar una institucion
+ES,user-tooltip-institution, Debe seleccionar una institución
 ES,user-tooltip-rif, Debe agregar el rif Ejemplo J-1234567
-ES,user-tooltip-tipo-id, Debe seleccionar el tipo de identificacion
+ES,user-tooltip-tipo-id, Debe seleccionar el tipo de identificación
 ES,user-tooltip-nacionalidad, Debe agregar la nacionalidad
 ES,user-name-tooltip, Agregue su nombre de Usuario Ejemplo Analista
 ES,user-password-tooltip, Agregue su clave de Usuario Ejemplo 123456
 ES,user-confirm-password-tooltip, Confirme su clave
-ES,user-date-error-formatter, error de formato dia introducido invalido
+ES,user-date-error-formatter, error de formato día introducido invalido
 ES,user-error-formatter,error de formato solo se permite letras
 ES,user-error-formatter-rif,error de formato
-ES,user-error-formatter-identification,error de formato solo debe agregar numeros o letras sin tilde ni caracteres especiales
+ES,user-error-formatter-identification,error de formato solo debe agregar números o letras sin tilde ni caracteres especiales
 ES,record,registro
 ES,eia,Equipo
 ES,records,registros
@@ -70,10 +70,10 @@ ES,select,Seleccionar
 ES,edit,Editar
 ES,birth,nacimiento
 ES,birthdate,Fecha de nacimiento
-ES,materials-category,Categorias de materiales
+ES,materials-category,Categorías de materiales
 ES,new-material,Nuevo material
 ES,utility-services,Servicios utilitarios
-ES,external-code,Codigo externo
+ES,external-code,Código externo
 ES,materials,Materiales
 ES,name,Nombre
 ES,mail,Correo
@@ -147,7 +147,7 @@ ES,bpi,Institución
 ES,maintenance,Mantenimiento
 ES,maintenance-plans,Planes de mantenimiento
 ES,no-results-to-show,No hay resultados para mostrar
-ES,maitenance-plan-search,Busqueda de Planes de Mantenimiento
+ES,maitenance-plan-search,Búsqueda de Planes de Mantenimiento
 ES,frecuency,Frecuencia
 ES,period-of-time,Periodo de tiempo
 ES,eiastate-created,Creados
@@ -215,14 +215,14 @@ ES,total-cost,Costo total
 ES,emh,Historia médica
 ES,gender,sexo
 ES,city,ciudad
-ES,age,edad
+ES,age,Edad
 ES,document-type,tipo de documento
 ES,document-number,número de documento
-ES,diagnosis,Diágnostico
-ES,main-diagnosis,diágnostico principal
+ES,diagnosis,Diagnóstico
+ES,main-diagnosis,diagnóstico principal
 ES,weight,peso
 ES,height,altura
-ES,btype,g. sanguineo
+ES,btype,g. sanguíneo
 ES,bsa,bsa
 ES,bmi,bmi
 ES,new-encounter,nuevo encuentro
@@ -253,7 +253,7 @@ ES,estimated-time,Tiempo estimado
 ES,estimated-cost,Costo estimado
 ES,last-effectuated-by,Ultimo efectuado por
 ES,protocol-activities,Actividades del protocolo
-ES,maintenance-plan-stadistics,Estadisticas del plan de mantenimiento 
+ES,maintenance-plan-stadistics,Estadísticas del plan de mantenimiento 
 ES,copy,Copiar
 ES,cost,Costo
 ES,warranty-state,Estado de garantía
@@ -266,7 +266,7 @@ ES,category,Categoría
 ES,subcategory,Subcategoría
 ES,created,Creado
 ES,deleted,Eliminado
-ES,logistic,Logistica
+ES,logistic,Logística
 ES,operations,Operaciones
 ES,administrative,Administrativa
 ES,system,Sistema
@@ -282,18 +282,18 @@ ES,new-message-received,Nuevo Mensaje Recibido
 ES,confirm,Confirmación
 ES,bsp,Proveedor de Servicio
 ES,eiatype-name-tooltip, El campo del nombre especifica el nombre del tipo del equipo solo puede contener letras
-ES,eiatype-model-tooltip, El campo del modelo especifica el modelo del tipo de equipo solo puede contener letras numeros o guiones
+ES,eiatype-model-tooltip, El campo del modelo especifica el modelo del tipo de equipo solo puede contener letras números o guiones
 ES,maintenance-plan-name-tooltip,Este campo asigna el nombre al plan de mantenimiento Solo puede contener letras Ej Plan de Mantenimiento
 ES,maintenance-plan-frequency-tooltip,Este campo asigna la frecuencia con la que se realiza el mantenimiento Ej 48
-ES,maintenance-plan-description-tooltip, Este campo especifica la descripcion del plan de mantenimiento
-ES,res,registro de salud
+ES,maintenance-plan-description-tooltip, Este campo especifica la descripción del plan de mantenimiento
+ES,res,Registro de Salud
 ES,citizen-search,buscar ciudadano
 ES,citizen-new,nuevo ciudadano
 ES,user-password,Confirmar Clave
 ES,user-email-primary,Email Primario
 ES,user-email-second,Email Secundario
 ES,user-type-id,Tipo ID
-ES,user-identification,No. Identificiación
+ES,user-identification,No. Identificación
 ES,user-genero,Género
 ES,user-nacionalidad,Nacionalidad
 ES,user-institution,Institución
@@ -326,16 +326,16 @@ ES,eia-costo-adquiriencia,Costo de Adq. del equipo
 ES,eia-moneda,Moneda
 ES,eia-date-contabilizacion,Fecha de Contabilización
 ES,eia-costo-adq,Costo de Adq. Local
-ES,eia-metodo-depreciacion,Metodo Depreciación
+ES,eia-metodo-depreciacion,Método Depreciación
 ES,eia-moneda-local,Moneda Local
 ES,eia-duracion,Duración
 ES,eia-fecha-ultma-depreciacion,Fecha Ult. Depreciación
 ES,eia-costo-actual-libros,Costo Actual en libros
 ES,formatter-error-words,Error de formato solo se permiten letras
-ES,formatter-error-numbers,Error de formato solo se permiten numeros
-ES,formatter-error-alphanumeric,Error de formato solo se permiten letras numeros o guiones
-ES,formatter-error-serial,Error de formato solo se permiten letras numeros o guiones
-ES,formatter-error-codes,Error de formato solo se permiten letras y numeros
+ES,formatter-error-numbers,Error de formato solo se permiten números
+ES,formatter-error-alphanumeric,Error de formato solo se permiten letras números o guiones
+ES,formatter-error-serial,Error de formato solo se permiten letras números o guiones
+ES,formatter-error-codes,Error de formato solo se permiten letras y números
 ES,subprotocol-activities,Actividades del subprotocolo
 ES,report-and-planification,Reporte y Planificación
 ES,service-and-resource,Servicios y recursos
@@ -354,3 +354,13 @@ ES,resource-delete-confirm,¿Esta seguro que desea eliminar el recurso?
 ES,resources-delete-confirm,¿Esta seguro que desea eliminar los recursos?
 ES,autogen-field,Autogenerado
 ES,maintenance-technician,Tecnico de mantenimiento
+ES,citizen,Ciudadano
+ES,citizens,Ciudadanos
+ES,relative,Familiar
+ES,relatives,Familiares
+ES,citizen-basic-information-title,Información básica del Ciudadano
+ES,citizen-familiar-basic-information-title,Información básica del familiar
+ES,citizen-physical-features-title,Características físicas
+ES,citizen-personal-contacts-title,Contactos personales
+ES,citizen-emergency-notify-title,Notificar en caso de emergencia
+ES,notifications-and-alarms,Notificaciones y alarmas

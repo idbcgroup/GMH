@@ -6,16 +6,17 @@ import com.smartgwt.client.widgets.Label;
  * @author alacret
  * 
  */
-public class GHATextLabel extends Label {
+public class GHATitleLabelSmallSize extends Label {
 	/**
 	 * @param title
 	 */
-	public GHATextLabel(String title) {
+	public GHATitleLabelSmallSize(String title) {
 		super();
 		setContents(title);
-		setHeight("25px");
+		setHeight("20px");
 		setAutoFit(true);
-		setStyleName("gha-text-label");
+		setWrap(false);
+		setStyleName("gha-small-title-label");
 	}
 
 	/**
@@ -23,8 +24,8 @@ public class GHATextLabel extends Label {
 	 * 
 	 * @return the label with the style bold added
 	 */
-	public GHATextLabel bold() {
-		addStyleName("bold");
+	public GHATitleLabelSmallSize bold() {
+		setStyleName("gha-small-title-label bold");
 		return this;
 	}
 }

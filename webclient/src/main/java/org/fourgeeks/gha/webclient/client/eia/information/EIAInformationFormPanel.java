@@ -41,7 +41,7 @@ ClosableListener {
 	public EIAInformationFormPanel() {
 		super();
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
+		final VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
 
 					@Override
@@ -55,7 +55,7 @@ ClosableListener {
 					}
 				}));
 
-		HLayout gridPanel = new HLayout();
+		final HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMember(gridPanel);
@@ -149,6 +149,7 @@ ClosableListener {
 
 	@Override
 	public void notifyEia(Eia eia) {
+		//TODO:
 	}
 
 	/*

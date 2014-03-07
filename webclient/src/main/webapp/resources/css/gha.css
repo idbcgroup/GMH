@@ -1,18 +1,15 @@
 * {
 	padding: 0px;
 	margin: 0px;
-	font-size: small;
+	font-size: 12px;
 	font-family: Helvetica !important;
-}
-.margin{
-	margin-right:10px;
 }
 b {
 	font-weight: normal !important;
 }
 
 body {
-	background-color: #F2F2F2;
+	background-color: #F4F4F4;
 	min-width: 1024px;
 	min-height: 768px;
  	overflow: scroll; 
@@ -21,7 +18,7 @@ body {
 #main-content {
 	width: 100%;
  	height: 100%; 
-	background-color: #F2F2F2;
+	background-color: #F4F4F4;
 	min-height: 678px;
 	min-width: 1024px;
 }
@@ -34,7 +31,7 @@ body {
 .header-bar {
 	width: 100%;
 	height: 60px;
-	background-color: #F2F2F2;
+	background-color: #F4F4F4;
 	min-width: 1024px;
 }
 
@@ -70,6 +67,7 @@ body {
 	font-size: 12px;
 	text-align: right;
 	font-weight: bold;
+	text-transform: capitalize;
 }
 
 .user-notifications-button {
@@ -99,13 +97,13 @@ body {
 	width: 100%;
 	height: 30px;
 	/*background-image: url(../img/fondo-menu.jpeg);*/
-	background-color: #E0E0DF;
+	background-color: #E0E0E0;
 	/*background-repeat: repeat-x;	*/
 	min-width: 1024px;
 }
 
 .white-background {
-	background-color: #F2F2F2;
+	background-color: #F4F4F4;
 }
 
 /*.footer-bar{
@@ -167,6 +165,7 @@ body {
 	text-transform: uppercase;
 	/*line-height: 30px;*/
 	text-align: center;
+	margin-left: 5px;
 }
 .panel-header-title {
 	padding-left: 6px;
@@ -194,21 +193,24 @@ body {
 /* } */
 
 .gha-tab-set{
+	width: 100%;
 	height: 30px;
+	background-color: #ECECEC;
+	min-width: 1024px;
 /* 	margin-bottom: 2px; */
 }
 .gha-alert-label{
-font-weight: bold;
-text-align: center;
-margin:2px;	
+	font-weight: bold;
+	text-align: center;
+	text-transform: capitalize;
+	margin:2px;	
 }
 .tab-header-title {
 	padding-left: 6px;
 	color: #666666;
 	font-size: 12px;
-	text-transform:capitalize;
+	text-transform: capitalize;
 	font-weight: bold;
-/* 	text-transform: capitalize; */
 /* 	line-height: 25px; */
 	text-align: left;
 /* 	margin-top: 5px; */
@@ -217,9 +219,8 @@ margin:2px;
 	padding-left: 6px;
 	color: #666666;
 	font-size: 10px;
-	text-transform:capitalize;
+	text-transform: capitalize;
 	font-weight: bold;
-/* 	text-transform: capitalize; */
 /* 	line-height: 25px; */
 	text-align: left;
 /* 	margin-top: 5px; */
@@ -270,7 +271,7 @@ margin:2px;
 /* Form  Items */
 .gha-form-cell,.gha-form-cellDisabled,.gha-form-cellFocused,.gha-form-cellError
 	{
-	padding: 0px 10px 5px 0px;
+	padding: 0px 5px 5px 0px;
 }
 
 .required,.requiredError,.requiredFocused {
@@ -341,16 +342,29 @@ input[type="text"]:disabled,.inputDisabled {
 	text-transform: capitalize;
 }
 
-.gha-title-label {
+.gha-medium-title-label {
 	font-weight: bold;
 	color: #008EFE;
 	font-size: 12px;
 	text-transform: capitalize;
 }
 
-.gha-text-label {
+.gha-small-title-label {
+	font-weight: bold;
+	color: #008EFE;
+	font-size: 11px;
+	text-transform: capitalize;
+}
+
+.gha-medium-text-label {
 	color: black;
 	font-size: 12px;
+	text-transform: capitalize;
+}
+
+.gha-small-text-label {
+	color: black;
+	font-size: 11px;
 	text-transform: capitalize;
 }
 
@@ -394,25 +408,28 @@ input[type=text].round,input[type=password].round {
 .tabButtonTop {
 	color: #000000 !important;
 	padding: 3px 7px !important;
-	font-size: small !important;
+	font-size: 12px !important;
+	text-transform: capitalize;
 }
 
 .tabButtonTopDown, .tabButtonTopOver {
 	color: #00A0F6 !important;
 	padding: 3px 7px !important;
-	font-size: small !important;
+	font-size: 12px !important;
+	text-transform: capitalize;
 }
 
 .tabButtonTopSelected, .tabButtonTopSelectedOver, .tabButtonTopSelectedDown  {
 	background-color: #F4F4F4 !important;
-	background-image: none;
+	background-image: none !important;
 	color: #00A0F6 !important;
 	padding: 3px 7px !important;
-	font-size: small !important;
+	font-size: 12px !important;
+	text-transform: capitalize;
 }
 
 .tabBarTop {
-	background-color: #cbcbcb;
+	background-color: #E0E0E0;
 }
 
 /*//////////////////// */
@@ -529,6 +546,12 @@ table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFile
 	margin-right: 10px;
 }
 
+.margin-items {
+	margin-left: 10px;
+/* 	margin-top: 3px; */
+/* 	margin-bottom: 3px; */
+}
+
 .top-8 {
 	top: 8px;
 }
@@ -542,16 +565,26 @@ table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFile
 	font-weight: bold;
 }
 
+.side-option-main {
+	height: 10px;
+	text-align: left;
+	font-weight: bolder;
+	margin-right: 5px;
+	text-transform: capitalize;
+}
+
 .side-option {
 	height: 10px;
 	text-align: left;
 	cursor: pointer;
 	margin-right: 5px;
+	text-transform: capitalize;
 }
 
 .side-option-over {
-	font-weight: bolder;
+	font-weight: bold;
 	background-color: #CECECE;
+	text-transform: capitalize;
 }
 
 .side-option-selected {
@@ -559,10 +592,11 @@ table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFile
 	background-image: url(../icons/arrow.png);
 	background-position: right center;
 	background-repeat: no-repeat;
+	text-transform: capitalize;
 }
 
 div#header-bar.header-bar div#user-info.user-info div#isc_HLayout_0_wrapper div#isc_0.user-info div#isc_1 div#isc_5.button-pointer div#isc_4 img
-	{
+{
 	cursor: pointer;
 }
 

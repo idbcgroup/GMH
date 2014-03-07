@@ -49,8 +49,8 @@ import com.google.gwt.event.logical.shared.ResizeEvent;
  * 
  */
 public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
-		EiaMaintenanceSelectionListener, EIATypeSelectionListener,
-		EiaMaintenanceSelectionProducer {
+EiaMaintenanceSelectionListener, EIATypeSelectionListener,
+EiaMaintenanceSelectionProducer {
 
 	private List<EiaMaintenanceSelectionListener> listeners;
 	private EiaMaintenance selectedMaintenance;
@@ -62,7 +62,7 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 	private final GHADynamicForm maintenanceTypeForm;
 
 	private final GHATitletextItem preventiveMaintenance_TitleItem,
-			correctiveMaintenance_TitleItem;
+	correctiveMaintenance_TitleItem;
 	private GHATextItem idNumberTextItem;
 	private GHATextItem requestNumberTextItem;
 	private GHABspSelectItem providerSelectItem;
@@ -72,7 +72,7 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 	private GHATextItem effectiveTimeTextItem;
 	private GHAPeriodOfTimeSelectItem effectivePoTSelectItem;
 	private GHAEiaStateSelectItem initialEiaStateSelectItem,
-			finalEiaStateSelectItem;
+	finalEiaStateSelectItem;
 	private GHASelectItem maintenanceStatusSelectItem;
 	private GHAMaintenancePlanSelectItem maintenacePlanSelectItem;
 	private GHATextAreaItem failureDescriptionTextAreaItem;
@@ -85,7 +85,7 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 
 	{
 		formIsActive = true;
-		sectionForm = new GHASectionForm();
+		sectionForm = new GHASectionForm(GHAStrings.get("maintenance"));
 		listeners = new ArrayList<EiaMaintenanceSelectionListener>();
 
 		idNumberTextItem = new GHATextItem("Numero de informe", false);
@@ -265,10 +265,10 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 	 */
 	private EiaMaintenance extractMaintenance() {
 
-		EiaMaintenance entity = selectedMaintenance;
+		final EiaMaintenance entity = selectedMaintenance;
 
 		// datos para cualquier mantenimiento
-		String mStatus = maintenanceStatusSelectItem.getValueAsString();
+		final String mStatus = maintenanceStatusSelectItem.getValueAsString();
 		entity.setState(mStatus == null ? null : EiaMaintenanceState
 				.valueOf(mStatus));
 
@@ -285,14 +285,14 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 			entity.setTechnician(technician);
 		}
 
-		String requestNumber = requestNumberTextItem.getValueAsString();
+		final String requestNumber = requestNumberTextItem.getValueAsString();
 		entity.setRequestNumber(requestNumber);
 
-		String initialState = initialEiaStateSelectItem.getValueAsString();
+		final String initialState = initialEiaStateSelectItem.getValueAsString();
 		entity.setInitialEiaState(initialState == null ? null : EiaStateEnum
 				.valueOf(initialState));
 
-		String finalState = finalEiaStateSelectItem.getValueAsString();
+		final String finalState = finalEiaStateSelectItem.getValueAsString();
 		entity.setFinalEiaState(finalState == null ? null : EiaStateEnum
 				.valueOf(finalState));
 
@@ -304,11 +304,11 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 				finishDateItem.getValueAsLogicalDate(),
 				finishTimeItem.getValueAsLogicalTime()));
 
-		String effectiveTime = effectiveTimeTextItem.getValueAsString();
+		final String effectiveTime = effectiveTimeTextItem.getValueAsString();
 		if (effectiveTime != null)
 			entity.setEffectiveTime(Integer.valueOf(effectiveTime));
 
-		String pot = effectivePoTSelectItem.getValueAsString();
+		final String pot = effectivePoTSelectItem.getValueAsString();
 		entity.setEffectivePoT(pot == null ? null : TimePeriodEnum.valueOf(pot));
 
 		entity.setDeliverDate(EIAUtil.getLogicalDate(deliverDateItem
@@ -319,7 +319,7 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 
 		// datos para mantenimiento correctivo
 		if (entity instanceof EiaCorrectiveMaintenance) {
-			EiaCorrectiveMaintenance cEntity = (EiaCorrectiveMaintenance) entity;
+			final EiaCorrectiveMaintenance cEntity = (EiaCorrectiveMaintenance) entity;
 
 			cEntity.setEstimatedMaintenance(Integer
 					.valueOf(estimatedMaintenanceTimeTextItem
@@ -344,7 +344,7 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 
 	@Override
 	public void notifyEiaMaintenance(EiaMaintenance entity) {
-		for (EiaMaintenanceSelectionListener listener : listeners)
+		for (final EiaMaintenanceSelectionListener listener : listeners)
 			listener.select(entity);
 	}
 
@@ -408,15 +408,15 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 		acceptationDateItem.setValue(entity.getAcceptationDate());
 		effectiveTimeTextItem.setValue(entity.getEffectiveTime());
 
-		TimePeriodEnum effectivePoT = entity.getEffectivePoT();
+		final TimePeriodEnum effectivePoT = entity.getEffectivePoT();
 		effectivePoTSelectItem.setValue(effectivePoT == null ? null
 				: effectivePoT.name());
 
-		EiaStateEnum finalEiaState = entity.getFinalEiaState();
+		final EiaStateEnum finalEiaState = entity.getFinalEiaState();
 		finalEiaStateSelectItem.setValue(finalEiaState == null ? null
 				: finalEiaState.name());
 
-		EiaMaintenanceState status = entity.getState();
+		final EiaMaintenanceState status = entity.getState();
 		maintenanceStatusSelectItem.setValue(status == null ? null : status
 				.name());
 
@@ -424,7 +424,7 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 		technicianSelectItem.setValue(jobResponsable == null ? null
 				: jobResponsable.getId());
 
-		Bsp maintenanceProvider = entity.getProvider();
+		final Bsp maintenanceProvider = entity.getProvider();
 		providerSelectItem.setValue(maintenanceProvider == null ? null
 				: maintenanceProvider.getId());
 
@@ -457,8 +457,8 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 					.getEstimatedMaintenancePoT());
 		failureDescriptionTextAreaItem.setValue(entity.getDescription());
 
-		EiaDamageReport damageReport = entity.getDamageReport();
-		Eia eia = damageReport.getEia();
+		final EiaDamageReport damageReport = entity.getDamageReport();
+		final Eia eia = damageReport.getEia();
 
 		setInitialEiaState(entity, eia);
 	}
@@ -472,9 +472,9 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 	 *            the Eia entity with the state
 	 */
 	private void setInitialEiaState(EiaMaintenance entity, Eia eia) {
-		EiaStateEnum initialEiaState = entity.getInitialEiaState();
+		final EiaStateEnum initialEiaState = entity.getInitialEiaState();
 		if (initialEiaState == null) {
-			EiaStateEnum eiaState = eia.getState();
+			final EiaStateEnum eiaState = eia.getState();
 			initialEiaStateSelectItem.setValue(eiaState == null ? null
 					: eiaState.name());
 		} else {
@@ -487,8 +487,8 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 	 * @param entity
 	 */
 	private void setPreventiveMaintenance(EiaPreventiveMaintenance entity) {
-		EiaMaintenancePlanification planification = entity.getPlanification();
-		EiaTypeMaintenancePlan plan = planification.getPlan();
+		final EiaMaintenancePlanification planification = entity.getPlanification();
+		final EiaTypeMaintenancePlan plan = planification.getPlan();
 
 		setInitialEiaState(entity, planification.getEia());
 
@@ -562,7 +562,7 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 	@Override
 	public void update(final GHAAsyncCallback<EiaMaintenance> callback) {
 
-		EiaMaintenance maintenance = extractMaintenance();
+		final EiaMaintenance maintenance = extractMaintenance();
 		if (maintenance == null)
 			return;
 
@@ -580,17 +580,17 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 
 		EiaMaintenanceModel.updateCorrectiveMaintenance(entity,
 				new GHAAsyncCallback<EiaCorrectiveMaintenance>() {
-					@Override
-					public void onSuccess(EiaCorrectiveMaintenance result) {
-						hasUnCommittedChanges = false;
-						notifyEiaMaintenance(entity);
-						clear();
+			@Override
+			public void onSuccess(EiaCorrectiveMaintenance result) {
+				hasUnCommittedChanges = false;
+				notifyEiaMaintenance(entity);
+				clear();
 
-						if (callback != null) {
-							callback.onSuccess(entity);
-						}
-					}
-				});
+				if (callback != null) {
+					callback.onSuccess(entity);
+				}
+			}
+		});
 	}
 
 	private void update(final GHAAsyncCallback<EiaMaintenance> callback,
@@ -598,17 +598,17 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 
 		EiaMaintenanceModel.updatePreventiveMaintenance(entity,
 				new GHAAsyncCallback<EiaPreventiveMaintenance>() {
-					@Override
-					public void onSuccess(final EiaPreventiveMaintenance result) {
-						hasUnCommittedChanges = false;
-						notifyEiaMaintenance(entity);
-						clear();
+			@Override
+			public void onSuccess(final EiaPreventiveMaintenance result) {
+				hasUnCommittedChanges = false;
+				notifyEiaMaintenance(entity);
+				clear();
 
-						if (callback != null) {
-							callback.onSuccess(entity);
-						}
-					}
-				});
+				if (callback != null) {
+					callback.onSuccess(entity);
+				}
+			}
+		});
 	}
 
 }

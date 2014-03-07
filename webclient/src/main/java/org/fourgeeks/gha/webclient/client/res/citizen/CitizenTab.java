@@ -1,13 +1,18 @@
 package org.fourgeeks.gha.webclient.client.res.citizen;
 
+import org.fourgeeks.gha.domain.mix.Citizen;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
-import org.fourgeeks.gha.webclient.client.res.citizen.body.CitizenRESBodyForm;
-import org.fourgeeks.gha.webclient.client.res.citizen.top.CitizenRESTopForm;
+import org.fourgeeks.gha.webclient.client.citizen.CitizenModel;
+import org.fourgeeks.gha.webclient.client.res.citizen.body.CitizenRESInternalTabSet;
+import org.fourgeeks.gha.webclient.client.res.citizen.top.CitizenRESTopInformationview;
 
 import com.google.gwt.user.client.History;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author alacret
@@ -16,6 +21,12 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 public class CitizenTab extends GHATab {
 
 	private final String patientId;
+	private CitizenRESTopInformationview top;
+	private CitizenRESInternalTabSet body;
+	{
+		top = new CitizenRESTopInformationview();
+		body = new CitizenRESInternalTabSet();
+	}
 
 	/**
 	 * @param citizenId
@@ -23,7 +34,6 @@ public class CitizenTab extends GHATab {
 	 */
 	public CitizenTab(final String citizenId) {
 		this.patientId = citizenId;
-		setBackgroundColor("cyan");
 		header = new GHATabHeader(this);
 		header.addClickHandler(new ClickHandler() {
 
@@ -32,9 +42,27 @@ public class CitizenTab extends GHATab {
 				History.newItem("res/" + citizenId);
 			}
 		});
-		addMember(new CitizenRESTopForm());
-		addMember(new CitizenRESBodyForm());
 
+		final VLayout verticalLayout = new VLayout();
+		verticalLayout.addMember(top);
+		verticalLayout.addMember(body);
+
+		final HLayout bodyLayout = new HLayout();
+		bodyLayout.addMember(verticalLayout);
+
+		bodyLayout.addMember(new CitizenTabTools());
+
+		addMember(bodyLayout);
+
+		CitizenModel.find(Long.valueOf(citizenId),
+				new GHAAsyncCallback<Citizen>() {
+
+					@Override
+					public void onSuccess(Citizen citizen) {
+						top.onCitizenSelect(citizen);
+						body.onCitizenSelect(citizen);
+					}
+				});
 	}
 
 	@Override
@@ -43,13 +71,13 @@ public class CitizenTab extends GHATab {
 	}
 
 	@Override
-	public void search() {
-
+	public String getTitleForHeader() {
+		return "Patient : " + patientId;
 	}
 
 	@Override
-	public String getTitleForHeader() {
-		return "Patient : " + patientId;
+	public void search() {
+		// TODO:
 	}
 
 }

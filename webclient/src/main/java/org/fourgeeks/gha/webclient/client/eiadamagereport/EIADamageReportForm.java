@@ -93,7 +93,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	private Eia eia;
 
 	{ // Global
-		sectionForm = new GHASectionForm();
+		sectionForm = new GHASectionForm(GHAStrings.get("reports"));
 		listeners = new ArrayList<EiaDamageReportSelectionListener>();
 
 		// report data Form Items
@@ -185,7 +185,6 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		reportForm = getReportForm();
 
 		sectionForm.addSection("Información Básica", infoBasicaForm);
-		sectionForm.addSectionSeparator();
 		sectionForm.addSection("Garantias", garantiasForm);
 		sectionForm.addSection("Ubicación", ubicacionForm);
 		sectionForm.addSection("Datos Reporte", reportForm);

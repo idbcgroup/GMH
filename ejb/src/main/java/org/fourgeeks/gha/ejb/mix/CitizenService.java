@@ -222,13 +222,12 @@ public class CitizenService extends GHAEJBExceptionService implements
 	 * @see org.fourgeeks.gha.ejb.mix.CitizenServiceRemote#find(long)
 	 */
 	@Override
-	public Citizen find(long Id) throws GHAEJBException {
+	public Citizen find(long id) throws GHAEJBException {
 		try {
-			return em.find(Citizen.class, Id);
+			return em.find(Citizen.class, id);
 		} catch (final Exception e) {
-			logger.log(Level.INFO, "ERROR: finding Citizen", e);
-			throw super.generateGHAEJBException("citizen-find-fail",
-					RuntimeParameters.getLang(), em);
+			logger.log(Level.INFO, "ERROR: finding Citizen by id", e);
+			throw super.generateGHAEJBException("citizen-find-fail", em);
 		}
 	}
 

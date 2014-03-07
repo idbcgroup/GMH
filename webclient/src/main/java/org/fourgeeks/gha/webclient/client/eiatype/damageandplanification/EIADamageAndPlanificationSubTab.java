@@ -2,8 +2,8 @@ package org.fourgeeks.gha.webclient.client.eiatype.damageandplanification;
 
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionProducer;
@@ -20,7 +20,7 @@ import com.smartgwt.client.widgets.tab.events.TabSelectedHandler;
  * 
  */
 public class EIADamageAndPlanificationSubTab extends GHASubTab implements
-		EiaDamageReportSelectionProducer {
+EiaDamageReportSelectionProducer {
 
 	private EiaDamageReportGridPanel damageReportPanel;
 	private EIAMaintenanceGridPanel maintenancePlanifPanel;
@@ -28,7 +28,7 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 	private GHASectionForm sectionForm;
 
 	{
-		sectionForm = new GHASectionForm();
+		sectionForm = new GHASectionForm(GHAStrings.get("report-and-planification"));
 		damageReportPanel = new EiaDamageReportGridPanel();
 		maintenancePlanifPanel = new EIAMaintenanceGridPanel();
 		preventivePlanifPanel = new EIAMaintenancePlanificationGridPanel();
@@ -54,9 +54,9 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 		panel.addEiaTypeSelectionListener(preventivePlanifPanel);
 
 		damageReportPanel
-				.addEiaDamageReportSelectionListener(maintenancePlanifPanel);
+		.addEiaDamageReportSelectionListener(maintenancePlanifPanel);
 		preventivePlanifPanel
-				.addMaintenancePlanificationSelectionListener(maintenancePlanifPanel);
+		.addMaintenancePlanificationSelectionListener(maintenancePlanifPanel);
 
 		// section form
 		sectionForm.addSection("Reporte Equipo Dañado", damageReportPanel);
@@ -99,7 +99,7 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 	public void addEiaDamageReportSelectionListener(
 			EiaDamageReportSelectionListener eiaDamageReportSelectionListener) {
 		damageReportPanel
-				.addEiaDamageReportSelectionListener(eiaDamageReportSelectionListener);
+		.addEiaDamageReportSelectionListener(eiaDamageReportSelectionListener);
 
 	}
 
@@ -146,7 +146,7 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 	public void removeEiaDamageReportSelectionListener(
 			EiaDamageReportSelectionListener eiaDamageReportSelectionListener) {
 		damageReportPanel
-				.removeEiaDamageReportSelectionListener(eiaDamageReportSelectionListener);
+		.removeEiaDamageReportSelectionListener(eiaDamageReportSelectionListener);
 	}
 
 	/**

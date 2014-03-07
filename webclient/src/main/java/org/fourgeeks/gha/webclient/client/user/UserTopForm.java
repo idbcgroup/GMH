@@ -14,7 +14,7 @@ import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHADoumentTypeSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAGenreSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAGenderSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAUserStateSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAEmailTextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHANameTextItem;
@@ -58,7 +58,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		idItem = new GHATextItem(GHAStrings.get("id-number"));
 		idItem.setLength(20);
 		idItem.setMask("####################");
-		genderSelectItem = new GHAGenreSelectItem();
+		genderSelectItem = new GHAGenderSelectItem();
 
 		usernameItem.addKeyUpHandler(searchKeyUpHandler);
 		firstNameItem.addKeyUpHandler(searchKeyUpHandler);

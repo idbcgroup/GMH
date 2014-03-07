@@ -92,6 +92,7 @@ public abstract class GHAUiHelper {
 	private static final int MIN_TAB_HEIGHT = 678;
 	private static final int MIN_PANEL_HEIGHT = 648;
 	private static final int MIN_BOTTOM_SECTION_HEIGHT = 528;
+	private static final int MIN_RES_BODY_HEIGHT = 576;
 	private static final int MIN_RESULT_SET_HEIGHT = 360;
 
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
@@ -115,7 +116,12 @@ public abstract class GHAUiHelper {
 	 * The minimum width of a GHADynamicForm that is embedded on a
 	 * GHASectionForm.
 	 */
-	public static final int MIN_SECTION_FORM_FORM_WIDTH = 700;
+	public static final int MIN_SECTIONFORM_FORM_WIDTH = 700;
+	/**
+	 * The minimum width of a small-sized GHADynamicForm that is embedded on a
+	 * GHASectionForm.
+	 */
+	public static final int MIN_SECTIONFORM_MINIFORM_WIDTH = 580;
 	/**
 	 * The default top header height (with the tabs bar).
 	 */
@@ -184,7 +190,11 @@ public abstract class GHAUiHelper {
 	/**
 	 * 
 	 */
-	public static final String DEFAULT_PLACES_BAR_BACKGROUND_COLOR = "#e0e0df";
+	public static final String DEFAULT_PLACES_BAR_BACKGROUND_COLOR = "#e0e0e0";
+	/**
+	 * 
+	 */
+	public static final String DEFAULT_PANEL_BAR_BACKGROUND_COLOR = "#ECECEC";
 	/**
 	 * Default widht for the header option
 	 */
@@ -194,12 +204,21 @@ public abstract class GHAUiHelper {
 	 */
 	public static final int DEFAULT_TAB_SET_HEIGHT = 30;
 	/**
-	 * the default height for the pation top component
+	 * the default height for the patient top component.
 	 */
-	public static final int DEFAULT_PATIENT_TOP_HEIGHT = 80;
+	public static final int DEFAULT_PATIENT_TOP_HEIGHT = 72;
+	/**
+	 * the default height for the patient basic information.
+	 */
+	public static final int DEFAULT_PATIENT_BASIC_INFO_HEIGHT = 190;
+	/**
+	 * the default height for the patient extra information.
+	 */
+	public static final int DEFAULT_PATIENT_MINIGRID_HEIGHT = 120;
 	/**
 	 * a blank space
 	 */
+	@Deprecated
 	public static final String BLANK_SPACE = "&nbsp";
 	/**
 	 * 
@@ -283,6 +302,22 @@ public abstract class GHAUiHelper {
 	}
 
 	/**
+	 * @return the height for the bottom section
+	 */
+	public static int getRESBodyHeight() {
+		final int biggerTabHeight = getPanelHeight();
+		final int innerTopSection = DEFAULT_PATIENT_TOP_HEIGHT
+				+ 25;
+
+		final int ret = biggerTabHeight - innerTopSection;
+		if (ret < MIN_RES_BODY_HEIGHT) {
+			return MIN_RES_BODY_HEIGHT;
+		} else {
+			return ret;
+		}
+	}
+
+	/**
 	 * @param extrasHeight
 	 * @return the height of the grid.
 	 */
@@ -300,23 +335,30 @@ public abstract class GHAUiHelper {
 
 	/**
 	 * @param type
-	 * @param buttonsSize
+	 * @param extraSpace
 	 * @return the width that a form must have, depending on its type.
 	 */
-	public static int getFormWidth(FormType type, int buttonsSize) {
+	public static int getFormWidth(FormType type, int extraSpace) {
 		final int rootPanelWidth = Window.getClientWidth();
 		int ret;
 		if (type == FormType.NORMAL_FORM) {
-			ret = rootPanelWidth - buttonsSize - 100;
+			ret = rootPanelWidth - extraSpace;
 			if (ret < MIN_NORMAL_FORM_WIDTH)
 				return MIN_NORMAL_FORM_WIDTH;
 			else
 				return ret;
-		} else {
+		} else if(type == FormType.SECTIONFORM_FORM){
 			ret = rootPanelWidth - (SECTION_FORM_OPTION_WIDTH + 50)
-					- buttonsSize - 100;
-			if (ret < MIN_SECTION_FORM_FORM_WIDTH)
-				return MIN_SECTION_FORM_FORM_WIDTH;
+					- extraSpace;
+			if (ret < MIN_SECTIONFORM_FORM_WIDTH)
+				return MIN_SECTIONFORM_FORM_WIDTH;
+			else
+				return ret;
+		}else{
+			ret = rootPanelWidth - (SECTION_FORM_OPTION_WIDTH + 50)
+					- extraSpace;
+			if (ret < MIN_SECTIONFORM_MINIFORM_WIDTH)
+				return MIN_SECTIONFORM_MINIFORM_WIDTH;
 			else
 				return ret;
 		}

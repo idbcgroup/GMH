@@ -39,7 +39,8 @@ HideableListener, ClosableListener {
 		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		setHeight(GHAUiHelper.MENU_BAR_HEIGTH);
 		setDefaultLayoutAlign(VerticalAlignment.TOP);
-		setMembersMargin(6);
+		setBackgroundColor(GHAUiHelper.DEFAULT_PANEL_BAR_BACKGROUND_COLOR);
+		setMembersMargin(5);
 
 		final GHAHeaderOption titulo = new GHAHeaderOption(title,
 				GHAUiHelper.DEFAULT_TAB_HEADER_WIDTH, false, "", "");

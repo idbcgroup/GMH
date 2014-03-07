@@ -85,7 +85,7 @@ public class GwtHostingHttpServlet extends HttpServlet {
 			writer.append("<form class='centered' action=\"\" method=\"post\">");
 			writer.append("<input maxlength='20' class='round' name=\"username\" id='username' type='text' placeholder='Nombre de usuario'><br/>");
 			writer.append("<input maxlength='20' class='round' name=\"password\" id='password' type='password' placeholder='Clave de acceso'> <br/>");
-			writer.append("<input id='login-button' type='submit' value='Iniciar Sesion' class='GHAButton'>");
+			writer.append("<input id='login-button' type='submit' value='Entrar' class='GHAButton'>");
 
 			final Object cause = session.getAttribute("cause");
 			if (cause != null)

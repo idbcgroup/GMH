@@ -96,7 +96,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	private List<EIASelectionListener> listeners;
 
 	{ // Global
-		sectionForm = new GHASectionForm();
+		sectionForm = new GHASectionForm(GHAStrings.get("eia"));
 		listeners = new ArrayList<EIASelectionListener>();
 
 		// Information Form Items
@@ -446,7 +446,6 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	}
 
 	/**
-	 * @param eiaType
 	 * 
 	 */
 	public EIAForm() {
@@ -466,7 +465,6 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		// garantiasMantForm = getGarantiasMantForm();
 
 		sectionForm.addSection("Información Básica", infoBasicaForm);
-		sectionForm.addSectionSeparator();
 		sectionForm.addSection("Adq. y garantias", adquisicionForm);
 		sectionForm.addSection("Ubicación", ubicacionForm);
 		sectionForm.addSection("Costos", costosForm);

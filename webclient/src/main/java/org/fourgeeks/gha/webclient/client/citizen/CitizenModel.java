@@ -15,19 +15,15 @@ public class CitizenModel {
 	private static final GWTCitizenServiceAsync service = GWT
 			.create(GWTCitizenService.class);
 
-	private CitizenModel() {
-		throw new UnsupportedOperationException(
-				"Esta clase no debe ser instanciada");
+	/**
+	 * @param entities
+	 * @param callback
+	 */
+	public static void delete(List<Citizen> entities,
+			GHAAsyncCallback<Void> callback) {
+		service.delete(entities, callback);
 	}
 
-	//
-	// /**
-	// * @param callback
-	// */
-	// public static void getAll(GHAAsyncCallback<List<Bpu>> callback) {
-	// service.getAll(callback);
-	// }
-	//
 	/**
 	 * @param citizen
 	 *            the ssoUser base to find
@@ -39,20 +35,20 @@ public class CitizenModel {
 	}
 
 	/**
+	 * @param id
+	 *            the id of the citizen
+	 * @param callback
+	 */
+	public static void find(long id, GHAAsyncCallback<Citizen> callback) {
+		service.find(id, callback);
+	}
+
+	/**
 	 * @param citizen
 	 * @param callback
 	 */
 	public static void save(Citizen citizen, GHAAsyncCallback<Citizen> callback) {
 		service.save(citizen, callback);
-	}
-
-	/**
-	 * @param entities
-	 * @param callback
-	 */
-	public static void delete(List<Citizen> entities,
-			GHAAsyncCallback<Void> callback) {
-		service.delete(entities, callback);
 	}
 
 	// /**
@@ -70,6 +66,11 @@ public class CitizenModel {
 	public static void update(Citizen citizen,
 			GHAAsyncCallback<Citizen> callback) {
 		service.update(citizen, callback);
+	}
+
+	private CitizenModel() {
+		throw new UnsupportedOperationException(
+				"Esta clase no debe ser instanciada");
 	}
 
 }

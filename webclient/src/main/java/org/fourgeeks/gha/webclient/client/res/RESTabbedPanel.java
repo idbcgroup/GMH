@@ -11,6 +11,7 @@ import org.fourgeeks.gha.webclient.client.citizen.CitizenAddForm;
 import org.fourgeeks.gha.webclient.client.citizen.CitizenSearchForm;
 import org.fourgeeks.gha.webclient.client.citizen.CitizenSelectionListener;
 
+import com.google.gwt.user.client.History;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 
@@ -37,14 +38,14 @@ public class RESTabbedPanel extends GHATabbedPanel {
 				.addCitizenSelectionListener(new CitizenSelectionListener() {
 					@Override
 					public void onCitizenSelect(Citizen citizen) {
-						place.updateToken("res/" + citizen.getId());
+						History.newItem("res/" + citizen.getId());
 					}
 				});
 		citizenAddForm
 				.addCitizenSelectionListener(new CitizenSelectionListener() {
 					@Override
 					public void onCitizenSelect(Citizen citizen) {
-						place.updateToken("res/" + citizen.getId());
+						History.newItem("res/" + citizen.getId());
 					}
 				});
 
@@ -61,8 +62,7 @@ public class RESTabbedPanel extends GHATabbedPanel {
 
 					@Override
 					public void onClick(ClickEvent event) {
-						// citizenAddForm.open();
-
+						citizenAddForm.open();
 					}
 				});
 		addHeaderOption(GHAStrings.get("close"), "cerrarButton",

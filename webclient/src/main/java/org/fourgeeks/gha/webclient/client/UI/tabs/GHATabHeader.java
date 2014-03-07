@@ -43,7 +43,7 @@ public class GHATabHeader extends Label {
 			@Override
 			public void onMouseOut(MouseOutEvent event) {
 				if (!selected)
-					setBackgroundColor(GHAUiHelper.DEFAULT_PLACES_BAR_BACKGROUND_COLOR);
+					setBackgroundColor(GHAUiHelper.DEFAULT_PANEL_BAR_BACKGROUND_COLOR);
 			}
 		});
 
@@ -57,10 +57,10 @@ public class GHATabHeader extends Label {
 	}
 
 	/**
-		 * 
-		 */
+	 * 
+	 */
 	public void unMarkSelected() {
-		setBackgroundColor(GHAUiHelper.DEFAULT_PLACES_BAR_BACKGROUND_COLOR);
+		setBackgroundColor(GHAUiHelper.DEFAULT_PANEL_BAR_BACKGROUND_COLOR);
 		setStyleName(STYLE);
 		setBaseStyle(STYLE);
 		selected = false;

@@ -1,8 +1,8 @@
 package org.fourgeeks.gha.webclient.client.maintenanceactivity.serviceandresource;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityPanel;
 
@@ -23,7 +23,7 @@ public class MaintenanceActivityServiceAndResourceSubTab extends GHASubTab {
 	private GHASectionForm sectionForm;
 
 	{
-		sectionForm = new GHASectionForm();
+		sectionForm = new GHASectionForm("required-resources");
 		materialsPanel = new MaintenanceActivityMaterialGridPanel();
 		equipmentsPanel = new MaintenanceActivityEiaTypeGridPanel();
 	}

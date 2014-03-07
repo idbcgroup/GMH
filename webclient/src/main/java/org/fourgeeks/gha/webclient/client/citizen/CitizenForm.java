@@ -106,8 +106,7 @@ public class CitizenForm extends GHAForm<Citizen> implements
 		nationalityItem.setTooltip(GHAStrings.get("user-tooltip-nacionalidad"));
 		nationalityItem.validateWords();
 
-		birthDateItem = new GHABirthDateItem(GHAStrings.get("birthdate"),
-				changedHandler);
+		birthDateItem = new GHABirthDateItem(changedHandler);
 		birthDateItem.setUseMask(true);
 		birthDateItem.setTooltip(GHAStrings.get("user-tooltip-birthdate"));
 
