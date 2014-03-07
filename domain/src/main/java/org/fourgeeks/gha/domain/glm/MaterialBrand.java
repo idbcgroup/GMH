@@ -6,6 +6,8 @@ package org.fourgeeks.gha.domain.glm;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.gmh.Brand;
@@ -15,6 +17,10 @@ import org.fourgeeks.gha.domain.gmh.Brand;
  * 
  */
 @Entity
+@NamedQueries(value = {
+		@NamedQuery(name = "MaterialBrand.findByBrand", query = "SELECT e from MaterialBrand e WHERE e.brand=:brand ORDER BY e.material.name"),
+		@NamedQuery(name = "MaterialBrand.findByType", query = "SELECT e from MaterialBrand e WHERE e.material.type=:type ORDER BY e.material.name"),
+		@NamedQuery(name = "MaterialBrand.getAll", query = "SELECT e from MaterialBrand e ORDER BY e.material.name") })
 public class MaterialBrand extends AbstractEntity {
 
 	/**
