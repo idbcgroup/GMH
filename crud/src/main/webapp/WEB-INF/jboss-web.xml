@@ -1,0 +1,4 @@
+<jboss-web>
+    <context-root>crud</context-root>
+    <security-domain>gha-auth-security-domain</security-domain>
+</jboss-web>
