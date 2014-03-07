@@ -6,10 +6,13 @@ import gwtupload.client.SingleUploader;
 
 import java.util.ArrayList;
 
-import org.fourgeeks.gha.dbadmin.shared.Record;
+import org.fourgeeks.gha.dbadmin.shared.GHARecord;
+import org.fourgeeks.gha.dbadmin.shared.GHARecordTable;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -35,9 +38,10 @@ public class DBAdmin implements EntryPoint {
 	FlexTable mainTable = new FlexTable();
 	VerticalPanel recordTable = new VerticalPanel();
 
-	public TableServiceAsync service;
+	public TableServiceAsync tableService;
+	public DBServiceAsync dbService;
 
-	public void build(ArrayList<Record> list) {
+	public void build(ArrayList<GHARecord> list) {
 
 	}
 
@@ -45,7 +49,8 @@ public class DBAdmin implements EntryPoint {
 	public void onModuleLoad() {
 		final SingleUploader upload = new SingleUploader();
 
-		service = GWT.create(TableService.class);
+		tableService = GWT.create(TableService.class);
+		dbService = GWT.create(DBService.class);
 
 		upload.setTitle("uploadFormElement");
 
@@ -54,7 +59,7 @@ public class DBAdmin implements EntryPoint {
 			@Override
 			public void onFinish(IUploader uploader) {
 				recordTable.clear();
-				service.getColumns(new AsyncCallback<ArrayList<String>>() {
+				tableService.getTable(new AsyncCallback<GHARecordTable>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
@@ -63,33 +68,37 @@ public class DBAdmin implements EntryPoint {
 					}
 
 					@Override
-					public void onSuccess(ArrayList<String> result) {
+					public void onSuccess(final GHARecordTable result) {
 						// TODO Auto-generated method stub
-						final HorizontalPanel p = new HorizontalPanel();
-						for (final String c : result) {
+						HorizontalPanel columnPanel = new HorizontalPanel();
+						for (int i = 0; i < result.getColumns().size(); i++) {
+							String c = result.getColumns().get(i);
+							final int index = i;
 							final TextBox tb = new TextBox();
 							tb.setText(c);
-							p.add(tb);
+							tb.addChangeHandler(new ChangeHandler() {
+
+								@Override
+								public void onChange(ChangeEvent event) {
+									result.getColumns().set(index, tb.getText());
+								}});
+							columnPanel.add(tb);
 						}
-						recordTable.add(p);
-					}
-				});
-
-				service.getTable(new AsyncCallback<ArrayList<Record>>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO error
-					}
-
-					@Override
-					public void onSuccess(ArrayList<Record> result) {
-						// build(result);
-						for (final Record r : result) {
-							final HorizontalPanel p = new HorizontalPanel();
-							for (final String s : r.getList()) {
+						recordTable.add(columnPanel);
+						
+						for (final GHARecord r : result.getRecords()) {
+							HorizontalPanel p = new HorizontalPanel();
+							for (int i = 0; i < r.getList().size(); i++) {
+								final int index = i;
+								String s = r.getList().get(i);
 								final TextBox tb = new TextBox();
 								tb.setText(s);
+								tb.addChangeHandler(new ChangeHandler() {
+
+									@Override
+									public void onChange(ChangeEvent event) {
+										r.getList().set(index, tb.getText());
+									}});
 								p.add(tb);
 							}
 							final Button b = new Button();
@@ -98,12 +107,36 @@ public class DBAdmin implements EntryPoint {
 
 								@Override
 								public void onClick(ClickEvent event) {
-									Window.alert(r.getQuery());
+									Window.alert(result.getQuery(r));
 								}
 							});
 							p.add(b);
 							recordTable.add(p);
 						}
+						
+						tableName.setText(result.getTableName());
+						
+						Button inject = new Button("Send");
+						inject.addClickHandler(new ClickHandler() {
+
+							@Override
+							public void onClick(ClickEvent event) {
+								dbService.updateDB(result, new AsyncCallback<Void>() {
+
+									@Override
+									public void onFailure(Throwable caught) {
+										// TODO Auto-generated method stub
+										Window.alert("Error: Failed to connect");
+									}
+
+									@Override
+									public void onSuccess(Void result) {
+										// TODO Auto-generated method stub
+										Window.alert("Done!");
+									}});
+							}});
+						
+						recordTable.add(inject);
 					}
 				});
 			}

@@ -1,9 +1,7 @@
 package org.fourgeeks.gha.dbadmin.server;
 
-import java.util.ArrayList;
-
 import org.fourgeeks.gha.dbadmin.client.TableService;
-import org.fourgeeks.gha.dbadmin.shared.Record;
+import org.fourgeeks.gha.dbadmin.shared.GHARecordTable;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -19,15 +17,11 @@ public class TableServiceImpl extends RemoteServiceServlet implements
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public static ArrayList<Record> list;
-	public static ArrayList<String> columns;
+	public static GHARecordTable table = new GHARecordTable();
 
-	public ArrayList<String> getColumns() {
-		return columns;
-	}
-
-	public ArrayList<Record> getTable() {
-		return list;
+	@Override
+	public GHARecordTable getTable() {
+		return table;
 	}
 
 }

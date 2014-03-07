@@ -3,7 +3,7 @@ package org.fourgeeks.gha.dbadmin.shared;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Record implements Serializable {
+public class GHARecord implements Serializable {
 	/**
 	 * 
 	 */
@@ -12,7 +12,7 @@ public class Record implements Serializable {
 	private ArrayList<String> list;
 	private String query;
 	
-	public Record() {
+	public GHARecord() {
 		list = new ArrayList<String>();
 	}
 	
@@ -20,12 +20,12 @@ public class Record implements Serializable {
 		list.add(s);
 	}
 	
-	public void setQuery(String s) {
-		query = s;
-	}
-	
 	public String getQuery() {
-		return query;
+		String result = "('" + list.get(0);
+		for (int i = 1; i < list.size(); i++) {
+			result += "', '" + list.get(i);
+		}
+		return result + "')";
 	}
 	
 	public ArrayList<String> getList() {
