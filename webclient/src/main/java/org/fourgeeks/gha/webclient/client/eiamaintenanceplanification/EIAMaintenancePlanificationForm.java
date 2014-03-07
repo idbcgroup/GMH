@@ -40,8 +40,8 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * @author naramirez
  */
 public class EIAMaintenancePlanificationForm extends
-GHAForm<EiaMaintenancePlanification> implements EIASelectionListener,
-EIATypeSelectionListener, MaintenancePlanificationSelectionProducer {
+		GHAForm<EiaMaintenancePlanification> implements EIASelectionListener,
+		EIATypeSelectionListener, MaintenancePlanificationSelectionProducer {
 
 	private List<MaintenancePlanificationSelectionListener> listeners;
 	private Eia selectedEia;
@@ -171,7 +171,7 @@ EIATypeSelectionListener, MaintenancePlanificationSelectionProducer {
 			final List<String> violationsList = new ArrayList<String>();
 			for (final ConstraintViolation<EiaMaintenancePlanification> violation : violations)
 				violationsList.add(violation.getMessage());
-			//			GHAAlertManager.alert(violationsList);
+			// GHAAlertManager.alert(violationsList);
 			GHAAlertManager.alert(violationsList.get(0));
 		}
 		return null;
@@ -204,15 +204,15 @@ EIATypeSelectionListener, MaintenancePlanificationSelectionProducer {
 
 		EiaMaintenancePlanificationModel.save(entity,
 				new GHAAsyncCallback<EiaMaintenancePlanification>() {
-			@Override
-			public void onSuccess(EiaMaintenancePlanification result) {
-				hasUnCommittedChanges = false;
-				notifyMaintenancePlanification(result);
-				clear();
-				if (callback != null)
-					callback.onSuccess(result);
-			}
-		});
+					@Override
+					public void onSuccess(EiaMaintenancePlanification result) {
+						hasUnCommittedChanges = false;
+						notifyMaintenancePlanification(result);
+						clear();
+						if (callback != null)
+							callback.onSuccess(result);
+					}
+				});
 	}
 
 	@Override
@@ -222,8 +222,8 @@ EIATypeSelectionListener, MaintenancePlanificationSelectionProducer {
 
 		beginningDateDateItem.setValue(eia.getInstallationDate());
 
-		if (eia.getProvider() != null)
-			providerSelectItem.setValue(eia.getProvider().getId());
+		if (eia.getMaintenanceProvider() != null)
+			providerSelectItem.setValue(eia.getMaintenanceProvider().getId());
 
 		if (eia.getResponsibleRole() != null)
 			roleSelectItem.setValue(eia.getResponsibleRole().getId());
