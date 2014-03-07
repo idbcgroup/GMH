@@ -35,7 +35,6 @@ import org.fourgeeks.gha.domain.enu.MaintenancePlanCancelationOption;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationState;
-import org.fourgeeks.gha.domain.enu.MaintenancePlanificationType;
 import org.fourgeeks.gha.domain.enu.ProviderPreferenceEnum;
 import org.fourgeeks.gha.domain.enu.ProviderQualEnum;
 import org.fourgeeks.gha.domain.enu.ProviderRepresentEnum;
@@ -201,7 +200,6 @@ public class MaterialBrandServiceTest {
 				.addClass(Bsp.class)
 				.addClass(TimePeriodEnum.class)
 				.addClass(EiaStateEnum.class)
-				.addClass(MaintenancePlanificationType.class)
 				.addClass(EiaMaintenanceState.class)
 				.addClass(EiaDamageReport.class)
 				.addClass(Eia.class)
