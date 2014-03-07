@@ -28,7 +28,10 @@ public class MaterialBrandGrid extends GhaGrid<MaterialBrand> {
 				GHAStrings.get("external-code"));
 		GHAGridField brandGridField = new GHAGridField("brand",
 				GHAStrings.get("brand"));
-		setFields(codeGridField, nameGridField, descriptionGridField,
-				modelGridField, extCodeGridField, brandGridField);
+		GHAGridField categoryGridField = new GHAGridField("category",
+				GHAStrings.get("category"));
+		setFields(codeGridField, categoryGridField, nameGridField,
+				descriptionGridField, modelGridField, extCodeGridField,
+				brandGridField);
 	}
 }

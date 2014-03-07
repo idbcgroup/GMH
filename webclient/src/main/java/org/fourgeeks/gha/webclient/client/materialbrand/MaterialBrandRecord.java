@@ -23,7 +23,8 @@ public class MaterialBrandRecord extends GHAGridRecord<MaterialBrand> {
 		setAttribute("description", material.getDescription());
 		setAttribute("model", material.getModel());
 		setAttribute("extCode", material.getExternalCode());
-		setAttribute("brand", entity.getBrand());
+		setAttribute("brand", entity.getBrand().getName());
+		setAttribute("category", material.getMaterialCategory().getName());
 	}
 
 	/*

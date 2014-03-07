@@ -10,7 +10,7 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaterial;
+import org.fourgeeks.gha.domain.gmh.EiaTypeMaterialBrand;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
@@ -36,12 +36,12 @@ public class EiaTypeMaterialService extends GHAEJBExceptionService implements
 	 * org.fourgeeks.gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public List<EiaTypeMaterial> findByEiaType(EiaType eiaType)
+	public List<EiaTypeMaterialBrand> findByEiaType(EiaType eiaType)
 			throws GHAEJBException {
 		try {
 			return em
 					.createNamedQuery("EiaTypeMaterial.findByEiaType",
-							EiaTypeMaterial.class)
+							EiaTypeMaterialBrand.class)
 					.setParameter("eiaType", eiaType).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all EiaTypeMaterial", ex);
@@ -59,12 +59,12 @@ public class EiaTypeMaterialService extends GHAEJBExceptionService implements
 	 * .gha.domain.gmh.EiaTypeMaterial)
 	 */
 	@Override
-	public EiaTypeMaterial save(EiaTypeMaterial eiaTypeMaterial)
+	public EiaTypeMaterialBrand save(EiaTypeMaterialBrand eiaTypeMaterial)
 			throws GHAEJBException {
 		try {
 			em.persist(eiaTypeMaterial);
 			em.flush();
-			return em.find(EiaTypeMaterial.class, eiaTypeMaterial.getId());
+			return em.find(EiaTypeMaterialBrand.class, eiaTypeMaterial.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving eiaTypeMaterial", e);
 			// String message = null;
@@ -88,7 +88,7 @@ public class EiaTypeMaterialService extends GHAEJBExceptionService implements
 	@Override
 	public void delete(long id) throws GHAEJBException {
 		try {
-			EiaTypeMaterial entity = em.find(EiaTypeMaterial.class, id);
+			EiaTypeMaterialBrand entity = em.find(EiaTypeMaterialBrand.class, id);
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete eiatypematerial", e);
@@ -106,10 +106,10 @@ public class EiaTypeMaterialService extends GHAEJBExceptionService implements
 	 * .gha.domain.gmh.EiaTypeMaterial)
 	 */
 	@Override
-	public EiaTypeMaterial update(EiaTypeMaterial eiaTypeMaterial)
+	public EiaTypeMaterialBrand update(EiaTypeMaterialBrand eiaTypeMaterial)
 			throws GHAEJBException {
 		try {
-			EiaTypeMaterial res = em.merge(eiaTypeMaterial);
+			EiaTypeMaterialBrand res = em.merge(eiaTypeMaterial);
 			em.flush();
 			return res;
 		} catch (Exception e) {

@@ -12,6 +12,7 @@ import javax.validation.ConstraintViolation;
 
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialBrand;
+import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -26,6 +27,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHACodeTextItem
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
+import org.fourgeeks.gha.webclient.client.materialcategory.GHAMaterialCategoryPickTreeItem;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 
@@ -40,6 +42,7 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 	private GHATextItem codeItem, externalCodeItem, nameItem, modelItem;
 	private GHATextAreaItem descriptionItem;
 	private GHABrandSelectItem brandItem;
+	private GHAMaterialCategoryPickTreeItem categoryItem;
 
 	private GHASelectItem typeItem;
 	private GHADynamicForm form;
@@ -50,6 +53,8 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
 		nameItem.setColSpan(2);
 		codeItem = new GHACodeTextItem(true, changedHandler);
+		codeItem.disable();
+
 		externalCodeItem = new GHATextItem(GHAStrings.get("external-code"),
 				false, changedHandler);
 		typeItem = new GHASelectItem(GHAStrings.get("type"), true,
@@ -61,15 +66,16 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"),
 				changedHandler);
 		descriptionItem.setColSpan(2);
+		categoryItem = new GHAMaterialCategoryPickTreeItem(
+				GHAStrings.get("category"));
 
 		form = new GHADynamicForm(3, FormType.NORMAL_FORM);
 	}
 
 	public MaterialBrandForm() {
 		super();
-		form.setItems(nameItem, new GHASpacerItem(), codeItem,
-				externalCodeItem, new GHASpacerItem(1), typeItem, brandItem,
-				new GHASpacerItem(), modelItem, new GHASpacerItem(2),
+		form.setItems(nameItem, categoryItem, codeItem, externalCodeItem,
+				typeItem, brandItem, modelItem, new GHASpacerItem(1),
 				descriptionItem);
 		addMember(form);
 		fill();
@@ -159,6 +165,10 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 			material.setType(MaterialTypeEnum.valueOf(typeItem
 					.getValueAsString()));
 		material.setModel(modelItem.getValueAsString());
+		if (categoryItem.getValue() != null) {
+			material.setMaterialCategory(new MaterialCategory(categoryItem
+					.getValue().toString()));
+		}
 
 		final Set<ConstraintViolation<Material>> violations = validator
 				.validate(material);

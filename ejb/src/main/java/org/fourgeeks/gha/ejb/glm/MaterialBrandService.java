@@ -21,6 +21,7 @@ import javax.persistence.criteria.Root;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialBrand;
+import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
@@ -89,6 +90,16 @@ public class MaterialBrandService extends GHAEJBExceptionService implements
 			ParameterExpression<String> p = cb.parameter(String.class, "model");
 			predicate = cb.and(predicate, cb.like(
 					cb.lower(root.get("material").<String> get("model")), p));
+		}
+
+		if (material.getMaterialCategory() != null) {
+			ParameterExpression<MaterialCategory> p = cb.parameter(
+					MaterialCategory.class, "category");
+			predicate = cb.and(
+					predicate,
+					cb.equal(
+							root.get("material").<MaterialCategory> get(
+									"materialCategory"), p));
 		}
 
 		return predicate;
@@ -182,6 +193,9 @@ public class MaterialBrandService extends GHAEJBExceptionService implements
 				if (material.getModel() != null) {
 					q.setParameter("model", "%"
 							+ material.getModel().toLowerCase() + "%");
+				}
+				if (material.getMaterialCategory() != null) {
+					q.setParameter("category", material.getMaterialCategory());
 				}
 
 			}

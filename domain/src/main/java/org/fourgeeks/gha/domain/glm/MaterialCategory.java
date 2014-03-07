@@ -43,6 +43,10 @@ public class MaterialCategory extends AbstractCodeEntity implements
 	public MaterialCategory() {
 	}
 
+	public MaterialCategory(String code) {
+		this.code = code;
+	}
+
 	@Override
 	public int compareTo(MaterialCategory arg0) {
 		return code.compareTo(arg0.getCode());

@@ -9,14 +9,14 @@ import java.util.List;
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialBrand;
+import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
-import org.fourgeeks.gha.ejb.GHAUtil;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABrandSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHACodeTextItem;
@@ -26,6 +26,7 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
+import org.fourgeeks.gha.webclient.client.materialcategory.GHAMaterialCategoryPickTreeItem;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -44,6 +45,7 @@ public class MaterialBrandSearchForm extends GHASearchForm<MaterialBrand>
 	private GHATextItem codeTextItem, nameTextItem, descriptionTextItem,
 			modelTextItem, extCodeTextItem;
 	private GHABrandSelectItem brandItem;
+	private GHAMaterialCategoryPickTreeItem categoryItem;
 	protected MaterialTypeEnum fixedMaterial = MaterialTypeEnum.MATERIAL;
 	private final MaterialBrandResultSet resultSet = new MaterialBrandResultSet(
 			ResultSetContainerType.SEARCH_FORM);
@@ -57,6 +59,8 @@ public class MaterialBrandSearchForm extends GHASearchForm<MaterialBrand>
 		descriptionTextItem = new GHATextItem(GHAStrings.get("description"));
 		descriptionTextItem.setColSpan(2);
 		brandItem = new GHABrandSelectItem();
+		categoryItem = new GHAMaterialCategoryPickTreeItem(
+				GHAStrings.get("category"));
 
 		resultSet
 				.addMaterialBrandSelectionListener(new MaterialBrandSelectionListener() {
@@ -75,8 +79,8 @@ public class MaterialBrandSearchForm extends GHASearchForm<MaterialBrand>
 	public MaterialBrandSearchForm(String title) {
 		super(title);
 
-		form.setItems(codeTextItem, nameTextItem, modelTextItem, brandItem,
-				new GHASpacerItem(), extCodeTextItem, descriptionTextItem);
+		form.setItems(categoryItem, codeTextItem, nameTextItem, modelTextItem,
+				brandItem, extCodeTextItem, descriptionTextItem);
 
 		codeTextItem.addKeyUpHandler(searchKeyUpHandler);
 		nameTextItem.addKeyUpHandler(searchKeyUpHandler);
@@ -84,6 +88,7 @@ public class MaterialBrandSearchForm extends GHASearchForm<MaterialBrand>
 		extCodeTextItem.addKeyUpHandler(searchKeyUpHandler);
 		descriptionTextItem.addKeyUpHandler(searchKeyUpHandler);
 		brandItem.addKeyUpHandler(searchKeyUpHandler);
+		categoryItem.addKeyUpHandler(searchKeyUpHandler);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHACleanButton(new ClickHandler() {
@@ -190,6 +195,11 @@ public class MaterialBrandSearchForm extends GHASearchForm<MaterialBrand>
 		if (brandItem.getValue() != null)
 			materialBrand.setBrand(new Brand(Integer.valueOf(brandItem
 					.getValueAsString()), null));
+
+		if (categoryItem.getValue() != null) {
+			material.setMaterialCategory(new MaterialCategory(categoryItem
+					.getValue().toString()));
+		}
 		materialBrand.setMaterial(material);
 		search(materialBrand);
 	}

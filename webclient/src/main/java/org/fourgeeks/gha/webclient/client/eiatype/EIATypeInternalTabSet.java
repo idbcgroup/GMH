@@ -7,7 +7,7 @@ import org.fourgeeks.gha.webclient.client.eiatype.damageandplanification.EIADama
 import org.fourgeeks.gha.webclient.client.eiatype.equipment.EIATypeEquipmentSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.information.EIATypeInformationSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.maintenance.EIATypeMaintenanceSubTab;
-import org.fourgeeks.gha.webclient.client.eiatype.material.EIATypeMaterialSubTab;
+import org.fourgeeks.gha.webclient.client.eiatype.materialbrand.EIATypeMaterialSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.utility.EIATypeUtilitySubTab;
 
 import com.smartgwt.client.types.AnimationEffect;
