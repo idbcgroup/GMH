@@ -33,7 +33,6 @@ import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -272,9 +271,6 @@ public class EIAMaintenancePlanificationForm extends
 					public void onSuccess(Boolean result) {
 
 						if (result == false) {
-
-							Window.alert("Se puede guardar");
-
 							EiaMaintenancePlanificationModel
 									.save(entity,
 											new GHAAsyncCallback<EiaMaintenancePlanification>() {
@@ -288,22 +284,12 @@ public class EIAMaintenancePlanificationForm extends
 														callback.onSuccess(result);
 												}
 											});
-
 						} else {
 							GHAAlertManager
 									.alert("exist-maintenance-planification");
 						}
 					}
 				});
-		/*
-		 * EiaMaintenancePlanificationModel.save(entity, new
-		 * GHAAsyncCallback<EiaMaintenancePlanification>() {
-		 * 
-		 * @Override public void onSuccess(EiaMaintenancePlanification result) {
-		 * hasUnCommittedChanges = false;
-		 * notifyMaintenancePlanification(result); clear(); if (callback !=
-		 * null) callback.onSuccess(result); } });
-		 */
 	}
 
 	@Override
