@@ -6,7 +6,7 @@ package org.fourgeeks.gha.webclient.client.UI.superclasses;
  * 
  * @author alacret
  */
-public abstract class GHAFormLayout extends GHAVerticalLayout {
+public class GHAFormLayout extends GHAVerticalLayout {
 
 	/**
 	 * 

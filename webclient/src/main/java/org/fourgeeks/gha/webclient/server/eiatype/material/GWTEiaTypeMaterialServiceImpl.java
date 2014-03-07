@@ -7,9 +7,9 @@ import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaterial;
+import org.fourgeeks.gha.domain.gmh.EiaTypeMaterialBrand;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeMaterialServiceRemote;
-import org.fourgeeks.gha.webclient.client.eiatype.material.GWTEiaTypeMaterialService;
+import org.fourgeeks.gha.webclient.client.eiatype.materialbrand.GWTEiaTypeMaterialService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -37,7 +37,7 @@ public class GWTEiaTypeMaterialServiceImpl extends RemoteServiceServlet
 	 * #findByEiaType(org.fourgeeks.gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public List<EiaTypeMaterial> findByEiaType(EiaType eiaType)
+	public List<EiaTypeMaterialBrand> findByEiaType(EiaType eiaType)
 			throws GHAEJBException {
 		return serviceRemote.findByEiaType(eiaType);
 	}
@@ -50,7 +50,7 @@ public class GWTEiaTypeMaterialServiceImpl extends RemoteServiceServlet
 	 * #save(org.fourgeeks.gha.domain.gmh.EiaTypeMaterial)
 	 */
 	@Override
-	public EiaTypeMaterial save(EiaTypeMaterial eiaTypeMaterial)
+	public EiaTypeMaterialBrand save(EiaTypeMaterialBrand eiaTypeMaterial)
 			throws GHAEJBException {
 		return serviceRemote.save(eiaTypeMaterial);
 	}
@@ -75,7 +75,7 @@ public class GWTEiaTypeMaterialServiceImpl extends RemoteServiceServlet
 	 * #update(org.fourgeeks.gha.domain.gmh.EiaTypeMaterial)
 	 */
 	@Override
-	public EiaTypeMaterial update(EiaTypeMaterial eiaTypeMaterial)
+	public EiaTypeMaterialBrand update(EiaTypeMaterialBrand eiaTypeMaterial)
 			throws GHAEJBException {
 		return serviceRemote.update(eiaTypeMaterial);
 	}

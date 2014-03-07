@@ -1,6 +1,6 @@
-package org.fourgeeks.gha.webclient.client.eiatype.material;
+package org.fourgeeks.gha.webclient.client.eiatype.materialbrand;
 
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaterial;
+import org.fourgeeks.gha.domain.gmh.EiaTypeMaterialBrand;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
@@ -12,14 +12,15 @@ import com.smartgwt.client.types.ListGridFieldType;
  * @author emiliot
  * 
  */
-public class EiaTypeMaterialGrid extends GhaGrid<EiaTypeMaterial> {
+public class EiaTypeMaterialBrandGrid extends GhaGrid<EiaTypeMaterialBrand> {
 	private GHAGridField codeGridField;
 	private GHAGridField nameGridField;
 	private GHAGridField descriptionGridField;
 	private GHAGridField modelGridField;
 	private GHAGridField extCodeGridField;
-	// private GHAGridField typeGridField;
 	private GHAGridField amountGridField;
+	private GHAGridField brandGridField;
+	private GHAGridField categoryGridField;
 
 	{
 		codeGridField = new GHAGridField("code", GHAStrings.get("code"));
@@ -29,20 +30,24 @@ public class EiaTypeMaterialGrid extends GhaGrid<EiaTypeMaterial> {
 		modelGridField = new GHAGridField("model", GHAStrings.get("model"));
 		extCodeGridField = new GHAGridField("extCode",
 				GHAStrings.get("external-code"));
-		// typeGridField = new GHAGridField("type", GHAStrings.get("type"));
 		amountGridField = new GHAGridField("amount", GHAStrings.get("amount"));
 		amountGridField.setCanEdit(true);
 		amountGridField.setType(ListGridFieldType.INTEGER);
 		GHATextItem numerico = new GHATextItem();
 		numerico.setKeyPressFilter("[0-9]");
 		amountGridField.setEditorType(numerico);
+
+		categoryGridField = new GHAGridField("category",
+				GHAStrings.get("category"));
+		brandGridField = new GHAGridField("brand", GHAStrings.get("brand"));
 	}
 
-	public EiaTypeMaterialGrid() {
+	public EiaTypeMaterialBrandGrid() {
 		setEmptyMessage(GHAStrings.get("empty-material-grid"));
 
-		setFields(codeGridField, nameGridField, descriptionGridField,
-				modelGridField, extCodeGridField, amountGridField);
+		setFields(codeGridField, categoryGridField, nameGridField,
+				descriptionGridField, modelGridField, extCodeGridField,
+				brandGridField, amountGridField);
 	}
 
 	/**
