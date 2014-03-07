@@ -1,14 +1,8 @@
 package org.fourgeeks.gha.webclient.client.res.citizen;
 
-import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAEditButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAUndoButton;
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -45,14 +39,14 @@ public class CitizenTabTools extends VLayout {
 		final LayoutSpacer spacer = new LayoutSpacer();
 		spacer.setHeight(30);
 		addMember(spacer);
-		addMember(new GHADeleteButton(clickHandler));
-		addMember(new GHAEditButton(clickHandler));
-		addMember(new GHANewButton(clickHandler));
-		addMember(spacer);
-
-		addMember(new GHASearchButton(clickHandler));
-		addMember(new GHAUndoButton(clickHandler));
-		addMember(new GHACancelButton(clickHandler));
+		// addMember(new GHADeleteButton(clickHandler));
+		// addMember(new GHAEditButton(clickHandler));
+		// addMember(new GHANewButton(clickHandler));
+		// addMember(spacer);
+		//
+		// addMember(new GHASearchButton(clickHandler));
+		// addMember(new GHAUndoButton(clickHandler));
+		// addMember(new GHACancelButton(clickHandler));
 
 	}
 }

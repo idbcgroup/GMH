@@ -5,7 +5,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
 import org.fourgeeks.gha.webclient.client.citizen.CitizenModel;
-import org.fourgeeks.gha.webclient.client.res.citizen.body.CitizenRESBottomBodyForm;
+import org.fourgeeks.gha.webclient.client.res.citizen.body.CitizenRESInternalTabSet;
 import org.fourgeeks.gha.webclient.client.res.citizen.top.CitizenRESTopInformationview;
 
 import com.google.gwt.user.client.History;
@@ -22,10 +22,10 @@ public class CitizenTab extends GHATab {
 
 	private final String patientId;
 	private CitizenRESTopInformationview top;
-	private CitizenRESBottomBodyForm body;
+	private CitizenRESInternalTabSet body;
 	{
 		top = new CitizenRESTopInformationview();
-		body = new CitizenRESBottomBodyForm();
+		body = new CitizenRESInternalTabSet();
 	}
 
 	/**

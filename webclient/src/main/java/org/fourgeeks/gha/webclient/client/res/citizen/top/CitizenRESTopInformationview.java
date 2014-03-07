@@ -216,7 +216,7 @@ public class CitizenRESTopInformationview extends GHAHorizontalLayout implements
 			dobText.setContents(birthDate.toString());
 			final int daysBetween = CalendarUtil.getDaysBetween(birthDate,
 					DateUtil.create());
-			ageText.setContents("" + daysBetween);
+			ageText.setContents("" + daysBetween / 365);
 		}
 
 		bpiText.setContents("TODO");

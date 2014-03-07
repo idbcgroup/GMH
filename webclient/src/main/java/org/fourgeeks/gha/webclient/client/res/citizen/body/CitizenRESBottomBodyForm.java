@@ -8,6 +8,7 @@ import org.fourgeeks.gha.webclient.client.citizen.CitizenSelectionListener;
  * @author alacret
  * 
  */
+@Deprecated
 public class CitizenRESBottomBodyForm extends GHAHorizontalLayout implements
 		CitizenSelectionListener {
 

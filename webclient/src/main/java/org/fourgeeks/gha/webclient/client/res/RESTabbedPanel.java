@@ -35,48 +35,47 @@ public class RESTabbedPanel extends GHATabbedPanel {
 		super(title);
 
 		citizenSearchForm
-		.addCitizenSelectionListener(new CitizenSelectionListener() {
-			@Override
-			public void onCitizenSelect(Citizen citizen) {
-				History.newItem("res/" +citizen.getId());
-			}
-		});
+				.addCitizenSelectionListener(new CitizenSelectionListener() {
+					@Override
+					public void onCitizenSelect(Citizen citizen) {
+						History.newItem("res/" + citizen.getId());
+					}
+				});
 		citizenAddForm
-		.addCitizenSelectionListener(new CitizenSelectionListener() {
-			@Override
-			public void onCitizenSelect(Citizen citizen) {
-				History.newItem("res/" +citizen.getId());
-			}
-		});
+				.addCitizenSelectionListener(new CitizenSelectionListener() {
+					@Override
+					public void onCitizenSelect(Citizen citizen) {
+						History.newItem("res/" + citizen.getId());
+					}
+				});
 
 		addHeaderOption(GHAStrings.get("citizen-search"), "buscarButton",
 				new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				citizenSearchForm.open();
-			}
-		});
+					@Override
+					public void onClick(ClickEvent event) {
+						citizenSearchForm.open();
+					}
+				});
 		addHeaderOption(GHAStrings.get("citizen-new"), "agregarButton",
 				new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				citizenAddForm.open();
-				//				History.newItem("res/" + Math.round(Math.random() *10));
-			}
-		});
+					@Override
+					public void onClick(ClickEvent event) {
+						citizenAddForm.open();
+					}
+				});
 		addHeaderOption(GHAStrings.get("close"), "cerrarButton",
 				new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				try {
-					GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
-				} catch (final UnavailableToCloseException e) {
-					return;
-				}
-			}
-		});
+					@Override
+					public void onClick(ClickEvent event) {
+						try {
+							GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
+						} catch (final UnavailableToCloseException e) {
+							return;
+						}
+					}
+				});
 	}
 
 }
