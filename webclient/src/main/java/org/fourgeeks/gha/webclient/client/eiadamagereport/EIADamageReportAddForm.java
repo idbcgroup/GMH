@@ -89,7 +89,8 @@ public class EIADamageReportAddForm extends GHAAddForm<EiaDamageReport>
 	 */
 	@Override
 	public void notifyEiaDamageReport(EiaDamageReport eiaDamageReport) {
-		return;
+		((EiaDamageReportSelectionProducer) form)
+				.notifyEiaDamageReport(eiaDamageReport);
 	}
 
 	/*
@@ -134,6 +135,7 @@ public class EIADamageReportAddForm extends GHAAddForm<EiaDamageReport>
 			public void onSuccess(EiaDamageReport result) {
 				GHAAlertManager.alert("eiaDamageReport-save-success");
 				hide();
+				notifyEiaDamageReport(result);
 			}
 		});
 	}

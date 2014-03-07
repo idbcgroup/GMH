@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.EiaDamagePriorityEnum;
 import org.fourgeeks.gha.domain.enu.EiaDamageStatusEnum;
+import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.gar.Bpu;
 
 /**
@@ -31,6 +32,10 @@ public class EiaDamageReport extends AbstractEntity {
 	/** Estatus del daño: Equipo con falla, Equipo dañado */
 	@NotNull(message = "damageStatus-not-null")
 	private EiaDamageStatusEnum damageStatus;
+
+	/** Condición del equipo: Operativo, Detenido, Dañado permanentemente */
+	@NotNull(message = "state-not-null")
+	private EiaStateEnum eiaCondition;
 
 	/** Prioridad del daño o falla: Normal, Alta */
 	@NotNull(message = "damagePriority-not-null")
@@ -110,6 +115,14 @@ public class EiaDamageReport extends AbstractEntity {
 	}
 
 	/**
+	 * 
+	 * @return the eiaCondition
+	 */
+	public EiaStateEnum getEiaCondition() {
+		return eiaCondition;
+	}
+
+	/**
 	 * @param damageMotive
 	 *            the damageMotive to set
 	 */
@@ -163,6 +176,15 @@ public class EiaDamageReport extends AbstractEntity {
 	 */
 	public void setUserWhoReported(Bpu userWhoReported) {
 		this.userWhoReported = userWhoReported;
+	}
+
+	/**
+	 * 
+	 * @param eiaCondition
+	 *            the eiaCondition to set
+	 */
+	public void setEiaCondition(EiaStateEnum eiaCondition) {
+		this.eiaCondition = eiaCondition;
 	}
 
 }
