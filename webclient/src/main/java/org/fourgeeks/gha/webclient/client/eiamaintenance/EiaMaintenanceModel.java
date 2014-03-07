@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.eiamaintenance;
 
 import java.util.List;
 
+import org.fourgeeks.gha.domain.ess.MaintenanceServiceOrder;
 import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenance;
@@ -26,6 +27,16 @@ public class EiaMaintenanceModel {
 			GHAAsyncCallback<List<EiaMaintenance>> callback) {
 
 		service.find(eiaType, callback);
+	}
+
+	/**
+	 * @param eiaMaintenance
+	 * @param callback
+	 */
+	public static void findServiceOrder(EiaMaintenance eiaMaintenance,
+			GHAAsyncCallback<MaintenanceServiceOrder> callback) {
+
+		service.findServiceOrder(eiaMaintenance, callback);
 	}
 
 	/**

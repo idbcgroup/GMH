@@ -5,16 +5,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.fourgeeks.gha.domain.ess.MaintenanceServiceOrder;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
+import org.fourgeeks.gha.ejb.ess.MaintenanceServiceOrderServiceLocal;
 
 /**
  * Session Bean implementation class EiaMaintenancePlanification
@@ -27,6 +30,9 @@ public class EiaMaintenanceService extends GHAEJBExceptionService implements
 
 	private final static Logger logger = Logger
 			.getLogger(EiaMaintenanceService.class.getName());
+
+	@EJB
+	MaintenanceServiceOrderServiceLocal serviceOrderService;
 
 	/*
 	 * (non-Javadoc)
@@ -59,7 +65,29 @@ public class EiaMaintenanceService extends GHAEJBExceptionService implements
 					"Error: finding EiaMaintenancePlanification by eiatype", e);
 			throw super.generateGHAEJBException("eia-findByEiaType-fail", em);
 		}
+	}
 
+	@Override
+	public MaintenanceServiceOrder findServiceOrder(
+			EiaMaintenance eiaMaintenance) throws GHAEJBException {
+		MaintenanceServiceOrder maintenanceServiceOrder = null;
+
+		try {
+			MaintenanceServiceOrder entity = new MaintenanceServiceOrder();
+			entity.setMaintenance(eiaMaintenance);
+
+			List<MaintenanceServiceOrder> result = serviceOrderService
+					.find(entity);
+
+			if (result.size() == 1)
+				maintenanceServiceOrder = result.get(0);
+
+			return maintenanceServiceOrder;
+		} catch (Exception e) {
+			logger.log(Level.INFO,
+					"Error: finding EiaMaintenancePlanification by eiatype", e);
+			throw super.generateGHAEJBException("eia-findByEiaType-fail", em);
+		}
 	}
 
 	/*

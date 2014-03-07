@@ -16,7 +16,7 @@ import com.smartgwt.client.widgets.form.fields.events.KeyUpHandler;
  * @param <T>
  */
 public abstract class GHASearchForm<T> extends GHASlideInWindow {
-	private GHALabel label;
+	private GHALabel titleLabel;
 	protected List<T> blackList;
 
 	protected KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
@@ -42,8 +42,8 @@ public abstract class GHASearchForm<T> extends GHASlideInWindow {
 		super();
 		setWidth100();
 		setMinWidth(GHAUiHelper.MIN_WIDTH);
-		label = new GHALabel(title);
-		addMember(label);
+		titleLabel = new GHALabel(title);
+		addMember(titleLabel);
 	}
 
 	@Override

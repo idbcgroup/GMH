@@ -9,8 +9,10 @@ import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceRemote;
 import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.GWTMaintenancePlanificationService;
 
@@ -46,6 +48,13 @@ public class GWTEiaMaintenancePlanificationImpl extends RemoteServiceServlet
 		EiaMaintenancePlanification savedDamageReport = serviceRemote
 				.save(preventivePlanif);
 		return savedDamageReport;
+	}
+
+	@Override
+	public boolean existMantenancePlanification(Eia eia,
+			EiaTypeMaintenancePlan plan) throws GHAEJBException {
+		return serviceRemote.existMantenancePlanification(eia, plan);
+
 	}
 
 }

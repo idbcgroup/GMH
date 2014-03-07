@@ -14,9 +14,11 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.enu.EiaMaintenanceState;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 
@@ -223,5 +225,33 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 
 		}
 
+	}
+
+	@Override
+	public boolean existMantenancePlanification(Eia eia,
+			EiaTypeMaintenancePlan plan) throws GHAEJBException {
+		try {
+
+			String stringQuery = "SELECT emp FROM EiaMaintenancePlanification emp  "
+					+ "WHERE emp.eia = :name_eia and emp.plan = :name_plan ";
+
+			List<EiaMaintenancePlanification> resultList = em
+					.createQuery(stringQuery, EiaMaintenancePlanification.class)
+					.setParameter("name_eia", eia)
+					.setParameter("name_plan", plan).getResultList();
+			;
+
+			if (resultList.isEmpty())
+				return false;
+
+			return true;
+
+		} catch (Exception e) {
+			logger.log(
+					Level.INFO,
+					"Error: finding in the method existMantenancePlanification by eia and EiaTypeMaintenancePlan ",
+					e);
+			throw super.generateGHAEJBException("eia-findByEiaType-fail", em);
+		}
 	}
 }

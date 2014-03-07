@@ -26,6 +26,7 @@ final class GHATabSet extends HLayout {
 		super();
 		setHeight(30);
 		setStyleName("gha-tab-set");
+		setMembersMargin(6);
 		addMember(new LayoutSpacer());
 	}
 

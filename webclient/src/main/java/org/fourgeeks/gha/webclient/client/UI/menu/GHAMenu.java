@@ -32,7 +32,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret The Menu
  */
 public class GHAMenu {
-	
+
 	private GHAMenu() {
 		throw new UnsupportedOperationException(
 				"This class mus not be instantiaded");
@@ -43,10 +43,10 @@ public class GHAMenu {
 	 * 
 	 */
 	public static class GHAMenuBar extends VLayout implements EventListener,
-			ResizeHandler {
-		
-		private GHAImgButton menuButton;
-		private List<GHAMenuOption> options = new ArrayList<GHAMenu.GHAMenuOption>();
+	ResizeHandler {
+
+		private final GHAImgButton menuButton;
+		private final List<GHAMenuOption> options = new ArrayList<GHAMenu.GHAMenuOption>();
 
 		/**
 		 * 
@@ -68,13 +68,13 @@ public class GHAMenu {
 
 		@Override
 		public void onBrowserEvent(Event event) {
-			int mouseX = event.getClientX();
-			int mouseY = event.getClientY();
-			Rectangle rect = getRect();
-			int menuMinX = rect.getLeft();
-			int menuMaxX = rect.getLeft() + rect.getWidth();
-			int menuMinY = rect.getTop();
-			int menuMaxY = rect.getTop() + rect.getHeight();
+			final int mouseX = event.getClientX();
+			final int mouseY = event.getClientY();
+			final Rectangle rect = getRect();
+			final int menuMinX = rect.getLeft();
+			final int menuMaxX = rect.getLeft() + rect.getWidth();
+			final int menuMinY = rect.getTop();
+			final int menuMaxY = rect.getTop() + rect.getHeight();
 
 			if (!(mouseX >= menuMinX && mouseX <= menuMaxX
 					&& mouseY >= menuMinY && mouseY <= menuMaxY)) {
@@ -100,7 +100,7 @@ public class GHAMenu {
 		 * 
 		 */
 		public void open() {
-			for (GHAMenuOption option : options)
+			for (final GHAMenuOption option : options)
 				option.setVisible(true);
 			animateShow(AnimationEffect.FLY, new AnimationCallback() {
 
@@ -111,6 +111,7 @@ public class GHAMenu {
 			});
 		}
 
+		@Override
 		public void hide() {
 			animateHide(AnimationEffect.FLY);
 			GHAUiHelper.removeDocumentMouseOverHandler(this);
@@ -122,7 +123,7 @@ public class GHAMenu {
 		 * @return the ghamenuoption of this token or null if is not found
 		 */
 		public GHAMenuOption getByToken(String token) {
-			for (GHAMenuOption option : options)
+			for (final GHAMenuOption option : options)
 				if (option.getToken().equals(token))
 					return option;
 			return null;
@@ -135,7 +136,7 @@ public class GHAMenu {
 	 */
 	static public class GHAMenuOption extends HLayout {
 
-		private String token;
+		private final String token;
 
 		/**
 		 * @param text
@@ -152,11 +153,11 @@ public class GHAMenu {
 			setCursor(Cursor.HAND);
 			setVisible(false);
 			setStyleName("menu-option");
-			GHAImg iconButton = new GHAImg(imgSrc);
+			final GHAImg iconButton = new GHAImg(imgSrc);
 
 			addMembers(new LayoutSpacer(), iconButton);
 
-			GHALabel titulo = new GHALabel(text);
+			final GHALabel titulo = new GHALabel(text);
 			titulo.setWidth("150px");
 			titulo.setHeight("25px");
 			titulo.setStyleName("menu-option-title button-pointer");
@@ -173,7 +174,7 @@ public class GHAMenu {
 
 				@Override
 				public void onMouseOver(MouseOverEvent event) {
-					setBackgroundColor("#E0E0DF");
+					setBackgroundColor(GHAUiHelper.DEFAULT_PLACES_BAR_BACKGROUND_COLOR);
 				}
 			});
 

@@ -8,12 +8,12 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
  * @author emiliot A select item with the eia state items
  * 
  */
-public class GHAGenreSelectItem extends GHASelectItem {
+public class GHAGenderSelectItem extends GHASelectItem {
 
 	/**
 	 * 
 	 */
-	public GHAGenreSelectItem() {
+	public GHAGenderSelectItem() {
 		super(GHAStrings.get("genre"));
 		setValueMap(GenderTypeEnum.toValueMap());
 	}
@@ -21,7 +21,7 @@ public class GHAGenreSelectItem extends GHASelectItem {
 	/**
 	 * @param width
 	 */
-	public GHAGenreSelectItem(int width) {
+	public GHAGenderSelectItem(int width) {
 		this();
 		setWidth(width);
 	}

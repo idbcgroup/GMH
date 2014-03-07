@@ -54,10 +54,10 @@ import com.smartgwt.client.util.LogicalTime;
  * 
  */
 public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
-EIASelectionListener, EiaDamageReportSelectionProducer {
+		EIASelectionListener, EiaDamageReportSelectionProducer {
 	private GHATextItem codeTextItem, serialTextItem, fixedAssetIdTextItem,
-	workingAreaLocationCodeTextItem, facilityCodeTextItem,
-	realWarrantyTimeTextItem, intWarrantyTimeTextItem;
+			workingAreaLocationCodeTextItem, facilityCodeTextItem,
+			realWarrantyTimeTextItem, intWarrantyTimeTextItem;
 	private GHAWorkingAreaSelectItem workingAreaSelectItem;
 	private GHAFacilitySelectItem facilitySelectItem;
 	private GHARoleSelectItem baseRoleSelectItem;
@@ -65,22 +65,23 @@ EIASelectionListener, EiaDamageReportSelectionProducer {
 	private GHAExternalProviderSelectItem adqisitionProviderSelectItem;
 	private GHABspSelectItem maintenanceProviderSelectItem;
 	private GHASelectItem stateSelectItem, locationTypeSelectItem,
-	realWarrantySinceSelectItem, intWarrantySinceSelectItem,
-	eiaTypeSelectItem;
+			realWarrantySinceSelectItem, intWarrantySinceSelectItem,
+			eiaTypeSelectItem;
 	private GHATitletextItem information_TitleItem, location_TitleItem,
-	workingArea_TitleItem, facility_TitleItem, report_TitleItem,
-	realWarranty_TitleItem, intermedWarranty_TitleItem,
-	providers_TitleItem;
+			workingArea_TitleItem, facility_TitleItem, report_TitleItem,
+			realWarranty_TitleItem, intermedWarranty_TitleItem,
+			providers_TitleItem;
 	private GHADateItem realWarrantyBeginDate, intWarrantyBeginDate;
 	// datos del reporte
 	private GHADateItem damageDateItem;
 	private GHATimeItem damageTimeItem;
 	private GHATextAreaItem damageMotiveTextAreaItem;
 	private GHABpuSelectItem userWhoRegistedSelectItem,
-	userWhoReportedSelectItem;
+			userWhoReportedSelectItem;
 	private GHAPeriodOfTimeSelectItem realWarrantyPotSelectItem,
-	intWarrantyPotSelectItem;
-	private GHASelectItem damageStatusSelectItem, damagePrioritySelectItem;
+			intWarrantyPotSelectItem;
+	private GHASelectItem damageStatusSelectItem, equipmentCondSelectItem,
+			damagePrioritySelectItem;
 
 	private GHASectionForm sectionForm;
 	private final GHADynamicForm infoBasicaForm;
@@ -92,7 +93,7 @@ EIASelectionListener, EiaDamageReportSelectionProducer {
 	private Eia eia;
 
 	{ // Global
-		sectionForm = new GHASectionForm();
+		sectionForm = new GHASectionForm(GHAStrings.get("reports"));
 		listeners = new ArrayList<EiaDamageReportSelectionListener>();
 
 		// report data Form Items
@@ -104,6 +105,8 @@ EIASelectionListener, EiaDamageReportSelectionProducer {
 				changedHandler);
 		damageStatusSelectItem = new GHASelectItem("Estatus", true,
 				changedHandler);
+		equipmentCondSelectItem = new GHASelectItem("Condición del equipo",
+				true, changedHandler);
 		damagePrioritySelectItem = new GHASelectItem("Prioridad", true,
 				changedHandler);
 		userWhoReportedSelectItem = new GHABpuSelectItem(
@@ -182,7 +185,6 @@ EIASelectionListener, EiaDamageReportSelectionProducer {
 		reportForm = getReportForm();
 
 		sectionForm.addSection("Información Básica", infoBasicaForm);
-		sectionForm.addSectionSeparator();
 		sectionForm.addSection("Garantias", garantiasForm);
 		sectionForm.addSection("Ubicación", ubicacionForm);
 		sectionForm.addSection("Datos Reporte", reportForm);
@@ -243,6 +245,7 @@ EIASelectionListener, EiaDamageReportSelectionProducer {
 		damageDateItem.clearValue();
 		damageTimeItem.clearValue();
 		damageStatusSelectItem.clearValue();
+		equipmentCondSelectItem.clearValue();
 		damagePrioritySelectItem.clearValue();
 		userWhoReportedSelectItem.clearValue();
 		userWhoRegistedSelectItem.clearValue();
@@ -267,6 +270,10 @@ EIASelectionListener, EiaDamageReportSelectionProducer {
 			eiaDamageReport.setDamageStatus(EiaDamageStatusEnum
 					.valueOf(damageStatusSelectItem.getValueAsString()));
 
+		if (equipmentCondSelectItem.getValueAsString() != null)
+			eiaDamageReport.setEiaCondition(EiaStateEnum
+					.valueOf(equipmentCondSelectItem.getValueAsString()));
+
 		if (damagePrioritySelectItem.getValueAsString() != null)
 			eiaDamageReport.setPriority(EiaDamagePriorityEnum
 					.valueOf(damagePrioritySelectItem.getValueAsString()));
@@ -286,8 +293,8 @@ EIASelectionListener, EiaDamageReportSelectionProducer {
 
 		final LogicalTime time = damageTimeItem.getValueAsLogicalTime();
 		final LogicalDate date = damageDateItem.getValueAsLogicalDate();
-		final Timestamp timestamp = EIADamageAndPlanificationUtil.getTimestamp(date,
-				time);
+		final Timestamp timestamp = EIADamageAndPlanificationUtil.getTimestamp(
+				date, time);
 		eiaDamageReport.setDateTimestamp(timestamp);
 
 		// VALIDANDO LOS DATOS
@@ -299,7 +306,7 @@ EIASelectionListener, EiaDamageReportSelectionProducer {
 			final List<String> violationsList = new ArrayList<String>();
 			for (final ConstraintViolation<EiaDamageReport> violation : violations)
 				violationsList.add(violation.getMessage());
-			//			GHAAlertManager.alert(violationsList);
+			// GHAAlertManager.alert(violationsList);
 			GHAAlertManager.alert(violationsList.get(0));
 		}
 		return null;
@@ -341,8 +348,9 @@ EIASelectionListener, EiaDamageReportSelectionProducer {
 
 	private void fillReportDataSelects() {
 		damageStatusSelectItem.setValueMap(EiaDamageStatusEnum.toValueMap());
+		equipmentCondSelectItem.setValueMap(EiaStateEnum.toValueMapCondEia());
 		damagePrioritySelectItem
-		.setValueMap(EiaDamagePriorityEnum.toValueMap());
+				.setValueMap(EiaDamagePriorityEnum.toValueMap());
 	}
 
 	private void fillWarrantySelects() {
@@ -394,10 +402,12 @@ EIASelectionListener, EiaDamageReportSelectionProducer {
 				FormType.SECTIONFORM_FORM);
 
 		reportForm.setItems(report_TitleItem, damageStatusSelectItem,
-				damagePrioritySelectItem, new GHASpacerItem(), damageDateItem,
+				equipmentCondSelectItem, new GHASpacerItem(), damageDateItem,
 				damageTimeItem, new GHASpacerItem(), userWhoReportedSelectItem,
 				userWhoRegistedSelectItem, new GHASpacerItem(),
-				damageMotiveTextAreaItem, new GHASpacerItem());
+				damagePrioritySelectItem, new GHASpacerItem(),
+				new GHASpacerItem(), damageMotiveTextAreaItem,
+				new GHASpacerItem());
 
 		return reportForm;
 	}
@@ -455,17 +465,17 @@ EIASelectionListener, EiaDamageReportSelectionProducer {
 		if (eiaDamageReport != null) {
 			EiaDamageReportModel.save(eiaDamageReport,
 					new GHAAsyncCallback<EiaDamageReport>() {
-				@Override
-				public void onSuccess(EiaDamageReport result) {
-					hasUnCommittedChanges = false;
-					notifyEiaDamageReport(result);
-					clear();
-					if (callback != null) {
-						callback.onSuccess(result);
-					}
+						@Override
+						public void onSuccess(EiaDamageReport result) {
+							hasUnCommittedChanges = false;
+							notifyEiaDamageReport(result);
+							clear();
+							if (callback != null) {
+								callback.onSuccess(result);
+							}
 
-				}
-			});
+						}
+					});
 		}
 	}
 
@@ -561,6 +571,7 @@ EIASelectionListener, EiaDamageReportSelectionProducer {
 		damageDateItem.setDisabled(!activate);
 		damageTimeItem.setDisabled(!activate);
 		damageStatusSelectItem.setDisabled(!activate);
+		equipmentCondSelectItem.setDisabled(!activate);
 		damagePrioritySelectItem.setDisabled(!activate);
 		userWhoReportedSelectItem.setDisabled(!activate);
 		userWhoRegistedSelectItem.setDisabled(!activate);

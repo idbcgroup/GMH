@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -258,7 +260,7 @@ public class InitialData {
 
 		final String query = "SELECT COUNT(t) from CCDILevelDefinition t";
 		try {
-			int count = ((Number) em.createQuery(query).getSingleResult())
+			final int count = ((Number) em.createQuery(query).getSingleResult())
 					.intValue();
 			if (count <= 0)
 				throw new NoResultException();
@@ -329,7 +331,7 @@ public class InitialData {
 
 		final String query = "SELECT COUNT(t) from CCDILevelValue t";
 		try {
-			int count = ((Number) em.createQuery(query).getSingleResult())
+			final int count = ((Number) em.createQuery(query).getSingleResult())
 					.intValue();
 			if (count <= 0)
 				throw new NoResultException();
@@ -402,7 +404,7 @@ public class InitialData {
 
 		final String query = "SELECT COUNT(t) from CCDIDefinition t";
 		try {
-			int count = ((Number) em.createQuery(query).getSingleResult())
+			final int count = ((Number) em.createQuery(query).getSingleResult())
 					.intValue();
 			if (count <= 0)
 				throw new NoResultException();
@@ -481,6 +483,10 @@ public class InitialData {
 					citizen.setFirstLastName(lastNames[i]);
 					citizen.setSecondLastName(lastNames[(i + 1) % 5]);
 					citizen.setIdType(DocumentTypeEnum.LOCAL);
+					final SimpleDateFormat sdf = new SimpleDateFormat(
+							"dd/MM/yyyy");
+					final java.util.Date bd = sdf.parse("25/05/1987");
+					citizen.setBirthDate(new Date(bd.getTime()));
 					citizen.setIdNumber("" + i);
 					citizen.setPrimaryEmail(names[i] + "@4geeks.co");
 					em.persist(citizen);
@@ -530,7 +536,7 @@ public class InitialData {
 	private void eiaTypeCategoryTestData() {
 		final String query = "SELECT COUNT(t) from EiaTypeCategory t";
 		try {
-			int count = ((Number) em.createQuery(query).getSingleResult())
+			final int count = ((Number) em.createQuery(query).getSingleResult())
 					.intValue();
 			if (count <= 0)
 				throw new NoResultException();

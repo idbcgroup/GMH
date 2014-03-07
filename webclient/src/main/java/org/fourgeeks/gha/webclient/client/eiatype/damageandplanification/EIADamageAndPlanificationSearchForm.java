@@ -237,7 +237,8 @@ public class EIADamageAndPlanificationSearchForm extends GHASearchForm<Eia>
 	@Override
 	public void search() {
 		Eia eia = new Eia();
-		eia.setState(null);
+		// Only eias that are in operation.
+		eia.setState(EiaStateEnum.IN_OPERATION);
 		eia.setEiaType(eiaType);
 
 		if (serialNumber.getValue() != null)
@@ -261,8 +262,6 @@ public class EIADamageAndPlanificationSearchForm extends GHASearchForm<Eia>
 	 * @param eia
 	 */
 	private void search(final Eia eia) {
-		// Finds only eias that are in operation.
-		eia.setState(EiaStateEnum.IN_OPERATION);
 		EIAModel.find(eia, new GHAAsyncCallback<List<Eia>>() {
 
 			@Override

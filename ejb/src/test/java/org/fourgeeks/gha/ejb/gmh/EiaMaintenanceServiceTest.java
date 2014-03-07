@@ -45,7 +45,6 @@ import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanStatus;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationState;
-import org.fourgeeks.gha.domain.enu.MaintenancePlanificationType;
 import org.fourgeeks.gha.domain.enu.ProviderPreferenceEnum;
 import org.fourgeeks.gha.domain.enu.ProviderQualEnum;
 import org.fourgeeks.gha.domain.enu.ProviderRepresentEnum;
@@ -92,8 +91,8 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.gmh.RequiredResources;
 import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
@@ -232,7 +231,6 @@ public class EiaMaintenanceServiceTest {
 				.addClass(MaintenancePlanState.class)
 				.addClass(MaintenancePlanType.class)
 				.addClass(EiaMaintenanceState.class)
-				.addClass(MaintenancePlanificationType.class)
 				.addClass(MaintenanceProtocol.class)
 				.addClass(ActivityState.class)
 				.addClass(ActivityCategoryEnum.class)

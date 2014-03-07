@@ -1,11 +1,10 @@
 package org.fourgeeks.gha.webclient.client.res.citizen.body;
 
+import org.fourgeeks.gha.domain.mix.Citizen;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAInternalTabSet;
-import org.fourgeeks.gha.webclient.client.res.citizen.body.demographic.CitizenRESDemographicTab;
-import org.fourgeeks.gha.webclient.client.res.citizen.body.insurancecompany.CitizenRESInsuranceCompanyTab;
-import org.fourgeeks.gha.webclient.client.res.citizen.body.occupational.CitizenRESOccupationalTab;
-import org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation.CitizenRESBasicInformationTab;
-import org.fourgeeks.gha.webclient.client.res.citizen.body.socialeconomic.CitizenRESSocialEconomicsTab;
+import org.fourgeeks.gha.webclient.client.citizen.CitizenSelectionListener;
+import org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation.CitizenRESBasicInformationSubTab;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 
@@ -13,24 +12,56 @@ import com.google.gwt.event.logical.shared.ResizeEvent;
  * @author alacret
  * 
  */
-public class CitizenRESInternalTabSet extends GHAInternalTabSet {
+public class CitizenRESInternalTabSet extends GHAInternalTabSet implements
+		CitizenSelectionListener {
+
+	private final CitizenRESBasicInformationSubTab citizenRESBasicInformationTab = new CitizenRESBasicInformationSubTab();
+
+	// private final CitizenRESDemographicSubTab citizenRESDemograficSubTab =
+	// new CitizenRESDemographicSubTab();
+	// private final CitizenRESSocialEconomicsSubTab
+	// citizenRESSocialEconomicsSubTab = new CitizenRESSocialEconomicsSubTab();
+	// private final CitizenRESInsuranceCompanySubTab
+	// citizenRESInsuranceCompanySubTab = new
+	// CitizenRESInsuranceCompanySubTab();
+	// private final CitizenRESOccupationalSubTab citizenRESOccupationalSubTab =
+	// new CitizenRESOccupationalSubTab();
 
 	/**
 	 * 
 	 */
 	public CitizenRESInternalTabSet() {
 		super();
-		setHeight100();
-		addTab(new CitizenRESBasicInformationTab());
-		addTab(new CitizenRESDemographicTab());
-		addTab(new CitizenRESSocialEconomicsTab());
-		addTab(new CitizenRESInsuranceCompanyTab());
-		addTab(new CitizenRESOccupationalTab());
+		setHeight(GHAUiHelper.getRESBodyHeight());
+		// hideables
+		hideables.add(citizenRESBasicInformationTab);
+		// hideables.add(citizenRESDemograficSubTab);
+		// hideables.add(citizenRESSocialEconomicsSubTab);
+		// hideables.add(citizenRESInsuranceCompanySubTab);
+		// hideables.add(citizenRESOccupationalSubTab);
+		// closables
+		closables.add(citizenRESBasicInformationTab);
+		// closables.add(citizenRESDemograficSubTab);
+		// closables.add(citizenRESSocialEconomicsSubTab);
+		// closables.add(citizenRESInsuranceCompanySubTab);
+		// closables.add(citizenRESOccupationalSubTab);
+
+		addTab(citizenRESBasicInformationTab);
+		// addTab(citizenRESDemograficSubTab);
+		// addTab(citizenRESSocialEconomicsSubTab);
+		// addTab(citizenRESInsuranceCompanySubTab);
+		// addTab(citizenRESOccupationalSubTab);
+	}
+
+	@Override
+	public void onCitizenSelect(Citizen citizen) {
+		citizenRESBasicInformationTab.onCitizenSelect(citizen);
+
 	}
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		return;
+		setHeight(GHAUiHelper.getRESBodyHeight());
 	}
 
 }
