@@ -45,7 +45,7 @@ public enum EiaStateEnum {
 	MAINTENANCE("En mantenimiento", "eiastate-maintenance"), /**
 			 * 
 			 */
-	IN_ACCEPTANCE("En espera por aceptaci'on en mantenimiento",
+	IN_ACCEPTANCE("En espera por aceptación en mantenimiento",
 			"eiastate-inacceptance"), /**
 	 * 
 	 */
@@ -90,6 +90,20 @@ public enum EiaStateEnum {
 		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
 		for (EiaStateEnum mobility : EiaStateEnum.values())
 			valueMap.put(mobility.name() + "", mobility.toString());
+		return valueMap;
+	}
+
+	/**
+	 * @return a valueMap with a subset of this Enum values (In operation, Mayor
+	 *         Damaged, Disincorporated)
+	 */
+	public static LinkedHashMap<String, String> toValueMapCondEia() {
+		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+		for (EiaStateEnum cond : EiaStateEnum.values()) {
+			if (cond == IN_OPERATION || cond == MAYOR_DAMAGED
+					|| cond == DISINCORPORATED)
+				valueMap.put(cond.name() + "", cond.toString());
+		}
 		return valueMap;
 	}
 
