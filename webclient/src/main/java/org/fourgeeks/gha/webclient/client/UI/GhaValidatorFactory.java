@@ -6,6 +6,7 @@ import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.glm.Material;
+import org.fourgeeks.gha.domain.glm.MaterialBrand;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
@@ -32,9 +33,9 @@ public final class GhaValidatorFactory extends AbstractGwtValidatorFactory {
 	 * validated.
 	 */
 	@GwtValidation({ EiaType.class, Citizen.class, Eia.class, Material.class,
-			MaterialCategory.class, SSOUser.class, SSOUser.class,
-			LegalEntity.class, Bpu.class, Bpi.class, MaintenancePlan.class,
-			Activity.class, EiaDamageReport.class,
+			MaterialCategory.class, MaterialBrand.class, SSOUser.class,
+			SSOUser.class, LegalEntity.class, Bpu.class, Bpi.class,
+			MaintenancePlan.class, Activity.class, EiaDamageReport.class,
 			EiaMaintenancePlanification.class })
 	public interface GwtValidator extends Validator {
 	}

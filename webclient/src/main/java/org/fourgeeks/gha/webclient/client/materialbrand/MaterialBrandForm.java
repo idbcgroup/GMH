@@ -3,13 +3,28 @@
  */
 package org.fourgeeks.gha.webclient.client.materialbrand;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
+import javax.validation.ConstraintViolation;
+
+import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialBrand;
+import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
+import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABrandSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHACodeTextItem;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -26,6 +41,46 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 	private GHATextAreaItem descriptionItem;
 	private GHABrandSelectItem brandItem;
 
+	private GHASelectItem typeItem;
+	private GHADynamicForm form;
+	private boolean cleanCodeItem = true;
+
+	{
+		listeners = new ArrayList<MaterialBrandSelectionListener>();
+		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
+		nameItem.setColSpan(2);
+		codeItem = new GHACodeTextItem(true, changedHandler);
+		externalCodeItem = new GHATextItem(GHAStrings.get("external-code"),
+				false, changedHandler);
+		typeItem = new GHASelectItem(GHAStrings.get("type"), true,
+				changedHandler);
+		brandItem = new GHABrandSelectItem();
+
+		modelItem = new GHATextItem(GHAStrings.get("model"), false,
+				changedHandler);
+		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"),
+				changedHandler);
+		descriptionItem.setColSpan(2);
+
+		form = new GHADynamicForm(3, FormType.NORMAL_FORM);
+	}
+
+	public MaterialBrandForm() {
+		super();
+		form.setItems(nameItem, new GHASpacerItem(), codeItem,
+				externalCodeItem, new GHASpacerItem(1), typeItem, brandItem,
+				new GHASpacerItem(), modelItem, new GHASpacerItem(2),
+				descriptionItem);
+		addMember(form);
+		fill();
+	}
+
+	public MaterialBrandForm(String value) {
+		this();
+		codeItem.setValue(value);
+		this.cleanCodeItem = false;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -34,8 +89,7 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 	 */
 	@Override
 	public void activate() {
-		// TODO Auto-generated method stub
-
+		toggleForm(true);
 	}
 
 	/*
@@ -49,8 +103,32 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 	@Override
 	public void addMaterialBrandSelectionListener(
 			MaterialBrandSelectionListener listener) {
-		// TODO Auto-generated method stub
+		listeners.add(listener);
 
+	}
+
+	protected void cancel() {
+
+	}
+
+	@Override
+	public void clear() {
+		super.clear();
+
+		if (this.cleanCodeItem)
+			codeItem.clearValue();
+
+		externalCodeItem.clearValue();
+		nameItem.clearValue();
+		descriptionItem.clearValue();
+		modelItem.clearValue();
+
+		if (!typeItem.isDisabled()) {
+			typeItem.clearValue();
+		}
+
+		brandItem.clearValue();
+		this.form.clearErrors(true);
 	}
 
 	/*
@@ -61,8 +139,57 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 	 */
 	@Override
 	public void deactivate() {
-		// TODO Auto-generated method stub
+		toggleForm(false);
+	}
 
+	private MaterialBrand extract() {
+		final Material material = new Material();
+		final MaterialBrand materialBrand = new MaterialBrand();
+
+		if (brandItem.getValue() != null) {
+			materialBrand.setBrand(new Brand(Integer.valueOf(brandItem
+					.getValueAsString())));
+		}
+
+		material.setCode(codeItem.getValueAsString());
+		material.setExternalCode(externalCodeItem.getValueAsString());
+		material.setName(nameItem.getValueAsString());
+		material.setDescription(descriptionItem.getValueAsString());
+		if (typeItem.getValue() != null)
+			material.setType(MaterialTypeEnum.valueOf(typeItem
+					.getValueAsString()));
+		material.setModel(modelItem.getValueAsString());
+
+		final Set<ConstraintViolation<Material>> violations = validator
+				.validate(material);
+		materialBrand.setMaterial(material);
+
+		final Set<ConstraintViolation<MaterialBrand>> violations1 = validator
+				.validate(materialBrand);
+
+		if (form.validate() && violations.isEmpty() && violations1.isEmpty())
+			return materialBrand;
+		else {
+			final List<String> violationsList = new ArrayList<String>();
+			for (final Iterator<ConstraintViolation<Material>> it = violations
+					.iterator(); it.hasNext();) {
+				violationsList.add(it.next().getMessage());
+			}
+
+			for (final Iterator<ConstraintViolation<MaterialBrand>> it = violations1
+					.iterator(); it.hasNext();)
+				violationsList.add(it.next().getMessage());
+
+			GHAAlertManager.alert(violationsList.get(0));
+		}
+		return null;
+	}
+
+	/**
+	 * 
+	 */
+	private void fill() {
+		typeItem.setValueMap(MaterialTypeEnum.toValueMap());
 	}
 
 	/*
@@ -74,8 +201,8 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 	 */
 	@Override
 	public void notifyMaterialBrand(MaterialBrand materialBrand) {
-		// TODO Auto-generated method stub
-
+		for (final MaterialBrandSelectionListener listener : listeners)
+			listener.select(materialBrand);
 	}
 
 	/*
@@ -87,8 +214,7 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 	 */
 	@Override
 	public void onResize(ResizeEvent arg0) {
-		// TODO Auto-generated method stub
-
+		form.resize();
 	}
 
 	/*
@@ -102,8 +228,7 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 	@Override
 	public void removeMaterialBrandSelectionListener(
 			MaterialBrandSelectionListener listener) {
-		// TODO Auto-generated method stub
-
+		listeners.remove(listener);
 	}
 
 	/*
@@ -114,8 +239,22 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 	 * .gha.webclient.client.UI.GHAAsyncCallback)
 	 */
 	@Override
-	public void save(GHAAsyncCallback<MaterialBrand> callback) {
-		// TODO Auto-generated method stub
+	public void save(final GHAAsyncCallback<MaterialBrand> callback) {
+		final MaterialBrand materialBrand = extract();
+		if (materialBrand != null) {
+			MaterialBrandModel.save(materialBrand,
+					new GHAAsyncCallback<MaterialBrand>() {
+
+						@Override
+						public void onSuccess(MaterialBrand result) {
+							hasUnCommittedChanges = false;
+							notifyMaterialBrand(result);
+							cancel();
+							if (callback != null)
+								callback.onSuccess(result);
+						}
+					});
+		}
 
 	}
 
@@ -128,8 +267,48 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 	 */
 	@Override
 	public void set(MaterialBrand entity) {
-		// TODO Auto-generated method stub
+		this.originalEntity = entity;
+		final Material material = entity.getMaterial();
 
+		codeItem.setValue(material.getCode());
+		externalCodeItem.setValue(material.getExternalCode());
+		nameItem.setValue(material.getName());
+		descriptionItem.setValue(material.getDescription());
+
+		if (material.getType() != null)
+			typeItem.setValue(material.getType().name());
+
+		if (typeItem.getValue() != null)
+			material.setType(MaterialTypeEnum.valueOf(typeItem
+					.getValueAsString()));
+		material.setModel(modelItem.getValueAsString());
+
+		brandItem.setValue(entity.getBrand().getId());
+	}
+
+	public void setType(MaterialTypeEnum type) {
+		typeItem.setValue(type.name());
+		typeItem.setDisabled(true);
+	}
+
+	private void toggleForm(boolean activate) {
+		codeItem.disable();
+
+		externalCodeItem.setDisabled(!activate);
+		nameItem.setDisabled(!activate);
+		descriptionItem.setDisabled(!activate);
+		modelItem.setDisabled(!activate);
+		descriptionItem.setDisabled(!activate);
+		brandItem.setDisabled(!activate);
+	}
+
+	@Override
+	public void undo() {
+		if (originalEntity == null)
+			cancel();
+		else
+			this.set(originalEntity);
+		hasUnCommittedChanges = false;
 	}
 
 	/*

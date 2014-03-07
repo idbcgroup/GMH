@@ -21,7 +21,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaterialAddForm extends GHAAddForm<Material> implements
-MaterialSelectionProducer {
+		MaterialSelectionProducer {
 	protected MaterialForm form;
 	{
 		form = new MaterialForm();
@@ -41,11 +41,11 @@ MaterialSelectionProducer {
 					}
 				}), new GHACancelButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						hide();
-					}
-				}));
+			@Override
+			public void onClick(ClickEvent event) {
+				hide();
+			}
+		}));
 		HLayout gridPanel = new HLayout();
 		// gridPanel.setAlign(VerticalAlignment.TOP);
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
@@ -149,7 +149,7 @@ MaterialSelectionProducer {
 	@Override
 	public void removeMaterialSelectionListener(
 			MaterialSelectionListener materialSelectionListener) {
-		form.addMaterialSelectionListener(materialSelectionListener);
+		form.removeMaterialSelectionListener(materialSelectionListener);
 
 	}
 
