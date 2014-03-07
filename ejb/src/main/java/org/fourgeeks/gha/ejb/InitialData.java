@@ -63,7 +63,10 @@ import org.fourgeeks.gha.domain.gar.Job;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
+import org.fourgeeks.gha.domain.glm.Material;
+import org.fourgeeks.gha.domain.glm.MaterialBrand;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -85,6 +88,7 @@ import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.domain.msg.UiString;
 import org.fourgeeks.gha.ejb.ess.ui.ViewFunctionServiceRemote;
+import org.fourgeeks.gha.ejb.gom.CCDIServiceRemote;
 
 import au.com.bytecode.opencsv.CSVReader;
 
@@ -104,6 +108,9 @@ public class InitialData {
 
 	@EJB(name = "ess.AppFormViewFunctionService")
 	ViewFunctionServiceRemote permissionService;
+
+	@EJB(lookup = "java:global/ear-1/ejb-1/CCDIService!org.fourgeeks.gha.ejb.gom.CCDIServiceRemote")
+	CCDIServiceRemote ccdiServiceRemote;
 
 	private void bpiTestData() {
 		final String query = "SELECT t from Bpi t WHERE t.id = 1 ";
@@ -504,7 +511,7 @@ public class InitialData {
 
 				for (int i = 1; i < 4; ++i) {
 					final Eia eia = new Eia(bRole, em.find(EiaType.class,
-							"300000000" + Long.toString(i)), obu,
+							"3XXXXX000" + Long.toString(i)), obu,
 							EiaStateEnum.values()[i % 3], "GHAEQ-00" + i,
 							mProvider, "S9023423" + i);
 					eia.setCode("eia-00" + i);
@@ -558,9 +565,12 @@ public class InitialData {
 		InputStream in = null;
 		CSVReader reader = null;
 
-		final String query = "SELECT t from EiaType t WHERE t.code='3000000001'";
+		final String query = "SELECT COUNT(t) from EiaType t";
 		try {
-			em.createQuery(query).getSingleResult();
+			int count = ((Number) em.createQuery(query).getSingleResult())
+					.intValue();
+			if (count <= 0)
+				throw new NoResultException();
 		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test eiatype");
@@ -574,17 +584,20 @@ public class InitialData {
 							|| strings[0].startsWith("//"))
 						continue;
 					final EiaType eiaType = new EiaType();
-					eiaType.setCode(strings[0]);
 					eiaType.setBrand(em.find(Brand.class,
-							Long.parseLong(strings[1])));
-					eiaType.setName(strings[2]);
+							Long.parseLong(strings[0])));
+					eiaType.setName(strings[1]);
 					eiaType.setMobility(EiaMobilityEnum.values()[Integer
-							.parseInt(strings[3])]);
+							.parseInt(strings[2])]);
 					eiaType.setEiaTypeCategory(em.find(EiaTypeCategory.class,
-							strings[4]));
+							strings[3]));
+					eiaType.setCode(ccdiServiceRemote
+							.getNextElementCode(eiaType.getEiaTypeCategory()
+									.getCode()));
+
 					eiaType.setSubtype(EiaSubTypeEnum.values()[Integer
-							.parseInt(strings[5])]);
-					eiaType.setModel(strings[6]);
+							.parseInt(strings[4])]);
+					eiaType.setModel(strings[5]);
 					em.persist(eiaType);
 					em.flush();
 				}
@@ -956,30 +969,71 @@ public class InitialData {
 	}
 
 	private void materialTestData() {
-		final String query = "SELECT t from Material t WHERE t.code= 'material-test-001'";
+		InputStream in = null;
+		CSVReader reader = null;
+
+		final String query = "SELECT COUNT(t) from Material t";
 		try {
-			em.createQuery(query).getSingleResult();
+			int count = ((Number) em.createQuery(query).getSingleResult())
+					.intValue();
+			if (count <= 0)
+				throw new NoResultException();
 		} catch (final NoResultException e) {
 			try {
-				logger.info("creating test data : material");
+				logger.info("creating test material");
+				in = InitialData.class.getResourceAsStream("/material.csv");
+				reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
+						'\'', 0);
+				final List<String[]> readAll = reader.readAll();
 
-				// TODO
-				// final String names[] = { "aguja", "sutura", "inyectadora",
-				// "algodon", "alcohol" };
-				// int i = 1;
-				// for (final String name : names) {
-				// final Material next = new Material();
-				// next.setName(name);
-				// next.setCode("material-test-00" + i);
-				// next.setDescription(name);
-				// next.setType(MaterialTypeEnum.values()[i % 3]);
-				// next.setExternalCode("ex-code-00" + i);
-				// i++;
-				// em.persist(next);
-				// }
+				for (final String[] strings : readAll) {
+					if (strings[0].startsWith("#")
+							|| strings[0].startsWith("//"))
+						continue;
+					Material material = new Material();
+					material.setType(MaterialTypeEnum.values()[Integer
+							.parseInt(strings[0])]);
+					material.setMaterialCategory(em.find(
+							MaterialCategory.class, strings[1]));
+					material.setDescription(strings[2]);
+					material.setName(strings[3]);
+					material.setExternalCode(strings[4]);
+					material.setModel(strings[5]);
+					material.setBarCode(strings[6]);
+					material.setCode(ccdiServiceRemote
+							.getNextElementCode(material.getMaterialCategory()
+									.getCode()));
+
+					em.persist(material);
+					em.flush();
+					material = em.find(Material.class, material.getCode());
+
+					MaterialBrand materialBrand = new MaterialBrand();
+					materialBrand.setMaterial(material);
+					materialBrand.setBrand(em.find(Brand.class,
+							Long.parseLong(strings[7])));
+					materialBrand.setAmount(Integer.parseInt(strings[8]));
+
+					em.persist(materialBrand);
+					em.flush();
+				}
+
 			} catch (final Exception e1) {
-				logger.log(Level.INFO,
-						"error creating test data: external provider", e);
+				logger.log(Level.INFO, "error creating eiatype test data", e1);
+			}
+		} finally {
+			try {
+				if (reader != null)
+					reader.close();
+			} catch (final IOException e) {
+				logger.log(Level.SEVERE, "ERROR IN eiatype test data");
+			}
+
+			try {
+				if (in != null)
+					in.close();
+			} catch (final IOException e) {
+				logger.log(Level.SEVERE, "ERROR IN eiatype test data");
 			}
 		}
 	}
@@ -1308,16 +1362,14 @@ public class InitialData {
 		// eiaMaintenancePlanificationTestData();
 	}
 
-	private void transactionParamsTestData() {
+	private void timerParamsTestData() {
 		InputStream in = null;
 		CSVReader reader = null;
 
 		try {
-			logger.info("creating TransactionParams test data");
-			in = InitialData.class
-					.getResourceAsStream("/transactionParams.csv");
-			reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
-					'\'', 0);
+			logger.info("creating TimerParams test data");
+			in = InitialData.class.getResourceAsStream("/timerParams.csv");
+			reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',');
 			final List<String[]> readAll = reader.readAll();
 			final Map<String, Boolean> words = new HashMap<String, Boolean>();
 
@@ -1326,14 +1378,21 @@ public class InitialData {
 				if (code.startsWith("#") || code.startsWith("//"))
 					continue;
 				if (words.containsKey(code)) {
-					logger.info("Repeated key in transactionParams: " + code);
+					logger.info("Repeated key in timerParams: " + code);
 					continue;
 				}
 				words.put(code, true);
 
-				final TransactionParams entity = new TransactionParams();
+				final TimerParams entity = new TimerParams();
 				entity.setCode(code);
 				entity.setJndiProcessorName(strings[1]);
+				entity.setSeconds(Integer.valueOf(strings[2]));
+				entity.setMinutes(Integer.valueOf(strings[3]));
+				entity.setHours(Integer.valueOf(strings[4]));
+				entity.setDays(Integer.valueOf(strings[5]));
+				entity.setYears(Integer.valueOf(strings[6]));
+				entity.setDuration(Integer.valueOf(strings[7]));
+				entity.setDurationPot(TimePeriodEnum.valueOf(strings[8]));
 
 				em.merge(entity);
 				em.flush();
@@ -1369,14 +1428,16 @@ public class InitialData {
 		}
 	}
 
-	private void timerParamsTestData() {
+	private void transactionParamsTestData() {
 		InputStream in = null;
 		CSVReader reader = null;
 
 		try {
-			logger.info("creating TimerParams test data");
-			in = InitialData.class.getResourceAsStream("/timerParams.csv");
-			reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',');
+			logger.info("creating TransactionParams test data");
+			in = InitialData.class
+					.getResourceAsStream("/transactionParams.csv");
+			reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
+					'\'', 0);
 			final List<String[]> readAll = reader.readAll();
 			final Map<String, Boolean> words = new HashMap<String, Boolean>();
 
@@ -1385,21 +1446,14 @@ public class InitialData {
 				if (code.startsWith("#") || code.startsWith("//"))
 					continue;
 				if (words.containsKey(code)) {
-					logger.info("Repeated key in timerParams: " + code);
+					logger.info("Repeated key in transactionParams: " + code);
 					continue;
 				}
 				words.put(code, true);
 
-				final TimerParams entity = new TimerParams();
+				final TransactionParams entity = new TransactionParams();
 				entity.setCode(code);
 				entity.setJndiProcessorName(strings[1]);
-				entity.setSeconds(Integer.valueOf(strings[2]));
-				entity.setMinutes(Integer.valueOf(strings[3]));
-				entity.setHours(Integer.valueOf(strings[4]));
-				entity.setDays(Integer.valueOf(strings[5]));
-				entity.setYears(Integer.valueOf(strings[6]));
-				entity.setDuration(Integer.valueOf(strings[7]));
-				entity.setDurationPot(TimePeriodEnum.valueOf(strings[8]));
 
 				em.merge(entity);
 				em.flush();

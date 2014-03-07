@@ -1,0 +1,5 @@
+#Material(type[material,servicio,utilitario],category,description,name,externalCode,model,barCode,brand,amount)
+0,010100,Aguja de Biopsia,Aguja Biomed,010100,B1,,1,10
+0,010102,Aguja de Bloqueo,Aguja Bayer,010102,B2,,2,3
+0,0107,Bolsa de Aseo,Bolsa Manaplas,0107,BM1,,3,200
+0,02,Resma de Papel,Resma de Papel,02,RP1,,4,50
