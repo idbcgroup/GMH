@@ -113,10 +113,6 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 
 	}
 
-	protected void cancel() {
-
-	}
-
 	@Override
 	public void clear() {
 		super.clear();
@@ -259,7 +255,7 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 						public void onSuccess(MaterialBrand result) {
 							hasUnCommittedChanges = false;
 							notifyMaterialBrand(result);
-							cancel();
+							clear();
 							if (callback != null)
 								callback.onSuccess(result);
 						}
@@ -315,7 +311,7 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 	@Override
 	public void undo() {
 		if (originalEntity == null)
-			cancel();
+			clear();
 		else
 			this.set(originalEntity);
 		hasUnCommittedChanges = false;
