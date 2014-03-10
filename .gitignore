@@ -14,30 +14,35 @@ webclient/bin/**
 domain/bin/**
 ear/bin/**
 dbadmin/bin/**
+crud/bin/**
 
 ejb/target/**
 webclient/target/**
 domain/target/**
 ear/target/**
 dbadmin/target/**
+crud/target/**
 
 ejb/.settings/**
 webclient/.settings/**
 domain/.settings/**
 ear/.settings/**
 dbadmin/.settings/**
+crud/.settings/**
 
 ejb/.classpath
 webclient/.classpath
 domain/.classpath
 ear/.classpath
 dbadmin/.classpath
+crud/.classpath
 
 ejb/.project
 webclient/.project
 domain/.project
 ear/.project
 dbadmin/.project
+crud/.project
 
 /build
 /bin
