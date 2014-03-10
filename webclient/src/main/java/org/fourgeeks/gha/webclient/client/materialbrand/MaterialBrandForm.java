@@ -119,6 +119,7 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 
 		if (this.cleanCodeItem)
 			codeItem.clearValue();
+		categoryItem.clearValue();
 
 		externalCodeItem.clearValue();
 		nameItem.clearValue();
