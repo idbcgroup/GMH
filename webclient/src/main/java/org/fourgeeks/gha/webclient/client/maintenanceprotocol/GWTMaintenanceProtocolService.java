@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.maintenanceprotocols;
+package org.fourgeeks.gha.webclient.client.maintenanceprotocol;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  * @author naramirez
  */
 @RemoteServiceRelativePath("maintenanceProtocolsService")
-public interface GWTMaintenanceProtocolsService extends RemoteService {
+public interface GWTMaintenanceProtocolService extends RemoteService {
 
 	/**
 	 * Copy the activities from a mantenance plan to other maintenance plan

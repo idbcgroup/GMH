@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocols;
+package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol;
 
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
@@ -6,27 +6,27 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanPanel;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceprotocols.MaintenanceProtocolsSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceprotocols.MaintenanceProtocolsSelectionProducer;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionProducer;
 
 /**
  * @author emiliot
  * 
  */
-public class MaintenanceProtocolsSubTab extends GHASubTab implements
-		MaintenanceProtocolsSelectionProducer, MaintenancePlanSelectionListener {
+public class MaintenanceProtocolSubTab extends GHASubTab implements
+		MaintenanceProtocolSelectionProducer, MaintenancePlanSelectionListener {
 
-	private final MaintenanceProtocolsGridPanel maintenanceProtocolsGridPanel;
+	private final MaintenanceProtocolGridPanel maintenanceProtocolsGridPanel;
 
 	/**
 	 * @param panel
 	 */
-	public MaintenanceProtocolsSubTab(MaintenancePlanPanel panel) {
+	public MaintenanceProtocolSubTab(MaintenancePlanPanel panel) {
 		super(GHAStrings.get("protocol"));
 		panel.addHideableListener(this);
 		panel.addClosableListener(this);
 
-		maintenanceProtocolsGridPanel = new MaintenanceProtocolsGridPanel();
+		maintenanceProtocolsGridPanel = new MaintenanceProtocolGridPanel();
 		addClosableListener(maintenanceProtocolsGridPanel);
 		addHideableListener(maintenanceProtocolsGridPanel);
 
@@ -41,14 +41,14 @@ public class MaintenanceProtocolsSubTab extends GHASubTab implements
 
 	@Override
 	public void addMaintenanceProtocolsSelectionListener(
-			MaintenanceProtocolsSelectionListener selectionListener) {
+			MaintenanceProtocolSelectionListener selectionListener) {
 		maintenanceProtocolsGridPanel
 				.addMaintenanceProtocolsSelectionListener(selectionListener);
 	}
 
 	@Override
 	public void removeMaintenanceProtocolsSelectionListener(
-			MaintenanceProtocolsSelectionListener selectionListener) {
+			MaintenanceProtocolSelectionListener selectionListener) {
 		maintenanceProtocolsGridPanel
 				.removeMaintenanceProtocolsSelectionListener(selectionListener);
 	}

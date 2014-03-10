@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocols;
+package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol;
 
 import java.math.BigDecimal;
 

@@ -41,7 +41,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAPeriodOfTi
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
-import org.fourgeeks.gha.webclient.client.maintenanceprotocols.MaintenanceProtocolsSelectionListener;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.validation.client.impl.Validation;
@@ -55,7 +55,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * 
  */
 public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
-		MaintenanceProtocolsSelectionListener, MaintenancePlanSelectionProducer {
+		MaintenanceProtocolSelectionListener, MaintenancePlanSelectionProducer {
 
 	private List<MaintenancePlanSelectionListener> listeners;
 

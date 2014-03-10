@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocols;
+package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol;
 
 import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
@@ -15,14 +15,14 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
  * @author emiliot
  * 
  */
-public class MaintenanceProtocolsRecord extends
+public class MaintenanceProtocolRecord extends
 		GHAGridRecord<MaintenanceProtocol> {
 	private final MaintenanceProtocol entity;
 
 	/**
 	 * @param entity
 	 */
-	public MaintenanceProtocolsRecord(MaintenanceProtocol entity) {
+	public MaintenanceProtocolRecord(MaintenanceProtocol entity) {
 		if (entity == null)
 			throw new IllegalArgumentException("The argument can't be null");
 

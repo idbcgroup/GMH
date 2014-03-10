@@ -13,7 +13,7 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
 import org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote;
-import org.fourgeeks.gha.webclient.client.maintenanceprotocols.GWTMaintenanceProtocolsService;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocol.GWTMaintenanceProtocolService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -23,7 +23,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  */
 @WebServlet(urlPatterns = { "/webclient/maintenanceProtocolsService" })
 public class GWTMaintenanceProtocolsServiceImpl extends RemoteServiceServlet
-		implements GWTMaintenanceProtocolsService {
+		implements GWTMaintenanceProtocolService {
 
 	private static final long serialVersionUID = 1L;
 

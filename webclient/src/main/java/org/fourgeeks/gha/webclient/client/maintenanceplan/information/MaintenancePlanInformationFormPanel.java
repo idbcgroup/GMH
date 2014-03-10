@@ -16,7 +16,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanForm;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionProducer;
-import org.fourgeeks.gha.webclient.client.maintenanceprotocols.MaintenanceProtocolsSelectionListener;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -30,7 +30,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class MaintenancePlanInformationFormPanel extends GHAFormLayout
 implements MaintenancePlanSelectionListener,
-MaintenanceProtocolsSelectionListener,
+MaintenanceProtocolSelectionListener,
 MaintenancePlanSelectionProducer, ClosableListener, HideableListener {
 	private final MaintenancePlanForm form = new MaintenancePlanForm();
 
