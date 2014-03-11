@@ -69,11 +69,4 @@ public interface MaterialCategoryServiceRemote {
 	public MaterialCategory update(MaterialCategory materialCategory)
 			throws GHAEJBException;
 
-	/**
-	 * 
-	 * @return
-	 * @throws GHAEJBException
-	 */
-	public List<MaterialCategory> getAllUtilities() throws GHAEJBException;
-
 }

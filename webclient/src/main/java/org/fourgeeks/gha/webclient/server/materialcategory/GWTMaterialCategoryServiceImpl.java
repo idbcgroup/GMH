@@ -118,10 +118,4 @@ public class GWTMaterialCategoryServiceImpl extends RemoteServiceServlet
 			throws GHAEJBException {
 		return ejbService.update(materialCategory);
 	}
-
-	@Override
-	public List<MaterialCategory> getAllUtilities() throws GHAEJBException {
-		return ejbService.getAllUtilities();
-	}
-
 }

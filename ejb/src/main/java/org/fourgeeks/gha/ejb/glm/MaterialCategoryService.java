@@ -19,7 +19,6 @@ import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
-import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
@@ -42,26 +41,6 @@ public class MaterialCategoryService extends GHAEJBExceptionService implements
 			Root<MaterialCategory> root) {
 		Predicate predicate = cb.conjunction();
 
-		// if (materialCategory.getType() != null) {
-		// ParameterExpression<MaterialTypeEnum> p = cb.parameter(
-		// MaterialTypeEnum.class, "type");
-		// predicate = cb.and(predicate,
-		// cb.equal(root.<MaterialTypeEnum> get("type"), p));
-		// }
-
-		// if (materialCategory.getDescription() != null) {
-		// ParameterExpression<String> p = cb.parameter(String.class,
-		// "description");
-		// predicate = cb.and(predicate,
-		// cb.like(cb.lower(root.<String> get("description")), p));
-		// }
-
-		// if (materialCategory.getBrand() != null) {
-		// ParameterExpression<Brand> p = cb.parameter(Brand.class, "brand");
-		// predicate = cb.and(predicate,
-		// cb.equal(root.<Brand> get("brand"), p));
-		// }
-
 		if (materialCategory.getName() != null) {
 			ParameterExpression<String> p = cb.parameter(String.class, "name");
 			predicate = cb.and(predicate,
@@ -73,20 +52,6 @@ public class MaterialCategoryService extends GHAEJBExceptionService implements
 			predicate = cb.and(predicate,
 					cb.equal(root.<String> get("code"), p));
 		}
-
-		// if (materialCategory.getExternalCode() != null) {
-		// ParameterExpression<String> p = cb.parameter(String.class,
-		// "extCode");
-		// predicate = cb.and(predicate,
-		// cb.equal(root.<String> get("externalCode"), p));
-		// }
-
-		// if (materialCategory.getModel() != null) {
-		// ParameterExpression<String> p = cb.parameter(String.class, "model");
-		// predicate = cb.and(predicate,
-		// cb.like(cb.lower(root.<String> get("model")), p));
-		// }
-
 		return predicate;
 
 	}
@@ -136,29 +101,12 @@ public class MaterialCategoryService extends GHAEJBExceptionService implements
 			cQuery.where(criteria);
 			TypedQuery<MaterialCategory> q = em.createQuery(cQuery);
 
-			// if (entity.getType() != null)
-			// q.setParameter("type", entity.getType());
-			//
-			// if (entity.getDescription() != null)
-			// q.setParameter("description", "%"
-			// + entity.getDescription().toLowerCase() + "%");
-			//
-			// if (entity.getBrand() != null)
-			// q.setParameter("brand", entity.getBrand());
-
 			if (entity.getName() != null)
 				q.setParameter("name", "%" + entity.getName().toLowerCase()
 						+ "%");
 
 			if (entity.getCode() != null)
 				q.setParameter("code", entity.getCode());
-
-			// if (entity.getExternalCode() != null)
-			// q.setParameter("extCode", entity.getExternalCode());
-			//
-			// if (entity.getModel() != null)
-			// q.setParameter("model", "%" + entity.getModel().toLowerCase()
-			// + "%");
 
 			return q.getResultList();
 
@@ -229,26 +177,6 @@ public class MaterialCategoryService extends GHAEJBExceptionService implements
 			throw super.generateGHAEJBException("materialCategory-getAll-fail",
 					RuntimeParameters.getLang(), em);
 		}
-	}
-
-	@Override
-	public List<MaterialCategory> getAllUtilities() throws GHAEJBException {
-		try {
-			return em
-					.createNamedQuery("MaterialCategory.getByType",
-							MaterialCategory.class)
-					.setParameter("materialTypeId", MaterialTypeEnum.UTILITARIO)
-					.getResultList();
-		} catch (Exception ex) {
-			logger.log(
-					Level.SEVERE,
-					"Error retrieving all MaterialsCategories which are Utilities",
-					ex);
-			// TODO corregir mensaje de retorno, este me lo copie
-			throw super.generateGHAEJBException("material-getByType-fail",
-					RuntimeParameters.getLang(), em);
-		}
-
 	}
 
 	/*
