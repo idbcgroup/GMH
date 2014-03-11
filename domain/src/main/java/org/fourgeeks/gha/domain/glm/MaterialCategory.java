@@ -8,8 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
@@ -20,7 +18,6 @@ import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
  */
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "code" }))
 @NamedQueries(value = {
 		@NamedQuery(name = "MaterialCategory.getAll", query = "SELECT e from MaterialCategory e order by e.name"),
 		@NamedQuery(name = "MaterialCategory.findByCode", query = "SELECT category from MaterialCategory category WHERE category.code=:code") })
