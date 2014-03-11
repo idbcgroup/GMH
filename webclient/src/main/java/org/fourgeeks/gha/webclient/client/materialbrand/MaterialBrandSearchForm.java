@@ -102,6 +102,7 @@ public class MaterialBrandSearchForm extends GHASearchForm<MaterialBrand>
 			@Override
 			public void onClick(ClickEvent event) {
 				hide();
+				clean();
 			}
 		}));
 

@@ -111,6 +111,7 @@ public class EIADamageAndPlanificationSearchForm extends GHASearchForm<Eia>
 			@Override
 			public void onClick(ClickEvent event) {
 				hide();
+				clean();
 			}
 		}));
 
