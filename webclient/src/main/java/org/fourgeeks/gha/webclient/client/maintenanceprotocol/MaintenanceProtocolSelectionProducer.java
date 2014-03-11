@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.client.maintenanceprotocols;
+package org.fourgeeks.gha.webclient.client.maintenanceprotocol;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 
@@ -9,18 +9,18 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
  * @author emiliot
  * 
  */
-public interface MaintenanceProtocolsSelectionProducer {
+public interface MaintenanceProtocolSelectionProducer {
 	/**
 	 * @param selectionListener
 	 */
 	public void addMaintenanceProtocolsSelectionListener(
-			MaintenanceProtocolsSelectionListener selectionListener);
+			MaintenanceProtocolSelectionListener selectionListener);
 
 	/**
 	 * @param selectionListener
 	 */
 	public void removeMaintenanceProtocolsSelectionListener(
-			MaintenanceProtocolsSelectionListener selectionListener);
+			MaintenanceProtocolSelectionListener selectionListener);
 
 	/**
 	 * 

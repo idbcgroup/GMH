@@ -6,7 +6,7 @@ import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.Asoci
 import org.fourgeeks.gha.webclient.client.maintenanceplan.eianoservice.EiaNoServiceMaintenanceSubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.eiaplanification.EiaPlanificationSubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.information.MaintenancePlanInformationSubTab;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocols.MaintenanceProtocolsSubTab;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.MaintenanceProtocolSubTab;
 
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.AnimationEffect;
@@ -22,7 +22,7 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 	private final AsociatedEiaTypeSubTab maintenancePlanEquipmentTypeSubTab;
 	private final EiaPlanificationSubTab maintenancePlanEquipmentSubTab;
 	private final EiaNoServiceMaintenanceSubTab maintenancePlanEquipmentNoServiceSubTab;
-	private final MaintenanceProtocolsSubTab maintenancePlanProtocolsSubTab;
+	private final MaintenanceProtocolSubTab maintenancePlanProtocolsSubTab;
 
 	// private final MaintenanceSubprotocolActivitiesSubTab
 	// maintenanceSubprotocolSubTab;
@@ -38,7 +38,7 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 		maintenancePlanEquipmentSubTab = new EiaPlanificationSubTab(panel);
 		maintenancePlanEquipmentNoServiceSubTab = new EiaNoServiceMaintenanceSubTab(
 				panel);
-		maintenancePlanProtocolsSubTab = new MaintenanceProtocolsSubTab(panel);
+		maintenancePlanProtocolsSubTab = new MaintenanceProtocolSubTab(panel);
 		// maintenanceSubprotocolSubTab = new
 		// MaintenanceSubprotocolActivitiesSubTab(
 		// panel);

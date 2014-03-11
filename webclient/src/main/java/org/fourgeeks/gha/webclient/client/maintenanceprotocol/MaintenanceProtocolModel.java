@@ -1,10 +1,10 @@
-package org.fourgeeks.gha.webclient.client.maintenanceprotocols;
+package org.fourgeeks.gha.webclient.client.maintenanceprotocol;
 
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 
 import com.google.gwt.core.shared.GWT;
@@ -12,9 +12,9 @@ import com.google.gwt.core.shared.GWT;
 /**
  * @author naramirez
  */
-public class MaintenanceProtocolsModel {
-	private static final GWTMaintenanceProtocolsServiceAsync service = GWT
-			.create(GWTMaintenanceProtocolsService.class);
+public class MaintenanceProtocolModel {
+	private static final GWTMaintenanceProtocolServiceAsync service = GWT
+			.create(GWTMaintenanceProtocolService.class);
 
 	/**
 	 * Copy the activities from a mantenance plan to other maintenance plan

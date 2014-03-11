@@ -16,8 +16,8 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
 import org.fourgeeks.gha.webclient.client.material.MaterialSearchForm;
 import org.fourgeeks.gha.webclient.client.material.MaterialSelectionListener;
@@ -52,9 +52,8 @@ public class MaintenanceActivityMaterialGridPanel extends GHAFormLayout
 				MaintenanceActivityRequiredResourcesRecord rec = (MaintenanceActivityRequiredResourcesRecord) grid
 						.getRecord(event.getRowNum());
 				RequiredResources requiredR = rec.toRequiredResourcesEntity();
-				String valor = (String) grid.getEditedCell(event.getRowNum(),
-						event.getColNum());
-				requiredR.setQuantity(Integer.valueOf(valor));
+				requiredR.setQuantity((Integer) grid.getEditedCell(
+						event.getRowNum(), event.getColNum()));
 				RequiredResourcesModel.update(requiredR,
 						new GHAAsyncCallback<RequiredResources>() {
 							@Override

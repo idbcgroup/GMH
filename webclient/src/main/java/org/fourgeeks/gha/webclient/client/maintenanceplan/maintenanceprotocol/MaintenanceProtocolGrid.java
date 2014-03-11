@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocols;
+package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
-import org.fourgeeks.gha.webclient.client.maintenanceprotocols.MaintenanceProtocolsModel;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolModel;
 
 import com.smartgwt.client.types.DragDataAction;
 import com.smartgwt.client.types.ListGridFieldType;
@@ -25,7 +25,7 @@ import com.smartgwt.client.widgets.menu.events.MenuItemClickEvent;
  * @author emiliot
  * 
  */
-public class MaintenanceProtocolsGrid extends GhaGrid<MaintenanceProtocol> {
+public class MaintenanceProtocolGrid extends GhaGrid<MaintenanceProtocol> {
 	private final MenuItem[] headerMenuItems;
 	private final GHAAsyncCallback<Void> callback = new GHAAsyncCallback<Void>() {
 		@Override
@@ -34,7 +34,7 @@ public class MaintenanceProtocolsGrid extends GhaGrid<MaintenanceProtocol> {
 	};
 
 	/** */
-	public MaintenanceProtocolsGrid() {
+	public MaintenanceProtocolGrid() {
 
 		final GHAGridField ordinalGridField = new GHAGridField("ordinal",
 				"Secuencia");
@@ -106,7 +106,7 @@ public class MaintenanceProtocolsGrid extends GhaGrid<MaintenanceProtocol> {
 					entities.get(i).setOrdinal(ordinal);
 				}
 
-				MaintenanceProtocolsModel.update(entities, callback);
+				MaintenanceProtocolModel.update(entities, callback);
 			}
 		});
 
@@ -145,9 +145,9 @@ public class MaintenanceProtocolsGrid extends GhaGrid<MaintenanceProtocol> {
 			public void onClick(MenuItemClickEvent event) {
 				menuItem.setChecked(!menuItem.getChecked());
 				if (menuItem.getChecked())
-					MaintenanceProtocolsGrid.this.showField(field.getName());
+					MaintenanceProtocolGrid.this.showField(field.getName());
 				else
-					MaintenanceProtocolsGrid.this.hideField(field.getName());
+					MaintenanceProtocolGrid.this.hideField(field.getName());
 			}
 		});
 		return menuItem;

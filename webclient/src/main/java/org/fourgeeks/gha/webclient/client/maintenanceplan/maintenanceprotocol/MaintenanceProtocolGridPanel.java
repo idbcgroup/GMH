@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocols;
+package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,28 +7,28 @@ import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.enu.ActivityState;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACopyButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityModel;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySearchForm;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSearchForm;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceprotocols.MaintenanceProtocolsModel;
-import org.fourgeeks.gha.webclient.client.maintenanceprotocols.MaintenanceProtocolsSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceprotocols.MaintenanceProtocolsSelectionProducer;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolModel;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionProducer;
 
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -41,27 +41,27 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, emiliot
  * 
  */
-public class MaintenanceProtocolsGridPanel extends GHAFormLayout implements
-		MaintenanceProtocolsSelectionProducer, ClosableListener,
+public class MaintenanceProtocolGridPanel extends GHAFormLayout implements
+		MaintenanceProtocolSelectionProducer, ClosableListener,
 		HideableListener, MaintenancePlanSelectionListener {
 
-	private List<MaintenanceProtocolsSelectionListener> listeners;
+	private List<MaintenanceProtocolSelectionListener> listeners;
 
 	private MaintenanceActivitySearchForm activitySearchForm;
-	private MaintenanceProtocolsGrid grid;
+	private MaintenanceProtocolGrid grid;
 	private MaintenancePlan maintenancePlan;
 	private MaintenancePlanSearchForm planSearchForm;
 
 	private MaintenanceProtocolStadisticDataLabel stadisticDataLabel;
 
 	{
-		listeners = new ArrayList<MaintenanceProtocolsSelectionListener>();
+		listeners = new ArrayList<MaintenanceProtocolSelectionListener>();
 
-		grid = new MaintenanceProtocolsGrid();
+		grid = new MaintenanceProtocolGrid();
 		stadisticDataLabel = new MaintenanceProtocolStadisticDataLabel();
 
 		planSearchForm = new MaintenancePlanSearchForm(
-				GHAStrings.get("maintenance-plan"));
+				GHAStrings.get("copy-activities-from-maintenance-plan"));
 		planSearchForm
 				.addMaintenancePlanSelectionListener(new MaintenancePlanSelectionListener() {
 					@Override
@@ -82,9 +82,9 @@ public class MaintenanceProtocolsGridPanel extends GHAFormLayout implements
 	}
 
 	/**
-	 * Create a {@link MaintenanceProtocolsGridPanel}
+	 * Create a {@link MaintenanceProtocolGridPanel}
 	 */
-	public MaintenanceProtocolsGridPanel() {
+	public MaintenanceProtocolGridPanel() {
 		super();
 		String stringKey = "maintenance-plan-associated-protocol-activities";
 		addMember(new GHALabel(GHAStrings.get(stringKey)));
@@ -95,7 +95,7 @@ public class MaintenanceProtocolsGridPanel extends GHAFormLayout implements
 				addActivity();
 			}
 		});
-		GHASearchButton copyButton = new GHASearchButton(new ClickHandler() {
+		GHACopyButton copyButton = new GHACopyButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				coyActivities();
@@ -128,7 +128,7 @@ public class MaintenanceProtocolsGridPanel extends GHAFormLayout implements
 		List<Activity> blackList = new ArrayList<Activity>();
 
 		for (int i = 0; i < records.length; i++) {
-			MaintenanceProtocolsRecord record = (MaintenanceProtocolsRecord) records[i];
+			MaintenanceProtocolRecord record = (MaintenanceProtocolRecord) records[i];
 			MaintenanceActivity maintenanceActivity = record.toEntity()
 					.getMaintenanceActivity();
 			blackList.add(maintenanceActivity.getActivity());
@@ -149,7 +149,7 @@ public class MaintenanceProtocolsGridPanel extends GHAFormLayout implements
 	 */
 	@Override
 	public void addMaintenanceProtocolsSelectionListener(
-			MaintenanceProtocolsSelectionListener selectionListener) {
+			MaintenanceProtocolSelectionListener selectionListener) {
 		listeners.add(selectionListener);
 	}
 
@@ -246,7 +246,7 @@ public class MaintenanceProtocolsGridPanel extends GHAFormLayout implements
 	 * Delete all the activities of the protocol
 	 */
 	private void deleteByMaintenancePlan() {
-		MaintenanceProtocolsModel.deleteByMaintenancePlan(maintenancePlan,
+		MaintenanceProtocolModel.deleteByMaintenancePlan(maintenancePlan,
 				new GHAAsyncCallback<Integer>() {
 					@Override
 					public void onSuccess(Integer result) {
@@ -266,7 +266,7 @@ public class MaintenanceProtocolsGridPanel extends GHAFormLayout implements
 	 */
 	private void deleteSelectedEntities(
 			final List<MaintenanceProtocol> selectedEntities) {
-		MaintenanceProtocolsModel.delete(selectedEntities,
+		MaintenanceProtocolModel.delete(selectedEntities,
 				new GHAAsyncCallback<Void>() {
 					@Override
 					public void onSuccess(Void result) {
@@ -281,17 +281,17 @@ public class MaintenanceProtocolsGridPanel extends GHAFormLayout implements
 	 * Load the data of the grid and other info of the form
 	 */
 	private void loadData() {
-		MaintenanceProtocolsModel.findByMaintenancePlan(maintenancePlan,
+		MaintenanceProtocolModel.findByMaintenancePlan(maintenancePlan,
 				new GHAAsyncCallback<List<MaintenanceProtocol>>() {
 					@Override
 					public void onSuccess(List<MaintenanceProtocol> result) {
-						MaintenanceProtocolsRecord array[] = MaintenanceProtocolsUtil
+						MaintenanceProtocolRecord array[] = MaintenanceProtocolUtil
 								.toGridRecordsArray(result);
 						grid.setData(array);
 					}
 				});
 
-		MaintenanceProtocolsModel.getStadisticInfo(maintenancePlan,
+		MaintenanceProtocolModel.getStadisticInfo(maintenancePlan,
 				new GHAAsyncCallback<MaintenanceProtocolStadisticData>() {
 					@Override
 					public void onSuccess(
@@ -311,7 +311,7 @@ public class MaintenanceProtocolsGridPanel extends GHAFormLayout implements
 	 */
 	@Override
 	public void notifyMaintenanceProtocols(MaintenanceProtocol entity) {
-		for (MaintenanceProtocolsSelectionListener listener : listeners)
+		for (MaintenanceProtocolSelectionListener listener : listeners)
 			listener.select(entity);
 	}
 
@@ -326,7 +326,7 @@ public class MaintenanceProtocolsGridPanel extends GHAFormLayout implements
 	 */
 	@Override
 	public void removeMaintenanceProtocolsSelectionListener(
-			MaintenanceProtocolsSelectionListener selectionListener) {
+			MaintenanceProtocolSelectionListener selectionListener) {
 		listeners.remove(selectionListener);
 	}
 
@@ -345,7 +345,7 @@ public class MaintenanceProtocolsGridPanel extends GHAFormLayout implements
 		entity.setMaintenancePlan(maintenancePlan);
 		entity.setOrdinal(ordinal);
 
-		MaintenanceProtocolsModel.save(entity,
+		MaintenanceProtocolModel.save(entity,
 				new GHAAsyncCallback<MaintenanceProtocol>() {
 					@Override
 					public void onSuccess(final MaintenanceProtocol result) {
@@ -374,7 +374,7 @@ public class MaintenanceProtocolsGridPanel extends GHAFormLayout implements
 	 *            the plan with the activities to copy
 	 */
 	private void save(MaintenancePlan planFrom) {
-		MaintenanceProtocolsModel.copyActivities(planFrom, maintenancePlan,
+		MaintenanceProtocolModel.copyActivities(planFrom, maintenancePlan,
 				new GHAAsyncCallback<Void>() {
 					@Override
 					public void onSuccess(Void result) {
