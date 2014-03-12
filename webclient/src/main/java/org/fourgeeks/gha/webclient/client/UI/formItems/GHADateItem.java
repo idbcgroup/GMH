@@ -130,4 +130,14 @@ public class GHADateItem extends DateItem {
 		return null;
 	}
 
+	@Override
+	public void setRequired(Boolean required) {
+		super.setRequired(required);
+		if (required) {
+			setTextBoxStyle("input required");
+		} else {
+			setOriginalStyle();
+		}
+	}
+
 }
