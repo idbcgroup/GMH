@@ -23,7 +23,6 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 
@@ -68,8 +67,7 @@ public final class GHAPlaceSet {
 				if (!verticalMenu.isVisible()) {
 					verticalMenu.open();
 				} else {
-					verticalMenu.animateHide(AnimationEffect.FLY);
-					GHAUiHelper.removeDocumentMouseOverHandler(verticalMenu);
+					verticalMenu.hide();
 				}
 			}
 		});
@@ -150,7 +148,7 @@ public final class GHAPlaceSet {
 			for (final Entry<String, String> entry : entrySet) {
 				menuOptions.add(new GHAMenuOption(GHAStrings.get(entry
 						.getValue()), entry.getKey(),
-						"../resources/icons/menu/" + entry.getKey() + ".png"));
+						"../resources/icons/menu/" + entry.getKey() + ".png", verticalMenu));
 			}
 			return menuOptions;
 		} catch (final LoginNeededException e) {

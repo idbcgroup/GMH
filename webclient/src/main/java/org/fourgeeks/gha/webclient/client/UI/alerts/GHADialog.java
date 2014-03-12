@@ -155,7 +155,7 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 		if (isModal) {
 			setIsModal(true);
 			setShowModalMask(true);
-			setModalMaskOpacity(40);
+			setModalMaskOpacity(15);
 		} else if (!hasButtons && !dialogType.equals("PROCESSING")) {
 			if (isTimed) {
 				waiter.schedule(waitingTime);

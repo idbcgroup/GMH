@@ -520,7 +520,7 @@ ES,eiaComponents-delete-confirm,¿Desea eliminar los componentes?,CONFIRMATION
 ES,ssoUser-delete-confirm,¿Desea eliminar al usuario?,CONFIRMATION
 ES,citizen-delete-confirm,¿Desea eliminar al ciudadano?,CONFIRMATION
 ES,citizens-delete-confirm,¿Desea eliminar estos ciudadanos?,CONFIRMATION
-ES,unsaved-changes,Existen algunos cambios sin guardar ¿Realmente desea salir?,ASKYESNO
+ES,unsaved-changes,Existen algunos cambios sin guardar ¿Desea salir y guardar los cambios efectuados?,ASKYESNO
 ES,activity-delete-confirm,¿Desea eliminar la actividad?,CONFIRMATION
 ES,activities-delete-confirm,¿Desea eliminar las actividades?,CONFIRMATION
 ES,maintenance-protocol-delete-confirm,¿Desea eliminar todas las actividades de este Plan de Mantenimiento?,CONFIRMATION
@@ -545,3 +545,5 @@ ES,maintenance-activity-delete-confirm,¿Desea eliminar esta actividad de manten
 ES,maintenance-activity-delete-success,La actividad de mantenimiento ha sido borrado exitosamente,SUCCESS
 ES,beginning-date-not-null,Debe indicar la fecha de inicio,WARNING
 ES,exist-maintenance-planification, El Plan de Mantenimiento ya esta Asociado al Equipo,WARNING
+ES,resource-delete-confirm,¿Esta seguro que desea eliminar el recurso?,CONFIRMATION
+ES,resources-delete-confirm,¿Esta seguro que desea eliminar los recursos?,CONFIRMATION

@@ -37,8 +37,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaintenanceActivityEiaTypeGridPanel extends GHAFormLayout
-		implements ClosableListener, HideableListener,
-		MaintenanceActivitySelectionListener {
+implements ClosableListener, HideableListener,
+MaintenanceActivitySelectionListener {
 
 	private EIATypeSearchForm eiaTypeSearchForm;
 	private MaintenanceActivityServiceAndResourceGrid grid;
@@ -49,71 +49,71 @@ public class MaintenanceActivityEiaTypeGridPanel extends GHAFormLayout
 		grid.getField("quantity").addCellSavedHandler(new CellSavedHandler() {
 			@Override
 			public void onCellSaved(CellSavedEvent event) {
-				MaintenanceActivityRequiredResourcesRecord rec = (MaintenanceActivityRequiredResourcesRecord) grid
+				final MaintenanceActivityRequiredResourcesRecord rec = (MaintenanceActivityRequiredResourcesRecord) grid
 						.getRecord(event.getRowNum());
-				RequiredResources requiredR = rec.toRequiredResourcesEntity();
-				String valor = (String) grid.getEditedCell(event.getRowNum(),
+				final RequiredResources requiredR = rec.toRequiredResourcesEntity();
+				final String valor = (String) grid.getEditedCell(event.getRowNum(),
 						event.getColNum());
 				requiredR.setQuantity(Integer.valueOf(valor));
 				RequiredResourcesModel.update(requiredR,
 						new GHAAsyncCallback<RequiredResources>() {
-							@Override
-							public void onSuccess(RequiredResources result) {
-								loadData();
-							}
-						});
+					@Override
+					public void onSuccess(RequiredResources result) {
+						loadData();
+					}
+				});
 			}
 		});
 
 		eiaTypeSearchForm = new EIATypeSearchForm(GHAStrings.get("eiatype"));
 		eiaTypeSearchForm
-				.addEiaTypeSelectionListener(new EIATypeSelectionListener() {
-					@Override
-					public void select(EiaType eiaType) {
-						save(eiaType);
-						eiaTypeSearchForm.clean();
-					}
-				});
+		.addEiaTypeSelectionListener(new EIATypeSelectionListener() {
+			@Override
+			public void select(EiaType eiaType) {
+				save(eiaType);
+				eiaTypeSearchForm.clean();
+			}
+		});
 	}
 
 	/**
- * 
- */
+	 * 
+	 */
 	public MaintenanceActivityEiaTypeGridPanel() {
 		super();
 		setWidth100();
 
 		addMember(new GHALabel(GHAStrings.get("required-eiatype")));
 
-		GHANewButton addButton = new GHANewButton(new ClickHandler() {
+		final GHANewButton addButton = new GHANewButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				addResource();
 			}
 		});
-		GHADeleteButton deleteButton = new GHADeleteButton(new ClickHandler() {
+		final GHADeleteButton deleteButton = new GHADeleteButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				delete();
 			}
 		});
 
-		VLayout sideButtons = GHAUiHelper.createBar(addButton, deleteButton);
+		final VLayout sideButtons = GHAUiHelper.createBar(addButton, deleteButton);
 
-		VLayout gridLayout = new VLayout(10);
+		final VLayout gridLayout = new VLayout(10);
 		gridLayout.addMembers(grid);
 
-		HLayout mainLayout = new HLayout();
+		final HLayout mainLayout = new HLayout();
 		mainLayout.addMembers(gridLayout, sideButtons);
 
 		addMember(mainLayout);
 	}
 
 	private void addResource() {
-		ListGridRecord records[] = grid.getRecords();
-		List<EiaType> blackList = new ArrayList<EiaType>();
+		final ListGridRecord records[] = grid.getRecords();
+		final List<EiaType> blackList = new ArrayList<EiaType>();
 		for (int i = 0; i < records.length; i++) {
-			MaintenanceActivityRequiredResourcesRecord record = (MaintenanceActivityRequiredResourcesRecord) records[i];
+			final MaintenanceActivityRequiredResourcesRecord record = (MaintenanceActivityRequiredResourcesRecord) records[i];
 			blackList.add((EiaType) record.toEntity());
 		}
 
@@ -143,7 +143,7 @@ public class MaintenanceActivityEiaTypeGridPanel extends GHAFormLayout
 				new GHAAsyncCallback<List<RequiredResources>>() {
 					@Override
 					public void onSuccess(List<RequiredResources> result) {
-						MaintenanceActivityRequiredResourcesRecord array[] = MaintenanceActivityRequiredResourcesUtil
+						final MaintenanceActivityRequiredResourcesRecord array[] = MaintenanceActivityRequiredResourcesUtil
 								.toGridRecordsArray(result);
 						grid.setData(array);
 					}
@@ -157,54 +157,61 @@ public class MaintenanceActivityEiaTypeGridPanel extends GHAFormLayout
 	}
 
 	private void save(EiaType eiatype) {
-		RequiredResources entity = new RequiredResources();
+		final RequiredResources entity = new RequiredResources();
 		entity.setActivity(maintenanceActivity.getActivity());
 		entity.setResource(eiatype);
 
 		RequiredResourcesModel.save(entity,
 				new GHAAsyncCallback<RequiredResources>() {
-					@Override
-					public void onSuccess(final RequiredResources result) {
-						loadData();
-					}
-				});
+			@Override
+			public void onSuccess(final RequiredResources result) {
+				loadData();
+			}
+		});
 	}
 
 	private void delete() {
 		final List<RequiredResources> selectedEntities = new ArrayList<RequiredResources>();
-		ListGridRecord[] selectedRecords = grid.getSelectedRecords();
-		for (ListGridRecord lgr : selectedRecords) {
-			RequiredResources rr = ((MaintenanceActivityRequiredResourcesRecord) lgr)
+		final ListGridRecord[] selectedRecords = grid.getSelectedRecords();
+		for (final ListGridRecord lgr : selectedRecords) {
+			final RequiredResources rr = ((MaintenanceActivityRequiredResourcesRecord) lgr)
 					.toRequiredResourcesEntity();
 			selectedEntities.add(rr);
 		}
 		if (selectedEntities.size() == 0) {
 			GHAAlertManager.alert("record-not-selected");
 		} else {
-			String message = selectedEntities.size() == 1 ? GHAStrings
-					.get("resource-delete-confirm") : GHAStrings
-					.get("recources-delete-confirm");
-
-			GHAAlertManager.confirm(GHAStrings.get("subprotocol"), message,
-					new BooleanCallback() {
-						@Override
-						public void execute(Boolean value) {
-							if (value)
-								deleteSelectedEntities(selectedEntities);
-							grid.focus();
-						}
-					});
+			if(selectedEntities.size() == 1)
+				GHAAlertManager.confirm("resource-delete-confirm",
+						new BooleanCallback() {
+					@Override
+					public void execute(Boolean value) {
+						if (value)
+							deleteSelectedEntities(selectedEntities);
+						grid.focus();
+					}
+				});
+			else
+				GHAAlertManager.confirm("resources-delete-confirm",
+						new BooleanCallback() {
+					@Override
+					public void execute(Boolean value) {
+						if (value)
+							deleteSelectedEntities(selectedEntities);
+						grid.focus();
+					}
+				});
 		}
 	}
 
 	private void deleteSelectedEntities(List<RequiredResources> selectedEntities) {
 		RequiredResourcesModel.delete(selectedEntities,
 				new GHAAsyncCallback<Void>() {
-					@Override
-					public void onSuccess(Void result) {
-						loadData();
-						GHAAlertManager.alert("delete-resources-success");
-					}
-				});
+			@Override
+			public void onSuccess(Void result) {
+				loadData();
+				GHAAlertManager.alert("delete-resources-success");
+			}
+		});
 	}
 }

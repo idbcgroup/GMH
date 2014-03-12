@@ -40,9 +40,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeEquipmentGridPanel extends GHAFormLayout implements
-		EIATypeSelectionListener,/* EiaSelectionProducer, */
-		EIASelectionListener, EiaDamageReportSelectionListener,
-		HideableListener, ClosableListener {
+EIATypeSelectionListener,/* EiaSelectionProducer, */
+EIASelectionListener, EiaDamageReportSelectionListener,
+HideableListener, ClosableListener {
 
 	private EIAGrid grid;
 	private EiaCountLabel eiaLabel;
@@ -79,18 +79,18 @@ public class EIATypeEquipmentGridPanel extends GHAFormLayout implements
 					}
 				}), new GHADeleteButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
+					@Override
+					public void onClick(ClickEvent event) {
 
-				final Eia selectedRecord = grid.getSelectedEntity();
+						final Eia selectedRecord = grid.getSelectedEntity();
 
-				if (selectedRecord == null) {
-					GHAAlertManager.alert("record-not-selected");
-					return;
-				}
+						if (selectedRecord == null) {
+							GHAAlertManager.alert("record-not-selected");
+							return;
+						}
 
-				GHAAlertManager.confirm("eia-delete-confirm",
-						new BooleanCallback() {
+						GHAAlertManager.confirm("eia-delete-confirm",
+								new BooleanCallback() {
 
 							@Override
 							public void execute(Boolean resultAsc) {
@@ -98,36 +98,34 @@ public class EIATypeEquipmentGridPanel extends GHAFormLayout implements
 									EIAModel.delete(selectedRecord.getId(),
 											new GHAAsyncCallback<Boolean>() {
 
-												@Override
-												public void onSuccess(
-														Boolean result) {
-													loadData(eiaType);
+										@Override
+										public void onSuccess(
+												Boolean result) {
+											loadData(eiaType);
 
-												}
+										}
 
-											});
+									});
 							}
 						});
 
-			}
+					}
 
 				}), new GHAEditButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				final Eia selectedRecord = grid.getSelectedEntity();
+					@Override
+					public void onClick(ClickEvent event) {
+						final Eia selectedRecord = grid.getSelectedEntity();
 
-				if (selectedRecord == null) {
-					GHAAlertManager.alert("INFORMATION",
-							GHAStrings.get("information"),
-							GHAStrings.get("record-not-selected"));
-					return;
-				}
+						if (selectedRecord == null) {
+							GHAAlertManager.alert("record-not-selected");
+							return;
+						}
 
-				eiaUpdateForm.setEia(selectedRecord);
-				eiaUpdateForm.open();
-			}
-		}));
+						eiaUpdateForm.setEia(selectedRecord);
+						eiaUpdateForm.open();
+					}
+				}));
 
 		final VLayout gridPanel = new VLayout();
 		gridPanel.setMembersMargin(10);
@@ -174,7 +172,7 @@ public class EIATypeEquipmentGridPanel extends GHAFormLayout implements
 						new EIARecord[] {});
 				grid.setData(array);
 				EIATypeEquipmentGridPanel.this.eiaLabel
-						.setEiaStateTotals(result);
+				.setEiaStateTotals(result);
 			}
 		});
 	}
