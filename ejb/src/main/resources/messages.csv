@@ -550,3 +550,4 @@ ES,resources-delete-confirm,¿Esta seguro que desea eliminar los recursos?,CONFI
 ES,category-not-null,Debe indicar la Categoría,WARNING
 ES,sub-category-not-null,Debe indicar la subCategoría,WARNING
 ES,name-activity-not-null,Debe indicar el nombre de la Actividad,WARNING
+ES,type-plan-not-null,Debe indicar el tipo de plan,WARNING
