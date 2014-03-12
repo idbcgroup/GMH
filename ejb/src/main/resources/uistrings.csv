@@ -272,11 +272,12 @@ ES,administrative,Administrativa
 ES,system,Sistema
 ES,calibration,Calibración
 ES,message,Mensaje del Sistema
+ES,error,error
 ES,soft-error,Error Leve
 ES,hard-error,Error Grave
 ES,warning,Advertencia
 ES,failure,Operación Fallida
-ES,success,Éxito
+ES,success,Operación Éxitosa
 ES,processing,Operación en proceso
 ES,new-message-received,Nuevo Mensaje Recibido
 ES,confirm,Confirmación
@@ -350,8 +351,6 @@ ES,demographic-information,información demográfica
 ES,social-ecnomics-information,información socio económica
 ES,insurance,seguros y pagadores
 ES,occupational-information,información ocupacional
-ES,resource-delete-confirm,¿Esta seguro que desea eliminar el recurso?
-ES,resources-delete-confirm,¿Esta seguro que desea eliminar los recursos?
 ES,autogen-field,Autogenerado
 ES,maintenance-technician,Tecnico de mantenimiento
 ES,citizen,Ciudadano

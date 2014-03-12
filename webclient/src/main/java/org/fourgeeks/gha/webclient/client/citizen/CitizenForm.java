@@ -47,8 +47,8 @@ public class CitizenForm extends GHAForm<Citizen> implements
 	private GHADynamicForm form;
 
 	{
-		firstNameItem = new GHANameTextItem(GHAStrings.get("first-name"),
-				false, changedHandler);
+		firstNameItem = new GHANameTextItem(GHAStrings.get("first-name"), true,
+				changedHandler);
 
 		firstNameItem.setLength(20);
 
@@ -63,7 +63,7 @@ public class CitizenForm extends GHAForm<Citizen> implements
 		secondNameItem.validateWords();
 
 		lastNameItem = new GHANameTextItem(GHAStrings.get("first-lastname"),
-				false, changedHandler);
+				true, changedHandler);
 		lastNameItem.setTooltip(GHAStrings.get("user-tooltip-last-name"));
 		lastNameItem.setLength(20);
 		// lastNameItem.setMask("[a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ]");
@@ -109,6 +109,8 @@ public class CitizenForm extends GHAForm<Citizen> implements
 		birthDateItem = new GHABirthDateItem(changedHandler);
 		birthDateItem.setUseMask(true);
 		birthDateItem.setTooltip(GHAStrings.get("user-tooltip-birthdate"));
+		birthDateItem.setRequired(true);
+		birthDateItem.setShowErrorIcon(false);
 
 		legalEntityIdentifierItem = new GHATextItem("R.I.F.", false,
 				changedHandler);
@@ -178,6 +180,7 @@ public class CitizenForm extends GHAForm<Citizen> implements
 		legalEntityIdentifierItem.clearValue();
 		primaryEmailItem.clearValue();
 		alternativeEmailItem.clearValue();
+		this.form.clearErrors(true);
 	}
 
 	@Override

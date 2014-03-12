@@ -48,7 +48,7 @@ public class MaintenancePlan extends AbstractEntity {
 	@NotNull(message = "time-period-not-null")
 	@Column(nullable = false)
 	private TimePeriodEnum pot;
-	@NotNull(message = "type-not-null")
+	@NotNull(message = "type-plan-not-null")
 	@Column(nullable = false)
 	private MaintenancePlanType type;
 	@NotNull(message = "state-not-null")

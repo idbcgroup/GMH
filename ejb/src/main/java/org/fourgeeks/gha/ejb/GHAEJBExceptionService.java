@@ -38,25 +38,25 @@ public class GHAEJBExceptionService {
 		try {// the messague throw by the method
 			final GHAMessage message = em.find(GHAMessage.class,
 					new GHAMessageId(messageCode, lang));
-			service.log(new UILog(null, message));
+			// service.log(new UILog(null, message));
 			ghaejbException.setGhaMessage(message);
 		} catch (final NoResultException e) {
 			try {// the messague throw if the key for the method message is not
 					// found
 				final GHAMessage message = em.find(GHAMessage.class,
 						new GHAMessageId("message-find-fail", lang));
-				service.log(new UILog(null, message));
+				// service.log(new UILog(null, message));
 				ghaejbException.setGhaMessage(message);
 			} catch (final Exception e1) {// the message throw if the default
 											// key message is not found
 				final GHAMessage message = new GHAMessage(lang,
 						"generic-error-msg",
 						"Unknow system failure, please contact IT support");
-				try {
-					service.log(new UILog(null, message));
-				} catch (final GHAEJBException e2) {
-					logger.log(Level.SEVERE, "Error logueando el error", e2);
-				}
+				// try {
+				// service.log(new UILog(null, message));
+				// } catch (final GHAEJBException e2) {
+				// logger.log(Level.SEVERE, "Error logueando el error", e2);
+				// }
 
 			}
 		} catch (final Exception e1) {

@@ -49,9 +49,9 @@ public class MaintenanceActivityAddForm extends GHAAddForm<MaintenanceActivity>
 
 	@Override
 	public void addMaintenanceActivitySelectionListener(
-			MaintenanceActivitySelectionListener maintenanceActivitySelectionListener) {
+			MaintenanceActivitySelectionListener listener) {
 		((MaintenanceActivitySelectionProducer) form)
-				.addMaintenanceActivitySelectionListener(maintenanceActivitySelectionListener);
+				.addMaintenanceActivitySelectionListener(listener);
 	}
 
 	@Override
@@ -61,9 +61,9 @@ public class MaintenanceActivityAddForm extends GHAAddForm<MaintenanceActivity>
 
 	@Override
 	public void removeMaintenanceActivitySelectionListener(
-			MaintenanceActivitySelectionListener maintenanceActivitySelectionListener) {
+			MaintenanceActivitySelectionListener listener) {
 		final MaintenanceActivitySelectionProducer producer = (MaintenanceActivitySelectionProducer) form;
-		producer.removeMaintenanceActivitySelectionListener(maintenanceActivitySelectionListener);
+		producer.removeMaintenanceActivitySelectionListener(listener);
 	}
 
 	@Override

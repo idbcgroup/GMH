@@ -137,15 +137,18 @@ public class GHAMenu {
 	static public class GHAMenuOption extends HLayout {
 
 		private final String token;
+		private final GHAMenuBar parent;
 
 		/**
 		 * @param text
 		 * @param token
 		 * @param imgSrc
+		 * @param bar TODO
 		 */
 		public GHAMenuOption(final String text, final String token,
-				String imgSrc) {
+				String imgSrc, GHAMenuBar bar) {
 			this.token = token;
+			parent=bar;
 			setWidth100();
 			setHeight("30px");
 			setMembersMargin(7);
@@ -167,6 +170,7 @@ public class GHAMenu {
 				@Override
 				public void onClick(ClickEvent event) {
 					History.newItem(token);
+					parent.hide();
 				}
 			});
 
