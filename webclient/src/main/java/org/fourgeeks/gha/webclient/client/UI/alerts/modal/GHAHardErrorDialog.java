@@ -55,7 +55,7 @@ public class GHAHardErrorDialog extends GHADialog {
 
 	@Override
 	protected void initTypeView() {
-		setTitle(GHAStrings.get("hard-error"));
+		setTitle(GHAStrings.get("error"));
 		setBorder("1px solid #FC7A7E");
 		setBackgroundColor("#FC7A7E");
 		setBodyColor("#FCC2C3");

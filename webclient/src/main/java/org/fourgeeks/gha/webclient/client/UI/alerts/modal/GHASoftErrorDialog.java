@@ -51,7 +51,7 @@ public class GHASoftErrorDialog extends GHADialog {
 	 */
 	@Override
 	protected void initTypeView() {
-		setTitle(GHAStrings.get("soft-error"));
+		setTitle(GHAStrings.get("error"));
 		setBorder("1px solid #FCD14A");
 		setBackgroundColor("#FCD14A");
 		setBodyColor("#FCE499");

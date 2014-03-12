@@ -273,8 +273,8 @@ ES,system,Sistema
 ES,calibration,Calibración
 ES,message,Mensaje del Sistema
 ES,error,error
-ES,soft-error,Error Grave
-ES,hard-error,Error Leve
+ES,soft-error,Error Leve
+ES,hard-error,Error Grave
 ES,warning,Advertencia
 ES,failure,Operación Fallida
 ES,success,Operación Éxitosa
