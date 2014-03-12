@@ -21,6 +21,8 @@ public class Activity extends AbstractEntity {
 	/** */
 	private static final long serialVersionUID = 1L;
 
+	@NotNull(message = "name-activity-not-null")
+	@Column(nullable = false)
 	private String name;
 
 	@NotNull(message = "activity-state-not-null")

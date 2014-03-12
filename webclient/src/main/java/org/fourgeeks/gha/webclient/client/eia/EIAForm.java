@@ -822,8 +822,45 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 					.iterator(); it.hasNext();) {
 				violationsList.add(it.next().getMessage());
 			}
+
+			if (violationsList.contains("type-not-null")) {
+				GHAAlertManager.alert("type-not-null");
+				return null;
+			}
+			if (violationsList.contains("serial-not-null")) {
+				GHAAlertManager.alert("serial-not-null");
+				return null;
+			}
+			if (violationsList.contains("asset-id-not-null")) {
+				GHAAlertManager.alert("asset-id-not-null");
+				return null;
+			}
+			if (violationsList.contains("obu-not-null")) {
+				GHAAlertManager.alert("obu-not-null");
+				return null;
+			}
+			if (violationsList.contains("base-role-not-null")) {
+				GHAAlertManager.alert("base-role-not-null");
+				return null;
+			}
+			if (violationsList.contains("external-provider-not-null")) {
+				GHAAlertManager.alert("external-provider-not-null");
+				return null;
+			}
+			if (violationsList.contains("maintenance-provider-not-null")) {
+				GHAAlertManager.alert("maintenance-provider-not-null");
+				return null;
+			}
+
+			// 1 type-not-null
+			// 2 serial-not-null
+			// 3 asset-id-not-null
+			// 4 obu-not-null
+			// 5 base-role-not-null
+			// 6 external-provider-not-null
+			// 7 maintenance-provider-not-null
 			// GHAAlertManager.alert(violationsList);
-			GHAAlertManager.alert(violationsList.get(0));
+			// GHAAlertManager.alert(violationsList.get(0));
 		}
 		return null;
 	}
