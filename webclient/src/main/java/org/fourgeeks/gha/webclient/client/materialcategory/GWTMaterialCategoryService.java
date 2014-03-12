@@ -69,10 +69,4 @@ public interface GWTMaterialCategoryService extends RemoteService {
 	 */
 	public MaterialCategory update(MaterialCategory materialCategory)
 			throws GHAEJBException;
-
-	/**
-	 * @return a List with all the MaterialsCategories who are utilities
-	 * @throws GHAEJBException
-	 */
-	public List<MaterialCategory> getAllUtilities() throws GHAEJBException;
 }

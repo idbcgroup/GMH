@@ -15,11 +15,6 @@ public class MaterialCategoryModel {
 	private static final GWTMaterialCategoryServiceAsync service = GWT
 			.create(GWTMaterialCategoryService.class);
 
-	private MaterialCategoryModel() {
-		throw new UnsupportedOperationException(
-				"This class should not be instantiated");
-	}
-
 	/**
 	 * @param material
 	 * @param callback
@@ -46,17 +41,14 @@ public class MaterialCategoryModel {
 		service.getAll(offset, size, callback);
 	}
 
-	/**
-	 * @param callback
-	 */
-	public static void getAllUtilities(
-			GHAAsyncCallback<List<MaterialCategory>> callback) {
-		service.getAllUtilities(callback);
-	}
-
 	public static void save(MaterialCategory material,
 			GHAAsyncCallback<MaterialCategory> callback) {
 		service.save(material, callback);
+	}
+
+	private MaterialCategoryModel() {
+		throw new UnsupportedOperationException(
+				"This class should not be instantiated");
 	}
 
 }
