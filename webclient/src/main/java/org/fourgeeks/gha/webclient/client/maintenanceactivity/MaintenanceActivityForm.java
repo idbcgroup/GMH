@@ -243,9 +243,11 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 		} else {
 			activity.setState(ActivityState.CREATED);
 		}
+
 		if (nameTextItem.getValue() != null) {
 			activity.setName(nameTextItem.getValueAsString());
 		}
+
 		if (descriptionTextItem.getValue() != null) {
 			activity.setDescription(descriptionTextItem.getValueAsString());
 		}
@@ -254,28 +256,34 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 			activity.setCategory(ActivityCategoryEnum
 					.valueOf(categorySelectItem.getValueAsString()));
 		}
+
 		if (subCategorySelectItem.getValue() != null) {
 			activity.setSubCategory(ActivitySubCategoryEnum
 					.valueOf(subCategorySelectItem.getValueAsString()));
 		}
+
 		if (estimatedTimeTextItem.getValue() != null) {
 			activity.setEstimatedDuration(BigDecimal.valueOf(Double
 					.valueOf(estimatedTimeTextItem.getValueAsString())));
 		}
+
 		if (estimatedTimePoTSelectItem.getValue() != null) {
 			activity.setEstimatedDurationPoT(TimePeriodEnum
 					.valueOf(estimatedTimePoTSelectItem.getValueAsString()));
 		}
+
 		if (estimatedCostTextItem.getValue() != null) {
 			activity.setEstimatedCost(BigDecimal.valueOf(Double
 					.valueOf(estimatedCostTextItem.getValueAsString())));
 		}
+
 		if (estimatedCostCurrencySelectItem.getValue() != null) {
 			final String value = estimatedCostCurrencySelectItem
 					.getValueAsString();
 			activity.setEstimatedCostCurrency(CurrencyTypeEnum.valueOf(value));
 
 		}
+
 		if (instructionsAndObsTextAreaItem.getValue() != null) {
 			final String value = instructionsAndObsTextAreaItem
 					.getValueAsString();
@@ -285,6 +293,7 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 		// TODO Agregar atributos para proveedor responsable
 		// TODO Agregar atributos para cargo responsable
 		activity.setIsSubProtocol(isSubProtocolCheckboxItem.getValueAsBoolean());
+
 		activity.setMaterialsRequired(materialsRequierdCheckboxItem
 				.getValueAsBoolean());
 		activity.setEquipsRequired(equipsRequiredCheckboxItem
@@ -292,13 +301,13 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 		activity.setIsToolsRequired(toolsRequierdCheckboxItem
 				.getValueAsBoolean());
 		entity.setActivity(activity);
-
 		final Set<ConstraintViolation<Activity>> violations = validator
 				.validate(activity);
-
 		if (form.validate() && violations.isEmpty()) {
 			return entity;
+
 		} else {
+
 			final List<String> violationsList = new ArrayList<String>();
 			for (final Iterator<ConstraintViolation<Activity>> it = violations
 					.iterator(); it.hasNext();) {
