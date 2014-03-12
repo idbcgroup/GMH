@@ -39,7 +39,6 @@ import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.Mainte
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.MaintenanceActivitySubProtocolProducer;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
@@ -226,11 +225,9 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 	 * @return
 	 */
 	private MaintenanceActivity extract(boolean update) {
-		Window.alert("C1");
+
 		final MaintenanceActivity entity = new MaintenanceActivity();
-		Window.alert("C1");
 		Activity activity = new Activity();
-		Window.alert("C1");
 
 		if (update) {
 			entity.setId(this.originalEntity.getId());
@@ -243,9 +240,11 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 		} else {
 			activity.setState(ActivityState.CREATED);
 		}
+
 		if (nameTextItem.getValue() != null) {
 			activity.setName(nameTextItem.getValueAsString());
 		}
+
 		if (descriptionTextItem.getValue() != null) {
 			activity.setDescription(descriptionTextItem.getValueAsString());
 		}
@@ -254,28 +253,34 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 			activity.setCategory(ActivityCategoryEnum
 					.valueOf(categorySelectItem.getValueAsString()));
 		}
+
 		if (subCategorySelectItem.getValue() != null) {
 			activity.setSubCategory(ActivitySubCategoryEnum
 					.valueOf(subCategorySelectItem.getValueAsString()));
 		}
+
 		if (estimatedTimeTextItem.getValue() != null) {
 			activity.setEstimatedDuration(BigDecimal.valueOf(Double
 					.valueOf(estimatedTimeTextItem.getValueAsString())));
 		}
+
 		if (estimatedTimePoTSelectItem.getValue() != null) {
 			activity.setEstimatedDurationPoT(TimePeriodEnum
 					.valueOf(estimatedTimePoTSelectItem.getValueAsString()));
 		}
+
 		if (estimatedCostTextItem.getValue() != null) {
 			activity.setEstimatedCost(BigDecimal.valueOf(Double
 					.valueOf(estimatedCostTextItem.getValueAsString())));
 		}
+
 		if (estimatedCostCurrencySelectItem.getValue() != null) {
 			final String value = estimatedCostCurrencySelectItem
 					.getValueAsString();
 			activity.setEstimatedCostCurrency(CurrencyTypeEnum.valueOf(value));
 
 		}
+
 		if (instructionsAndObsTextAreaItem.getValue() != null) {
 			final String value = instructionsAndObsTextAreaItem
 					.getValueAsString();
@@ -285,6 +290,7 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 		// TODO Agregar atributos para proveedor responsable
 		// TODO Agregar atributos para cargo responsable
 		activity.setIsSubProtocol(isSubProtocolCheckboxItem.getValueAsBoolean());
+
 		activity.setMaterialsRequired(materialsRequierdCheckboxItem
 				.getValueAsBoolean());
 		activity.setEquipsRequired(equipsRequiredCheckboxItem
@@ -292,20 +298,55 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 		activity.setIsToolsRequired(toolsRequierdCheckboxItem
 				.getValueAsBoolean());
 		entity.setActivity(activity);
-
 		final Set<ConstraintViolation<Activity>> violations = validator
 				.validate(activity);
-
 		if (form.validate() && violations.isEmpty()) {
 			return entity;
+
 		} else {
+
 			final List<String> violationsList = new ArrayList<String>();
 			for (final Iterator<ConstraintViolation<Activity>> it = violations
 					.iterator(); it.hasNext();) {
 				violationsList.add(it.next().getMessage());
 				// GHAAlertManager.alert(violationsList);
 			}
-			GHAAlertManager.alert(violationsList.get(0));
+			String mensaje = "name-activity-not-null";
+			if (violationsList.contains(mensaje)) {
+				GHAAlertManager.alert(mensaje);
+				return null;
+			}
+			mensaje = "category-not-null";
+			if (violationsList.contains(mensaje)) {
+				GHAAlertManager.alert(mensaje);
+				return null;
+			}
+			mensaje = "sub-category-not-null";
+			if (violationsList.contains(mensaje)) {
+				GHAAlertManager.alert(mensaje);
+				return null;
+			}
+			mensaje = "estimated-duration-time-not-null";
+			if (violationsList.contains(mensaje)) {
+				GHAAlertManager.alert(mensaje);
+				return null;
+			}
+			mensaje = "time-period-not-null";
+			if (violationsList.contains(mensaje)) {
+				GHAAlertManager.alert(mensaje);
+				return null;
+			}
+			mensaje = "estimated-cost-not-null";
+			if (violationsList.contains(mensaje)) {
+				GHAAlertManager.alert(mensaje);
+				return null;
+			}
+			mensaje = "currency-not-null";
+			if (violationsList.contains(mensaje)) {
+				GHAAlertManager.alert(mensaje);
+				return null;
+			}
+
 		}
 		return null;
 	}
@@ -331,9 +372,6 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 
 	@Override
 	public void save(final GHAAsyncCallback<MaintenanceActivity> callback) {
-		if (!hasUnCommittedChanges)
-			return;
-
 		final MaintenanceActivity maintenanceActivity = extract(false);
 		if (maintenanceActivity == null)
 			return;
