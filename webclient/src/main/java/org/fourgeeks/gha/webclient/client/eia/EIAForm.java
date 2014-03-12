@@ -561,7 +561,6 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		// machineNameTextItem.clearValue();
 
 		// clean select fields
-		// if (!eiatypeSel)
 		eiaTypeSelectItem.clearValue();
 		stateSelectItem.clearValue();
 		obuSelectItem.clearValue();
@@ -843,18 +842,6 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 				});
 	}
 
-	// private DynamicForm getEquiposIT() {
-	// DynamicForm equiposITForm = new DynamicForm();
-	// equiposITForm.setTitleOrientation(TitleOrientation.TOP);
-	// equiposITForm.setNumCols(2);
-	//
-	// equiposITForm.setItems(it_TitleItem, new GHASpacerItem(),
-	// itTypeSelectItem, machineNameTextItem, ipAddresTextItem,
-	// macAddressTextItem);
-	//
-	// return equiposITForm;
-	// }
-
 	private void fillCostsSelects() {
 		adquisitionCostCurrencySelectItem.setValueMap(CurrencyTypeEnum
 				.toValueMap());
@@ -941,6 +928,18 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		});
 
 	}
+
+	// private DynamicForm getEquiposIT() {
+	// DynamicForm equiposITForm = new DynamicForm();
+	// equiposITForm.setTitleOrientation(TitleOrientation.TOP);
+	// equiposITForm.setNumCols(2);
+	//
+	// equiposITForm.setItems(it_TitleItem, new GHASpacerItem(),
+	// itTypeSelectItem, machineNameTextItem, ipAddresTextItem,
+	// macAddressTextItem);
+	//
+	// return equiposITForm;
+	// }
 
 	private void fillLocationTypeSelect() {
 		final LinkedHashMap<String, String> valueMapLocationType = new LinkedHashMap<String, String>();
@@ -1061,6 +1060,12 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		return areaForm;
 	}
 
+	@Override
+	public void hide() {
+		super.hide();
+		sectionForm.hide();
+	}
+
 	// /**
 	// * @return
 	// */
@@ -1102,12 +1107,6 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	 */
 
 	@Override
-	public void hide() {
-		super.hide();
-		sectionForm.hide();
-	}
-
-	@Override
 	public void notifyEia(Eia eia) {
 		for (final EIASelectionListener listener : listeners)
 			listener.select(eia);
@@ -1120,6 +1119,10 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		ubicacionForm.resize();
 		costosForm.resize();
 		// garantiasMantForm.resize(GHAUiHelper.getSectionFormFormWidth(30),3);
+	}
+
+	public void openFirstSection() {
+		sectionForm.openFirst();
 	}
 
 	@Override
@@ -1323,10 +1326,6 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		sectionForm.show();
 		sectionForm.openSelectedSection();
 		super.show();
-	}
-
-	public void openFirstSection() {
-		sectionForm.openFirst();
 	}
 
 	private void toggleForm(boolean activate) {

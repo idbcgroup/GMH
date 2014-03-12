@@ -24,6 +24,10 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class EIAAddForm extends GHAAddForm<Eia> implements
 		EIATypeSelectionListener, EiaSelectionProducer {
+	/**
+	 * This variable holds the selected eiatype for the EiaForm
+	 */
+	private EiaType selectedEiaType;
 
 	/**
 	 * @param title
@@ -112,6 +116,7 @@ public class EIAAddForm extends GHAAddForm<Eia> implements
 			public void onSuccess(Eia result) {
 				GHAAlertManager.alert("eia-save-success");
 				hide();
+				EIAAddForm.this.select(EIAAddForm.this.selectedEiaType);
 			}
 		});
 
@@ -127,6 +132,7 @@ public class EIAAddForm extends GHAAddForm<Eia> implements
 	@Override
 	public void select(EiaType eiaType) {
 		((EIATypeSelectionListener) form).select(eiaType);
+		this.selectedEiaType = eiaType;
 	}
 
 }
