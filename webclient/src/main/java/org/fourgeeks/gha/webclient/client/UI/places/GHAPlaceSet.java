@@ -33,6 +33,8 @@ import com.smartgwt.client.widgets.events.ClickHandler;
  */
 public final class GHAPlaceSet {
 
+	private static GHAPlace placeWaitingToShow = null;
+
 	private final static Map<String, GHAPlace> places;
 	private static GHAPlace currentPlace;
 	private final static HorizontalPanel hPanel;
@@ -142,10 +144,8 @@ public final class GHAPlaceSet {
 	private static List<GHAMenuOption> getMenuOptions(Bpu loggedUser) {
 		final List<GHAMenuOption> menuOptions = new ArrayList<GHAMenuOption>();
 		try {
-			final Map<String, String> appMap = GHASessionData
-					.getAppsMapp();
-			final Set<Entry<String, String>> entrySet = appMap
-					.entrySet();
+			final Map<String, String> appMap = GHASessionData.getAppsMapp();
+			final Set<Entry<String, String>> entrySet = appMap.entrySet();
 
 			for (final Entry<String, String> entry : entrySet) {
 				menuOptions.add(new GHAMenuOption(GHAStrings.get(entry
@@ -179,6 +179,14 @@ public final class GHAPlaceSet {
 		if (place.canBeHidden(hideAction)) {
 			try {
 				place.hide();
+				if (placeWaitingToShow != null) {
+					if (places.get(placeWaitingToShow.getId()) == null)
+						addPlace(placeWaitingToShow);
+					placeWaitingToShow.show();
+					placeWaitingToShow.updateToken(History.getToken());
+					currentPlace = placeWaitingToShow;
+					placeWaitingToShow = null;
+				}
 			} catch (final UnavailableToHideException e) {
 				throw new UnavailableToHideException(e);
 			}
@@ -203,12 +211,12 @@ public final class GHAPlaceSet {
 			try {
 				hidePlace(currentPlace);
 			} catch (final UnavailableToHideException e) {
+				placeWaitingToShow = place;
 				throw new UnavailableToHideException(e);
 			}
 
 		if (places.get(place.getId()) == null)
 			addPlace(place);
-
 		place.show();
 		place.updateToken(History.getToken());
 		currentPlace = place;
