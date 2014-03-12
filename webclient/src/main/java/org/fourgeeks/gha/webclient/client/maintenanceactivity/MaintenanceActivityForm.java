@@ -39,7 +39,6 @@ import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.Mainte
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.MaintenanceActivitySubProtocolProducer;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
@@ -226,11 +225,9 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 	 * @return
 	 */
 	private MaintenanceActivity extract(boolean update) {
-		Window.alert("C1");
+
 		final MaintenanceActivity entity = new MaintenanceActivity();
-		Window.alert("C1");
 		Activity activity = new Activity();
-		Window.alert("C1");
 
 		if (update) {
 			entity.setId(this.originalEntity.getId());
@@ -314,7 +311,42 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 				violationsList.add(it.next().getMessage());
 				// GHAAlertManager.alert(violationsList);
 			}
-			GHAAlertManager.alert(violationsList.get(0));
+			String mensaje = "name-activity-not-null";
+			if (violationsList.contains(mensaje)) {
+				GHAAlertManager.alert(mensaje);
+				return null;
+			}
+			mensaje = "category-not-null";
+			if (violationsList.contains(mensaje)) {
+				GHAAlertManager.alert(mensaje);
+				return null;
+			}
+			mensaje = "sub-category-not-null";
+			if (violationsList.contains(mensaje)) {
+				GHAAlertManager.alert(mensaje);
+				return null;
+			}
+			mensaje = "estimated-duration-time-not-null";
+			if (violationsList.contains(mensaje)) {
+				GHAAlertManager.alert(mensaje);
+				return null;
+			}
+			mensaje = "time-period-not-null";
+			if (violationsList.contains(mensaje)) {
+				GHAAlertManager.alert(mensaje);
+				return null;
+			}
+			mensaje = "estimated-cost-not-null";
+			if (violationsList.contains(mensaje)) {
+				GHAAlertManager.alert(mensaje);
+				return null;
+			}
+			mensaje = "currency-not-null";
+			if (violationsList.contains(mensaje)) {
+				GHAAlertManager.alert(mensaje);
+				return null;
+			}
+
 		}
 		return null;
 	}
@@ -340,9 +372,6 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 
 	@Override
 	public void save(final GHAAsyncCallback<MaintenanceActivity> callback) {
-		if (!hasUnCommittedChanges)
-			return;
-
 		final MaintenanceActivity maintenanceActivity = extract(false);
 		if (maintenanceActivity == null)
 			return;
