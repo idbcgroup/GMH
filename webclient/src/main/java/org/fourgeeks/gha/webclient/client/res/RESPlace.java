@@ -24,10 +24,9 @@ public class RESPlace extends NeedPermissionPlace {
 	PermissionsNeededException {
 		super(token);
 		tabPanel = new RESTabbedPanel(GHAStrings.get("res"), this);
-
+		header = new GHAPlaceHeader(this);
 		addHideableListener(tabPanel);
 		addClosableListener(tabPanel);
-		header = new GHAPlaceHeader(this);
 		addMember(tabPanel);
 	}
 
