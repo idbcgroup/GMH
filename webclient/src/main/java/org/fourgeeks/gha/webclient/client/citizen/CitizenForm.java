@@ -87,6 +87,7 @@ public class CitizenForm extends GHAForm<Citizen> implements
 				.get("user-tooltip-email-secundario"));
 
 		typeidSelectItem = new GHASelectItem("Tipo ID", true, changedHandler);
+		typeidSelectItem.setDefaultValue(DocumentTypeEnum.LOCAL.name());
 		typeidSelectItem.setTooltip(GHAStrings.get("user-tooltip-tipo-id"));
 
 		idItem = new GHATextItem("No. Identificiación", true, changedHandler);
