@@ -118,7 +118,7 @@ SearchsProducer {
 	 * clear the values of this form
 	 */
 	@Override
-	public abstract void clear();;
+	public abstract void clear();
 
 	@Override
 	public void close() throws UnavailableToCloseException {
@@ -167,7 +167,7 @@ SearchsProducer {
 	 */
 	@Override
 	public void search() {
-		for (SearchListener searchListener : searchListeners)
+		for (final SearchListener searchListener : searchListeners)
 			searchListener.onSearch();
 	}
 

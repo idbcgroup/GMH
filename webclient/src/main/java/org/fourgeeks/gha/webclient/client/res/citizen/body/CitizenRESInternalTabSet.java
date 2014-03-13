@@ -7,13 +7,14 @@ import org.fourgeeks.gha.webclient.client.citizen.CitizenSelectionListener;
 import org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation.CitizenRESBasicInformationSubTab;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.smartgwt.client.widgets.tab.Tab;
 
 /**
  * @author alacret
  * 
  */
 public class CitizenRESInternalTabSet extends GHAInternalTabSet implements
-		CitizenSelectionListener {
+CitizenSelectionListener {
 
 	private final CitizenRESBasicInformationSubTab citizenRESBasicInformationTab = new CitizenRESBasicInformationSubTab();
 
@@ -62,6 +63,14 @@ public class CitizenRESInternalTabSet extends GHAInternalTabSet implements
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getRESBodyHeight());
+	}
+
+	@Override
+	public void show() {
+		final Tab selectedTab = getSelectedTab();
+		if (selectedTab == citizenRESBasicInformationTab)
+			citizenRESBasicInformationTab.show();
+		super.show();
 	}
 
 }

@@ -21,12 +21,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class CitizenTab extends GHATab {
 
 	private final String patientId;
-	private CitizenRESTopInformationview top;
-	private CitizenRESInternalTabSet body;
-	{
-		top = new CitizenRESTopInformationview();
-		body = new CitizenRESInternalTabSet();
-	}
+	private final CitizenRESTopInformationview top;
+	private final CitizenRESInternalTabSet body;
+	private final CitizenTabTools tools;
 
 	/**
 	 * @param citizenId
@@ -43,6 +40,13 @@ public class CitizenTab extends GHATab {
 			}
 		});
 
+		top = new CitizenRESTopInformationview();
+		addClosableListener(top);
+		addHideableListener(top);
+		body = new CitizenRESInternalTabSet();
+		addClosableListener(body);
+		addHideableListener(body);
+
 		final VLayout verticalLayout = new VLayout();
 		verticalLayout.addMember(top);
 		verticalLayout.addMember(body);
@@ -50,21 +54,32 @@ public class CitizenTab extends GHATab {
 		final HLayout bodyLayout = new HLayout();
 		bodyLayout.addMember(verticalLayout);
 
-		bodyLayout.addMember(new CitizenTabTools());
+		tools = new CitizenTabTools();
+		addClosableListener(tools);
+		addHideableListener(tools);
+		bodyLayout.addMember(tools);
 
 		addMember(bodyLayout);
 
 		CitizenModel.find(Long.valueOf(citizenId),
 				new GHAAsyncCallback<Citizen>() {
 
-					@Override
-					public void onSuccess(Citizen citizen) {
-						header.setContents(citizen.getFirstName() + " "
-								+ citizen.getFirstLastName());
-						top.onCitizenSelect(citizen);
-						body.onCitizenSelect(citizen);
-					}
-				});
+			@Override
+			public void onSuccess(Citizen citizen) {
+				header.setContents(citizen.getFirstName() + " "
+						+ citizen.getFirstLastName());
+				top.onCitizenSelect(citizen);
+				body.onCitizenSelect(citizen);
+			}
+		});
+	}
+
+	@Override
+	public void show() {
+		super.show();
+		top.show();
+		body.show();
+		tools.show();
 	}
 
 	@Override
