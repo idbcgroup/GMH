@@ -19,6 +19,14 @@ CitizenSelectionListener {
 	// citizenSectionFormPanel;
 
 	private final RESBasicInformationFormPanel formPanel;
+	private final GHASectionForm sectionForm;
+	private final GHAFormLayout mainBody = new GHAFormLayout(){
+		@Override
+		public void show() {
+			sectionForm.show();
+			super.show();
+		}
+	};
 
 	/**
 	 * 
@@ -26,25 +34,21 @@ CitizenSelectionListener {
 	public CitizenRESBasicInformationSubTab() {
 		super(GHAStrings.get("basic-information"));
 		formPanel = new RESBasicInformationFormPanel();
+		sectionForm = new GHASectionForm(GHAStrings.get("citizen"));
+		addClosableListener(sectionForm);
+		addHideableListener(sectionForm);
 
-		// citizenSectionFormPanel = new
-		// CitizenRESBasicInformationSectionFormPanel();
-		// addClosableListener(citizenSectionFormPanel);
-		// addHideableListener(citizenSectionFormPanel);
-
-		setPane(getSubtabPane());
+		setPane(initSubtabPane());
 	}
 
-	private GHAFormLayout getSubtabPane() {
-		final GHAFormLayout mainBody = new GHAFormLayout();
+	private GHAFormLayout initSubtabPane() {
+
 		mainBody.addMember(new GHALabel(GHAStrings
 				.get("citizen-basic-information-title")));
 
-		final GHASectionForm sectionForm = new GHASectionForm(
-				GHAStrings.get("citizen"));
 		mainBody.addMember(sectionForm);
-
 		sectionForm.addSection(GHAStrings.get("basic-information"), formPanel);
+
 		sectionForm.openFirst();
 
 		return mainBody;
@@ -54,5 +58,14 @@ CitizenSelectionListener {
 	public void onCitizenSelect(Citizen citizen) {
 		formPanel.onCitizenSelect(citizen);
 	}
+
+	/**
+	 * 
+	 */
+	public void show() {
+		mainBody.show();
+	}
+
+
 
 }

@@ -36,6 +36,12 @@ public class RESPlace extends NeedPermissionPlace {
 	}
 
 	@Override
+	public void show() {
+		super.show();
+		tabPanel.show();
+	}
+
+	@Override
 	public String getAcronym() {
 		return GHAStrings.get("res");
 	}

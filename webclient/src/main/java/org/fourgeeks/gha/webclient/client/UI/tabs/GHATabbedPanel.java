@@ -83,6 +83,13 @@ HideableListener, ClosableProducer, HideableProducer {
 	}
 
 	/**
+	 * 
+	 */
+	public void showCurrentTab(){
+		showTab(currentTab.getId());
+	}
+
+	/**
 	 * @param tab
 	 */
 	public void addAndShow(GHATab tab) {

@@ -28,11 +28,11 @@ ClosableListener {
 
 	private VLayout sideOptions;
 	private VLayout mainSection;
-	private SectionFormSideLabel selectedOption;
-	private List<SectionFormSideLabel> optionLabelList;
+	private SectionFormSideOption selectedOption;
+	private List<SectionFormSideOption> optionLabelList;
 
 	{
-		optionLabelList = new ArrayList<SectionFormSideLabel>();
+		optionLabelList = new ArrayList<SectionFormSideOption>();
 		sideOptions = new VLayout();
 		sideOptions.setWidth(GHAUiHelper.SECTION_FORM_OPTION_WIDTH);
 		sideOptions.setMembersMargin(3);
@@ -53,7 +53,7 @@ ClosableListener {
 		setMembersMargin(10);
 
 
-		sideOptions.addMember(new SectionFormSideLabel(sideOptionsTitle));
+		sideOptions.addMember(new SectionFormSideOption(sideOptionsTitle));
 		sideOptions.addMember(GHAUiHelper.verticalGraySeparator("2px"));
 		addMember(sideOptions);
 		addMember(GHAUiHelper.horizontalGraySeparator("3px"));
@@ -75,11 +75,11 @@ ClosableListener {
 		mainSection.addMembers(section);
 		section.setVisibility(Visibility.HIDDEN);
 
-		final SectionFormSideLabel option = new SectionFormSideLabel(name, section);
+		final SectionFormSideOption option = new SectionFormSideOption(name, section);
 		option.addClickHandler(new com.google.gwt.event.dom.client.ClickHandler() {
 			@Override
 			public void onClick(com.google.gwt.event.dom.client.ClickEvent event) {
-				for (final SectionFormSideLabel option : optionLabelList)
+				for (final SectionFormSideOption option : optionLabelList)
 					option.deactivate();
 				option.activate();
 				selectedOption = option;
@@ -102,12 +102,12 @@ ClosableListener {
 		mainSection.addMembers(section);
 		section.setVisibility(Visibility.HIDDEN);
 
-		final SectionFormSideLabel option = new SectionFormSideLabel(name, section);
+		final SectionFormSideOption option = new SectionFormSideOption(name, section);
 		option.addClickHandler(new com.google.gwt.event.dom.client.ClickHandler() {
 
 			@Override
 			public void onClick(com.google.gwt.event.dom.client.ClickEvent event) {
-				for (final SectionFormSideLabel option : optionLabelList)
+				for (final SectionFormSideOption option : optionLabelList)
 					option.deactivate();
 				option.activate();
 				selectedOption = option;
@@ -147,7 +147,7 @@ ClosableListener {
 	 * 
 	 */
 	public void deactivate() {
-		for (final SectionFormSideLabel option : optionLabelList)
+		for (final SectionFormSideOption option : optionLabelList)
 			option.deactivate();
 	}
 
@@ -171,7 +171,7 @@ ClosableListener {
 	 * Open the first section
 	 */
 	public void openFirst() {
-		final SectionFormSideLabel option = optionLabelList.get(0);
+		final SectionFormSideOption option = optionLabelList.get(0);
 		if (option != null) {
 			option.activate();
 			selectedOption = option;
@@ -194,17 +194,17 @@ ClosableListener {
 		super.show();
 	}
 
-	static class SectionFormSideLabel extends HTML {
+	static class SectionFormSideOption extends HTML {
 		private Canvas section=null;
 		private boolean selectable=false;
 
-		public SectionFormSideLabel(String name){
+		public SectionFormSideOption(String name){
 			super(name);
 			setStylePrimaryName("side-option-main");
 			setHeight("30px");
 		}
 
-		public SectionFormSideLabel(String name, Canvas section) {
+		public SectionFormSideOption(String name, Canvas section) {
 			super(name);
 			this.section = section;
 			selectable=true;
@@ -232,6 +232,7 @@ ClosableListener {
 			if(selectable){
 				addStyleName("side-option-selected");
 				section.setVisibility(Visibility.VISIBLE);
+				section.show();
 			}
 		}
 
@@ -239,6 +240,7 @@ ClosableListener {
 			if(selectable){
 				removeStyleName("side-option-selected");
 				section.setVisibility(Visibility.HIDDEN);
+				section.hide();
 			}
 		}
 

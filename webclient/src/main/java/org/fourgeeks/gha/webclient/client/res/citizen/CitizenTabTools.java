@@ -1,8 +1,12 @@
 package org.fourgeeks.gha.webclient.client.res.citizen;
 
+import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -14,7 +18,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class CitizenTabTools extends VLayout {
+public class CitizenTabTools extends VLayout implements ClosableListener, HideableListener{
 
 	/**
 	 * 
@@ -48,5 +52,23 @@ public class CitizenTabTools extends VLayout {
 		// addMember(new GHAUndoButton(clickHandler));
 		// addMember(new GHACancelButton(clickHandler));
 
+	}
+
+	@Override
+	public boolean canBeHidden(HideCloseAction closeAction) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean canBeClosen(HideCloseAction closeAction) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public void close() throws UnavailableToCloseException {
+		// TODO Auto-generated method stub
+		destroy();
 	}
 }

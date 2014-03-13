@@ -5,7 +5,11 @@ import java.sql.Date;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAlertLabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAHorizontalLayout;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATextLabelSmallSize;
@@ -24,8 +28,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class CitizenRESTopInformationview extends GHAHorizontalLayout implements
-		CitizenSelectionListener {
+public class CitizenRESTopInformationview extends GHAHorizontalLayout implements ClosableListener, HideableListener,
+CitizenSelectionListener {
 	private static class SmallBox extends HLayout {
 		public SmallBox() {
 			setWidth100();
@@ -66,30 +70,30 @@ public class CitizenRESTopInformationview extends GHAHorizontalLayout implements
 	// }
 	// text for the values
 	private final GHATextLabelSmallSize documentNumberText = new GHATextLabelSmallSize()
-			.bold();
+	.bold();
 	private final GHATextLabelSmallSize firstNameText = new GHATextLabelSmallSize()
-			.bold();
+	.bold();
 	private final GHATextLabelSmallSize secondNameText = new GHATextLabelSmallSize()
-			.bold();
+	.bold();
 	private final GHATextLabelSmallSize firstLastNameText = new GHATextLabelSmallSize()
-			.bold();
+	.bold();
 	private final GHATextLabelSmallSize secondLastNameText = new GHATextLabelSmallSize()
-			.bold();
+	.bold();
 	private final GHATextLabelSmallSize dobText = new GHATextLabelSmallSize();
 	private final GHATextLabelSmallSize ageText = new GHATextLabelSmallSize();
 	private final GHATextLabelSmallSize bpiText = new GHATextLabelSmallSize();
 	private final GHATextLabelSmallSize bTypeText = new GHATextLabelSmallSize()
-			.bold();
+	.bold();
 	private final GHATextLabelSmallSize weightTypeText = new GHATextLabelSmallSize()
-			.bold();
+	.bold();
 	private final GHATextLabelSmallSize heightTypeText = new GHATextLabelSmallSize()
-			.bold();
+	.bold();
 	private final GHATextLabelSmallSize bsaTypeText = new GHATextLabelSmallSize()
-			.bold();
+	.bold();
 	private final GHATextLabelSmallSize bmiTypeText = new GHATextLabelSmallSize()
-			.bold();
+	.bold();
 	private final GHATextLabelSmallSize mainDiagnosisText = new GHATextLabelSmallSize()
-			.bold();
+	.bold();
 	// {
 	// mainDiagnosisText.setAutoFit(false);
 	// mainDiagnosisText.setWidth(300);
@@ -227,6 +231,23 @@ public class CitizenRESTopInformationview extends GHAHorizontalLayout implements
 		bsaTypeText.setContents("TODO");
 		mainDiagnosisText.setContents("TODO");
 
+	}
+
+	@Override
+	public boolean canBeHidden(HideCloseAction closeAction) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean canBeClosen(HideCloseAction closeAction) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public void close() throws UnavailableToCloseException {
+		destroy();
 	}
 
 }

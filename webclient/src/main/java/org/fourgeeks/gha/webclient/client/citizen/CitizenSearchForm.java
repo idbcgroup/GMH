@@ -45,7 +45,7 @@ public class CitizenSearchForm extends GHASearchForm<Citizen> implements
 CitizenSelectionProducer {
 
 	private GHATextItem idItem, firstNameItem, secondNameItem, lastNameItem,
-			secondLastNameItem, nationalityItem, legalEntityIdentifierItem;
+	secondLastNameItem, nationalityItem, legalEntityIdentifierItem;
 	private GHASelectItem typeidSelectItem, genderSelectItem;
 	private GHAEmailTextItem primaryEmailItem;
 
@@ -93,6 +93,7 @@ CitizenSelectionProducer {
 	 */
 	public CitizenSearchForm(String title) {
 		super(title);
+		setTop(GHAUiHelper.getTopSpace()-GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT+GHAUiHelper.DEFAULT_PATIENT_TOP_HEIGHT);
 		form.setItems(typeidSelectItem, idItem, firstNameItem, secondNameItem,
 				lastNameItem, secondLastNameItem, genderSelectItem,
 				nationalityItem, legalEntityIdentifierItem, primaryEmailItem);
@@ -120,18 +121,18 @@ CitizenSelectionProducer {
 		final VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHACleanButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				clean();
-			}
-		}), new GHACancelButton(new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						clean();
+					}
+				}), new GHACancelButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				hide();
-				clean();
-			}
-		}));
+					@Override
+					public void onClick(ClickEvent event) {
+						hide();
+						clean();
+					}
+				}));
 
 		final HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
@@ -207,8 +208,8 @@ CitizenSelectionProducer {
 
 	@Override
 	public void search() {
-		Citizen citizen = new Citizen();
-		LegalEntity legalEntity = new LegalEntity();
+		final Citizen citizen = new Citizen();
+		final LegalEntity legalEntity = new LegalEntity();
 		if (firstNameItem.getValue() != null) {
 			citizen.setFirstName(firstNameItem.getValueAsString());
 		}
@@ -268,10 +269,10 @@ CitizenSelectionProducer {
 			public void onSuccess(List<Citizen> results) {
 				List<Citizen> newList = null;
 				if (blackList != null) {
-					List<AbstractEntity> tmpList = GHAUtil
+					final List<AbstractEntity> tmpList = GHAUtil
 							.binarySearchFilterEntity(results, blackList);
-					List<Citizen> newTmpList = new ArrayList<Citizen>();
-					for (AbstractEntity abstractCodeEntity : tmpList)
+					final List<Citizen> newTmpList = new ArrayList<Citizen>();
+					for (final AbstractEntity abstractCodeEntity : tmpList)
 						newTmpList.add((Citizen) abstractCodeEntity);
 					newList = newTmpList;
 				} else
