@@ -88,7 +88,7 @@ public class EiaType extends ServiceAndResource {
 	private EiaSubTypeEnum subtype;
 
 	@ManyToOne
-	@NotNull(message = "eiaType-category-not-null")
+	@NotNull(message = "eiatype-category-not-null")
 	@JoinColumn(name = "eiaTypeCategoryFk", nullable = false)
 	private EiaTypeCategory eiaTypeCategory;
 

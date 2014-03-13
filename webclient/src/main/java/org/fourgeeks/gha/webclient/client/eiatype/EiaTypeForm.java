@@ -44,7 +44,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * 
  */
 public class EiaTypeForm extends GHAForm<EiaType> implements
-EiaTypeSelectionProducer {
+		EiaTypeSelectionProducer {
 
 	protected GHADynamicForm form;
 	private GHACodeTextItem codeItem;
@@ -264,8 +264,24 @@ EiaTypeSelectionProducer {
 			for (final Iterator<ConstraintViolation<EiaType>> it = violations
 					.iterator(); it.hasNext();)
 				violationsList.add(it.next().getMessage());
-			//			GHAAlertManager.alert(violationsList);
-			GHAAlertManager.alert(violationsList.get(0));
+			// GHAAlertManager.alert(violationsList);
+			// GHAAlertManager.oldAlert(violationsList.get(0));
+
+			String mensaje = "name-not-null";
+			if (violationsList.contains(mensaje)) {
+				GHAAlertManager.alert(mensaje);
+				return null;
+			}
+			mensaje = "eiatype-category-not-null";
+			if (violationsList.contains(mensaje)) {
+				GHAAlertManager.alert(mensaje);
+				return null;
+			}
+			mensaje = "mobility-not-null";
+			if (violationsList.contains(mensaje)) {
+				GHAAlertManager.alert(mensaje);
+				return null;
+			}
 		}
 		return null;
 	}
@@ -275,16 +291,16 @@ EiaTypeSelectionProducer {
 		BrandModel.findByManufacturer(manufacturer,
 				new GHAAsyncCallback<List<Brand>>() {
 
-			@Override
-			public void onSuccess(List<Brand> result) {
-				final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for (final Brand brand : result)
-					valueMap.put(brand.getId() + "", brand.getName());
-				brandItem.setValueMap(valueMap);
-				brandItem.setValue(brand.getId());
-			}
+					@Override
+					public void onSuccess(List<Brand> result) {
+						final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+						for (final Brand brand : result)
+							valueMap.put(brand.getId() + "", brand.getName());
+						brandItem.setValueMap(valueMap);
+						brandItem.setValue(brand.getId());
+					}
 
-		});
+				});
 
 	}
 
@@ -296,15 +312,15 @@ EiaTypeSelectionProducer {
 		BrandModel.findByManufacturer(manufacturer,
 				new GHAAsyncCallback<List<Brand>>() {
 
-			@Override
-			public void onSuccess(List<Brand> result) {
-				for (final Brand brand : result)
-					valueMap.put(brand.getId() + "", brand.getName());
-				brandItem.setValueMap(valueMap);
-				brandItem.redraw();
-			}
+					@Override
+					public void onSuccess(List<Brand> result) {
+						for (final Brand brand : result)
+							valueMap.put(brand.getId() + "", brand.getName());
+						brandItem.setValueMap(valueMap);
+						brandItem.redraw();
+					}
 
-		});
+				});
 	}
 
 	private void fillExtras() {

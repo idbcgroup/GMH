@@ -44,8 +44,8 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer {
 
 	private GHATextItem usernameItem, passwordItem, confirmPasswordItem,
-	idItem, firstNameItem, secondNameItem, lastNameItem,
-	secondLastNameItem, nationalityItem, legalEntityIdentifierItem;
+			idItem, firstNameItem, secondNameItem, lastNameItem,
+			secondLastNameItem, nationalityItem, legalEntityIdentifierItem;
 	private GHASelectItem typeidSelectItem, genderSelectItem, bpiSelectItem;
 	private GHADateItem birthDateItem;
 	private GHAEmailTextItem primaryEmailItem, alternativeEmailItem;
@@ -147,7 +147,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 				"^[VvMmPprREeJjIiGg0-9|-]+$");
 
 		legalEntityIdentifierItem
-		.setTooltip(GHAStrings.get("user-tooltip-rif"));
+				.setTooltip(GHAStrings.get("user-tooltip-rif"));
 
 		listeners = new ArrayList<UserSelectionListener>();
 
@@ -337,7 +337,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 
 		if (!violationsBpi.isEmpty())
 			for (final Iterator<ConstraintViolation<Bpi>> it = violationsBpi
-			.iterator(); it.hasNext();)
+					.iterator(); it.hasNext();)
 				violationsList.add(it.next().getMessage());
 
 		if (passwordItem.getValue() == null)
@@ -351,8 +351,45 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		if (form.validate() && violationsList.isEmpty()) {
 			return ssoUser;
 		} else {
-			//			GHAAlertManager.alert(violationsList);
-			GHAAlertManager.alert(violationsList.get(0));
+			// GHAAlertManager.alert(violationsList);
+			// /GHAAlertManager.alert(violationsList.get(0));
+
+			String message = "username-not-null";
+			if (violationsList.contains(message)) {
+				GHAAlertManager.alert(message);
+				return null;
+			}
+			message = "password-not-null";
+			if (violationsList.contains(message)) {
+				GHAAlertManager.alert(message);
+				return null;
+			}
+			message = "password-missmatch";
+			if (violationsList.contains(message)) {
+				GHAAlertManager.alert(message);
+				return null;
+			}
+			message = "id-type-not-null";
+			if (violationsList.contains(message)) {
+				GHAAlertManager.alert(message);
+				return null;
+			}
+			message = "id-number-not-null";
+			if (violationsList.contains(message)) {
+				GHAAlertManager.alert(message);
+				return null;
+			}
+			message = "gender-not-null";
+			if (violationsList.contains(message)) {
+				GHAAlertManager.alert(message);
+				return null;
+			}
+			message = "institution-not-null";
+			if (violationsList.contains(message)) {
+				GHAAlertManager.alert(message);
+				return null;
+			}
+
 		}
 
 		return null;
@@ -481,7 +518,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 				}
 				if (citizen.getAlternativeEmail() != null) {
 					alternativeEmailItem
-					.setValue(citizen.getAlternativeEmail());
+							.setValue(citizen.getAlternativeEmail());
 				}
 				if (citizen.getLegalEntity() != null
 						&& citizen.getLegalEntity().getIdentifier() != null) {

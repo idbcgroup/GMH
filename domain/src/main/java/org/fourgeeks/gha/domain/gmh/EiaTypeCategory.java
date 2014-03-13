@@ -16,9 +16,12 @@ import org.fourgeeks.gha.domain.AbstractCodeEntity;
  * 
  */
 @Entity
-@NamedQueries(value = { @NamedQuery(name = "EiaTypeCategory.getAll", query = "SELECT category from EiaTypeCategory category ORDER BY category.code") })
+@NamedQueries(value = {
+		@NamedQuery(name = "EiaTypeCategory.getAll", query = "SELECT category from EiaTypeCategory category ORDER BY category.code"),
+		@NamedQuery(name = "EiaTypeCategory.findByCode", query = "SELECT category from EiaTypeCategory category WHERE category.code = :code") })
 public class EiaTypeCategory extends AbstractCodeEntity implements
-		Comparable<EiaTypeCategory> {
+
+Comparable<EiaTypeCategory> {
 
 	/**
 	 * 
