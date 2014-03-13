@@ -14,7 +14,7 @@ import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
- * @author Emilio
+ * @author emiliot
  * 
  */
 

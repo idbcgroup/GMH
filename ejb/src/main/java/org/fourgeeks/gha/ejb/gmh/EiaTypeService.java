@@ -23,7 +23,6 @@ import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
@@ -401,14 +400,6 @@ public class EiaTypeService extends GHAEJBExceptionService implements
 				}
 				em.persist(brand);
 			}
-			// get the category
-			final EiaTypeCategory category = em
-					.createNamedQuery("EiaTypeCategory.findByCode",
-							EiaTypeCategory.class)
-					.setParameter("code",
-							eiaType.getEiaTypeCategory().getCode())
-					.getSingleResult();
-			eiaType.setEiaTypeCategory(category);
 
 			// get the code from ccdi
 			final String eiaTypeCode = ccdiService.getNextElementCode(eiaType
@@ -442,13 +433,6 @@ public class EiaTypeService extends GHAEJBExceptionService implements
 				}
 				em.persist(brand);
 			}
-
-			EiaTypeCategory category = eiaType.getEiaTypeCategory();
-			category = em
-					.createNamedQuery("EiaTypeCategory.findByCode",
-							EiaTypeCategory.class)
-					.setParameter("code", category.getCode()).getSingleResult();
-			eiaType.setEiaTypeCategory(category);
 
 			final EiaType res = em.merge(eiaType);
 			em.flush();
