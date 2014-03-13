@@ -82,6 +82,7 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 		nameItem.setLength(100);
 		nameItem.validateWords();
 		nameItem.setTooltip(GHAStrings.get("maintenance-name-tooltip"));
+		nameItem.setShowErrorIcon(false);
 
 		frequencyItem = new GHATextItem(GHAStrings.get("frecuency"), true,
 				changedHandler);
@@ -89,6 +90,7 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 		frequencyItem.validateNumbers();
 		frequencyItem.setTooltip(GHAStrings
 				.get("maintenance-plan-frequency-tooltip"));
+		frequencyItem.setShowErrorIcon(false);
 
 		frecuencyPoTItem = new GHAPeriodOfTimeSelectItem(true, changedHandler);
 
@@ -204,6 +206,9 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 	}
 
 	private MaintenancePlan extract(boolean update) {
+		if (!hasUnCommittedChanges)
+			return null;
+
 		final MaintenancePlan maintenancePlan = new MaintenancePlan();
 		if (update) {
 			maintenancePlan.setId(this.originalEntity.getId());
@@ -264,7 +269,50 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 					.iterator(); it.hasNext();) {
 				violationsList.add(it.next().getMessage());
 			}
-			// GHAAlertManager.alert(violationsList);
+			String mensaje = "name-not-null";
+			if (violationsList.contains(mensaje)) {
+				GHAAlertManager.alert(mensaje);
+				return null;
+			}
+
+			mensaje = "frecuency-not-null";
+			if (violationsList.contains(mensaje)) {
+				GHAAlertManager.alert(mensaje);
+				return null;
+			}
+			mensaje = "time-period-not-null";
+			if (violationsList.contains(mensaje)) {
+				GHAAlertManager.alert(mensaje);
+				return null;
+			}
+			mensaje = "type-plan-not-null";
+			if (violationsList.contains(mensaje)) {
+				GHAAlertManager.alert(mensaje);
+				return null;
+			}
+			mensaje = "state-not-null";
+			if (violationsList.contains(mensaje)) {
+				GHAAlertManager.alert(mensaje);
+				return null;
+			}
+			mensaje = "cancelation-option-not-null";
+			if (violationsList.contains(mensaje)) {
+				GHAAlertManager.alert(mensaje);
+				return null;
+			}
+			/*
+			 * @NotNull(message = "name-not-null")
+			 * 
+			 * @NotNull(message = "frecuency-not-null")
+			 * 
+			 * @NotNull(message = "time-period-not-null")
+			 * 
+			 * @NotNull(message = "type-plan-not-null")
+			 * 
+			 * @NotNull(message = "state-not-null")
+			 * 
+			 * @NotNull(message = "cancelation-option-not-null")
+			 */// GHAAlertManager.alert(violationsList);
 			GHAAlertManager.alert(violationsList.get(0));
 		}
 		return null;
@@ -400,6 +448,7 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 				new GHAAsyncCallback<MaintenancePlan>() {
 					@Override
 					public void onSuccess(MaintenancePlan result) {
+						originalEntity = result;
 						hasUnCommittedChanges = false;
 						notifyMaintenancePlan(result);
 						if (callback != null)
@@ -407,5 +456,4 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 					}
 				});
 	}
-
 }
