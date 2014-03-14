@@ -104,6 +104,9 @@ public class MaterialForm extends GHAForm<Material> implements
 	 * @return
 	 */
 	private Material extract() {
+		if (!hasUnCommittedChanges)
+			return null;
+
 		final Material material = new Material();
 
 		// if (brandItem.getValue() != null) {

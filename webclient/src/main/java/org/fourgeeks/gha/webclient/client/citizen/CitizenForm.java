@@ -199,6 +199,9 @@ public class CitizenForm extends GHAForm<Citizen> implements
 	 * @return the Citizen to save/update
 	 */
 	private Citizen extract(boolean update) {
+		if (!hasUnCommittedChanges)
+			return null;
+
 		final List<String> violationsList = new ArrayList<String>();
 		final Citizen citizen = new Citizen();
 		final LegalEntity legalEntity = new LegalEntity();

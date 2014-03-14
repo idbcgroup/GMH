@@ -55,36 +55,36 @@ import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
  * 
  */
 public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
-EiaSelectionProducer {
+		EiaSelectionProducer {
 	private GHATextItem codeTextItem, serialTextItem, fixedAssetIdTextItem,
-	purchaseOrderNumTextItem, purchaseInvoiceNumTextItem,
-	workingAreaLocationCodeTextItem, facilityLocationCodeTextItem,
-	adquisitionCostTextItem, adquisitionCostLocalTextItem,
-	depreciationTimeTextItem, lifeTimeTextItem, actualCostTextItem,
-	realWarrantyTimeTextItem, intWarrantyTimeTextItem;
+			purchaseOrderNumTextItem, purchaseInvoiceNumTextItem,
+			workingAreaLocationCodeTextItem, facilityLocationCodeTextItem,
+			adquisitionCostTextItem, adquisitionCostLocalTextItem,
+			depreciationTimeTextItem, lifeTimeTextItem, actualCostTextItem,
+			realWarrantyTimeTextItem, intWarrantyTimeTextItem;
 	// codeMant_WarrMant_TextItem;
 	private GHASelectItem obuSelectItem, baseRoleSelectItem, stateSelectItem,
-	adqisitionProviderSelectItem, locationTypeSelectItem,
-	workingAreaLocationSelectItem, facilityLocationSelectItem,
-	adquisitionCostCurrencySelectItem,
-	adquisitionCostCurrencyLocalSelectItem,
-	depreciationMethodSelectItem, actualCostCurrencySelectItem,
-	realWarrantySinceSelectItem, intWarrantySinceSelectItem,
-	// maintenanceLocationSelectItem,
-	eiaTypeSelectItem, installationProviderSelectItem;
+			adqisitionProviderSelectItem, locationTypeSelectItem,
+			workingAreaLocationSelectItem, facilityLocationSelectItem,
+			adquisitionCostCurrencySelectItem,
+			adquisitionCostCurrencyLocalSelectItem,
+			depreciationMethodSelectItem, actualCostCurrencySelectItem,
+			realWarrantySinceSelectItem, intWarrantySinceSelectItem,
+			// maintenanceLocationSelectItem,
+			eiaTypeSelectItem, installationProviderSelectItem;
 	private GHATitletextItem information_TitleItem, adquisition_TitleItem,
-	location_TitleItem, workingArea_TitleItem, facility_TitleItem,
-	adqCost_TitleItem, actualCost_TitleItem, depTime_TitleItem,
-	lifeTime_TitleItem, realWarranty_TitleItem,
-	intermedWarranty_TitleItem, providers_TitleItem;
+			location_TitleItem, workingArea_TitleItem, facility_TitleItem,
+			adqCost_TitleItem, actualCost_TitleItem, depTime_TitleItem,
+			lifeTime_TitleItem, realWarranty_TitleItem,
+			intermedWarranty_TitleItem, providers_TitleItem;
 	private GHADateItem acceptationDateItem, purchaseDateItem,
-	purchaseInvoiceDateItem, purchaseOrderDateItem, receptionDateItem,
-	installationDateItem, contabilizationDateItem,
-	lastDepreciationDate, realWarrantyBeginDate, intWarrantyBeginDate;
+			purchaseInvoiceDateItem, purchaseOrderDateItem, receptionDateItem,
+			installationDateItem, contabilizationDateItem,
+			lastDepreciationDate, realWarrantyBeginDate, intWarrantyBeginDate;
 	// private GHACheckboxItem sameLocationAttendedItem, isInMaintenanceItem;
 	private GHAPeriodOfTimeSelectItem depreciationTimePotSelectItem,
-	lifeTimePotSelectItem, intWarrantyPotSelectItem,
-	realWarrantyPotSelectItem;
+			lifeTimePotSelectItem, intWarrantyPotSelectItem,
+			realWarrantyPotSelectItem;
 	private GHABspSelectItem maintenanceProviderSelectItem;
 	private GHASectionForm sectionForm;
 	private final GHADynamicForm infoBasicaForm;
@@ -611,6 +611,9 @@ EiaSelectionProducer {
 	}
 
 	private Eia extract() {
+		if (!hasUnCommittedChanges)
+			return null;
+
 		Eia eia;
 		final List<String> violationsList = new ArrayList<String>();
 		if (this.originalEntity == null)
@@ -867,16 +870,16 @@ EiaSelectionProducer {
 
 	private void fillAdquisitionSelects() {
 		GHACache.INSTANCE
-		.getExternalProviders(new GHAAsyncCallback<List<ExternalProvider>>() {
-			@Override
-			public void onSuccess(List<ExternalProvider> result) {
-				final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for (final ExternalProvider entity : result)
-					valueMap.put(entity.getId() + "", entity
-							.getInstitution().getName() + "");
-				adqisitionProviderSelectItem.setValueMap(valueMap);
-			}
-		});
+				.getExternalProviders(new GHAAsyncCallback<List<ExternalProvider>>() {
+					@Override
+					public void onSuccess(List<ExternalProvider> result) {
+						final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+						for (final ExternalProvider entity : result)
+							valueMap.put(entity.getId() + "", entity
+									.getInstitution().getName() + "");
+						adqisitionProviderSelectItem.setValueMap(valueMap);
+					}
+				});
 	}
 
 	private void fillCostsSelects() {
@@ -937,20 +940,20 @@ EiaSelectionProducer {
 
 	private void fillLocationsSelects() {
 		GHACache.INSTANCE
-		.getWorkingAreas(new GHAAsyncCallback<List<WorkingArea>>() {
-			@Override
-			public void onSuccess(List<WorkingArea> result) {
-				final LinkedHashMap<String, String> valueMapWorkingArea = new LinkedHashMap<String, String>();
+				.getWorkingAreas(new GHAAsyncCallback<List<WorkingArea>>() {
+					@Override
+					public void onSuccess(List<WorkingArea> result) {
+						final LinkedHashMap<String, String> valueMapWorkingArea = new LinkedHashMap<String, String>();
 
-				for (final WorkingArea entity : result) {
-					valueMapWorkingArea.put(entity.getId() + "",
-							entity.getName());
-				}
+						for (final WorkingArea entity : result) {
+							valueMapWorkingArea.put(entity.getId() + "",
+									entity.getName());
+						}
 
-				workingAreaLocationSelectItem
-				.setValueMap(valueMapWorkingArea);
-			}
-		});
+						workingAreaLocationSelectItem
+								.setValueMap(valueMapWorkingArea);
+					}
+				});
 		GHACache.INSTANCE.getFacilities(new GHAAsyncCallback<List<Facility>>() {
 			@Override
 			public void onSuccess(List<Facility> result) {
@@ -1265,7 +1268,7 @@ EiaSelectionProducer {
 		if (eia.getWorkingArea() != null) {
 			workingAreaLocationSelectItem.setDisabled(false);
 			workingAreaLocationSelectItem
-			.setValue(eia.getWorkingArea().getId());
+					.setValue(eia.getWorkingArea().getId());
 			workingAreaLocationCodeTextItem.setValue(eia.getWorkingArea()
 					.getId());
 			locationTypeSelectItem.setValue("0");

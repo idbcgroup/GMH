@@ -258,6 +258,9 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	}
 
 	private EiaDamageReport extract() {
+		if (!hasUnCommittedChanges)
+			return null;
+
 		final EiaDamageReport eiaDamageReport = new EiaDamageReport();
 
 		eia.setState(EiaStateEnum.DAMAGED);

@@ -213,6 +213,9 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	}
 
 	private EiaType extract(boolean update) {
+		if (!hasUnCommittedChanges)
+			return null;
+
 		final List<String> violationsList = new ArrayList<String>();
 		final EiaType eiaType = new EiaType();
 

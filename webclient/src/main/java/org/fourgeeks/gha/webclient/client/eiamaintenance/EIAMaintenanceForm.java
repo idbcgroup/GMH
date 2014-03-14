@@ -49,8 +49,8 @@ import com.google.gwt.event.logical.shared.ResizeEvent;
  * 
  */
 public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
-EiaMaintenanceSelectionListener, EIATypeSelectionListener,
-EiaMaintenanceSelectionProducer {
+		EiaMaintenanceSelectionListener, EIATypeSelectionListener,
+		EiaMaintenanceSelectionProducer {
 
 	private List<EiaMaintenanceSelectionListener> listeners;
 	private EiaMaintenance selectedMaintenance;
@@ -62,7 +62,7 @@ EiaMaintenanceSelectionProducer {
 	private final GHADynamicForm maintenanceTypeForm;
 
 	private final GHATitletextItem preventiveMaintenance_TitleItem,
-	correctiveMaintenance_TitleItem;
+			correctiveMaintenance_TitleItem;
 	private GHATextItem idNumberTextItem;
 	private GHATextItem requestNumberTextItem;
 	private GHABspSelectItem providerSelectItem;
@@ -72,7 +72,7 @@ EiaMaintenanceSelectionProducer {
 	private GHATextItem effectiveTimeTextItem;
 	private GHAPeriodOfTimeSelectItem effectivePoTSelectItem;
 	private GHAEiaStateSelectItem initialEiaStateSelectItem,
-	finalEiaStateSelectItem;
+			finalEiaStateSelectItem;
 	private GHASelectItem maintenanceStatusSelectItem;
 	private GHAMaintenancePlanSelectItem maintenacePlanSelectItem;
 	private GHATextAreaItem failureDescriptionTextAreaItem;
@@ -263,7 +263,9 @@ EiaMaintenanceSelectionProducer {
 	 * 
 	 * @return
 	 */
-	private EiaMaintenance extractMaintenance() {
+	private EiaMaintenance extract() {
+		if (!hasUnCommittedChanges)
+			return null;
 
 		final EiaMaintenance entity = selectedMaintenance;
 
@@ -288,7 +290,8 @@ EiaMaintenanceSelectionProducer {
 		final String requestNumber = requestNumberTextItem.getValueAsString();
 		entity.setRequestNumber(requestNumber);
 
-		final String initialState = initialEiaStateSelectItem.getValueAsString();
+		final String initialState = initialEiaStateSelectItem
+				.getValueAsString();
 		entity.setInitialEiaState(initialState == null ? null : EiaStateEnum
 				.valueOf(initialState));
 
@@ -487,7 +490,8 @@ EiaMaintenanceSelectionProducer {
 	 * @param entity
 	 */
 	private void setPreventiveMaintenance(EiaPreventiveMaintenance entity) {
-		final EiaMaintenancePlanification planification = entity.getPlanification();
+		final EiaMaintenancePlanification planification = entity
+				.getPlanification();
 		final EiaTypeMaintenancePlan plan = planification.getPlan();
 
 		setInitialEiaState(entity, planification.getEia());
@@ -562,7 +566,7 @@ EiaMaintenanceSelectionProducer {
 	@Override
 	public void update(final GHAAsyncCallback<EiaMaintenance> callback) {
 
-		final EiaMaintenance maintenance = extractMaintenance();
+		final EiaMaintenance maintenance = extract();
 		if (maintenance == null)
 			return;
 
@@ -580,17 +584,17 @@ EiaMaintenanceSelectionProducer {
 
 		EiaMaintenanceModel.updateCorrectiveMaintenance(entity,
 				new GHAAsyncCallback<EiaCorrectiveMaintenance>() {
-			@Override
-			public void onSuccess(EiaCorrectiveMaintenance result) {
-				hasUnCommittedChanges = false;
-				notifyEiaMaintenance(entity);
-				clear();
+					@Override
+					public void onSuccess(EiaCorrectiveMaintenance result) {
+						hasUnCommittedChanges = false;
+						notifyEiaMaintenance(entity);
+						clear();
 
-				if (callback != null) {
-					callback.onSuccess(entity);
-				}
-			}
-		});
+						if (callback != null) {
+							callback.onSuccess(entity);
+						}
+					}
+				});
 	}
 
 	private void update(final GHAAsyncCallback<EiaMaintenance> callback,
@@ -598,17 +602,17 @@ EiaMaintenanceSelectionProducer {
 
 		EiaMaintenanceModel.updatePreventiveMaintenance(entity,
 				new GHAAsyncCallback<EiaPreventiveMaintenance>() {
-			@Override
-			public void onSuccess(final EiaPreventiveMaintenance result) {
-				hasUnCommittedChanges = false;
-				notifyEiaMaintenance(entity);
-				clear();
+					@Override
+					public void onSuccess(final EiaPreventiveMaintenance result) {
+						hasUnCommittedChanges = false;
+						notifyEiaMaintenance(entity);
+						clear();
 
-				if (callback != null) {
-					callback.onSuccess(entity);
-				}
-			}
-		});
+						if (callback != null) {
+							callback.onSuccess(entity);
+						}
+					}
+				});
 	}
 
 }

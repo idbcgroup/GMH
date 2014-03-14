@@ -146,6 +146,9 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 	}
 
 	private MaterialBrand extract() {
+		if (!hasUnCommittedChanges)
+			return null;
+
 		final Material material = new Material();
 		final MaterialBrand materialBrand = new MaterialBrand();
 

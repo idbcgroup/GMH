@@ -231,6 +231,9 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 	 * @return the SSOUser to save/update
 	 */
 	private SSOUser extract(boolean update) {
+		if (!hasUnCommittedChanges)
+			return null;
+
 		final List<String> violationsList = new ArrayList<String>();
 		final SSOUser ssoUser = new SSOUser();
 		final Bpu bpu = new Bpu();
