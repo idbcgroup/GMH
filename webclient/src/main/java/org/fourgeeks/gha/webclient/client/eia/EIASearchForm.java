@@ -31,6 +31,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormTyp
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
@@ -44,7 +45,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIASearchForm extends GHASearchForm<Eia> implements
-		EIASelectionListener, EiaSelectionProducer {
+EIASelectionListener, EiaSelectionProducer {
 
 	private GHATextItem serialNumber;
 	private GHATextItem fixedAssetIdentifier;
@@ -86,15 +87,13 @@ public class EIASearchForm extends GHASearchForm<Eia> implements
 	public EIASearchForm(String title) {
 		super(title);
 
-		GHAUiHelper.addGHAResizeHandler(this);
-
 		form.setItems(serialNumber, fixedAssetIdentifier, stateSelectItem,
 				bpiObuSelectItem, workingAreaLocationSelectItem,
 				facilityLocationSelectItem, obuSelectItem, baseRoleSelectItem);
 		form.setAutoFocus(true);
 		serialNumber.setSelectOnFocus(true);
 
-		KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
+		final KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
 
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
@@ -113,31 +112,33 @@ public class EIASearchForm extends GHASearchForm<Eia> implements
 		obuSelectItem.addKeyUpHandler(searchKeyUpHandler);
 		baseRoleSelectItem.addKeyUpHandler(searchKeyUpHandler);
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
+		final VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHACleanButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				clean();
-			}
-		}), new GHACancelButton(new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						clean();
+					}
+				}), new GHACancelButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				hide();
-			}
-		}));
+					@Override
+					public void onClick(ClickEvent event) {
+						hide();
+						clean();
+					}
+				}));
 
-		HLayout formLayout = new HLayout();
+		final HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
 		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ "px");
+		formLayout.setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMembers(formLayout,
 				GHAUiHelper
-						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-								+ "px"), resultSet);
+				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+						+ "px"), resultSet);
 		fill();
 	}
 
@@ -192,8 +193,8 @@ public class EIASearchForm extends GHASearchForm<Eia> implements
 
 	@Override
 	public void search() {
-		Obu obu = new Obu();
-		Eia eia = new Eia();
+		final Obu obu = new Obu();
+		final Eia eia = new Eia();
 		eia.setState(null);
 
 		if (serialNumber.getValue() != null)
@@ -205,12 +206,12 @@ public class EIASearchForm extends GHASearchForm<Eia> implements
 			eia.setObu(obu);
 		}
 		if (bpiObuSelectItem.getValue() != null) {
-			Bpi bpi = new Bpi(Long.valueOf(bpiObuSelectItem.getValueAsString()));
+			final Bpi bpi = new Bpi(Long.valueOf(bpiObuSelectItem.getValueAsString()));
 			obu.setBpi(bpi);
 			eia.setObu(obu);
 		}
 		if (baseRoleSelectItem.getValue() != null) {
-			Role baseRole = new Role();
+			final Role baseRole = new Role();
 			baseRole.setId(Integer.valueOf(baseRoleSelectItem
 					.getValueAsString()));
 			eia.setResponsibleRole(baseRole);
@@ -239,10 +240,10 @@ public class EIASearchForm extends GHASearchForm<Eia> implements
 			public void onSuccess(List<Eia> result) {
 				List<Eia> newList = new ArrayList<Eia>();
 				if (blackList != null) {
-					List<AbstractEntity> tmpList = GHAUtil
+					final List<AbstractEntity> tmpList = GHAUtil
 							.binarySearchFilterEntity(result, blackList);
-					List<Eia> newTmpList = new ArrayList<Eia>();
-					for (AbstractEntity entity : tmpList)
+					final List<Eia> newTmpList = new ArrayList<Eia>();
+					for (final AbstractEntity entity : tmpList)
 						newTmpList.add((Eia) entity);
 					newList = newTmpList;
 				} else

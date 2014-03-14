@@ -12,7 +12,7 @@ body {
 	background-color: #F4F4F4;
 	min-width: 1024px;
 	min-height: 768px;
- 	overflow: scroll; 
+ 	overflow: auto; 
 }
 
 #main-content {

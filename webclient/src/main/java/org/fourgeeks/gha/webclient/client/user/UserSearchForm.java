@@ -42,15 +42,7 @@ UserSelectionProducer, UserSelectionListener {
 	public UserSearchForm(String title) {
 		super(title);
 		// userTopForm = new UserTopForm(new UserResultSet());
-
-		// Event Handlers
-		final ClickHandler searchClickHandler = new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				search();
-			}
-		};
+		GHAUiHelper.addGHAResizeHandler(this);
 
 		final VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHAImgButton(

@@ -27,6 +27,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -39,10 +40,10 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class CitizenSearchForm extends GHASearchForm<Citizen> implements
-		CitizenSelectionProducer {
+CitizenSelectionProducer {
 
 	private GHATextItem idItem, firstNameItem, secondNameItem, lastNameItem,
-			secondLastNameItem, nationalityItem, legalEntityIdentifierItem;
+	secondLastNameItem, nationalityItem, legalEntityIdentifierItem;
 	private GHASelectItem typeidSelectItem, genderSelectItem;
 	private GHAEmailTextItem primaryEmailItem;
 
@@ -90,6 +91,7 @@ public class CitizenSearchForm extends GHASearchForm<Citizen> implements
 	 */
 	public CitizenSearchForm(String title) {
 		super(title);
+
 		setTop(GHAUiHelper.getTopSpace()
 				- GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ GHAUiHelper.DEFAULT_PATIENT_TOP_HEIGHT);
@@ -97,14 +99,6 @@ public class CitizenSearchForm extends GHASearchForm<Citizen> implements
 				lastNameItem, secondLastNameItem, genderSelectItem,
 				nationalityItem, legalEntityIdentifierItem, primaryEmailItem);
 		form.setAutoFocus(true);
-		// Event Handlers
-		final ClickHandler searchClickHandler = new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				search();
-			}
-		};
 
 		idItem.addKeyUpHandler(searchKeyUpHandler);
 		firstNameItem.addKeyUpHandler(searchKeyUpHandler);
@@ -120,18 +114,18 @@ public class CitizenSearchForm extends GHASearchForm<Citizen> implements
 		final VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHACleanButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				clean();
-			}
-		}), new GHACancelButton(new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						clean();
+					}
+				}), new GHACancelButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				hide();
-				clean();
-			}
-		}));
+					@Override
+					public void onClick(ClickEvent event) {
+						hide();
+						clean();
+					}
+				}));
 
 		final HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
@@ -142,8 +136,8 @@ public class CitizenSearchForm extends GHASearchForm<Citizen> implements
 
 		addMembers(formLayout,
 				GHAUiHelper
-						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-								+ "px"), resultSet);
+				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+						+ "px"), resultSet);
 
 	}
 
@@ -257,5 +251,17 @@ public class CitizenSearchForm extends GHASearchForm<Citizen> implements
 		form.clearValues();
 		// grid.setRecords(new CitizenRecord[] {});
 		resultSet.clean();
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		super.onResize(event);
+		form.resize();
+	}
+
+	@Override
+	public void open() {
+		resultSet.setVisible(true);
+		super.open();
 	}
 }

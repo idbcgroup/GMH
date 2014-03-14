@@ -20,6 +20,7 @@ public abstract class GHAAddForm<T> extends GHASlideInWindow {
 	 */
 	public GHAAddForm(String title) {
 		super();
+		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
 		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		titleLabel = new GHALabel(title);

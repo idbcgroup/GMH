@@ -17,7 +17,7 @@ public class GHAIPickTreeItem extends IPickTreeItem {
 	public GHAIPickTreeItem() {
 		super();
 		setHeight(50);
-		setWidth("*");
+		setWidth(200);
 		setOriginalStyle();
 		//		final Canvas buttonDefaults = Canvas.createIfSupported();
 	}

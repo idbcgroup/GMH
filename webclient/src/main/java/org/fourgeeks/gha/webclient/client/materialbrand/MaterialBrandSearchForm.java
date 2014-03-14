@@ -29,6 +29,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 import org.fourgeeks.gha.webclient.client.materialcategory.GHAMaterialCategoryPickTreeItem;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -40,10 +41,10 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaterialBrandSearchForm extends GHASearchForm<MaterialBrand>
-		implements MaterialBrandSelectionListener,
-		MaterialBrandSelectionProducer {
+implements MaterialBrandSelectionListener,
+MaterialBrandSelectionProducer {
 	private GHATextItem codeTextItem, nameTextItem, descriptionTextItem,
-			modelTextItem, extCodeTextItem;
+	modelTextItem, extCodeTextItem;
 	private GHABrandSelectItem brandItem;
 	private GHAMaterialCategoryPickTreeItem categoryItem;
 	protected MaterialTypeEnum fixedMaterial = MaterialTypeEnum.MATERIAL;
@@ -63,13 +64,13 @@ public class MaterialBrandSearchForm extends GHASearchForm<MaterialBrand>
 				GHAStrings.get("category"));
 
 		resultSet
-				.addMaterialBrandSelectionListener(new MaterialBrandSelectionListener() {
+		.addMaterialBrandSelectionListener(new MaterialBrandSelectionListener() {
 
-					@Override
-					public void select(MaterialBrand entity) {
-						hide();
-					}
-				});
+			@Override
+			public void select(MaterialBrand entity) {
+				hide();
+			}
+		});
 		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
 	}
 
@@ -90,32 +91,33 @@ public class MaterialBrandSearchForm extends GHASearchForm<MaterialBrand>
 		brandItem.addKeyUpHandler(searchKeyUpHandler);
 		categoryItem.addKeyUpHandler(searchKeyUpHandler);
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
+		final VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHACleanButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				clean();
-			}
-		}), new GHACancelButton(new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						clean();
+					}
+				}), new GHACancelButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				hide();
-				clean();
-			}
-		}));
+					@Override
+					public void onClick(ClickEvent event) {
+						hide();
+						clean();
+					}
+				}));
 
-		HLayout formLayout = new HLayout();
+		final HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
 		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ "px");
+		formLayout.setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMembers(formLayout,
 				GHAUiHelper
-						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-								+ "px"), resultSet);
+				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+						+ "px"), resultSet);
 
 	}
 
@@ -209,25 +211,25 @@ public class MaterialBrandSearchForm extends GHASearchForm<MaterialBrand>
 		MaterialBrandModel.find(materialBrand,
 				new GHAAsyncCallback<List<MaterialBrand>>() {
 
-					@Override
-					public void onSuccess(List<MaterialBrand> results) {
-						List<MaterialBrand> newList = null;
-						if (blackList != null) {
-							List<AbstractEntity> tmpList = GHAUtil
-									.binarySearchFilterEntity(results,
-											blackList);
-							List<MaterialBrand> newTmpList = new ArrayList<MaterialBrand>();
+			@Override
+			public void onSuccess(List<MaterialBrand> results) {
+				List<MaterialBrand> newList = null;
+				if (blackList != null) {
+					final List<AbstractEntity> tmpList = GHAUtil
+							.binarySearchFilterEntity(results,
+									blackList);
+					final List<MaterialBrand> newTmpList = new ArrayList<MaterialBrand>();
 
-							for (AbstractEntity entity : tmpList)
-								newTmpList.add((MaterialBrand) entity);
-							newList = newTmpList;
-						} else {
-							newList = results;
-						}
+					for (final AbstractEntity entity : tmpList)
+						newTmpList.add((MaterialBrand) entity);
+					newList = newTmpList;
+				} else {
+					newList = results;
+				}
 
-						resultSet.setRecords(newList, false);
-					}
-				});
+				resultSet.setRecords(newList, false);
+			}
+		});
 	}
 
 	/*

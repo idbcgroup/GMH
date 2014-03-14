@@ -28,6 +28,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormTyp
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -39,7 +40,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
-		EIATypeSelectionListener, EiaTypeSelectionProducer {
+EIATypeSelectionListener, EiaTypeSelectionProducer {
 
 	private GHATextItem nameItem;
 	private GHATextItem modelItem;
@@ -86,30 +87,31 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 		subTypeItem.addKeyUpHandler(searchKeyUpHandler);
 		// ////////////////////////////
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
+		final VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHACleanButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				clean();
-			}
-		}), new GHACancelButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				hide();
-				clean();
-			}
-		}));
+					@Override
+					public void onClick(ClickEvent event) {
+						clean();
+					}
+				}), new GHACancelButton(new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						hide();
+						clean();
+					}
+				}));
 
-		HLayout formLayout = new HLayout();
+		final HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
 		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ "px");
+		formLayout.setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMembers(formLayout,
 				GHAUiHelper
-						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-								+ "px"), resultSet);
+				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+						+ "px"), resultSet);
 		fill();
 	}
 
@@ -145,8 +147,8 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 
 			@Override
 			public void onSuccess(List<Brand> result) {
-				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for (Brand brand : result)
+				final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+				for (final Brand brand : result)
 					valueMap.put(brand.getId() + "", brand.getName());
 				brandItem.setValueMap(valueMap);
 
@@ -185,7 +187,7 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 
 	@Override
 	public void search() {
-		EiaType eiaType = new EiaType();
+		final EiaType eiaType = new EiaType();
 		eiaType.setName(nameItem.getValueAsString());
 		if (brandItem.getValue() != null)
 			eiaType.setBrand(new Brand(Integer.valueOf(brandItem
@@ -207,17 +209,17 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 			public void onSuccess(List<EiaType> results) {
 				List<EiaType> newList = null;
 				if (blackList != null) {
-					List<AbstractCodeEntity> tmpList = GHAUtil
+					final List<AbstractCodeEntity> tmpList = GHAUtil
 							.binarySearchFilterCodeEntity(results, blackList);
-					List<EiaType> newTmpList = new ArrayList<EiaType>();
-					for (AbstractCodeEntity abstractCodeEntity : tmpList)
+					final List<EiaType> newTmpList = new ArrayList<EiaType>();
+					for (final AbstractCodeEntity abstractCodeEntity : tmpList)
 						newTmpList.add((EiaType) abstractCodeEntity);
 					newList = newTmpList;
 				} else
 					newList = results;
 
 				resultSet.setRecords(newList, false);
-				
+
 			}
 		});
 	}
