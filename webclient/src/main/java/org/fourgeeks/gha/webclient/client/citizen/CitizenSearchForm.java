@@ -15,15 +15,13 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
+import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAEmailTextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHANameTextItem;
-import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
@@ -32,7 +30,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
-import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -42,20 +39,20 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class CitizenSearchForm extends GHASearchForm<Citizen> implements
-CitizenSelectionProducer {
+		CitizenSelectionProducer {
 
 	private GHATextItem idItem, firstNameItem, secondNameItem, lastNameItem,
-	secondLastNameItem, nationalityItem, legalEntityIdentifierItem;
+			secondLastNameItem, nationalityItem, legalEntityIdentifierItem;
 	private GHASelectItem typeidSelectItem, genderSelectItem;
 	private GHAEmailTextItem primaryEmailItem;
 
-	private CitizenGrid grid;
-	private List<CitizenSelectionListener> listeners;
+	// private CitizenGrid grid;
+	// private List<CitizenSelectionListener> listeners;
 	// private CitizenTopForm citizenTopForm;
 	private GHADynamicForm form;
 
-	// protected final CitizenResultSet resultSet = new CitizenResultSet(
-	// ResultSetContainerType.SEARCH_FORM);
+	protected final CitizenResultSet resultSet = new CitizenResultSet(
+			ResultSetContainerType.SEARCH_FORM);
 
 	{
 		firstNameItem = new GHANameTextItem(GHAStrings.get("first-name"));
@@ -74,17 +71,17 @@ CitizenSelectionProducer {
 		typeidSelectItem.setValueMap(DocumentTypeEnum.toValueMap());
 		genderSelectItem.setValueMap(GenderTypeEnum.toValueMap());
 
-		grid = new CitizenGrid();
-		listeners = new ArrayList<CitizenSelectionListener>();
-
-		// resultSet.addCitizenSelectionListener(new CitizenSelectionListener()
-		// {
-		// @Override
-		// public void onCitizenSelect(Citizen citizen) {
-		// // TODO Auto-generated method stub
-		// }
-		// });
 		form = new GHADynamicForm(5, FormType.NORMAL_FORM);
+
+		// grid = new CitizenGrid();
+		// listeners = new ArrayList<CitizenSelectionListener>();
+
+		resultSet.addCitizenSelectionListener(new CitizenSelectionListener() {
+			@Override
+			public void onCitizenSelect(Citizen citizen) {
+				hide();
+			}
+		});
 	}
 
 	/**
@@ -93,7 +90,9 @@ CitizenSelectionProducer {
 	 */
 	public CitizenSearchForm(String title) {
 		super(title);
-		setTop(GHAUiHelper.getTopSpace()-GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT+GHAUiHelper.DEFAULT_PATIENT_TOP_HEIGHT);
+		setTop(GHAUiHelper.getTopSpace()
+				- GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
+				+ GHAUiHelper.DEFAULT_PATIENT_TOP_HEIGHT);
 		form.setItems(typeidSelectItem, idItem, firstNameItem, secondNameItem,
 				lastNameItem, secondLastNameItem, genderSelectItem,
 				nationalityItem, legalEntityIdentifierItem, primaryEmailItem);
@@ -121,18 +120,18 @@ CitizenSelectionProducer {
 		final VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHACleanButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						clean();
-					}
-				}), new GHACancelButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				clean();
+			}
+		}), new GHACancelButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						hide();
-						clean();
-					}
-				}));
+			@Override
+			public void onClick(ClickEvent event) {
+				hide();
+				clean();
+			}
+		}));
 
 		final HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
@@ -143,24 +142,8 @@ CitizenSelectionProducer {
 
 		addMembers(formLayout,
 				GHAUiHelper
-				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-						+ "px"));
-
-		final HLayout gridLayout = new HLayout();
-		gridLayout.setPadding(10);
-
-		final VLayout sideGridButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/check.png", new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						selectCitizen();
-					}
-				}), GHAUiHelper.verticalGraySeparator("2px"));
-
-		gridLayout.addMembers(grid, sideGridButtons);
-
-		addMember(gridLayout);
+						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+								+ "px"), resultSet);
 
 	}
 
@@ -174,7 +157,7 @@ CitizenSelectionProducer {
 	@Override
 	public void addCitizenSelectionListener(
 			CitizenSelectionListener userSelectionListener) {
-		listeners.add(userSelectionListener);
+		resultSet.addCitizenSelectionListener(userSelectionListener);
 	}
 
 	@Override
@@ -189,8 +172,7 @@ CitizenSelectionProducer {
 
 	@Override
 	public void notifyCitizen(Citizen citizen) {
-		for (final CitizenSelectionListener listener : listeners)
-			listener.onCitizenSelect(citizen);
+		resultSet.notifyCitizen(citizen);
 	}
 
 	/*
@@ -203,7 +185,7 @@ CitizenSelectionProducer {
 	@Override
 	public void removeCitizenSelectionListener(
 			CitizenSelectionListener userSelectionListener) {
-		listeners.add(userSelectionListener);
+		resultSet.removeCitizenSelectionListener(userSelectionListener);
 	}
 
 	@Override
@@ -247,21 +229,6 @@ CitizenSelectionProducer {
 		search(citizen);
 	}
 
-	// /*
-	// * (non-Javadoc)
-	// *
-	// * @see
-	// * org.fourgeeks.gha.webclient.client.user.UserSelectionListener#select(
-	// * org.fourgeeks.gha.domain.ess.SSOUser)
-	// */
-	// @Override
-	// public void select(Citizen citizen) {
-	// final CitizenRecord gridRecord = CitizenUtil.toGridRecord(citizen);
-	// final ListGridRecord[] array = { gridRecord };
-	// grid.setData(array);
-	// grid.selectRecord(gridRecord);
-	// }
-
 	private void search(Citizen citizen) {
 		CitizenModel.find(citizen, new GHAAsyncCallback<List<Citizen>>() {
 
@@ -278,11 +245,7 @@ CitizenSelectionProducer {
 				} else
 					newList = results;
 
-				final ListGridRecord[] array = CitizenUtil.toGridRecords(
-						newList).toArray(new CitizenRecord[] {});
-				grid.setData(array);
-
-				// resultSet.setRecords(newList, false);
+				resultSet.setRecords(newList, false);
 			}
 		});
 	}
@@ -290,21 +253,9 @@ CitizenSelectionProducer {
 	/**
 	 * 
 	 */
-	private void selectCitizen() {
-		final GHAGridRecord<Citizen> selectedRecord = grid.getSelectedRecord();
-		if (selectedRecord == null) {
-			GHAAlertManager.alert("record-not-selected");
-			return;
-		}
-		notifyCitizen(((CitizenRecord) selectedRecord).toEntity());
-		hide();
-	}
-
-	/**
-	 * 
-	 */
 	public void clean() {
 		form.clearValues();
-		grid.setRecords(new CitizenRecord[] {});
+		// grid.setRecords(new CitizenRecord[] {});
+		resultSet.clean();
 	}
 }
