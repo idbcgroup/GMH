@@ -111,11 +111,11 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 				changedHandler);
 		estimatedTimeTextItem = new GHATextItem(
 				GHAStrings.get("estimated-time"), true, changedHandler);
-		estimatedTimePoTSelectItem = new GHAPeriodOfTimeSelectItem(true,
+		estimatedTimePoTSelectItem = new GHAPeriodOfTimeSelectItem(false,
 				changedHandler);
 		estimatedCostTextItem = new GHATextItem(
 				GHAStrings.get("estimated-cost"), true, changedHandler);
-		estimatedCostCurrencySelectItem = new GHACurrencyTypeSelectItem(true,
+		estimatedCostCurrencySelectItem = new GHACurrencyTypeSelectItem(false,
 				changedHandler);
 		instructionsAndObsTextAreaItem.setColSpan(4);
 

@@ -249,8 +249,8 @@ ES,require-materials,Requiere materiales
 ES,require-tools,Requiere herramientas
 ES,require-equips,Requiere equipos de trabajo, Calibración, etc
 ES,activity-instructions-and-observations,Instrucciones y observaciones para la realización de la actividad
-ES,estimated-time,Tiempo estimado
-ES,estimated-cost,Costo estimado
+ES,estimated-time,Duración Estimada de Actividad
+ES,estimated-cost,Costo Estimado de Actividad
 ES,last-effectuated-by,Ultimo efectuado por
 ES,protocol-activities,Actividades del protocolo
 ES,maintenance-plan-stadistics,Estadísticas del plan de mantenimiento 
