@@ -101,7 +101,7 @@ public class GHADynamicForm extends DynamicForm {
 	/**
 	 * @return
 	 */
-	public int getItemW() {
+	public int getItemWidth() {
 		return itemWidth-8;
 	}
 

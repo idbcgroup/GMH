@@ -5,7 +5,6 @@ package org.fourgeeks.gha.webclient.client.UI.formItems;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.form.fields.IPickTreeItem;
 
 /**
@@ -69,11 +68,12 @@ public class GHAIPickTreeItem extends IPickTreeItem {
 	 */
 	public void resizeWidth(int width){
 		if(width < GHAUiHelper.DEFAULT_ITEM_WIDTH){
-			Window.alert("resize Default pick tree");
+			//			Window.alert("resize Default pick tree");
 			setWidth(GHAUiHelper.DEFAULT_ITEM_WIDTH);
 		}else{
 			setWidth(width);
-			Window.alert("resize custom size pick tree:"+width);
+			//			Window.alert("resize custom size pick tree:"+width);
 		}
+		redraw();
 	}
 }

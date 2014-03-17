@@ -62,7 +62,7 @@ MaterialBrandSelectionProducer {
 		descriptionTextItem.setColSpan(2);
 		brandItem = new GHABrandSelectItem();
 		categoryItem = new GHAMaterialCategoryPickTreeItem(
-				GHAStrings.get("category"), form.getItemW());
+				GHAStrings.get("category"), form.getItemWidth());
 
 		resultSet
 		.addMaterialBrandSelectionListener(new MaterialBrandSelectionListener() {
@@ -155,7 +155,7 @@ MaterialBrandSelectionProducer {
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
 		form.resize();
-		categoryItem.resizeWidth(form.getItemW());
+		categoryItem.resizeWidth(form.getItemWidth());
 	}
 
 	@Override

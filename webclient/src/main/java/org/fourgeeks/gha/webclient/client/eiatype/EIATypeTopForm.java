@@ -38,7 +38,7 @@ implements EIATypeSelectionListener {
 	{
 		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
 		categoryItem = new GHAEiaTypeCategoryPickTreeItem(
-				GHAStrings.get("category"), form.getItemW());
+				GHAStrings.get("category"), form.getItemWidth());
 		subTypeItem = new GHAEiaTypeSubTypeSelectItem();
 		nameItem = new GHATextItem(GHAStrings.get("eiatype-name"));
 		nameItem.setColSpan(2);
@@ -116,6 +116,7 @@ implements EIATypeSelectionListener {
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
 		form.resize();
+		categoryItem.resizeWidth(form.getWidth());
 	}
 
 	@Override
