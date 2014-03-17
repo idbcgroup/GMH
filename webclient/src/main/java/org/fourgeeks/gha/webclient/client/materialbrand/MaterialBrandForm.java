@@ -60,6 +60,8 @@ MaterialBrandSelectionProducer {
 				false, changedHandler);
 		typeItem = new GHASelectItem(GHAStrings.get("type"), true,
 				changedHandler);
+		typeItem.setRequired(true);
+		typeItem.addChangedHandler(changedHandler);
 		brandItem = new GHABrandSelectItem();
 
 		modelItem = new GHATextItem(GHAStrings.get("model"), false,
@@ -69,6 +71,8 @@ MaterialBrandSelectionProducer {
 		descriptionItem.setColSpan(2);
 		categoryItem = new GHAMaterialCategoryPickTreeItem(
 				GHAStrings.get("category"), form.getItemW());
+		categoryItem.setRequired(true);
+		categoryItem.addChangedHandler(changedHandler);
 
 	}
 

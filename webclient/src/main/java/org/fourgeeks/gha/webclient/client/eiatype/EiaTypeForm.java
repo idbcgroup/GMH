@@ -68,6 +68,9 @@ EiaTypeSelectionProducer {
 
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
 		categoryItem = new GHAEiaTypeCategoryPickTreeItem(GHAStrings.get("category"), form.getItemW());
+		categoryItem.addChangedHandler(changedHandler);
+		categoryItem.setRequired(true);
+
 		subTypeItem = new GHAEiaTypeSubTypeSelectItem(changedHandler);
 		eiaUmdnsItem = new GHATextItem("EIAUMDNS", false, changedHandler);
 		eiaUmdnsItem.setLength(16);
