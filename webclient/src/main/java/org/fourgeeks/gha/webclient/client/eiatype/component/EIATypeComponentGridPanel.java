@@ -19,7 +19,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -224,12 +223,8 @@ public class EIATypeComponentGridPanel extends GHAFormLayout implements
 
 	@Override
 	public void select(EiaType eiaType) {
-		try {
-			this.eiaType = eiaType;
-			loadData();
-		} catch (Exception e) {
-			Window.alert("EIATypeComponentGridPanel: " + e.toString());
-		}
+		this.eiaType = eiaType;
+		loadData();
 	}
 
 }
