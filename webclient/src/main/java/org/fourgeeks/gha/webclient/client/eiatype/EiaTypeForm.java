@@ -67,6 +67,9 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
 		categoryItem = new GHAEiaTypeCategoryPickTreeItem(
 				GHAStrings.get("category"));
+		categoryItem.addChangedHandler(changedHandler);
+		categoryItem.setRequired(true);
+
 		subTypeItem = new GHAEiaTypeSubTypeSelectItem(changedHandler);
 		eiaUmdnsItem = new GHATextItem("EIAUMDNS", false, changedHandler);
 		eiaUmdnsItem.setLength(16);

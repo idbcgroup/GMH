@@ -59,6 +59,8 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 				false, changedHandler);
 		typeItem = new GHASelectItem(GHAStrings.get("type"), true,
 				changedHandler);
+		typeItem.setRequired(true);
+		typeItem.addChangedHandler(changedHandler);
 		brandItem = new GHABrandSelectItem();
 
 		modelItem = new GHATextItem(GHAStrings.get("model"), false,
@@ -68,6 +70,8 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 		descriptionItem.setColSpan(2);
 		categoryItem = new GHAMaterialCategoryPickTreeItem(
 				GHAStrings.get("category"));
+		categoryItem.setRequired(true);
+		categoryItem.addChangedHandler(changedHandler);
 
 		form = new GHADynamicForm(3, FormType.NORMAL_FORM);
 	}
