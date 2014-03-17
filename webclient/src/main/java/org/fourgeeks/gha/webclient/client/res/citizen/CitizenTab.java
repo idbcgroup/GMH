@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.res.citizen;
 
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
 import org.fourgeeks.gha.webclient.client.citizen.CitizenModel;
@@ -48,16 +49,14 @@ public class CitizenTab extends GHATab {
 		addHideableListener(body);
 
 		final VLayout verticalLayout = new VLayout();
-		verticalLayout.addMember(top);
-		verticalLayout.addMember(body);
+		verticalLayout.addMembers(top,GHAUiHelper.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"),body);
 
 		final HLayout bodyLayout = new HLayout();
-		bodyLayout.addMember(verticalLayout);
-
 		tools = new CitizenTabTools();
 		addClosableListener(tools);
 		addHideableListener(tools);
-		bodyLayout.addMember(tools);
+
+		bodyLayout.addMembers(verticalLayout,tools);
 
 		addMember(bodyLayout);
 

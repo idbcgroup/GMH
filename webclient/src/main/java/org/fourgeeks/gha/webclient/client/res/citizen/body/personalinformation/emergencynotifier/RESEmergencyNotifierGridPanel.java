@@ -11,11 +11,12 @@ import com.smartgwt.client.types.Overflow;
  * @author jfuentes
  *
  */
+@Deprecated
 public class RESEmergencyNotifierGridPanel extends GHAVerticalLayout {
 
-	private RESCitizenEmergencyNotifierGrid grid;
+	private RESCitizenEmergencyNotifierGrid emergencyGrid;
 	{
-		grid = new RESCitizenEmergencyNotifierGrid();
+		emergencyGrid = new RESCitizenEmergencyNotifierGrid();
 	}
 	/**
 	 * 
@@ -23,14 +24,14 @@ public class RESEmergencyNotifierGridPanel extends GHAVerticalLayout {
 	public RESEmergencyNotifierGridPanel() {
 		super();
 		setWidth100();
-		setHeight(GHAUiHelper.DEFAULT_PATIENT_MINIGRID_HEIGHT);
-		setMaxHeight(GHAUiHelper.DEFAULT_PATIENT_MINIGRID_HEIGHT);
+		setHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
+		setMaxHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
 		setBorder("1px solid #666666");
 		setOverflow(Overflow.AUTO);
 		//		setBackgroundColor("yellow");
 
 		final GHALabel title = new GHALabel(GHAStrings.get("citizen-emergency-notify-title")).colored();
-		addMembers(title,grid);
+		addMembers(title,emergencyGrid);
 	}
 
 }

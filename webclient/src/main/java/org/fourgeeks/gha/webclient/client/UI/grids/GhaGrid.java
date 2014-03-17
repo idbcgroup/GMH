@@ -3,10 +3,12 @@ package org.fourgeeks.gha.webclient.client.UI.grids;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 
@@ -28,6 +30,8 @@ public class GhaGrid<T> extends ListGrid implements ResizeHandler {
 		setHeight(GHAUiHelper.getSubtabGridSize(30));
 		setAlternateRecordStyles(false);
 		setMinFieldWidth(100);
+		setOverflow(Overflow.AUTO);
+		setEmptyMessage(GHAStrings.get("no-results-to-show"));
 	}
 
 	/**
@@ -40,7 +44,7 @@ public class GhaGrid<T> extends ListGrid implements ResizeHandler {
 	@SuppressWarnings("unchecked")
 	@Override
 	public GHAGridRecord<T> getSelectedRecord() {
-		ListGridRecord selectedRecord = super.getSelectedRecord();
+		final ListGridRecord selectedRecord = super.getSelectedRecord();
 		return (GHAGridRecord<T>) selectedRecord;
 	}
 
@@ -49,7 +53,7 @@ public class GhaGrid<T> extends ListGrid implements ResizeHandler {
 	 */
 	@SuppressWarnings("unchecked")
 	public T getSelectedEntity() {
-		GHAGridRecord<T> selectedRecord = (GHAGridRecord<T>) super
+		final GHAGridRecord<T> selectedRecord = (GHAGridRecord<T>) super
 				.getSelectedRecord();
 
 		if (selectedRecord == null) {
@@ -63,17 +67,17 @@ public class GhaGrid<T> extends ListGrid implements ResizeHandler {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<T> getSelectedEntities() {
-		GHAGridRecord<T> selectedRecord = (GHAGridRecord<T>) super
+		final GHAGridRecord<T> selectedRecord = (GHAGridRecord<T>) super
 				.getSelectedRecord();
 
 		if (selectedRecord == null)
 			return null;
 
-		ArrayList<T> lista = new ArrayList<T>();
-		ListGridRecord[] selectedRecords = super.getSelectedRecords();
+		final ArrayList<T> lista = new ArrayList<T>();
+		final ListGridRecord[] selectedRecords = super.getSelectedRecords();
 
-		for (ListGridRecord record : selectedRecords) {
-			GHAGridRecord<T> ghaRecord = (GHAGridRecord<T>) record;
+		for (final ListGridRecord record : selectedRecords) {
+			final GHAGridRecord<T> ghaRecord = (GHAGridRecord<T>) record;
 			lista.add(ghaRecord.toEntity());
 		}
 
@@ -85,14 +89,14 @@ public class GhaGrid<T> extends ListGrid implements ResizeHandler {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<T> getEntities() {
-		ListGridRecord[] records = super.getRecords();
+		final ListGridRecord[] records = super.getRecords();
 
 		if (records == null)
 			return null;
 
-		ArrayList<T> list = new ArrayList<T>();
-		for (ListGridRecord record : records) {
-			GHAGridRecord<T> ghaRecord = (GHAGridRecord<T>) record;
+		final ArrayList<T> list = new ArrayList<T>();
+		for (final ListGridRecord record : records) {
+			final GHAGridRecord<T> ghaRecord = (GHAGridRecord<T>) record;
 			list.add(ghaRecord.toEntity());
 		}
 

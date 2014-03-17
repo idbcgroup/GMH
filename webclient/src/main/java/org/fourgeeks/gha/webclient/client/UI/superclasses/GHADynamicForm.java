@@ -32,6 +32,7 @@ public class GHADynamicForm extends DynamicForm {
 
 	final private int columns;
 	private final FormType formtype;
+	int itemWidth = GHAUiHelper.DEFAULT_ITEM_WIDTH;
 
 	/**
 	 * @param numCols
@@ -62,7 +63,7 @@ public class GHADynamicForm extends DynamicForm {
 		setNumCols(columns);
 		setMinColWidth(50);
 
-		final int itemW = fWidth / columns;
+		itemWidth = fWidth / columns;
 
 		// int widths[] = new int[numCols];
 		// Window.alert(widths.length+"");
@@ -71,7 +72,7 @@ public class GHADynamicForm extends DynamicForm {
 		// Window.alert(widths[i]+"");
 		// }
 
-		setColWidths(itemW);
+		setColWidths(itemWidth);
 		setTitleOrientation(TitleOrientation.TOP);
 		setWrapItemTitles(false);
 
@@ -92,7 +93,22 @@ public class GHADynamicForm extends DynamicForm {
 			formWidth = GHAUiHelper.getFormWidth(formtype, 280);
 		}
 		setWidth(formWidth);
-		final int itemW = formWidth / columns;
-		setColWidths(itemW);
+		itemWidth = formWidth / columns;
+		setColWidths(itemWidth);
+	}
+
+
+	/**
+	 * @return
+	 */
+	public int getItemWidth() {
+		return itemWidth-8;
+	}
+
+	/**
+	 * @param itemW
+	 */
+	public void setItemW(int itemW) {
+		this.itemWidth = itemW;
 	}
 }

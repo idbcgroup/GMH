@@ -26,7 +26,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * 
  */
 public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
-		implements EIATypeSelectionListener {
+implements EIATypeSelectionListener {
 	private EiaType selectedEiaType;
 
 	private GHATextItem nameItem;
@@ -36,8 +36,9 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 	private GHAEiaTypeSubTypeSelectItem subTypeItem;
 	private GHADynamicForm form;
 	{
+		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
 		categoryItem = new GHAEiaTypeCategoryPickTreeItem(
-				GHAStrings.get("category"));
+				GHAStrings.get("category"), form.getItemWidth());
 		subTypeItem = new GHAEiaTypeSubTypeSelectItem();
 		nameItem = new GHATextItem(GHAStrings.get("eiatype-name"));
 		nameItem.setColSpan(2);
@@ -50,7 +51,7 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		categoryItem.addKeyUpHandler(searchKeyUpHandler);
 		subTypeItem.addKeyUpHandler(searchKeyUpHandler);
 
-		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
+
 	}
 
 	/**
@@ -93,34 +94,35 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 	protected void delete() {
 		GHAAlertManager.confirm("eiatype-delete-confirm",
 				new BooleanCallback() {
-					@Override
-					public void execute(Boolean value) {
-						if (value) {
-							EIATypeModel.delete(selectedEiaType.getCode(),
-									new GHAAsyncCallback<Void>() {
-										@Override
-										public void onSuccess(Void result) {
-											containerTab.search();
-											clear();
-											GHAAlertManager
-													.alert("eiatype-delete-success");
-										}
-									});
+			@Override
+			public void execute(Boolean value) {
+				if (value) {
+					EIATypeModel.delete(selectedEiaType.getCode(),
+							new GHAAsyncCallback<Void>() {
+						@Override
+						public void onSuccess(Void result) {
+							containerTab.search();
+							clear();
+							GHAAlertManager
+							.alert("eiatype-delete-success");
 						}
-					}
-				});
+					});
+				}
+			}
+		});
 	}
 
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
 		form.resize();
+		categoryItem.resizeWidth(form.getWidth());
 	}
 
 	@Override
 	public void search() {
 		super.search();
-		EiaType eiaType = new EiaType();
+		final EiaType eiaType = new EiaType();
 		eiaType.setName(nameItem.getValueAsString());
 		if (brandItem.getValue() != null)
 			eiaType.setBrand(new Brand(Integer.valueOf(brandItem

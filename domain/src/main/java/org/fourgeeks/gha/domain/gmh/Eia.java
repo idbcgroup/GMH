@@ -23,7 +23,6 @@ import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.gar.Facility;
-import org.fourgeeks.gha.domain.gar.Job;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
@@ -75,7 +74,9 @@ public class Eia extends AbstractEntity {
 	private Date contabilizationDate;
 	/** Motivo de Desincorporación length =255 */
 	private Date dateLastDepreciation;
-	/** Denominación Moneda Local para Costo Contabilizado del equipo length =60 */
+	/**
+	 * Denominación Moneda Local para Costo Contabilizado del equipo length =60
+	 */
 	private DepreciationMethodEnum depreciationMethod;
 	/** Método de Depreciación length =60 */
 	@Column(nullable = true)
@@ -118,13 +119,14 @@ public class Eia extends AbstractEntity {
 	@JoinColumn(name = "facilityFk")
 	private Facility facility;
 
-	@ManyToOne
-	@JoinColumn(name = "jobFk")
-	private Job job;
+	// @NotNull(message = "eia-job-not-null")
+	// @ManyToOne
+	// @JoinColumn(name = "jobFk", nullable = false)
+	// private Job job;
 	//
 	@NotNull(message = "maintenance-provider-not-null")
 	@ManyToOne
-	@JoinColumn(name = "maintenanceProviderFk")
+	@JoinColumn(name = "maintenanceProviderFk", nullable = false)
 	private Bsp maintenanceProvider;
 
 	/**

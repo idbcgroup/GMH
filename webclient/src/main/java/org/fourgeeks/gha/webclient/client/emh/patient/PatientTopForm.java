@@ -38,9 +38,9 @@ public class PatientTopForm extends HLayout {
 			GHAStrings.get("bmi") + ": ");
 	private final GHATitleLabelMediumSize mainDiagnosisTitleLabel = new GHATitleLabelMediumSize(
 			GHAStrings.get("main-diagnosis") + ": ");
-	// {
-	// mainDiagnosisTitleLabel.setWidth(150);
-	// }
+	//	{
+	//		mainDiagnosisTitleLabel.setWidth(GHAUiHelper.DEFAULT_ITEM_WIDTH);
+	//	}
 	// text for the values
 	private final GHATextLabelMediumSize documentNumberText = new GHATextLabelMediumSize(
 			"V-18064066");

@@ -12,7 +12,7 @@ body {
 	background-color: #F4F4F4;
 	min-width: 1024px;
 	min-height: 768px;
- 	overflow: scroll; 
+ 	overflow: auto; 
 }
 
 #main-content {
@@ -338,7 +338,7 @@ input[type="text"]:disabled,.inputDisabled {
 .gha-label {
 	font-weight: bold;
 	color: black;
-	font-size: 14px;
+	font-size: 13px;
 	text-transform: capitalize;
 }
 
@@ -375,7 +375,7 @@ input[type="text"]:disabled,.inputDisabled {
 .separator-title-label {
 	font-weight: bold;
 	color: white;
-	font-size: 14px;
+	font-size: 13px;
 }
 
 span.input-title label,span.input-title {

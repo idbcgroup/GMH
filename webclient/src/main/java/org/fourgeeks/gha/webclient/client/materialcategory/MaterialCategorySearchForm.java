@@ -17,6 +17,7 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
 import com.smartgwt.client.types.TitleOrientation;
+import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
@@ -28,12 +29,13 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret Material search form
  * 
  */
+@Deprecated
 public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
-		implements MaterialCategorySelectionListener,
-		MaterialCategorySelectionProducer {
+implements MaterialCategorySelectionListener,
+MaterialCategorySelectionProducer {
 
 	private GHATextItem codeTextItem, nameTextItem, descriptionTextItem,
-			modelTextItem, extCodeTextItem;
+	modelTextItem, extCodeTextItem;
 	protected GHASelectItem typeSelectItem;
 	private final MaterialCategoryResultSet resultSet = new MaterialCategoryResultSet(
 			ResultSetContainerType.SEARCH_FORM);
@@ -50,13 +52,13 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 		typeSelectItem = new GHASelectItem(GHAStrings.get("type"), 300);
 		//
 		resultSet
-				.addMaterialSelectionListener(new MaterialCategorySelectionListener() {
-					@Override
-					public void select(MaterialCategory material) {
-						notifyMaterialCategory(material);
-						hide();
-					}
-				});
+		.addMaterialSelectionListener(new MaterialCategorySelectionListener() {
+			@Override
+			public void select(MaterialCategory material) {
+				notifyMaterialCategory(material);
+				hide();
+			}
+		});
 	}
 
 	/**
@@ -79,31 +81,33 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 		typeSelectItem.addKeyUpHandler(searchKeyUpHandler);
 		// ////////////////////////////
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
+		final VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHACleanButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				clean();
-			}
-		}), new GHACancelButton(new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						clean();
+					}
+				}), new GHACancelButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				hide();
-			}
-		}));
+					@Override
+					public void onClick(ClickEvent event) {
+						hide();
+						clean();
+					}
+				}));
 
-		HLayout formLayout = new HLayout();
+		final HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
 		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ "px");
+		formLayout.setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMembers(formLayout,
 				GHAUiHelper
-						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-								+ "px"), resultSet);
+				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+						+ "px"), resultSet);
 		fill();
 	}
 
@@ -137,7 +141,7 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 
 	@Override
 	public void search() {
-		MaterialCategory material = new MaterialCategory();
+		final MaterialCategory material = new MaterialCategory();
 		material.setCode(codeTextItem.getValueAsString());
 		material.setName(nameTextItem.getValueAsString());
 		// material.setDescription(descriptionTextItem.getValueAsString());
@@ -157,25 +161,25 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 		MaterialCategoryModel.find(materialCateogry,
 				new GHAAsyncCallback<List<MaterialCategory>>() {
 
-					@Override
-					public void onSuccess(List<MaterialCategory> results) {
-						List<MaterialCategory> newList = null;
-						// if (blackList != null) {
-						// List<AbstractCodeEntity> tmpList = GHAUtil
-						// .binarySearchFilterCodeEntity(results,
-						// blackList);
-						// List<MaterialCategory> newTmpList = new
-						// ArrayList<MaterialCategory>();
-						// for (AbstractCodeEntity abstractCodeEntity : tmpList)
-						// newTmpList
-						// .add((MaterialCategory) abstractCodeEntity);
-						// newList = newTmpList;
-						// } else
-						newList = results;
+			@Override
+			public void onSuccess(List<MaterialCategory> results) {
+				List<MaterialCategory> newList = null;
+				// if (blackList != null) {
+				// List<AbstractCodeEntity> tmpList = GHAUtil
+				// .binarySearchFilterCodeEntity(results,
+				// blackList);
+				// List<MaterialCategory> newTmpList = new
+				// ArrayList<MaterialCategory>();
+				// for (AbstractCodeEntity abstractCodeEntity : tmpList)
+				// newTmpList
+				// .add((MaterialCategory) abstractCodeEntity);
+				// newList = newTmpList;
+				// } else
+				newList = results;
 
-						resultSet.setRecords(newList, false);
-					}
-				});
+				resultSet.setRecords(newList, false);
+			}
+		});
 	}
 
 	@Override

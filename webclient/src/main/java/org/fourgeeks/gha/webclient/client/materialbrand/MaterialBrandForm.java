@@ -36,7 +36,7 @@ import com.google.gwt.event.logical.shared.ResizeEvent;
  * 
  */
 public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
-		MaterialBrandSelectionProducer {
+MaterialBrandSelectionProducer {
 
 	private List<MaterialBrandSelectionListener> listeners;
 	private GHATextItem codeItem, externalCodeItem, nameItem, modelItem;
@@ -49,6 +49,7 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 	private boolean cleanCodeItem = true;
 
 	{
+		form = new GHADynamicForm(3, FormType.NORMAL_FORM);
 		listeners = new ArrayList<MaterialBrandSelectionListener>();
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
 		nameItem.setColSpan(2);
@@ -59,6 +60,8 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 				false, changedHandler);
 		typeItem = new GHASelectItem(GHAStrings.get("type"), true,
 				changedHandler);
+		typeItem.setRequired(true);
+		typeItem.addChangedHandler(changedHandler);
 		brandItem = new GHABrandSelectItem();
 
 		modelItem = new GHATextItem(GHAStrings.get("model"), false,
@@ -67,9 +70,10 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 				changedHandler);
 		descriptionItem.setColSpan(2);
 		categoryItem = new GHAMaterialCategoryPickTreeItem(
-				GHAStrings.get("category"));
+				GHAStrings.get("category"), form.getItemWidth());
+		categoryItem.setRequired(true);
+		categoryItem.addChangedHandler(changedHandler);
 
-		form = new GHADynamicForm(3, FormType.NORMAL_FORM);
 	}
 
 	public MaterialBrandForm() {
@@ -225,6 +229,7 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 	@Override
 	public void onResize(ResizeEvent arg0) {
 		form.resize();
+		categoryItem.resizeWidth(form.getItemWidth());
 	}
 
 	/*
@@ -255,15 +260,15 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 			MaterialBrandModel.save(materialBrand,
 					new GHAAsyncCallback<MaterialBrand>() {
 
-						@Override
-						public void onSuccess(MaterialBrand result) {
-							hasUnCommittedChanges = false;
-							notifyMaterialBrand(result);
-							clear();
-							if (callback != null)
-								callback.onSuccess(result);
-						}
-					});
+				@Override
+				public void onSuccess(MaterialBrand result) {
+					hasUnCommittedChanges = false;
+					notifyMaterialBrand(result);
+					clear();
+					if (callback != null)
+						callback.onSuccess(result);
+				}
+			});
 		}
 
 	}
