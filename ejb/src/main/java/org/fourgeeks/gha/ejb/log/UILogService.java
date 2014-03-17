@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,6 +29,7 @@ public class UILogService extends GHAEJBExceptionService implements
 	private EntityManager em;
 
 	@Override
+	@Asynchronous
 	public void log(UILog log) throws GHAEJBException {
 		try {
 			em.persist(log);
