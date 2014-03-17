@@ -44,7 +44,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * 
  */
 public class EiaTypeForm extends GHAForm<EiaType> implements
-		EiaTypeSelectionProducer {
+EiaTypeSelectionProducer {
 
 	protected GHADynamicForm form;
 	private GHACodeTextItem codeItem;
@@ -61,12 +61,13 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	private List<EIATypeSelectionListener> listeners;
 
 	{
+		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
+
 		codeItem = new GHACodeTextItem(false, changedHandler);
 		codeItem.disable();
 
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
-		categoryItem = new GHAEiaTypeCategoryPickTreeItem(
-				GHAStrings.get("category"));
+		categoryItem = new GHAEiaTypeCategoryPickTreeItem(GHAStrings.get("category"), form.getItemW());
 		subTypeItem = new GHAEiaTypeSubTypeSelectItem(changedHandler);
 		eiaUmdnsItem = new GHATextItem("EIAUMDNS", false, changedHandler);
 		eiaUmdnsItem.setLength(16);
@@ -90,7 +91,6 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		//
 		listeners = new ArrayList<EIATypeSelectionListener>();
 
-		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
 
 		// Regex!
 
@@ -294,16 +294,16 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		BrandModel.findByManufacturer(manufacturer,
 				new GHAAsyncCallback<List<Brand>>() {
 
-					@Override
-					public void onSuccess(List<Brand> result) {
-						final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-						for (final Brand brand : result)
-							valueMap.put(brand.getId() + "", brand.getName());
-						brandItem.setValueMap(valueMap);
-						brandItem.setValue(brand.getId());
-					}
+			@Override
+			public void onSuccess(List<Brand> result) {
+				final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+				for (final Brand brand : result)
+					valueMap.put(brand.getId() + "", brand.getName());
+				brandItem.setValueMap(valueMap);
+				brandItem.setValue(brand.getId());
+			}
 
-				});
+		});
 
 	}
 
@@ -315,15 +315,15 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		BrandModel.findByManufacturer(manufacturer,
 				new GHAAsyncCallback<List<Brand>>() {
 
-					@Override
-					public void onSuccess(List<Brand> result) {
-						for (final Brand brand : result)
-							valueMap.put(brand.getId() + "", brand.getName());
-						brandItem.setValueMap(valueMap);
-						brandItem.redraw();
-					}
+			@Override
+			public void onSuccess(List<Brand> result) {
+				for (final Brand brand : result)
+					valueMap.put(brand.getId() + "", brand.getName());
+				brandItem.setValueMap(valueMap);
+				brandItem.redraw();
+			}
 
-				});
+		});
 	}
 
 	private void fillExtras() {

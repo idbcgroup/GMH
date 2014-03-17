@@ -1,9 +1,11 @@
 package org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation.emergencynotifier;
 
 import org.fourgeeks.gha.domain.mix.PhysicalFeatures;
-import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
+
+import com.google.gwt.event.logical.shared.ResizeEvent;
 
 /**
  * @author jfuentes
@@ -16,7 +18,9 @@ public class RESCitizenEmergencyNotifierGrid extends GhaGrid<PhysicalFeatures>{
 	 */
 	public RESCitizenEmergencyNotifierGrid() {
 		super();
-		setEmptyMessage(GHAStrings.get("no-results-to-show"));
+		setHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
+		setMaxHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
+		setBorder("1px solid #666666");
 
 		final GHAGridField lastNamesGridField = new GHAGridField("lastNames", "Apellidos");
 		final GHAGridField namesGridField = new GHAGridField("names", "Nombres");
@@ -37,10 +41,11 @@ public class RESCitizenEmergencyNotifierGrid extends GhaGrid<PhysicalFeatures>{
 		//		headerMenuItems = generateHeaderMenuItems(idGridField, serialGridField,
 		//				faiGridField, locationGridField, bpiGridField, statusGridField,
 		//				obuGridField, roleGridField, typeFiled, brandFiled, modelFiled);
-
-		setCanHover(true);
-		setShowHover(true);
-		setShowHoverComponents(true);
 	}
 
+	@Override
+	public void onResize(ResizeEvent event) {
+		super.onResize(event);
+		setHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
+	}
 }

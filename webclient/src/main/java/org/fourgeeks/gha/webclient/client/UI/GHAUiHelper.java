@@ -158,7 +158,7 @@ public abstract class GHAUiHelper {
 	/**
 	 * 
 	 */
-	public static final int DEFAULT_ITEM_SIZE = 150;
+	public static final int DEFAULT_ITEM_WIDTH = 150;
 	/**
 	 * The default length for a code item
 	 */
@@ -214,7 +214,7 @@ public abstract class GHAUiHelper {
 	/**
 	 * the default height for the patient extra information.
 	 */
-	public static final int DEFAULT_PATIENT_MINIGRID_HEIGHT = 120;
+	public static final int DEFAULT_PATIENT_MINISECTION_HEIGHT = 110;
 	/**
 	 * a blank space
 	 */
@@ -383,7 +383,7 @@ public abstract class GHAUiHelper {
 	 */
 	public static int getRESBodyHeight() {
 		final int biggerTabHeight = getPanelHeight();
-		final int innerTopSection = DEFAULT_PATIENT_TOP_HEIGHT + 25;
+		final int innerTopSection = DEFAULT_PATIENT_TOP_HEIGHT+V_SEPARATOR_HEIGHT;
 
 		final int ret = biggerTabHeight - innerTopSection;
 		if (ret < MIN_RES_BODY_HEIGHT) {

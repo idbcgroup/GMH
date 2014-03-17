@@ -17,7 +17,7 @@ public class GHALabel extends Label {
 		super();
 		setContents(title);
 		setPadding(5);
-		setHeight("25px");
+		setHeight(20);
 		setWrap(false);
 		setWidth100();
 		setMinWidth(GHAUiHelper.MIN_WIDTH);

@@ -53,6 +53,7 @@ MaterialBrandSelectionProducer {
 	private final GHADynamicForm form;
 
 	{
+		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
 		codeTextItem = new GHACodeTextItem();
 		nameTextItem = new GHATextItem(GHAStrings.get("name"));
 		modelTextItem = new GHATextItem(GHAStrings.get("model"));
@@ -61,7 +62,7 @@ MaterialBrandSelectionProducer {
 		descriptionTextItem.setColSpan(2);
 		brandItem = new GHABrandSelectItem();
 		categoryItem = new GHAMaterialCategoryPickTreeItem(
-				GHAStrings.get("category"));
+				GHAStrings.get("category"), form.getItemW());
 
 		resultSet
 		.addMaterialBrandSelectionListener(new MaterialBrandSelectionListener() {
@@ -71,7 +72,6 @@ MaterialBrandSelectionProducer {
 				hide();
 			}
 		});
-		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
 	}
 
 	/**
@@ -155,7 +155,7 @@ MaterialBrandSelectionProducer {
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
 		form.resize();
-
+		categoryItem.resizeWidth(form.getItemW());
 	}
 
 	@Override

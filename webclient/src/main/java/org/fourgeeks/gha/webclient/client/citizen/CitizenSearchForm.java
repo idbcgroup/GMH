@@ -92,9 +92,8 @@ CitizenSelectionProducer {
 	public CitizenSearchForm(String title) {
 		super(title);
 
-		setTop(GHAUiHelper.getTopSpace()
-				- GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
-				+ GHAUiHelper.DEFAULT_PATIENT_TOP_HEIGHT);
+		setTop(GHAUiHelper.DEFAULT_TOP_HEADER_PANEL_HEIGHT
+				+ GHAUiHelper.DEFAULT_PATIENT_TOP_HEIGHT + GHAUiHelper.V_SEPARATOR_HEIGHT);
 		form.setItems(typeidSelectItem, idItem, firstNameItem, secondNameItem,
 				lastNameItem, secondLastNameItem, genderSelectItem,
 				nationalityItem, legalEntityIdentifierItem, primaryEmailItem);
