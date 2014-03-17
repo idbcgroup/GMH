@@ -280,7 +280,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 
 		serialTextItem.validateSerial();
 
-		codeTextItem.validateCodes();
+		// codeTextItem.validateCodes();
 
 		adquisitionCostTextItem.validateNumbers();
 

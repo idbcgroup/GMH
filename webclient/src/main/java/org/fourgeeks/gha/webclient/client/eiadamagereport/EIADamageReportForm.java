@@ -48,6 +48,7 @@ import org.fourgeeks.gha.webclient.client.eiatype.damageandplanification.EIADama
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.util.LogicalDate;
 import com.smartgwt.client.util.LogicalTime;
+import com.smartgwt.client.widgets.form.validator.RegExpValidator;
 
 /**
  * @author naramirez
@@ -101,8 +102,17 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 				"Datos del Reporte de Equipo Dañado:", 3);
 		damageDateItem = new GHADateItem("Fecha del daño o falla",
 				changedHandler);
+
 		damageTimeItem = new GHATimeItem("Hora del daño o falla",
 				changedHandler);
+		// damageTimeItem.setKeyPressFilter("([01]?[0-9]|2[0-3]):[0-5][0-9]");
+
+		RegExpValidator textValidator = new RegExpValidator();
+		textValidator.setErrorMessage("La fecha introducida es Erronea");
+		textValidator.setExpression("([01]?[0-9]|2[0-3]):[0-5][0-9]");
+		damageTimeItem.setValidators(textValidator);
+		damageTimeItem.setValidateOnChange(true);
+
 		damageStatusSelectItem = new GHASelectItem("Estatus", true,
 				changedHandler);
 		equipmentCondSelectItem = new GHASelectItem("Condición del equipo",
@@ -287,6 +297,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 					.getValueAsString()));
 			eiaDamageReport.setUserWhoRegistered(userWhoRegistered);
 		}
+
 		if (userWhoReportedSelectItem.getValueAsString() != null) {
 			final Bpu userWhoReported = new Bpu();
 			userWhoReported.setId(Long.valueOf(userWhoReportedSelectItem
@@ -294,15 +305,23 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 			eiaDamageReport.setUserWhoReported(userWhoReported);
 		}
 
-		final LogicalTime time = damageTimeItem.getValueAsLogicalTime();
+		LogicalTime time = null;
+
+		if (damageTimeItem.validate()) {
+			time = damageTimeItem.getValueAsLogicalTime();
+		}
+
 		final LogicalDate date = damageDateItem.getValueAsLogicalDate();
+
 		final Timestamp timestamp = EIADamageAndPlanificationUtil.getTimestamp(
 				date, time);
+
 		eiaDamageReport.setDateTimestamp(timestamp);
 
 		// VALIDANDO LOS DATOS
 		Set<ConstraintViolation<EiaDamageReport>> violations = null;
 		violations = validator.validate(eiaDamageReport);
+
 		if (reportForm.validate() && violations.isEmpty())
 			return eiaDamageReport;
 		else {
