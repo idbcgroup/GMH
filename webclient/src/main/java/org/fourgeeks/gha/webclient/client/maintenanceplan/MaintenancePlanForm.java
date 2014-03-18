@@ -206,10 +206,9 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 	}
 
 	private MaintenancePlan extract(boolean update) {
-		if (!hasUnCommittedChanges)
-			return null;
 
 		final MaintenancePlan maintenancePlan = new MaintenancePlan();
+
 		if (update) {
 			maintenancePlan.setId(this.originalEntity.getId());
 		}
@@ -439,6 +438,10 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 
 	@Override
 	public void update(final GHAAsyncCallback<MaintenancePlan> callback) {
+
+		if (!hasUnCommittedChanges)
+			return;
+
 		final MaintenancePlan maintenancePlan = extract(true);
 
 		if (maintenancePlan == null)
