@@ -225,9 +225,6 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 	 * @return
 	 */
 	private MaintenanceActivity extract(boolean update) {
-		if (!hasUnCommittedChanges)
-			return null;
-
 		final MaintenanceActivity entity = new MaintenanceActivity();
 		Activity activity = new Activity();
 
@@ -446,6 +443,9 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 
 	@Override
 	public void update(final GHAAsyncCallback<MaintenanceActivity> callback) {
+
+		if (!hasUnCommittedChanges)
+			return;
 
 		final MaintenanceActivity entity = extract(true);
 
