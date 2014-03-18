@@ -240,7 +240,8 @@ EN,eiaPicture-getAll-fail,Failed to get all EiaPicture,FAILURE
 EN,eiaPicture-save-fail,Failed to save EiaPicture,FAILURE
 EN,eiaPicture-update-fail,Failed to update EiaPicture,FAILURE
 ES,eia-delete-fail,Falló la eliminación del Eia,FAILURE
-ES,eia-delete-success,El equipo a sido eliminado exitosamente,SUCCESS
+ES,eia-delete-success,El equipo ha sido eliminado exitosamente,SUCCESS
+ES,eias-delete-success,Los equipos han sido eliminados exitosamente,SUCCESS
 ES,eia-findByEia-fail,Búsqueda fallida de Eia por eia,FAILURE
 ES,eia-findByEiaType-fail,Búsqueda fallida de Eia por eiaType,FAILURE
 ES,eia-find-fail,Búsqueda fallida de Eia,FAILURE
