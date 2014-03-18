@@ -611,9 +611,6 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	}
 
 	private Eia extract() {
-		if (!hasUnCommittedChanges)
-			return null;
-
 		Eia eia;
 		final List<String> violationsList = new ArrayList<String>();
 		if (this.originalEntity == null)
@@ -1439,6 +1436,8 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 
 	@Override
 	public void update(final GHAAsyncCallback<Eia> callback) {
+		if (!hasUnCommittedChanges)
+			return;
 		final Eia eia = extract();
 		if (eia != null) {
 			EIAModel.update(eia, new GHAAsyncCallback<Eia>() {

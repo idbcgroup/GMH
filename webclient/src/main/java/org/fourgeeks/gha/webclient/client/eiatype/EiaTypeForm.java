@@ -44,7 +44,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * 
  */
 public class EiaTypeForm extends GHAForm<EiaType> implements
-EiaTypeSelectionProducer {
+		EiaTypeSelectionProducer {
 
 	protected GHADynamicForm form;
 	private GHACodeTextItem codeItem;
@@ -67,7 +67,8 @@ EiaTypeSelectionProducer {
 		codeItem.disable();
 
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
-		categoryItem = new GHAEiaTypeCategoryPickTreeItem(GHAStrings.get("category"), form.getItemWidth());
+		categoryItem = new GHAEiaTypeCategoryPickTreeItem(
+				GHAStrings.get("category"), form.getItemWidth());
 		categoryItem.addChangedHandler(changedHandler);
 		categoryItem.setRequired(true);
 
@@ -93,7 +94,6 @@ EiaTypeSelectionProducer {
 				changedHandler);
 		//
 		listeners = new ArrayList<EIATypeSelectionListener>();
-
 
 		// Regex!
 
@@ -216,9 +216,6 @@ EiaTypeSelectionProducer {
 	}
 
 	private EiaType extract(boolean update) {
-		if (!hasUnCommittedChanges)
-			return null;
-
 		final List<String> violationsList = new ArrayList<String>();
 		final EiaType eiaType = new EiaType();
 
@@ -261,15 +258,16 @@ EiaTypeSelectionProducer {
 		if (subTypeItem.getValue() != null)
 			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
 					.getValueAsString()));
-		Set<ConstraintViolation<EiaType>> violations = null;
-		violations = validator.validate(eiaType);
-
-		if (violations.isEmpty() && form.validate())
+		Set<ConstraintViolation<EiaType>> violations = validator
+				.validate(eiaType);
+		if (violations.isEmpty() && form.validate()) {
 			return eiaType;
-		else {
+		} else {
 			for (final Iterator<ConstraintViolation<EiaType>> it = violations
-					.iterator(); it.hasNext();)
-				violationsList.add(it.next().getMessage());
+					.iterator(); it.hasNext();) {
+				String next = it.next().getMessage();
+				violationsList.add(next);
+			}
 			// GHAAlertManager.alert(violationsList);
 			// GHAAlertManager.oldAlert(violationsList.get(0));
 
@@ -297,16 +295,16 @@ EiaTypeSelectionProducer {
 		BrandModel.findByManufacturer(manufacturer,
 				new GHAAsyncCallback<List<Brand>>() {
 
-			@Override
-			public void onSuccess(List<Brand> result) {
-				final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for (final Brand brand : result)
-					valueMap.put(brand.getId() + "", brand.getName());
-				brandItem.setValueMap(valueMap);
-				brandItem.setValue(brand.getId());
-			}
+					@Override
+					public void onSuccess(List<Brand> result) {
+						final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+						for (final Brand brand : result)
+							valueMap.put(brand.getId() + "", brand.getName());
+						brandItem.setValueMap(valueMap);
+						brandItem.setValue(brand.getId());
+					}
 
-		});
+				});
 
 	}
 
@@ -318,15 +316,15 @@ EiaTypeSelectionProducer {
 		BrandModel.findByManufacturer(manufacturer,
 				new GHAAsyncCallback<List<Brand>>() {
 
-			@Override
-			public void onSuccess(List<Brand> result) {
-				for (final Brand brand : result)
-					valueMap.put(brand.getId() + "", brand.getName());
-				brandItem.setValueMap(valueMap);
-				brandItem.redraw();
-			}
+					@Override
+					public void onSuccess(List<Brand> result) {
+						for (final Brand brand : result)
+							valueMap.put(brand.getId() + "", brand.getName());
+						brandItem.setValueMap(valueMap);
+						brandItem.redraw();
+					}
 
-		});
+				});
 	}
 
 	private void fillExtras() {
@@ -473,6 +471,8 @@ EiaTypeSelectionProducer {
 
 	@Override
 	public void update(final GHAAsyncCallback<EiaType> callback) {
+		if (!hasUnCommittedChanges)
+			return;
 		final EiaType eiaType = extract(true);
 
 		if (eiaType == null)

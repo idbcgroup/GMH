@@ -40,6 +40,9 @@ public class Material extends ServiceAndResource {
 	private MaterialCategory materialCategory;
 
 	private String description;
+
+	@NotNull(message = "name-not-null")
+	@Column(nullable = false)
 	private String name;
 	private String externalCode;
 	private String model;
