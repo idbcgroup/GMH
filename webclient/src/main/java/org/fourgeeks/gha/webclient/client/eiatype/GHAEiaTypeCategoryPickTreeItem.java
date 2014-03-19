@@ -11,7 +11,7 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHAIPickTreeItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAPickTreeItem;
 
 import com.smartgwt.client.widgets.tree.Tree;
 import com.smartgwt.client.widgets.tree.TreeNode;
@@ -20,15 +20,14 @@ import com.smartgwt.client.widgets.tree.TreeNode;
  * @author emiliot
  * 
  */
-public class GHAEiaTypeCategoryPickTreeItem extends GHAIPickTreeItem {
+public class GHAEiaTypeCategoryPickTreeItem extends GHAPickTreeItem {
 	private final TreeNode root = new TreeNode("root");
 
 	/**
-	 * @param width TODO
 	 * 
 	 */
-	public GHAEiaTypeCategoryPickTreeItem(int width) {
-		super(width);
+	public GHAEiaTypeCategoryPickTreeItem() {
+		super();
 		setDisplayField("categoryName");
 		setValueField("categoryCode");
 		fill();
@@ -36,20 +35,18 @@ public class GHAEiaTypeCategoryPickTreeItem extends GHAIPickTreeItem {
 
 	/**
 	 * @param name
-	 * @param width TODO
 	 */
-	public GHAEiaTypeCategoryPickTreeItem(String name, int width) {
-		this(width);
+	public GHAEiaTypeCategoryPickTreeItem(String name) {
+		this();
 		this.setName(name);
 	}
 
 	/**
 	 * @param name
 	 * @param title
-	 * @param width TODO
 	 */
-	public GHAEiaTypeCategoryPickTreeItem(String name, String title, int width) {
-		this(name, width);
+	public GHAEiaTypeCategoryPickTreeItem(String name, String title) {
+		this(name);
 		this.setTitle(title);
 	}
 
