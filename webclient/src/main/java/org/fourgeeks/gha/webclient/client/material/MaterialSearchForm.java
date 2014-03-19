@@ -34,12 +34,13 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaterialSearchForm extends GHASearchForm<Material> implements
-MaterialSelectionListener, MaterialSelectionProducer {
+		MaterialSelectionListener, MaterialSelectionProducer {
 
 	private GHATextItem codeTextItem, nameTextItem, descriptionTextItem,
-	modelTextItem, extCodeTextItem;
+			modelTextItem, extCodeTextItem;
 	protected MaterialTypeEnum fixedMaterial = MaterialTypeEnum.MATERIAL;
-	private final MaterialResultSet resultSet = new MaterialResultSet(ResultSetContainerType.SEARCH_FORM);
+	private final MaterialResultSet resultSet = new MaterialResultSet(
+			ResultSetContainerType.SEARCH_FORM);
 	private final GHADynamicForm form;
 
 	{
@@ -59,7 +60,7 @@ MaterialSelectionListener, MaterialSelectionProducer {
 				hide();
 			}
 		});
-		form = new GHADynamicForm(4,FormType.NORMAL_FORM);
+		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
 	}
 
 	/**
@@ -82,17 +83,18 @@ MaterialSelectionListener, MaterialSelectionProducer {
 		final VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHACleanButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						clean();
-					}
-				}), new GHACancelButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				clean();
+			}
+		}), new GHACancelButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						hide();
-					}
-				}));
+			@Override
+			public void onClick(ClickEvent event) {
+				hide();
+				clean();
+			}
+		}));
 
 		final HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
@@ -103,8 +105,8 @@ MaterialSelectionListener, MaterialSelectionProducer {
 
 		addMembers(formLayout,
 				GHAUiHelper
-				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-						+ "px"), resultSet);
+						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+								+ "px"), resultSet);
 
 		fill();
 	}
