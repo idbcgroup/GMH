@@ -36,6 +36,7 @@ CitizenSelectionListener, ClosableListener, HideableListener {
 		setHeight100();
 		//		setMembersMargin(5);
 		setOverflow(Overflow.AUTO);
+		setLayoutBottomMargin(5);
 
 		//Citizen basic info part
 		final GHALabel citizenInfoTitle = new GHALabel(GHAStrings.get("citizen-basic-information-title")).colored();

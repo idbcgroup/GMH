@@ -18,8 +18,10 @@ public class RESCitizenPhysicalFeaturesGrid extends GhaGrid<PhysicalFeatures>{
 	 */
 	public RESCitizenPhysicalFeaturesGrid() {
 		super();
-		setHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
-		setMaxHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
+		setHeight("*");
+		setMinHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
+		//		setHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
+		//		setMaxHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
 		setBorder("1px solid #666666");
 
 		final GHAGridField etGroupGridField = new GHAGridField("etGroup", "Grupo Etario");
@@ -43,7 +45,8 @@ public class RESCitizenPhysicalFeaturesGrid extends GhaGrid<PhysicalFeatures>{
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
-		setHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
+		setHeight("*");
+		//		setHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
 	}
 
 }
