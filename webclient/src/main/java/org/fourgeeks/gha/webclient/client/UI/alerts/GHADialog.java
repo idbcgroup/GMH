@@ -29,7 +29,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * 
  */
 public abstract class GHADialog extends Dialog implements ResizeHandler,
-		Window.ScrollHandler {
+Window.ScrollHandler {
 	/**
 	 * @author jfuentes
 	 * 
@@ -40,7 +40,7 @@ public abstract class GHADialog extends Dialog implements ResizeHandler,
 	private static final int DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT = 140;
 	private static final int DEFAULT_NOTIFICATION_BUTTONS_HEIGHT = 145;
 
-	private final int HEADER_HEIGHT = 20;
+	private final int HEADER_HEIGHT = 28;
 	private final int FOOTER_HEIGHT = 15;
 	private final int RIGHT_MARGIN = 30;
 	private final int BORDER_SEPARATION = 8;
@@ -127,6 +127,7 @@ public abstract class GHADialog extends Dialog implements ResizeHandler,
 	/**
 	 * Closes and destroy the window
 	 */
+	@Override
 	public void close() {
 		if (openedPosition >= 0) {
 			GHAAlertManager.removeOpenMessageFromCounter();
@@ -136,12 +137,12 @@ public abstract class GHADialog extends Dialog implements ResizeHandler,
 
 		animateRect(null, Window.getScrollTop() + Window.getClientHeight(),
 				null, null, new AnimationCallback() {
-					@Override
-					public void execute(boolean earlyFinish) {
-						hide();
-						destroy();
-					}
-				}, DEFAULT_ANIMATION_TIME);
+			@Override
+			public void execute(boolean earlyFinish) {
+				hide();
+				destroy();
+			}
+		}, DEFAULT_ANIMATION_TIME);
 	}
 
 	/**
@@ -288,7 +289,7 @@ public abstract class GHADialog extends Dialog implements ResizeHandler,
 					* (DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION);
 			if (hasButtons)
 				multp = (openedPosition + 1)
-						* (DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION);
+				* (DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION);
 
 			setLeft(left + (windowWidth - (getWidth() + RIGHT_MARGIN)));
 			setTop(top + (windowHeight - multp));
@@ -382,7 +383,7 @@ public abstract class GHADialog extends Dialog implements ResizeHandler,
 						+ BORDER_SEPARATION;
 				if (hasButtons)
 					multp = DEFAULT_NOTIFICATION_BUTTONS_HEIGHT
-							+ BORDER_SEPARATION;
+					+ BORDER_SEPARATION;
 			} else {
 				setLeft(Window.getScrollLeft()
 						+ (windowWidth - (getWidth() + RIGHT_MARGIN)));
@@ -391,7 +392,7 @@ public abstract class GHADialog extends Dialog implements ResizeHandler,
 						* (DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION);
 				if (hasButtons)
 					multp = (openedPosition + 1)
-							* (DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION);
+					* (DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION);
 			}
 			setTop(Window.getScrollTop() + Window.getClientHeight());
 
