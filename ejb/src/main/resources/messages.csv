@@ -520,7 +520,7 @@ ES,eiaComponents-delete-confirm,¿Desea eliminar los Componentes?,CONFIRMATION
 ES,ssoUser-delete-confirm,¿Desea eliminar al Usuario?,CONFIRMATION
 ES,citizen-delete-confirm,¿Desea eliminar al Ciudadano?,CONFIRMATION
 ES,citizens-delete-confirm,¿Desea eliminar estos Ciudadanos?,CONFIRMATION
-ES,unsaved-changes,Seleccionó salir del formulario y ha efectuado cambios en los datos ¿Desea salir?,ASKYESNO
+ES,unsaved-changes,Seleccionó salir del formulario y ha efectuado cambios en los datos ¿Desea salir?,CONFIRMATION
 ES,activity-delete-confirm,¿Desea eliminar la actividad seleccionada?,CONFIRMATION
 ES,activities-delete-confirm,¿Desea eliminar las actividades?,CONFIRMATION
 ES,maintenance-protocol-delete-confirm,¿Desea eliminar todas las actividades de este Plan de Mantenimiento?,CONFIRMATION
