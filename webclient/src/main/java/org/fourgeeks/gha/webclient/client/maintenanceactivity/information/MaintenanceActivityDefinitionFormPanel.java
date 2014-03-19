@@ -16,6 +16,7 @@ import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivit
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionProducer;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.MaintenanceActivitySubProtocolListener;
 
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -27,9 +28,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaintenanceActivityDefinitionFormPanel extends GHAFormLayout
-		implements ClosableListener, HideableListener,
-		MaintenanceActivitySelectionListener,
-		MaintenanceActivitySelectionProducer {
+implements ClosableListener, HideableListener,
+MaintenanceActivitySelectionListener,
+MaintenanceActivitySelectionProducer {
 
 	private final MaintenanceActivityForm form = new MaintenanceActivityForm();
 
@@ -38,20 +39,20 @@ public class MaintenanceActivityDefinitionFormPanel extends GHAFormLayout
 	 */
 	public MaintenanceActivityDefinitionFormPanel() {
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
+		final VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						update();
 					}
 				}), new GHAUndoButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				undo();
-			}
-		}));
+					@Override
+					public void onClick(ClickEvent event) {
+						undo();
+					}
+				}));
 
-		HLayout gridPanel = new HLayout();
+		final HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMember(gridPanel);
@@ -74,19 +75,29 @@ public class MaintenanceActivityDefinitionFormPanel extends GHAFormLayout
 				return true;
 			}
 
-			GHAAlertManager.askYesNoCancel("unsaved-changes",
-					new ClickHandler() {
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
-						}
-					}, new ClickHandler() {
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet
-									.closeCurrentPlace(HideCloseAction.DISCARD);
-						}
-					}, null);
+			//			GHAAlertManager.askYesNoCancel("unsaved-changes",
+			//					new ClickHandler() {
+			//						@Override
+			//						public void onClick(ClickEvent event) {
+			//							GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
+			//						}
+			//					}, new ClickHandler() {
+			//						@Override
+			//						public void onClick(ClickEvent event) {
+			//							GHAPlaceSet
+			//									.closeCurrentPlace(HideCloseAction.DISCARD);
+			//						}
+			//					}, null);
+			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
+
+				@Override
+				public void execute(Boolean value) {
+					if(value)
+					{
+						GHAPlaceSet.closeCurrentPlace(HideCloseAction.DISCARD);
+					}
+				}
+			});
 			return false;
 		}
 		return true;
@@ -102,19 +113,29 @@ public class MaintenanceActivityDefinitionFormPanel extends GHAFormLayout
 				return true;
 			}
 
-			GHAAlertManager.askYesNoCancel("unsaved-changes",
-					new ClickHandler() {
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet.hideCurrentPlace(HideCloseAction.SAVE);
-						}
-					}, new ClickHandler() {
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet
-									.hideCurrentPlace(HideCloseAction.DISCARD);
-						}
-					}, null);
+			//			GHAAlertManager.askYesNoCancel("unsaved-changes",
+			//					new ClickHandler() {
+			//				@Override
+			//				public void onClick(ClickEvent event) {
+			//					GHAPlaceSet.hideCurrentPlace(HideCloseAction.SAVE);
+			//				}
+			//			}, new ClickHandler() {
+			//				@Override
+			//				public void onClick(ClickEvent event) {
+			//					GHAPlaceSet
+			//					.hideCurrentPlace(HideCloseAction.DISCARD);
+			//				}
+			//			}, null);
+			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
+
+				@Override
+				public void execute(Boolean value) {
+					if(value)
+					{
+						GHAPlaceSet.closeCurrentPlace(HideCloseAction.DISCARD);
+					}
+				}
+			});
 			return false;
 		}
 		return true;
