@@ -39,5 +39,5 @@ MIX,user,user,user-credential-subtab,credential-view-for-user-administration,use
 MIX,user,user,user-credential-subtab,credential-view-for-user-administration,user-credential-update,edit-the-credentials-of-one-or-more-users
 GMH,maintenance,mplan,man-csearch-subtab,credential-view-for-man-administration,man-credential-update,edit-the-actv-of-one-or-more-plan
 GMH,activity,activity,man-csearch-subtab,credential-view-for-man-administration,man-credential-update,edit-the-actv-of-one-or-more-plan
-GMH,emh,emh,main-view,main-view-for-medical.history,view,view
+#GMH,emh,emh,main-view,main-view-for-medical.history,view,view
 GMH,res,res,main-view,main-view-for-health,view,view

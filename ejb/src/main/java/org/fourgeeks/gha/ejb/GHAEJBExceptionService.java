@@ -36,17 +36,21 @@ public class GHAEJBExceptionService {
 		final GHAEJBException ghaejbException = new GHAEJBException();
 		final LanguageEnum lang = RuntimeParameters.getLang();
 
-		GHAMessage message = null;
+		GHAMessage message = new GHAMessage(lang, "generic-error-msg",
+				"Unknow system failure, please contact IT support");
 		try {// the message throw by the method
 			message = em.find(GHAMessage.class, new GHAMessageId(messageCode,
 					lang));
 		} catch (final NoResultException e) {
+			logger.log(Level.SEVERE,
+					"Unavailable to obtain the error message: " + messageCode);
 			try {// a generic error message
 				message = em.find(GHAMessage.class, new GHAMessageId(
 						"message-find-fail", lang));
 			} catch (final NoResultException e1) {// a default create by hand
-				message = new GHAMessage(lang, "generic-error-msg",
-						"Unknow system failure, please contact IT support");
+				logger.log(
+						Level.SEVERE,
+						"Unavailable to obtain the default error message that should be in the database");
 			}
 		}
 
