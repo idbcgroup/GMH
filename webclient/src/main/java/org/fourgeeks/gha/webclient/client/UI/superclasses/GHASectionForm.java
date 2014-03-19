@@ -54,7 +54,7 @@ ClosableListener {
 
 
 		sideOptions.addMember(new SectionFormSideOption(sideOptionsTitle));
-		sideOptions.addMember(GHAUiHelper.verticalGraySeparator("2px"));
+		addSectionSeparator();
 		addMember(sideOptions);
 		addMember(GHAUiHelper.horizontalGraySeparator("3px"));
 		addMember(mainSection);
@@ -125,7 +125,7 @@ ClosableListener {
 	 * 
 	 */
 	public void addSectionSeparator() {
-		sideOptions.addMember(GHAUiHelper.verticalGraySeparator("1px"));
+		sideOptions.addMember(GHAUiHelper.verticalGraySeparator("2px"));
 	}
 
 	@Override

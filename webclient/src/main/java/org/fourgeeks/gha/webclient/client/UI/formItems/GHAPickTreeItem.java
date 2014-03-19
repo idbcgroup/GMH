@@ -11,36 +11,33 @@ import com.smartgwt.client.widgets.form.fields.IPickTreeItem;
  * @author emiliot
  * 
  */
-public class GHAIPickTreeItem extends IPickTreeItem {
+public class GHAPickTreeItem extends IPickTreeItem {
 
 	/**
-	 * @param width TODO
 	 * 
 	 */
-	public GHAIPickTreeItem(int width) {
+	public GHAPickTreeItem() {
 		super();
 		setHeight(20);
-		setWidth(width);
+		setWidth(GHAUiHelper.DEFAULT_ITEM_WIDTH);
 		setOriginalStyle();
 		//		final Canvas buttonDefaults = Canvas.createIfSupported();
 	}
 
 	/**
 	 * @param name
-	 * @param width TODO
 	 */
-	public GHAIPickTreeItem(String name, int width) {
-		this(width);
+	public GHAPickTreeItem(String name) {
+		this();
 		setName(name);
 	}
 
 	/**
 	 * @param name
 	 * @param title
-	 * @param width TODO
 	 */
-	public GHAIPickTreeItem(String name, String title, int width) {
-		this(name, width);
+	public GHAPickTreeItem(String name, String title) {
+		this(name);
 		setTitle(title);
 	}
 
@@ -48,6 +45,7 @@ public class GHAIPickTreeItem extends IPickTreeItem {
 	 * 
 	 */
 	private void setOriginalStyle() {
+
 		setTextBoxStyle("pickTreeItem");
 		setCellStyle("gha-form-cell");
 		setTitleStyle("input-title");
@@ -57,6 +55,7 @@ public class GHAIPickTreeItem extends IPickTreeItem {
 	public void setRequired(Boolean required) {
 		super.setRequired(required);
 		if (required) {
+
 			setTextBoxStyle("pickTreeItem required");
 		} else {
 			setOriginalStyle();
@@ -66,13 +65,12 @@ public class GHAIPickTreeItem extends IPickTreeItem {
 	/**
 	 * @param width
 	 */
+	@Deprecated
 	public void resizeWidth(int width){
 		if(width < GHAUiHelper.DEFAULT_ITEM_WIDTH){
-			//			Window.alert("resize Default pick tree");
 			setWidth(GHAUiHelper.DEFAULT_ITEM_WIDTH);
 		}else{
 			setWidth(width);
-			//			Window.alert("resize custom size pick tree:"+width);
 		}
 		redraw();
 	}

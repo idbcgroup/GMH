@@ -158,7 +158,7 @@ public abstract class GHAUiHelper {
 	/**
 	 * 
 	 */
-	public static final int DEFAULT_ITEM_WIDTH = 200;
+	public static final int DEFAULT_ITEM_WIDTH = 210;
 	/**
 	 * The default length for a code item
 	 */
