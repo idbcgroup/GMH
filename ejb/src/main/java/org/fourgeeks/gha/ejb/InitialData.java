@@ -1165,6 +1165,8 @@ public class InitialData {
 			ViewFunction ViewPermission = null;
 
 			for (final String[] strings : readAll) {
+				if (strings[0].startsWith("#") || strings[0].startsWith("//"))
+					continue;
 				final String moduleCode = strings[0];
 				module = new Module(moduleCode, null);
 				em.merge(module);

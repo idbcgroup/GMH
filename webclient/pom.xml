@@ -137,6 +137,14 @@
 			<scope>system</scope>
 			<systemPath>${basedir}/../lib/smartgwt.jar</systemPath>
 		</dependency>
+
+		<dependency>
+			<groupId>com.smartgwt</groupId>
+			<artifactId>smartgw-skinst</artifactId>
+			<version>4</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/../lib/smartgwt-skins.jar</systemPath>
+		</dependency>
             
 	</dependencies>
 

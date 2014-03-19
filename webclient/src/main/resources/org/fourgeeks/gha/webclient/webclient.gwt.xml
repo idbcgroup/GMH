@@ -2,15 +2,13 @@
 <module rename-to='webclient'>
 	<!-- Include GWTUpload library -->
 	<inherits name="gwtupload.GWTUpload" />
-	<!-- Load dinamically predefined styles in the library when the application 
-		starts -->
+	<!-- Load dinamically predefined styles in the library when the application starts -->
 	<stylesheet src="Upload.css" />
 
 	<inherits name="com.googlecode.gwtx.Java" />
 
 	<inherits name="com.smartgwt.SmartGwtNoTheme" />
-	<inherits name="com.smartclient.theme.gha.gha" />
-	<!-- <inherits name="com.smartclient.theme.simplicity.Simplicity"/> -->
+	<inherits name="com.smartclient.theme.simplicity.Simplicity" />
 
 	<inherits name="org.fourgeeks.gha.domain" />
 
@@ -29,7 +27,7 @@
 	<inherits name='com.google.gwt.junit.JUnit' />
 
 	<!-- Inherit the default GWT style sheet. -->
-	<inherits name='com.google.gwt.user.theme.standard.Standard' />
+<!-- 	<inherits name='com.google.gwt.user.theme.standard.Standard' /> -->
 	<!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
 	<!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/> -->
 

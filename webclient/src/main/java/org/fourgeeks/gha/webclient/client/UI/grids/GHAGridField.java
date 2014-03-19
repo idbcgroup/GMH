@@ -27,21 +27,20 @@ public class GHAGridField extends ListGridField {
 		setHidden(hidden);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.smartgwt.client.widgets.grid.ListGridField#setHidden(boolean)
-	 */
-	@Override
-	public void setHidden(boolean hidden) {
-		this.hidden = hidden;
-		super.setHidden(hidden);
-	}
-
 	/**
 	 * @return true if the {@link ListGridField} is hidden, false in other case
 	 */
 	public boolean getIsHidden() {
 		return this.hidden;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.smartgwt.client.widgets.grid.ListGridField#setHidden(boolean)
+	 */
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
+		super.setHidden(hidden);
 	}
 }
