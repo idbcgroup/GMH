@@ -95,7 +95,7 @@ CitizenSelectionProducer {
 	 */
 	public CitizenForm() {
 		super();
-		setHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
+		setHeight(GHAUiHelper.DEFAULT_PATIENT_BASIC_INFO_HEIGHT);
 		GHAUiHelper.addGHAResizeHandler(this);
 		form.setItems(typeidSelectItem, idItem, genderSelectItem,
 				birthDateItem, ageTextItem, firstNameItem, secondNameItem,

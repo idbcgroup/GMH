@@ -4,7 +4,6 @@ import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog;
 
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.Button;
 
 /**
@@ -22,7 +21,6 @@ public class GHAAskDialog extends GHADialog {
 	public GHAAskDialog(GHAMessageType type, String message, int time,
 			Button... buttons) {
 		super(type, false, time, buttons);
-		Window.alert("3.1");
 		setMessage(message);
 		initTypeView();
 	}

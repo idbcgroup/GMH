@@ -25,6 +25,7 @@ public class CitizenTabTools extends VLayout implements ClosableListener, Hideab
 	 */
 	public CitizenTabTools() {
 		setWidth(30);
+		setHeight100();
 		setLayoutMargin(5);
 		setMembersMargin(5);
 		setDefaultLayoutAlign(Alignment.CENTER);
