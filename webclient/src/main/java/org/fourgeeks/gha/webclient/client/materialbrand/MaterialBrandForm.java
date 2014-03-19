@@ -36,7 +36,7 @@ import com.google.gwt.event.logical.shared.ResizeEvent;
  * 
  */
 public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
-		MaterialBrandSelectionProducer {
+		MaterialBrandSelectionProducer, MaterialBrandSetType {
 
 	private List<MaterialBrandSelectionListener> listeners;
 	private GHATextItem codeItem, externalCodeItem, nameItem, modelItem;
@@ -73,7 +73,6 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 				GHAStrings.get("category"), form.getItemWidth());
 		categoryItem.setRequired(true);
 		categoryItem.addChangedHandler(changedHandler);
-
 	}
 
 	public MaterialBrandForm() {
@@ -298,6 +297,14 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 		brandItem.setValue(entity.getBrand().getId());
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.materialbrand.MaterialBrandSetType
+	 * #setType(org.fourgeeks.gha.domain.glm.MaterialTypeEnum)
+	 */
+	@Override
 	public void setType(MaterialTypeEnum type) {
 		typeItem.setValue(type.name());
 		typeItem.setDisabled(true);

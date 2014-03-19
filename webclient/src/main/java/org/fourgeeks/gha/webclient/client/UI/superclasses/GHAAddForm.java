@@ -34,7 +34,6 @@ public abstract class GHAAddForm<T> extends GHASlideInWindow {
 			hide();
 			return;
 		}
-
 		GHAAlertManager.askYesNoCancel("unsaved-changes", new ClickHandler() {
 
 			@Override
