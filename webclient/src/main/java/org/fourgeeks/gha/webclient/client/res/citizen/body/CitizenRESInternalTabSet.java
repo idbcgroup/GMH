@@ -33,7 +33,9 @@ CitizenSelectionListener {
 	 */
 	public CitizenRESInternalTabSet() {
 		super();
-		setHeight(GHAUiHelper.getRESBodyHeight());
+		//		setHeight(GHAUiHelper.getRESBodyHeight());
+		setMinHeight(GHAUiHelper.MIN_RES_BODY_HEIGHT);
+		setHeight("*");
 		// hideables
 		hideables.add(citizenRESBasicInformationTab);
 		// hideables.add(citizenRESDemograficSubTab);
@@ -62,7 +64,8 @@ CitizenSelectionListener {
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getRESBodyHeight());
+		//		setHeight(GHAUiHelper.getRESBodyHeight());
+		setHeight("*");
 	}
 
 	@Override
