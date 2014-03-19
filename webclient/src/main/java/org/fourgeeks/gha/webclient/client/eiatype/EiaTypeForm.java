@@ -67,8 +67,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		codeItem.disable();
 
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
-		categoryItem = new GHAEiaTypeCategoryPickTreeItem(
-				GHAStrings.get("category"), form.getItemWidth());
+		categoryItem = new GHAEiaTypeCategoryPickTreeItem(GHAStrings.get("category"));
 		categoryItem.addChangedHandler(changedHandler);
 		categoryItem.setRequired(true);
 
@@ -377,7 +376,6 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	@Override
 	public void onResize(ResizeEvent arg0) {
 		form.resize();
-		categoryItem.resizeWidth(form.getItemWidth());
 	}
 
 	@Override
