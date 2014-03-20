@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.glm.MaterialBrand;
+import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaterialBrand;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -47,6 +48,7 @@ public class EIATypeUtilityGridPanel extends GHAFormLayout implements
 	private UtilitySearchForm searchForm;
 	private UtilityAddForm addForm;
 	private EiaType eiaType;
+	private final MaterialTypeEnum defaultType = MaterialTypeEnum.UTILITARIO;
 	private final MaterialBrandSelectionListener materialBrandSelectionListener = new MaterialBrandSelectionListener() {
 
 		@Override
@@ -182,7 +184,7 @@ public class EIATypeUtilityGridPanel extends GHAFormLayout implements
 	}
 
 	private void loadData() {
-		EIATypeMaterialBrandModel.find(eiaType,
+		EIATypeMaterialBrandModel.find(eiaType, defaultType,
 				new GHAAsyncCallback<List<EiaTypeMaterialBrand>>() {
 
 					@Override

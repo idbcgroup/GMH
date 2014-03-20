@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.glm.MaterialBrand;
+import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaterialBrand;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -43,6 +44,7 @@ public class EIATypeMaterialBrandGridPanel extends GHAFormLayout implements
 	private MaterialBrandSearchFormSub searchForm;
 	private EiaType eiaType;
 	private MaterialBrandAddFormSub addForm;
+	private final MaterialTypeEnum defaultType = MaterialTypeEnum.MATERIAL;
 
 	{
 		grid = new EiaTypeMaterialBrandGrid();
@@ -182,7 +184,7 @@ public class EIATypeMaterialBrandGridPanel extends GHAFormLayout implements
 	}
 
 	private void loadData() {
-		EIATypeMaterialBrandModel.find(eiaType,
+		EIATypeMaterialBrandModel.find(eiaType, defaultType,
 				new GHAAsyncCallback<List<EiaTypeMaterialBrand>>() {
 
 					@Override

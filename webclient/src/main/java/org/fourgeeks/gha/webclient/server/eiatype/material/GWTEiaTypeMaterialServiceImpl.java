@@ -6,6 +6,7 @@ import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaterialBrand;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeMaterialServiceRemote;
@@ -34,12 +35,24 @@ public class GWTEiaTypeMaterialServiceImpl extends RemoteServiceServlet
 	 * 
 	 * @see
 	 * org.fourgeeks.gha.webclient.client.eiatype.material.GWTEiaTypeMaterialService
+	 * #delete(long)
+	 */
+	@Override
+	public void delete(long id) throws GHAEJBException {
+		serviceRemote.delete(id);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eiatype.material.GWTEiaTypeMaterialService
 	 * #findByEiaType(org.fourgeeks.gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public List<EiaTypeMaterialBrand> findByEiaType(EiaType eiaType)
-			throws GHAEJBException {
-		return serviceRemote.findByEiaType(eiaType);
+	public List<EiaTypeMaterialBrand> findByEiaType(EiaType eiaType,
+			MaterialTypeEnum type) throws GHAEJBException {
+		return serviceRemote.findByEiaType(eiaType, type);
 	}
 
 	/*
@@ -53,18 +66,6 @@ public class GWTEiaTypeMaterialServiceImpl extends RemoteServiceServlet
 	public EiaTypeMaterialBrand save(EiaTypeMaterialBrand eiaTypeMaterial)
 			throws GHAEJBException {
 		return serviceRemote.save(eiaTypeMaterial);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.eiatype.material.GWTEiaTypeMaterialService
-	 * #delete(long)
-	 */
-	@Override
-	public void delete(long id) throws GHAEJBException {
-		serviceRemote.delete(id);
 	}
 
 	/*
