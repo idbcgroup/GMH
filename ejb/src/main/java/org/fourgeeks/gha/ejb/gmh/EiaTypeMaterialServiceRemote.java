@@ -17,6 +17,9 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeMaterialBrand;
 @Remote
 public interface EiaTypeMaterialServiceRemote {
 
+	public void delete(List<EiaTypeMaterialBrand> entities)
+			throws GHAEJBException;
+
 	public void delete(long id) throws GHAEJBException;
 
 	public List<EiaTypeMaterialBrand> findByEiaType(EiaType eiaType,

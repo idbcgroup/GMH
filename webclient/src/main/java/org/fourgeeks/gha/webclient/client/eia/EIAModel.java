@@ -13,16 +13,26 @@ public class EIAModel {
 	private static final GWTEiaServiceAsync eiaService = GWT
 			.create(GWTEiaService.class);
 
-	public static void getAll(GHAAsyncCallback<List<Eia>> eias) {
-		eiaService.getAll(eias);
+	public static void countByState(GHAAsyncCallback<List<Long>> callback) {
+		eiaService.countByState(callback);
 	}
 
-	public static void find(EiaType eiaType, GHAAsyncCallback<List<Eia>> eias) {
-		eiaService.findByEiaType(eiaType, eias);
+	public static void delete(List<Eia> eias, GHAAsyncCallback<Void> callback) {
+		eiaService.delete(eias, callback);
+
+	}
+
+	public static void delete(long id, GHAAsyncCallback<Boolean> callback) {
+		eiaService.delete(id, callback);
+
 	}
 
 	public static void find(Eia eia, GHAAsyncCallback<List<Eia>> eias) {
 		eiaService.find(eia, eias);
+	}
+
+	public static void find(EiaType eiaType, GHAAsyncCallback<List<Eia>> eias) {
+		eiaService.findByEiaType(eiaType, eias);
 	}
 
 	public static void findComponents(Eia eia, EiaType eiaType,
@@ -35,28 +45,18 @@ public class EIAModel {
 		eiaService.findDamagedAndInMaintenance(eiaType, eias);
 	}
 
-	public static void save(Eia eia, GHAAsyncCallback<Eia> callback) {
-		eiaService.save(eia, callback);
-
+	public static void getAll(GHAAsyncCallback<List<Eia>> eias) {
+		eiaService.getAll(eias);
 	}
 
-	public static void delete(Long id, GHAAsyncCallback<Boolean> callback) {
-		eiaService.delete(id, callback);
+	public static void save(Eia eia, GHAAsyncCallback<Eia> callback) {
+		eiaService.save(eia, callback);
 
 	}
 
 	public static void update(Eia eia, GHAAsyncCallback<Eia> callback) {
 		eiaService.update(eia, callback);
 
-	}
-
-	public static void delete(List<Eia> eias, GHAAsyncCallback<Void> callback) {
-		eiaService.delete(eias, callback);
-
-	}
-
-	public static void countByState(GHAAsyncCallback<List<Long>> callback) {
-		eiaService.countByState(callback);
 	}
 
 }

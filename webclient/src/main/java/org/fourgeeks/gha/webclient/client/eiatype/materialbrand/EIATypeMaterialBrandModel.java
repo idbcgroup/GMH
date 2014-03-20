@@ -17,6 +17,11 @@ public class EIATypeMaterialBrandModel {
 	private static final GWTEiaTypeMaterialServiceAsync service = GWT
 			.create(GWTEiaTypeMaterialService.class);
 
+	public static void delete(List<EiaTypeMaterialBrand> entities,
+			GHAAsyncCallback<Void> callback) {
+		service.delete(entities, callback);
+	}
+
 	public static void delete(long id, GHAAsyncCallback<Void> callback) {
 		service.delete(id, callback);
 	}

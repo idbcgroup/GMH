@@ -149,30 +149,57 @@ public class EIATypeUtilityGridPanel extends GHAFormLayout implements
 	 * 
 	 */
 	private void delete() {
-		final EiaTypeMaterialBrand entity = grid.getSelectedEntity();
-
-		if (entity == null) {
+		if (grid.getSelectedRecord() == null) {
 			GHAAlertManager.alert("record-not-selected");
 			return;
 		}
 
-		GHAAlertManager.confirm("eiatype-utility-service-delete-confirm",
-				new BooleanCallback() {
+		if (grid.getSelectedRecords().length > 1) {
+			GHAAlertManager.confirm("eiatype-utilities-delete-confirm",
+					new BooleanCallback() {
 
-					@Override
-					public void execute(Boolean value) {
-						if (value) {
-							EIATypeMaterialBrandModel.delete(entity.getId(),
-									new GHAAsyncCallback<Void>() {
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								List<EiaTypeMaterialBrand> entities = grid
+										.getSelectedEntities();
+								EIATypeMaterialBrandModel.delete(entities,
+										new GHAAsyncCallback<Void>() {
 
-										@Override
-										public void onSuccess(Void result) {
-											grid.removeSelectedData();
-										}
-									});
+											@Override
+											public void onSuccess(Void result) {
+												GHAAlertManager
+														.alert("eiatype-utilities-delete-success");
+												loadData();
+											}
+										});
+							}
 						}
-					}
-				});
+					});
+		} else {
+			GHAAlertManager.confirm("eiatype-utility-delete-confirm",
+					new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								EiaTypeMaterialBrand entity = grid
+										.getSelectedEntity();
+								EIATypeMaterialBrandModel.delete(
+										entity.getId(),
+										new GHAAsyncCallback<Void>() {
+
+											@Override
+											public void onSuccess(Void result) {
+												GHAAlertManager
+														.alert("eiatype-utility-delete-success");
+												loadData();
+											}
+										});
+							}
+						}
+					});
+		}
 	}
 
 	@Override

@@ -32,6 +32,30 @@ public class EiaTypeMaterialService extends GHAEJBExceptionService implements
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaTypeMaterialServiceRemote#delete(java.util
+	 * .List)
+	 */
+	@Override
+	public void delete(List<EiaTypeMaterialBrand> entities)
+			throws GHAEJBException {
+		try {
+			for (EiaTypeMaterialBrand entity : entities) {
+				entity = em.find(EiaTypeMaterialBrand.class, entity.getId());
+				em.remove(entity);
+			}
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: unable to delete eiatypematerials",
+					e);
+			throw super.generateGHAEJBException(
+					"eiatype-materials-delete-fail", em);
+		}
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeMaterialServiceRemote#delete(long)
 	 */
 	@Override

@@ -556,3 +556,15 @@ ES,materialbrand-save-fail,Error guardando un Material,FAILURE
 ES,brand-not-null,Debe indicar la Marca del Material,WARNING
 ES,materialbrand-save-success,El Material fue guardado con éxito,SUCCESS
 ES,utilityservice-save-success,El Servicio Utilitario fue guardado con éxito,SUCCESS
+ES,eiatype-material-delete-success,Material eliminado a este tipo de equipo satisfactoriamente,SUCCESS
+ES,eiatype-materials-delete-success,Materiales eliminados a este tipo de equipo satisfactoriamente,SUCCESS
+ES,eiatype-utility-delete-success,Material utilitario eliminado a este tipo de equipo satisfactoriamente,SUCCESS
+ES,eiatype-utilities-delete-success,Materiales utilitarios eliminados a este tipo de equipo satisfactoriamente,SUCCESS
+ES,eiatype-materials-delete-confirm,¿Desea eliminar la asociación entre estos Materiales y este Tipo de Equipo?,CONFIRMATION
+ES,eiatype-utilities-delete-confirm,¿Desea eliminar la asociación entre estos Materiales Utilitarios y este Tipo de Equipo?,CONFIRMATION
+ES,eiatype-utility-delete-confirm,¿Desea eliminar la asociación entre este Material Utilitario y este Tipo de Equipo?,CONFIRMATION
+ES,eias-delete-success,Equipos eliminados satisfactoriamente,SUCCESS
+ES,eias-delete-fail,Falló la eliminación de los Equipos,FAILURE
+ES,eiatype-component-delete-success,Componente eliminado correctamente,SUCCESS
+ES,eiatype-components-delete-confirm,¿Desea eliminar los componentes seleccionados?,CONFIRMATION
+ES,eiatype-components-delete-success,Componentes eliminados correctamente,SUCCESS

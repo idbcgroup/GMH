@@ -33,6 +33,18 @@ public class GWTEiaTypeMaterialServiceImpl extends RemoteServiceServlet
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.materialbrand.
+	 * GWTEiaTypeMaterialService#delete(java.util.List)
+	 */
+	@Override
+	public void delete(List<EiaTypeMaterialBrand> entities)
+			throws GHAEJBException {
+		serviceRemote.delete(entities);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see
 	 * org.fourgeeks.gha.webclient.client.eiatype.material.GWTEiaTypeMaterialService
 	 * #delete(long)

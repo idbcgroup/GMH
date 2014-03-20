@@ -16,6 +16,9 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("eiaTypeMaterial")
 public interface GWTEiaTypeMaterialService extends RemoteService {
+	public void delete(List<EiaTypeMaterialBrand> entities)
+			throws GHAEJBException;
+
 	public void delete(long id) throws GHAEJBException;
 
 	public List<EiaTypeMaterialBrand> findByEiaType(EiaType eiaType,

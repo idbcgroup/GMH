@@ -143,31 +143,58 @@ public class EIATypeMaterialBrandGridPanel extends GHAFormLayout implements
 	 * 
 	 */
 	private void delete() {
-		final EiaTypeMaterialBrand eiaTypeMaterial = grid.getSelectedEntity();
-
-		if (eiaTypeMaterial == null) {
+		if (grid.getSelectedRecord() == null) {
 			GHAAlertManager.alert("record-not-selected");
 			return;
 		}
 
-		GHAAlertManager.confirm("eiatype-material-delete-confirm",
-				new BooleanCallback() {
+		if (grid.getSelectedRecords().length > 1) {
+			GHAAlertManager.confirm("eiatype-materials-delete-confirm",
+					new BooleanCallback() {
 
-					@Override
-					public void execute(Boolean value) {
-						if (value) {
-							EIATypeMaterialBrandModel.delete(
-									eiaTypeMaterial.getId(),
-									new GHAAsyncCallback<Void>() {
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								List<EiaTypeMaterialBrand> entities = grid
+										.getSelectedEntities();
+								EIATypeMaterialBrandModel.delete(entities,
+										new GHAAsyncCallback<Void>() {
 
-										@Override
-										public void onSuccess(Void result) {
-											grid.removeSelectedData();
-										}
-									});
+											@Override
+											public void onSuccess(Void result) {
+												GHAAlertManager
+														.alert("eiatype-materials-delete-success");
+												loadData();
+											}
+										});
+							}
 						}
-					}
-				});
+					});
+		} else {
+			GHAAlertManager.confirm("eiatype-material-delete-confirm",
+					new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								EiaTypeMaterialBrand entity = grid
+										.getSelectedEntity();
+								EIATypeMaterialBrandModel.delete(
+										entity.getId(),
+										new GHAAsyncCallback<Void>() {
+
+											@Override
+											public void onSuccess(Void result) {
+												GHAAlertManager
+														.alert("eiatype-material-delete-success");
+												loadData();
+											}
+										});
+							}
+						}
+					});
+		}
+
 	}
 
 	/*
