@@ -552,3 +552,7 @@ ES,sub-category-not-null,Debe indicar la Subcategoría,WARNING
 ES,name-activity-not-null,Debe indicar el Nombre de la Actividad,WARNING
 ES,type-plan-not-null,Debe indicar el Tipo de Plan,WARNING
 ES,eiatype-not-null,Debe indicar el Tipo de Equipo,WARNING
+ES,materialbrand-save-fail,Error guardando un Material,FAILURE
+ES,brand-not-null,Debe indicar la Marca del Material,WARNING
+ES,materialbrand-save-success,El Material fue guardado con éxito,SUCCESS
+ES,utilityservice-save-success,El Servicio Utilitario fue guardado con éxito,SUCCESS

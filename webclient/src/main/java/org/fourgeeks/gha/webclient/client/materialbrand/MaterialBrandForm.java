@@ -44,6 +44,10 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 	private GHABrandSelectItem brandItem;
 	private GHAMaterialCategoryPickTreeItem categoryItem;
 
+	private final String violationsOrder[] = { "name-not-null",
+			"category-not-null", "material-type-not-null", "brand-not-null",
+			"material-not-null" };
+
 	private GHASelectItem typeItem;
 	private GHADynamicForm form;
 	private boolean cleanCodeItem = true;
@@ -53,22 +57,31 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 		listeners = new ArrayList<MaterialBrandSelectionListener>();
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
 		nameItem.setColSpan(2);
+		nameItem.validateWords();
+
 		codeItem = new GHACodeTextItem(true, changedHandler);
 		codeItem.disable();
 
 		externalCodeItem = new GHATextItem(GHAStrings.get("external-code"),
 				false, changedHandler);
+		externalCodeItem.validateCodes();
+
 		typeItem = new GHASelectItem(GHAStrings.get("type"), true,
 				changedHandler);
 		typeItem.setRequired(true);
 		typeItem.addChangedHandler(changedHandler);
+
 		brandItem = new GHABrandSelectItem();
+		brandItem.setRequired(true);
 
 		modelItem = new GHATextItem(GHAStrings.get("model"), false,
 				changedHandler);
+		modelItem.validateAlphanumeric();
+
 		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"),
 				changedHandler);
 		descriptionItem.setColSpan(2);
+
 		categoryItem = new GHAMaterialCategoryPickTreeItem(
 				GHAStrings.get("category"));
 		categoryItem.setRequired(true);
@@ -190,7 +203,12 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 					.iterator(); it.hasNext();)
 				violationsList.add(it.next().getMessage());
 
-			GHAAlertManager.alert(violationsList.get(0));
+			for (String errorCode : violationsOrder) {
+				if (violationsList.contains(errorCode)) {
+					GHAAlertManager.alert(errorCode);
+					break;
+				}
+			}
 		}
 		return null;
 	}
