@@ -28,7 +28,8 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * @author jfuentes
  * 
  */
-public abstract class GHADialog extends Dialog implements ResizeHandler, Window.ScrollHandler {
+public abstract class GHADialog extends Dialog implements ResizeHandler,
+Window.ScrollHandler {
 	/**
 	 * @author jfuentes
 	 * 
@@ -39,7 +40,7 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 	private static final int DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT = 140;
 	private static final int DEFAULT_NOTIFICATION_BUTTONS_HEIGHT = 145;
 
-	private final int HEADER_HEIGHT = 20;
+	private final int HEADER_HEIGHT = 28;
 	private final int FOOTER_HEIGHT = 15;
 	private final int RIGHT_MARGIN = 30;
 	private final int BORDER_SEPARATION = 8;
@@ -61,13 +62,13 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 	protected final int DEFAULT_ANIMATION_TIME = 300;
 
 	/**
-	public GHADialog() {
-	}
-	 * Creates a GHADialog without buttons, with the specifying parameters.
+	 * public GHADialog() { } Creates a GHADialog without buttons, with the
+	 * specifying parameters.
 	 * 
 	 * @param type
 	 * @param canMinimize
-	 * @param time TODO
+	 * @param time
+	 *            TODO
 	 */
 	public GHADialog(GHAMessageType type, boolean canMinimize, int time) {
 		super();
@@ -95,12 +96,13 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 	 * 
 	 * @param type
 	 * @param canMinimize
-	 * @param time TODO
+	 * @param time
+	 *            TODO
 	 * @param buttons
 	 */
-	public GHADialog(GHAMessageType type, boolean canMinimize, int time, Button... buttons) {
+	public GHADialog(GHAMessageType type, boolean canMinimize, int time,
+			Button... buttons) {
 		super();
-
 		hasButtons = true;
 		initHandlers();
 		initialize();
@@ -122,23 +124,19 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 		});
 	}
 
-	private void initHandlers() {
-		GHAUiHelper.addGHAResizeHandler(this);
-		GHAUiHelper.addWindowScrollHandler(this);
-	}
-
 	/**
 	 * Closes and destroy the window
 	 */
+	@Override
 	public void close() {
-		if(openedPosition>=0){
+		if (openedPosition >= 0) {
 			GHAAlertManager.removeOpenMessageFromCounter();
 			GHAAlertManager.toggleMessagePosition(openedPosition);
 			GHAAlertManager.messageClosedActions();
 		}
 
-		animateRect(null, Window.getScrollTop()+Window.getClientHeight(), null, null,
-				new AnimationCallback() {
+		animateRect(null, Window.getScrollTop() + Window.getClientHeight(),
+				null, null, new AnimationCallback() {
 			@Override
 			public void execute(boolean earlyFinish) {
 				hide();
@@ -182,6 +180,11 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 		return dialogType;
 	}
 
+	private void initByType(GHAMessageType type, int time) {
+		initTypeParameters(type, time);
+		confModalTimingSettings();
+	}
+
 	/**
 	 * 
 	 */
@@ -190,7 +193,8 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 		setShowFooter(true);
 		final Label function = new Label("Función");
 		function.setStyleName("windowFooterText");
-		final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss a");
+		final SimpleDateFormat sdf = new SimpleDateFormat(
+				"dd/MM/yyyy HH:mm:ss a");
 		// Label date = new
 		// Label(DateFormat.getDateInstance(DateFormat.TIMEZONE_FIELD).format(new
 		// Date()));
@@ -199,6 +203,11 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 		date.setStyleName("windowFooterText");
 		setFooterControls(function, new LayoutSpacer(), date);
 		setFooterHeight(FOOTER_HEIGHT);
+	}
+
+	private void initHandlers() {
+		GHAUiHelper.addGHAResizeHandler(this);
+		GHAUiHelper.addWindowScrollHandler(this);
 	}
 
 	/**
@@ -242,19 +251,33 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 		changeAutoChildDefaults("messageStack", msgStack);
 	}
 
+	private void initTypeParameters(GHAMessageType type, int time) {
+		final int secsToMills = 1000;
+		dialogType = type.getCode();
+		isTimed = type.isTimed();
+		isModal = type.isModal();
+		if (time >= 0) {
+			waitingTime = time * secsToMills;
+		} else {
+			waitingTime = type.getTime() * secsToMills;
+		}
+	}
+
 	protected abstract void initTypeView();
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		//		Window.alert("weight:"+event.getWidth()+"\nheight"+event.getHeight());
-		resize(Window.getScrollTop(),Window.getScrollLeft(),event.getWidth(),event.getHeight());
+		// Window.alert("weight:"+event.getWidth()+"\nheight"+event.getHeight());
+		resize(Window.getScrollTop(), Window.getScrollLeft(), event.getWidth(),
+				event.getHeight());
 
 	}
 
 	@Override
 	public void onWindowScroll(ScrollEvent arg0) {
-		//		Window.alert("left:"+arg0.getScrollLeft()+"\ntop"+arg0.getScrollTop());
-		resize(arg0.getScrollTop(),arg0.getScrollLeft(),Window.getClientWidth(),Window.getClientHeight());
+		// Window.alert("left:"+arg0.getScrollLeft()+"\ntop"+arg0.getScrollTop());
+		resize(arg0.getScrollTop(), arg0.getScrollLeft(),
+				Window.getClientWidth(), Window.getClientHeight());
 	}
 
 	private void resize(int top, int left, int width, int height) {
@@ -262,9 +285,11 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 			final int windowWidth = width;
 			final int windowHeight = height;
 
-			int multp = (openedPosition + 1) * (DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION);
+			int multp = (openedPosition + 1)
+					* (DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION);
 			if (hasButtons)
-				multp = (openedPosition + 1) * (DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION);
+				multp = (openedPosition + 1)
+				* (DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION);
 
 			setLeft(left + (windowWidth - (getWidth() + RIGHT_MARGIN)));
 			setTop(top + (windowHeight - multp));
@@ -292,48 +317,52 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 	/**
 	 * 
 	 */
-	//	public void openWindow() {
+	// public void openWindow() {
 	//
-	//		openedPosition = GHAAlertManager.getFreeMessagePosition();
-	//		if (openedPosition >= 0 || isModal) {
-	//			if(openedPosition >= 0){
-	//				GHAAlertManager.toggleMessagePosition(openedPosition);
-	//				GHAAlertManager.addNewMessageToCounter();
-	//			}
+	// openedPosition = GHAAlertManager.getFreeMessagePosition();
+	// if (openedPosition >= 0 || isModal) {
+	// if(openedPosition >= 0){
+	// GHAAlertManager.toggleMessagePosition(openedPosition);
+	// GHAAlertManager.addNewMessageToCounter();
+	// }
 	//
-	//			show();
-	//			// set the height to the available message text space
-	//			getMessageStack().setHeight(40);
+	// show();
+	// // set the height to the available message text space
+	// getMessageStack().setHeight(40);
 	//
-	//			final int windowWidth = Window.getClientWidth();
-	//			final int windowHeight = Window.getClientHeight();
-	//			int multp=0;
-	//			if(openedPosition<0){
-	//				setLeft(Window.getScrollLeft()+(windowWidth - (getWidth() + RIGHT_MARGIN)*2));
+	// final int windowWidth = Window.getClientWidth();
+	// final int windowHeight = Window.getClientHeight();
+	// int multp=0;
+	// if(openedPosition<0){
+	// setLeft(Window.getScrollLeft()+(windowWidth - (getWidth() +
+	// RIGHT_MARGIN)*2));
 	//
-	//				multp = DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION;
-	//				if (hasButtons)
-	//					multp = DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION;
-	//			}else{
-	//				setLeft(Window.getScrollLeft()+(windowWidth - (getWidth() + RIGHT_MARGIN)));
+	// multp = DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION;
+	// if (hasButtons)
+	// multp = DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION;
+	// }else{
+	// setLeft(Window.getScrollLeft()+(windowWidth - (getWidth() +
+	// RIGHT_MARGIN)));
 	//
-	//				multp = (openedPosition + 1)*(DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION);
-	//				if (hasButtons)
-	//					multp = (openedPosition + 1)*(DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION);
-	//			}
-	//			setTop(Window.getScrollTop()+Window.getClientHeight());
+	// multp = (openedPosition + 1)*(DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT +
+	// BORDER_SEPARATION);
+	// if (hasButtons)
+	// multp = (openedPosition + 1)*(DEFAULT_NOTIFICATION_BUTTONS_HEIGHT +
+	// BORDER_SEPARATION);
+	// }
+	// setTop(Window.getScrollTop()+Window.getClientHeight());
 	//
-	//			animateRect(null,Window.getScrollTop()+(windowHeight- multp),null, null);
-	//		} else {
-	//			Window.alert("Error. no hay posiciones libres para mostrar alertas");
-	//		}
-	//	}
+	// animateRect(null,Window.getScrollTop()+(windowHeight- multp),null, null);
+	// } else {
+	// Window.alert("Error. no hay posiciones libres para mostrar alertas");
+	// }
+	// }
 
 	@Override
 	public void show() {
 		openedPosition = GHAAlertManager.getFreeMessagePosition();
 		if (openedPosition >= 0 || isModal) {
-			if(openedPosition >= 0){
+			if (openedPosition >= 0) {
 				GHAAlertManager.toggleMessagePosition(openedPosition);
 				GHAAlertManager.addNewMessageToCounter();
 			}
@@ -345,42 +374,32 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 			final int windowWidth = Window.getClientWidth();
 			final int windowHeight = Window.getClientHeight();
 
-			int multp=0;
-			if(openedPosition<0){
-				setLeft(Window.getScrollLeft()+(windowWidth - (getWidth() + RIGHT_MARGIN)*2));
+			int multp = 0;
+			if (openedPosition < 0) {
+				setLeft(Window.getScrollLeft()
+						+ (windowWidth - (getWidth() + RIGHT_MARGIN) * 2));
 
-				multp = DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION;
+				multp = DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT
+						+ BORDER_SEPARATION;
 				if (hasButtons)
-					multp = DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION;
-			}else{
-				setLeft(Window.getScrollLeft()+(windowWidth - (getWidth() + RIGHT_MARGIN)));
+					multp = DEFAULT_NOTIFICATION_BUTTONS_HEIGHT
+					+ BORDER_SEPARATION;
+			} else {
+				setLeft(Window.getScrollLeft()
+						+ (windowWidth - (getWidth() + RIGHT_MARGIN)));
 
-				multp = (openedPosition + 1)*(DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION);
+				multp = (openedPosition + 1)
+						* (DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION);
 				if (hasButtons)
-					multp = (openedPosition + 1)*(DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION);
+					multp = (openedPosition + 1)
+					* (DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION);
 			}
-			setTop(Window.getScrollTop()+Window.getClientHeight());
+			setTop(Window.getScrollTop() + Window.getClientHeight());
 
-			animateRect(null,Window.getScrollTop()+(windowHeight- multp),null, null);
+			animateRect(null, Window.getScrollTop() + (windowHeight - multp),
+					null, null);
 		} else {
-			//			Window.alert("Error. no hay posiciones libres para mostrar alertas");
-		}
-	}
-
-	private void initByType(GHAMessageType type, int time) {
-		initTypeParameters(type, time);
-		confModalTimingSettings();
-	}
-
-	private void initTypeParameters(GHAMessageType type, int time) {
-		final int secsToMills = 1000;
-		dialogType = type.getCode();
-		isTimed = type.isTimed();
-		isModal = type.isModal();
-		if(time>=0){
-			waitingTime = time * secsToMills;
-		}else{
-			waitingTime = type.getTime() * secsToMills;
+			// Window.alert("Error. no hay posiciones libres para mostrar alertas");
 		}
 	}
 }

@@ -18,8 +18,10 @@ public class RESCitizenEmergencyNotifierGrid extends GhaGrid<PhysicalFeatures>{
 	 */
 	public RESCitizenEmergencyNotifierGrid() {
 		super();
-		setHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
-		setMaxHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
+		setHeight("*");
+		setMinHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
+		//		setHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
+		//		setMaxHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
 		setBorder("1px solid #666666");
 
 		final GHAGridField lastNamesGridField = new GHAGridField("lastNames", "Apellidos");
@@ -46,6 +48,7 @@ public class RESCitizenEmergencyNotifierGrid extends GhaGrid<PhysicalFeatures>{
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
-		setHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
+		setHeight("*");
+		//		setHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
 	}
 }

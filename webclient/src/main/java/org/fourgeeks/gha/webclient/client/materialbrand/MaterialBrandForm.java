@@ -36,7 +36,7 @@ import com.google.gwt.event.logical.shared.ResizeEvent;
  * 
  */
 public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
-MaterialBrandSelectionProducer {
+		MaterialBrandSelectionProducer, MaterialBrandSetType {
 
 	private List<MaterialBrandSelectionListener> listeners;
 	private GHATextItem codeItem, externalCodeItem, nameItem, modelItem;
@@ -73,7 +73,6 @@ MaterialBrandSelectionProducer {
 				GHAStrings.get("category"));
 		categoryItem.setRequired(true);
 		categoryItem.addChangedHandler(changedHandler);
-
 	}
 
 	public MaterialBrandForm() {
@@ -150,9 +149,6 @@ MaterialBrandSelectionProducer {
 	}
 
 	private MaterialBrand extract() {
-		if (!hasUnCommittedChanges)
-			return null;
-
 		final Material material = new Material();
 		final MaterialBrand materialBrand = new MaterialBrand();
 
@@ -259,15 +255,15 @@ MaterialBrandSelectionProducer {
 			MaterialBrandModel.save(materialBrand,
 					new GHAAsyncCallback<MaterialBrand>() {
 
-				@Override
-				public void onSuccess(MaterialBrand result) {
-					hasUnCommittedChanges = false;
-					notifyMaterialBrand(result);
-					clear();
-					if (callback != null)
-						callback.onSuccess(result);
-				}
-			});
+						@Override
+						public void onSuccess(MaterialBrand result) {
+							hasUnCommittedChanges = false;
+							notifyMaterialBrand(result);
+							clear();
+							if (callback != null)
+								callback.onSuccess(result);
+						}
+					});
 		}
 
 	}
@@ -300,6 +296,14 @@ MaterialBrandSelectionProducer {
 		brandItem.setValue(entity.getBrand().getId());
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.materialbrand.MaterialBrandSetType
+	 * #setType(org.fourgeeks.gha.domain.glm.MaterialTypeEnum)
+	 */
+	@Override
 	public void setType(MaterialTypeEnum type) {
 		typeItem.setValue(type.name());
 		typeItem.setDisabled(true);
@@ -335,7 +339,8 @@ MaterialBrandSelectionProducer {
 	@Override
 	public void update(GHAAsyncCallback<MaterialBrand> callback) {
 		// TODO Auto-generated method stub
-
+		if (!hasUnCommittedChanges)
+			return;
 	}
 
 }

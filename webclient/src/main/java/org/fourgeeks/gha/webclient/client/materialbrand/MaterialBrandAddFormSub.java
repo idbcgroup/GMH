@@ -12,6 +12,6 @@ import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 public class MaterialBrandAddFormSub extends MaterialBrandAddForm {
 	public MaterialBrandAddFormSub(String title) {
 		super(title);
-		form.setType(MaterialTypeEnum.MATERIAL);
+		((MaterialBrandSetType) form).setType(MaterialTypeEnum.MATERIAL);
 	}
 }
