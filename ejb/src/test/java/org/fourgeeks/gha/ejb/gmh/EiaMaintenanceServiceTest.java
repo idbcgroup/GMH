@@ -52,10 +52,12 @@ import org.fourgeeks.gha.domain.enu.ProviderResourceTypeEnum;
 import org.fourgeeks.gha.domain.enu.ProviderServicesEnum;
 import org.fourgeeks.gha.domain.enu.ProviderTypeEnum;
 import org.fourgeeks.gha.domain.enu.ServiceAndResourceType;
+import org.fourgeeks.gha.domain.enu.ServiceOrderState;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.LocationType;
+import org.fourgeeks.gha.domain.ess.MaintenanceServiceOrder;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.ess.auth.Function;
 import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
@@ -115,12 +117,18 @@ import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 import org.fourgeeks.gha.ejb.TimerParamsService;
 import org.fourgeeks.gha.ejb.TimerParamsServiceLocal;
+import org.fourgeeks.gha.ejb.ess.MaintenanceServiceOrderService;
+import org.fourgeeks.gha.ejb.ess.MaintenanceServiceOrderServiceLocal;
 import org.fourgeeks.gha.ejb.ess.auth.RoleService;
 import org.fourgeeks.gha.ejb.ess.auth.RoleServiceRemote;
 import org.fourgeeks.gha.ejb.ess.auth.SSOUserService;
 import org.fourgeeks.gha.ejb.ess.auth.SSOUserServiceRemote;
+import org.fourgeeks.gha.ejb.gar.BpuFunctionServiceTest;
 import org.fourgeeks.gha.ejb.gar.BpuService;
 import org.fourgeeks.gha.ejb.gar.BpuServiceRemote;
+import org.fourgeeks.gha.ejb.gar.BspService;
+import org.fourgeeks.gha.ejb.gar.BspServiceRemote;
+import org.fourgeeks.gha.ejb.gar.FacilityServiceRemote;
 import org.fourgeeks.gha.ejb.gar.ObuService;
 import org.fourgeeks.gha.ejb.gar.ObuServiceRemote;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderService;
@@ -128,9 +136,13 @@ import org.fourgeeks.gha.ejb.glm.ExternalProviderServiceRemote;
 import org.fourgeeks.gha.ejb.gom.CCDIService;
 import org.fourgeeks.gha.ejb.gom.CCDIServiceLocal;
 import org.fourgeeks.gha.ejb.gom.CCDIServiceRemote;
+import org.fourgeeks.gha.ejb.helpers.BpuHelper;
 import org.fourgeeks.gha.ejb.log.UILogService;
 import org.fourgeeks.gha.ejb.log.UILogServiceLocal;
 import org.fourgeeks.gha.ejb.log.UILogServiceRemote;
+import org.fourgeeks.gha.ejb.mix.BpiService;
+import org.fourgeeks.gha.ejb.mix.BpiServiceRemote;
+import org.fourgeeks.gha.ejb.mix.CitizenServiceRemote;
 import org.fourgeeks.gha.ejb.mix.InstitutionService;
 import org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote;
 import org.fourgeeks.gha.ejb.mix.LegalEntityService;
@@ -160,20 +172,28 @@ public class EiaMaintenanceServiceTest {
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap
 				.create(WebArchive.class, "test.war")
+				.addPackage(Bsp.class.getPackage())
+				.addPackage(BspService.class.getPackage())
 				.addClass(AppView.class)
 				.addClass(AbstractEntity.class)
 				.addClass(AbstractCodeEntity.class)
 				.addClass(App.class)
-				.addClass(ViewFunction.class)
-				.addClass(FunctionBpu.class)
+				.addClass(BpuService.class)
+				.addClass(BpuServiceRemote.class)
 				.addClass(Bpi.class)
+				.addClass(BpiService.class)
+				.addClass(BpiServiceRemote.class)
 				.addClass(BpiOriginEnum.class)
 				.addClass(BpiRiskEnum.class)
 				.addClass(BpiInstitutionRelationTypeEnum.class)
 				.addClass(BpiTypeEnum.class)
+				.addClass(BpuFunctionServiceTest.class)
 				.addClass(Brand.class)
+				.addClass(BrandService.class)
+				.addClass(BrandServiceRemote.class)
 				.addClass(BuildingLocation.class)
 				.addClass(Bpu.class)
+
 				.addClass(Citizen.class)
 				.addClass(CurrencyTypeEnum.class)
 				.addClass(DepreciationMethodEnum.class)
@@ -187,6 +207,8 @@ public class EiaMaintenanceServiceTest {
 				.addClass(EiaTypeEnum.class)
 				.addClass(EiaSubTypeEnum.class)
 				.addClass(EiaTypeCategory.class)
+				.addClass(EiaTypeCategoryService.class)
+				.addClass(EiaTypeCategoryServiceRemote.class)
 				.addClass(EiaType.class)
 				.addClass(EiaTypeComponent.class)
 				.addClass(EiaTypeMaintenancePlan.class)
@@ -234,6 +256,7 @@ public class EiaMaintenanceServiceTest {
 				.addClass(MaintenanceProtocol.class)
 				.addClass(ActivityState.class)
 				.addClass(ActivityCategoryEnum.class)
+
 				.addClass(Manufacturer.class)
 				.addClass(ActivitySubCategoryEnum.class)
 				.addClass(Activity.class)
@@ -274,6 +297,7 @@ public class EiaMaintenanceServiceTest {
 				.addClass(EiaMaintenanceService.class)
 				.addClass(EiaMaintenanceServiceRemote.class)
 				.addClass(UILog.class)
+				.addClass(ServiceOrderState.class)
 				.addClass(UILogService.class)
 				.addClass(UILogServiceLocal.class)
 				.addClass(UILogServiceRemote.class)
@@ -286,7 +310,15 @@ public class EiaMaintenanceServiceTest {
 				.addClass(EiaMaintenance.class)
 				.addClass(UserLogonStatusEnum.class)
 				.addClass(MaintenanceCancelationCause.class)
+				.addClass(MaintenanceServiceOrder.class)
+				.addClass(MaintenanceServiceOrderService.class)
+				.addClass(MaintenanceServiceOrderServiceLocal.class)
 				.addClass(MaintenancePlanificationState.class)
+				.addClass(Manufacturer.class)
+				.addClass(ManufacturerService.class)
+				.addClass(ManufacturerServiceRemote.class)
+				.addClass(ViewFunction.class)
+				.addClass(FunctionBpu.class)
 				.addClass(EiaDamageReportService.class)
 				.addClass(EiaDamageReportServiceRemote.class)
 				.addClass(EiaTypeMaintenancePlanService.class)
@@ -297,8 +329,6 @@ public class EiaMaintenanceServiceTest {
 				.addClass(MaintenanceProtocolServiceRemote.class)
 				.addClass(MaintenancePlanStadisticData.class)
 				.addClass(MaintenanceProtocolStadisticData.class)
-				.addClass(BpuService.class)
-				.addClass(BpuServiceRemote.class)
 				.addClass(TimerParams.class)
 				.addClass(TimerParamsService.class)
 				.addClass(TimerParamsServiceLocal.class)
@@ -321,6 +351,48 @@ public class EiaMaintenanceServiceTest {
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
+	@EJB(lookup = "java:global/test/ManufacturerService")
+	private ManufacturerServiceRemote manufacturerServiceRemote;
+
+	@EJB(lookup = "java:global/test/EiaTypeCategoryService")
+	private EiaTypeCategoryServiceRemote eiaTypeCategoryServiceRemote;
+
+	@EJB(lookup = "java:global/test/BrandService")
+	private BrandServiceRemote brandServiceRemote;
+
+	@EJB(lookup = "java:global/test/EiaTypeService")
+	private EiaTypeServiceRemote eiaTypeServiceRemote;
+
+	@EJB(lookup = "java:global/test/RoleService")
+	private RoleServiceRemote roleServiceRemote;
+
+	@EJB(lookup = "java:global/test/LegalEntityService")
+	private LegalEntityServiceRemote legalEntityServiceRemote;
+
+	@EJB(lookup = "java:global/test/BpiService")
+	private BpiServiceRemote bpiServiceRemote;
+
+	@EJB(lookup = "java:global/test/InstitutionService")
+	private InstitutionServiceRemote institutionServiceRemote;
+
+	@EJB(lookup = "java:global/test/ObuService")
+	private ObuServiceRemote obuServiceRemote;
+
+	@EJB(lookup = "java:global/test/BspService")
+	private BspServiceRemote bspServiceRemote;
+
+	@EJB(lookup = "java:global/test/ExternalProviderService")
+	private ExternalProviderServiceRemote externalProviderServiceRemote;
+
+	@EJB(lookup = "java:global/test/FacilityService")
+	private FacilityServiceRemote facilityServiceRemote;
+
+	@EJB(lookup = "java:global/test/BuildingLocationService")
+	private BuildingLocationServiceRemote buildingLocationServiceRemote;
+
+	@EJB(lookup = "java:global/test/CitizenService")
+	private CitizenServiceRemote citizenServiceRemote;
+
 	@EJB(lookup = "java:global/test/EiaMaintenanceService")
 	private EiaMaintenanceServiceRemote service;
 
@@ -339,7 +411,7 @@ public class EiaMaintenanceServiceTest {
 	private EiaTypeMaintenancePlanServiceRemote eiaTypeMPlanService;
 
 	@EJB(lookup = "java:global/test/EiaService")
-	private EiaServiceRemote eiaService;
+	private EiaServiceRemote eiaServiceRemote;
 
 	@EJB(lookup = "java:global/test/MaintenancePlanService")
 	private MaintenancePlanServiceRemote maintenancePlanService;
@@ -350,100 +422,24 @@ public class EiaMaintenanceServiceTest {
 	private EiaDamageReport eiaDamageReport;
 	private EiaMaintenancePlanification planif;
 	private EiaTypeMaintenancePlan eiaTypeMPlan;
-	private MaintenancePlan maintenancePlan;
+	private MaintenancePlan savedMaintenancePlan;
 	private EiaType eiaType;
 	private Eia eia;
 
-	/** */
-	@Before
-	public void set() {
+	private void deleteTest(final EiaCorrectiveMaintenance cEntity,
+			final EiaPreventiveMaintenance pEntity) {
+		final int itemsExpected = 0;
 		try {
-			maintenancePlan = new MaintenancePlan();
-			maintenancePlan.setName("mantenimiento prueba");
-			maintenancePlan.setFrequency(3);
-			maintenancePlan.setPot(TimePeriodEnum.DAYS);
-			maintenancePlan.setType(MaintenancePlanType.PREVENTIVE);
-			maintenancePlan.setState(MaintenancePlanState.ACTIVE);
-			maintenancePlan
-					.setCancelationOption(MaintenancePlanCancelationOption.DEFERRABLE);
-			maintenancePlan = maintenancePlanService.save(maintenancePlan);
+			service.deleteCorrectiveMaintenance(cEntity.getId());
+			service.deletePreventiveMaintenance(pEntity.getId());
 
-			eiaType = new EiaType("3000000001");
+			List<EiaMaintenance> aux = service.find(eiaType);
 
-			eia = eiaService.findByEiaType(eiaType).get(0);
-
-			eiaTypeMPlan = new EiaTypeMaintenancePlan();
-			eiaTypeMPlan.setEiaType(eiaType);
-			eiaTypeMPlan.setMaintenancePlan(maintenancePlan);
-			eiaTypeMPlan = eiaTypeMPlanService.save(eiaTypeMPlan);
-
-			planif = new EiaMaintenancePlanification();
-			planif.setEia(eia);
-			planif.setPlan(eiaTypeMPlan);
-			planif = planifServiceRemote.save(planif);
-
-			Bpu bpu = bpuService.find(1);
-			eiaDamageReport = new EiaDamageReport();
-			eiaDamageReport.setEia(eia);
-			eiaDamageReport.setDamageStatus(EiaDamageStatusEnum.DAMAGE);
-			eiaDamageReport.setPriority(EiaDamagePriorityEnum.NORMAL);
-			eiaDamageReport.setUserWhoRegistered(bpu);
-			eiaDamageReport.setUserWhoReported(bpu);
-			eiaDamageReport = damageReportService.save(eiaDamageReport);
+			Assert.assertEquals(itemsExpected, aux.size());
 
 		} catch (GHAEJBException e) {
 			e.printStackTrace();
 		}
-	}
-
-	/** */
-	@After
-	public void unset() {
-		try {
-			planifServiceRemote.delete(planif.getId());
-			eiaTypeMPlanService.delete(eiaTypeMPlan.getId());
-			maintenancePlanService.delete(maintenancePlan.getId());
-			damageReportService.delete(eiaDamageReport.getId());
-
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/** */
-	@Test
-	public void test() {
-		final String sep = "\n---------------------------------------\n";
-
-		System.out.println("TESTING EIA MAINTENANCE SERVICE\n");
-
-		System.out.println(sep + "savePreventiveMaintenance" + sep);
-		EiaPreventiveMaintenance pEntity = savePreventiveMaintenance();
-
-		System.out.println(sep + "saveCorrectiveMaintenance" + sep);
-		EiaCorrectiveMaintenance cEntity = saveCorrectiveMaintenance();
-
-		System.out.println(sep + "updatePreventiveMaintenance" + sep);
-		pEntity = updatePreventiveMaintenance(pEntity);
-
-		System.out.println(sep + "updateCorrectiveMaintenance" + sep);
-		cEntity = updateCorrectiveMaintenance(cEntity);
-
-		System.out.println(sep + "findByEiaTypeTest" + sep);
-		findByEiaTypeTest();
-
-		System.out.println(sep + "getEffectuatedPlanificationsCountTest" + sep);
-		getEffectuatedPlanificationsCountTest(maintenancePlan);
-
-		System.out.println(sep + "getLastEffectuatedPlanificationDateTest"
-				+ sep);
-		getLastEffectuatedPlanificationDateTest(maintenancePlan);
-
-		System.out.println(sep + "getScheduleDateOfLastMaintenance" + sep);
-		getScheduleDateOfLastMaintenance(planif);
-
-		System.out.println(sep + "deleteTest" + sep);
-		deleteTest(cEntity, pEntity);
 	}
 
 	/** */
@@ -454,6 +450,43 @@ public class EiaMaintenanceServiceTest {
 			Assert.assertEquals(itemsExpected, result.size());
 
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void getEffectuatedPlanificationsCountTest(
+			final MaintenancePlan plan) {
+		final int countExpected = 1;
+		try {
+			final long result = planifServiceLocal
+					.getEffectuatedPlanificationsCount(plan);
+
+			Assert.assertEquals(countExpected, result);
+		} catch (GHAEJBException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void getLastEffectuatedPlanificationDateTest(
+			final MaintenancePlan plan) {
+		try {
+			final Timestamp result = planifServiceLocal
+					.getLastEffectuatedPlanificationDate(plan);
+
+			Assert.assertNotNull(result);
+		} catch (GHAEJBException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void getScheduleDateOfLastMaintenance(
+			final EiaMaintenancePlanification planif) {
+		try {
+			final Date result = planifServiceLocal
+					.getScheduleDateOfLastMaintenance(planif);
+
+			Assert.assertNotNull(result);
+		} catch (GHAEJBException e) {
 			e.printStackTrace();
 		}
 	}
@@ -504,28 +537,188 @@ public class EiaMaintenanceServiceTest {
 	}
 
 	/** */
-	private EiaPreventiveMaintenance updatePreventiveMaintenance(
-			EiaPreventiveMaintenance entity) {
+	@Before
+	public void set() {
 		try {
-			entity.setEffectiveTime(3);
-			entity.setEffectivePoT(TimePeriodEnum.MONTHS);
+			// creating a manufacturer
+			Manufacturer manufacturerSaved = manufacturerServiceRemote
+					.save(new Manufacturer("TESTMAN"));
 
-			final EiaPreventiveMaintenance result = service
-					.updatePreventiveMaintenance(entity);
+			// Creating a Brand
+			Brand b = new Brand("TESTBRAND");
+			b.setManufacturer(manufacturerSaved);
+			Brand brandSaved = brandServiceRemote.save(b);
 
-			Assert.assertNotNull(result);
-			return result;
+			// Creating an Eiatye CAtegory
+			final EiaTypeCategory category = new EiaTypeCategory();
+			category.setName("ECTESTNAME");
+			category.setCode("ECTESTCODE");
+			EiaTypeCategory categorySaved = eiaTypeCategoryServiceRemote
+					.save(category);
 
-		} catch (Exception e) {
+			// CREating an eiatype
+			final EiaType eiaType = new EiaType();
+			eiaType.setBrand(brandSaved);
+			eiaType.setName("TESTEIATYPE");
+			eiaType.setMobility(EiaMobilityEnum.FIXED);
+			eiaType.setEiaTypeCategory(categorySaved);
+			eiaType.setCode("EIATYPETESTCODE");
+			eiaType.setSubtype(EiaSubTypeEnum.DIAGNOSE);
+			eiaType.setModel("TESTMODEL");
+			EiaType savedEiatype = eiaTypeServiceRemote.save(eiaType);
+
+			// cretaing a Role
+			Role savedRole = roleServiceRemote.save(new Role("Test Role 2"));
+
+			// creating a legal entity
+			LegalEntity savedLegalEntity = legalEntityServiceRemote
+					.save(new LegalEntity("J-0001"));
+
+			// creating an Institution
+			Institution institution = new Institution();
+			institution.setName("TestInstitution");
+			institution.setLegalEntity(savedLegalEntity);
+			Institution savedInstitution = institutionServiceRemote
+					.save(institution);
+
+			// Creating a BPI
+			Bpi bpi = new Bpi();
+			bpi.setInstitution(savedInstitution);
+			Bpi savedBpi = bpiServiceRemote.save(bpi);
+
+			// creating a OBU
+			Obu obu = new Obu();
+			obu.setName("TESTOVU");
+			obu.setCode("TestOBU");
+			obu.setBpi(savedBpi);
+			Obu savedObu = obuServiceRemote.save(obu);
+
+			// creating a BSP
+			final Bsp bsp = new Bsp();
+			bsp.setObu(savedObu);
+			Bsp savedBsp = bspServiceRemote.save(bsp);
+
+			// creating a buildingLocation
+			final BuildingLocation buildingLocation = new BuildingLocation(
+					savedBpi, "Building 00", LocationLevelEnum.BUILDING,
+					"Building Location Name ");
+			BuildingLocation savedBuildingLocation = buildingLocationServiceRemote
+					.save(buildingLocation);
+
+			// creating a Facility
+			final Facility facility = new Facility();
+			facility.setName("TESTFACILITY");
+			facility.setBuildingLocation(savedBuildingLocation);
+			Facility savedFacility = facilityServiceRemote.save(facility);
+
+			// creating an externalProvider
+			ExternalProvider eP = new ExternalProvider();
+			eP.setInstitution(savedInstitution);
+			ExternalProvider savedExternalProvider = externalProviderServiceRemote
+					.save(eP);
+
+			// CREating an Eia
+			final Eia eia = new Eia(savedRole, savedEiatype, savedObu,
+					EiaStateEnum.ACQUIRED, "GHAEQ-00", savedBsp, "S9023423");
+			eia.setCode("eia-00");
+			eia.setFacility(savedFacility);
+			eia.setProvider(savedExternalProvider);
+
+			Eia savedEia = eiaServiceRemote.save(eia);
+
+			savedMaintenancePlan = new MaintenancePlan();
+			savedMaintenancePlan.setName("mantenimiento prueba");
+			savedMaintenancePlan.setFrequency(3);
+			savedMaintenancePlan.setPot(TimePeriodEnum.DAYS);
+			savedMaintenancePlan.setType(MaintenancePlanType.PREVENTIVE);
+			savedMaintenancePlan.setState(MaintenancePlanState.ACTIVE);
+			savedMaintenancePlan
+					.setCancelationOption(MaintenancePlanCancelationOption.DEFERRABLE);
+			savedMaintenancePlan = maintenancePlanService
+					.save(savedMaintenancePlan);
+
+			eiaTypeMPlan = new EiaTypeMaintenancePlan();
+			eiaTypeMPlan.setEiaType(eiaType);
+			eiaTypeMPlan.setMaintenancePlan(savedMaintenancePlan);
+			eiaTypeMPlan = eiaTypeMPlanService.save(eiaTypeMPlan);
+
+			planif = new EiaMaintenancePlanification();
+			planif.setEia(eia);
+			planif.setPlan(eiaTypeMPlan);
+			planif = planifServiceRemote.save(planif);
+
+			// creating a bpu
+			BpuHelper bpuHelper = new BpuHelper(legalEntityServiceRemote,
+					citizenServiceRemote, institutionServiceRemote, bpuService,
+					bpiServiceRemote);
+			Bpu savedBpu = bpuHelper.createBpu();
+
+			eiaDamageReport = new EiaDamageReport();
+			eiaDamageReport.setEia(eia);
+			eiaDamageReport.setDamageStatus(EiaDamageStatusEnum.DAMAGE);
+			eiaDamageReport.setPriority(EiaDamagePriorityEnum.NORMAL);
+			eiaDamageReport.setUserWhoRegistered(savedBpu);
+			eiaDamageReport.setUserWhoReported(savedBpu);
+			eiaDamageReport = damageReportService.save(eiaDamageReport);
+
+		} catch (GHAEJBException e) {
 			e.printStackTrace();
 		}
+	}
 
-		return null;
+	/** */
+	@Test
+	public void test() {
+		final String sep = "\n---------------------------------------\n";
+
+		System.out.println("TESTING EIA MAINTENANCE SERVICE\n");
+
+		System.out.println(sep + "savePreventiveMaintenance" + sep);
+		EiaPreventiveMaintenance pEntity = savePreventiveMaintenance();
+
+		System.out.println(sep + "saveCorrectiveMaintenance" + sep);
+		EiaCorrectiveMaintenance cEntity = saveCorrectiveMaintenance();
+
+		System.out.println(sep + "updatePreventiveMaintenance" + sep);
+		pEntity = updatePreventiveMaintenance(pEntity);
+
+		System.out.println(sep + "updateCorrectiveMaintenance" + sep);
+		cEntity = updateCorrectiveMaintenance(cEntity);
+
+		System.out.println(sep + "findByEiaTypeTest" + sep);
+		findByEiaTypeTest();
+
+		System.out.println(sep + "getEffectuatedPlanificationsCountTest" + sep);
+		getEffectuatedPlanificationsCountTest(savedMaintenancePlan);
+
+		System.out.println(sep + "getLastEffectuatedPlanificationDateTest"
+				+ sep);
+		getLastEffectuatedPlanificationDateTest(savedMaintenancePlan);
+
+		System.out.println(sep + "getScheduleDateOfLastMaintenance" + sep);
+		getScheduleDateOfLastMaintenance(planif);
+
+		System.out.println(sep + "deleteTest" + sep);
+		deleteTest(cEntity, pEntity);
+	}
+
+	/** */
+	@After
+	public void unset() {
+		try {
+			planifServiceRemote.delete(planif.getId());
+			eiaTypeMPlanService.delete(eiaTypeMPlan.getId());
+			maintenancePlanService.delete(savedMaintenancePlan.getId());
+			damageReportService.delete(eiaDamageReport.getId());
+
+		} catch (GHAEJBException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/** */
 	private EiaCorrectiveMaintenance updateCorrectiveMaintenance(
-			EiaCorrectiveMaintenance entity) {
+			final EiaCorrectiveMaintenance entity) {
 		try {
 			entity.setEffectiveTime(1);
 			entity.setEffectivePoT(TimePeriodEnum.SEMESTERS);
@@ -543,54 +736,23 @@ public class EiaMaintenanceServiceTest {
 		return null;
 	}
 
-	private void deleteTest(EiaCorrectiveMaintenance cEntity,
-			EiaPreventiveMaintenance pEntity) {
-		final int itemsExpected = 0;
+	/** */
+	private EiaPreventiveMaintenance updatePreventiveMaintenance(
+			final EiaPreventiveMaintenance entity) {
 		try {
-			service.deleteCorrectiveMaintenance(cEntity.getId());
-			service.deletePreventiveMaintenance(pEntity.getId());
+			entity.setEffectiveTime(3);
+			entity.setEffectivePoT(TimePeriodEnum.MONTHS);
 
-			List<EiaMaintenance> aux = service.find(eiaType);
-
-			Assert.assertEquals(itemsExpected, aux.size());
-
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void getLastEffectuatedPlanificationDateTest(MaintenancePlan plan) {
-		try {
-			final Timestamp result = planifServiceLocal
-					.getLastEffectuatedPlanificationDate(plan);
+			final EiaPreventiveMaintenance result = service
+					.updatePreventiveMaintenance(entity);
 
 			Assert.assertNotNull(result);
-		} catch (GHAEJBException e) {
+			return result;
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
 
-	private void getScheduleDateOfLastMaintenance(
-			EiaMaintenancePlanification planif) {
-		try {
-			final Date result = planifServiceLocal
-					.getScheduleDateOfLastMaintenance(planif);
-
-			Assert.assertNotNull(result);
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void getEffectuatedPlanificationsCountTest(MaintenancePlan plan) {
-		final int countExpected = 1;
-		try {
-			final long result = planifServiceLocal
-					.getEffectuatedPlanificationsCount(plan);
-
-			Assert.assertEquals(countExpected, result);
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
+		return null;
 	}
 }

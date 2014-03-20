@@ -35,8 +35,20 @@ public class Role extends AbstractEntity {
 	public Role() {
 	}
 
-	public Role(long id) {
+	/**
+	 * Create a Role given the ID
+	 * 
+	 * @param id
+	 */
+	public Role(final long id) {
 		setId(id);
+	}
+
+	/**
+	 * Create a Role gicen the name
+	 */
+	public Role(final String name) {
+		this.name = name;
 	}
 
 	/**
@@ -51,7 +63,7 @@ public class Role extends AbstractEntity {
 	 * @param name
 	 *            The name of the Role
 	 */
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
