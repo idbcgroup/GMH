@@ -10,7 +10,6 @@ import javax.validation.ConstraintViolation;
 
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
-import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
@@ -72,8 +71,8 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
 		categoryItem = new GHAEiaTypeCategoryPickTreeItem(
 				GHAStrings.get("category"));
-		categoryItem.addChangedHandler(changedHandler);
 		categoryItem.setRequired(true);
+		categoryItem.addChangedHandler(changedHandler);
 
 		subTypeItem = new GHAEiaTypeSubTypeSelectItem(changedHandler);
 		eiaUmdnsItem = new GHATextItem("EIAUMDNS", false, changedHandler);
@@ -322,8 +321,6 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	}
 
 	private void fillExtras() {
-		// types
-		categoryItem.setValueMap(EiaTypeEnum.toValueMap());
 		// subtypes
 		subTypeItem.setValueMap(EiaSubTypeEnum.toValueMap());
 		// mobility
