@@ -568,3 +568,5 @@ ES,eias-delete-fail,Falló la eliminación de los Equipos,FAILURE
 ES,eiatype-component-delete-success,Componente eliminado correctamente,SUCCESS
 ES,eiatype-components-delete-confirm,¿Desea eliminar los componentes seleccionados?,CONFIRMATION
 ES,eiatype-components-delete-success,Componentes eliminados correctamente,SUCCESS
+ES,activityType-getAllTypes-fail,Hubo un fallo al buscar todos los Tipos de Actividades,FAILURE
+ES,activityType-getSubType-fail,Hubo un fallo al buscar los Subtipos de Actividades para el Tipo de Actividad seleccionado,FAILURE

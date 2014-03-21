@@ -3,30 +3,36 @@ package org.fourgeeks.gha.domain;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  * Entity implementation class for Entity: ActivityType
  * 
  */
 @Entity
+@NamedQueries(value = {
+		@NamedQuery(name = "ActivityType.getAllTypes", query = "SELECT atype FROM ActivityType atype WHERE atype.parentActivityTypeId = 0 ORDER BY atype.id"),
+		@NamedQuery(name = "ActivityType.getSubType", query = "SELECT atype FROM ActivityType atype WHERE atype.parentActivityTypeId = :parentId ORDER BY atype.id") })
 public class ActivityType extends AbstractEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String description;
 
-	private Long parentActivityTypeId;
+	private long parentActivityTypeId;
 
 	/**
 	 * 
 	 */
 	public ActivityType() {
 		super();
+		parentActivityTypeId = 0L;
 	}
 
 	/**
 	 * @return the parentActivityType
 	 */
-	public Long getParentActivityTypeId() {
+	public long getParentActivityTypeId() {
 		return parentActivityTypeId;
 	}
 
@@ -34,7 +40,7 @@ public class ActivityType extends AbstractEntity implements Serializable {
 	 * @param parentActivityTypeId
 	 *            the parentActivityType to set
 	 */
-	public void setParentActivityTypeId(Long parentActivityTypeId) {
+	public void setParentActivityTypeId(long parentActivityTypeId) {
 		this.parentActivityTypeId = parentActivityTypeId;
 	}
 

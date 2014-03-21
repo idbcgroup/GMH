@@ -801,6 +801,9 @@ public class InitialData {
 					em.persist(type);
 
 					String[] subtypeNames = map.get(typeName);
+					if (subtypeNames == null)
+						continue;
+
 					for (String subTypeName : subtypeNames) {
 						final ActivityType subType = new ActivityType();
 						subType.setDescription(subTypeName);
