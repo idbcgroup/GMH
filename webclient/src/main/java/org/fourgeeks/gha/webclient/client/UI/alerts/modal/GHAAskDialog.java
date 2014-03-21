@@ -6,11 +6,9 @@ import org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog;
 
 import com.smartgwt.client.widgets.Button;
 
-
-
 /**
  * @author jfuentes
- *
+ * 
  */
 public class GHAAskDialog extends GHADialog {
 
@@ -20,11 +18,13 @@ public class GHAAskDialog extends GHADialog {
 	 * @param time
 	 * @param buttons
 	 */
-	public GHAAskDialog(GHAMessageType type, String message, int time, Button... buttons) {
-		super(type,false,time, buttons);
+	public GHAAskDialog(GHAMessageType type, String message, int time,
+			Button... buttons) {
+		super(type, false, time, buttons);
 		setMessage(message);
 		initTypeView();
 	}
+
 	/**
 	 * @param type
 	 * @param title
@@ -32,13 +32,17 @@ public class GHAAskDialog extends GHADialog {
 	 * @param time
 	 * @param buttons
 	 */
-	public GHAAskDialog(GHAMessageType type, String title, String message, int time, Button... buttons){
-		this(type, message,time, buttons);
+	public GHAAskDialog(GHAMessageType type, String title, String message,
+			int time, Button... buttons) {
+		this(type, message, time, buttons);
 		setTitle(title);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog#initTypeParams()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog#initTypeParams()
 	 */
 	@Override
 	protected void initTypeView() {

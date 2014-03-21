@@ -48,14 +48,14 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class CitizenForm extends GHAForm<Citizen> implements
-		CitizenSelectionProducer {
+CitizenSelectionProducer {
 
 	// private final BpuCitizenBasicInformationForm bpuForm = new
 	// BpuBasicInformationForm();
 	// private final CitizenParentBasicInformationForm parentForm = new
 	// CitizenParentBasicInformationForm();
 	private GHATextItem idItem, firstNameItem, secondNameItem, lastNameItem,
-			secondLastNameItem, ageTextItem;
+	secondLastNameItem, ageTextItem;
 	private GHASelectItem typeidSelectItem, genderSelectItem;
 	// private GHASelectItem bpiSelectItem;
 	private GHADateItem birthDateItem;
@@ -95,6 +95,7 @@ public class CitizenForm extends GHAForm<Citizen> implements
 	 */
 	public CitizenForm() {
 		super();
+		setHeight(GHAUiHelper.DEFAULT_PATIENT_BASIC_INFO_HEIGHT);
 		GHAUiHelper.addGHAResizeHandler(this);
 		form.setItems(typeidSelectItem, idItem, genderSelectItem,
 				birthDateItem, ageTextItem, firstNameItem, secondNameItem,

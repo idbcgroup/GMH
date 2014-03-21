@@ -27,7 +27,6 @@ public interface EiaServiceRemote {
 
 	/**
 	 * @param Id
-	 * @return a boolean with the result of the operation
 	 * @throws GHAEJBException
 	 *             Delete an entity from database using its id
 	 */
@@ -41,12 +40,30 @@ public interface EiaServiceRemote {
 	public List<Eia> find(Eia eia) throws GHAEJBException;
 
 	/**
+	 * @param Id
+	 * @return Find an eia By Id
+	 * @throws GHAEJBException
+	 */
+	public Eia find(long Id) throws GHAEJBException;
+
+	/**
 	 * @param eiaType
 	 * @return a List with eias searching by EiaType
 	 * @throws GHAEJBException
 	 *             Find all the eias BASED on the eiaType ID
 	 */
 	public List<Eia> findByEiaType(EiaType eiaType) throws GHAEJBException;
+
+	/**
+	 * 
+	 * @param eia
+	 * @param eiaType
+	 * @return a list of eia available as components for this eiatype, filtering
+	 *         by this eia
+	 * @throws GHAEJBException
+	 */
+	public List<Eia> findComponents(Eia eia, EiaType eiaType)
+			throws GHAEJBException;
 
 	/**
 	 * @param eiaType
@@ -56,13 +73,6 @@ public interface EiaServiceRemote {
 	 */
 	public List<Eia> findDamagedAndInMaintenance(EiaType eiaType)
 			throws GHAEJBException;
-
-	/**
-	 * @param Id
-	 * @return Find an eia By Id
-	 * @throws GHAEJBException
-	 */
-	public Eia find(long Id) throws GHAEJBException;
 
 	/**
 	 * @return a List with all the eias
@@ -93,16 +103,5 @@ public interface EiaServiceRemote {
 	 *             Update the Eia
 	 */
 	public Eia update(Eia eia) throws GHAEJBException;
-
-	/**
-	 * 
-	 * @param eia
-	 * @param eiaType
-	 * @return a list of eia available as components for this eiatype, filtering
-	 *         by this eia
-	 * @throws GHAEJBException
-	 */
-	public List<Eia> findComponents(Eia eia, EiaType eiaType)
-			throws GHAEJBException;
 
 }

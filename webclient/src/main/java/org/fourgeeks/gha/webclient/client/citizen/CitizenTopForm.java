@@ -12,11 +12,13 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHADoumentTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAGenderSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAUserStateSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAEmailTextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHANameTextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAUserNameTextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATopForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATopForm;
 import org.fourgeeks.gha.webclient.client.user.SSOUserModel;
 import org.fourgeeks.gha.webclient.client.user.UserPanel;
 
@@ -29,14 +31,14 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * 
  */
 public class CitizenTopForm extends GHATopForm<CitizenResultSet, Citizen>
-		implements CitizenSelectionListener {
+implements CitizenSelectionListener {
 
 	private Citizen selected;
-	private GHATextItem usernameItem;
+	private GHAUserNameTextItem usernameItem;
 	private GHADoumentTypeSelectItem idTypeSelectItem;
-	private GHASelectItem stateItem;
+	private GHAUserStateSelectItem stateItem;
 	private GHANameTextItem firstNameItem, secondNameItem, firstLastNameItem,
-			secondLastNameItem;
+	secondLastNameItem;
 	private GHATextItem idItem;
 	private GHAEmailTextItem emailItem;
 	private GHASelectItem genderSelectItem;
@@ -44,6 +46,8 @@ public class CitizenTopForm extends GHATopForm<CitizenResultSet, Citizen>
 	{
 		firstNameItem = new GHANameTextItem(GHAStrings.get("first-name"));
 		secondNameItem = new GHANameTextItem(GHAStrings.get("second-name"));
+		usernameItem = new GHAUserNameTextItem();
+		stateItem = new GHAUserStateSelectItem();
 		firstLastNameItem = new GHANameTextItem(
 				GHAStrings.get("first-lastname"));
 		secondLastNameItem = new GHANameTextItem(
@@ -115,22 +119,22 @@ public class CitizenTopForm extends GHATopForm<CitizenResultSet, Citizen>
 	protected void delete() {
 		GHAAlertManager.confirm("ssoUser-delete-confirm",
 				new BooleanCallback() {
-					@Override
-					public void execute(Boolean value) {
-						if (value) {
-							SSOUserModel.delete(selected.getId(),
-									new GHAAsyncCallback<Void>() {
-										@Override
-										public void onSuccess(Void result) {
-											containerTab.search();
-											clear();
-											GHAAlertManager
-													.alert("ssoUser-delete-success");
-										}
-									});
+			@Override
+			public void execute(Boolean value) {
+				if (value) {
+					SSOUserModel.delete(selected.getId(),
+							new GHAAsyncCallback<Void>() {
+						@Override
+						public void onSuccess(Void result) {
+							containerTab.search();
+							clear();
+							GHAAlertManager
+							.alert("ssoUser-delete-success");
 						}
-					}
-				});
+					});
+				}
+			}
+		});
 	}
 
 	@Override

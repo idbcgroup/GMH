@@ -9,9 +9,9 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.citizen.CitizenSelectionListener;
-import org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation.emergencynotifier.RESEmergencyNotifierGridPanel;
-import org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation.personalcontacts.RESPersonalContactsGridPanel;
-import org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation.physicalfeatures.RESPhysicalFeaturesGridPanel;
+import org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation.emergencynotifier.RESCitizenEmergencyNotifierGrid;
+import org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation.personalcontacts.RESCitizenPersonalContactsGrid;
+import org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation.physicalfeatures.RESCitizenPhysicalFeaturesGrid;
 
 import com.smartgwt.client.types.Overflow;
 
@@ -23,9 +23,9 @@ public class RESBasicInformationFormPanel extends GHAVerticalLayout implements
 CitizenSelectionListener, ClosableListener, HideableListener {
 
 	private final CitizenForm citizenForm;
-	private final RESPhysicalFeaturesGridPanel physicalFeaturesGridPanel;
-	private final RESPersonalContactsGridPanel personalContactsGridPanel;
-	private final RESEmergencyNotifierGridPanel emergencyNotifierGridPanel;
+	private final RESCitizenPhysicalFeaturesGrid featuresGrid;
+	private final RESCitizenPersonalContactsGrid contactsGrid;
+	private final RESCitizenEmergencyNotifierGrid emergencyGrid;
 
 	/**
 	 * 
@@ -34,22 +34,27 @@ CitizenSelectionListener, ClosableListener, HideableListener {
 		super();
 		setWidth100();
 		setHeight100();
-		// setHeight(GHAUiHelper.DEFAULT_PATIENT_BASIC_INFO_HEIGHT);
-		// setMaxHeight(GHAUiHelper.DEFAULT_PATIENT_BASIC_INFO_HEIGHT);
-		// setBorder("1px solid #666666");
-		setMembersMargin(5);
+		//		setMembersMargin(5);
 		setOverflow(Overflow.AUTO);
-		// setBackgroundColor("cyan");
+		setLayoutBottomMargin(5);
+
+		//Citizen basic info part
+		final GHALabel citizenInfoTitle = new GHALabel(GHAStrings.get("citizen-basic-information-title")).colored();
 		citizenForm = new CitizenForm();
-		citizenForm.setHeight(150);
-		physicalFeaturesGridPanel = new RESPhysicalFeaturesGridPanel();
-		personalContactsGridPanel = new RESPersonalContactsGridPanel();
-		emergencyNotifierGridPanel = new RESEmergencyNotifierGridPanel();
-		final GHALabel title = new GHALabel(
-				GHAStrings.get("citizen-basic-information-title")).colored();
-		addMembers(title, citizenForm,physicalFeaturesGridPanel,
-				personalContactsGridPanel,
-				emergencyNotifierGridPanel
+		//Citizen basic info part
+		final GHALabel featuresTitle = new GHALabel(GHAStrings.get("citizen-physical-features-title")).colored();
+		featuresGrid = new RESCitizenPhysicalFeaturesGrid();
+		//Personal Contacts part
+		final GHALabel contactsTitle = new GHALabel(GHAStrings.get("citizen-personal-contacts-title")).colored();
+		contactsGrid = new RESCitizenPersonalContactsGrid();
+		//"Contacts for an emergency" part
+		final GHALabel emergencyTitle = new GHALabel(GHAStrings.get("citizen-emergency-notify-title")).colored();
+		emergencyGrid = new RESCitizenEmergencyNotifierGrid();
+
+		addMembers(citizenInfoTitle, citizenForm,
+				featuresTitle,featuresGrid,
+				contactsTitle,contactsGrid,
+				emergencyTitle,emergencyGrid
 				);
 	}
 
@@ -74,17 +79,17 @@ CitizenSelectionListener, ClosableListener, HideableListener {
 	public void close() throws UnavailableToCloseException {
 		// TODO Auto-generated method stub
 		citizenForm.destroy();
-		physicalFeaturesGridPanel.destroy();
-		personalContactsGridPanel.destroy();
-		emergencyNotifierGridPanel.destroy();
+		featuresGrid.destroy();
+		contactsGrid.destroy();
+		emergencyGrid.destroy();
 	}
 
 	@Override
 	public void hide() {
 		citizenForm.hide();
-		physicalFeaturesGridPanel.hide();
-		personalContactsGridPanel.hide();
-		emergencyNotifierGridPanel.hide();
+		featuresGrid.hide();
+		contactsGrid.hide();
+		emergencyGrid.hide();
 		super.hide();
 	}
 

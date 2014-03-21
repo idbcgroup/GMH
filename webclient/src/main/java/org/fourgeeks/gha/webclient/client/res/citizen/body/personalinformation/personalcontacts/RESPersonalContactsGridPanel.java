@@ -11,11 +11,12 @@ import com.smartgwt.client.types.Overflow;
  * @author jfuentes
  *
  */
+@Deprecated
 public class RESPersonalContactsGridPanel extends GHAVerticalLayout {
 
-	private RESCitizenPersonalContactsGrid grid;
+	private RESCitizenPersonalContactsGrid contactsGrid;
 	{
-		grid = new RESCitizenPersonalContactsGrid();
+		contactsGrid = new RESCitizenPersonalContactsGrid();
 	}
 	/**
 	 * 
@@ -23,14 +24,14 @@ public class RESPersonalContactsGridPanel extends GHAVerticalLayout {
 	public RESPersonalContactsGridPanel() {
 		super();
 		setWidth100();
-		setHeight(GHAUiHelper.DEFAULT_PATIENT_MINIGRID_HEIGHT);
-		setMaxHeight(GHAUiHelper.DEFAULT_PATIENT_MINIGRID_HEIGHT);
+		setHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
+		setMaxHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
 		setBorder("1px solid #666666");
 		setOverflow(Overflow.AUTO);
 		//		setBackgroundColor("green");
 
 		final GHALabel title = new GHALabel(GHAStrings.get("citizen-personal-contacts-title")).colored();
-		addMembers(title,grid);
+		addMembers(title,contactsGrid);
 	}
 
 }

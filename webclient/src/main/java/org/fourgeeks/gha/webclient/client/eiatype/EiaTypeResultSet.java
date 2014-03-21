@@ -141,6 +141,8 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 												grid.removeSelectedData();
 												refreshResultsSize(grid
 														.getRecords().length);
+												GHAAlertManager
+														.alert("eiatypes-delete-success");
 											}
 										});
 							}
@@ -163,6 +165,8 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 												grid.removeSelectedData();
 												refreshResultsSize(grid
 														.getRecords().length);
+												GHAAlertManager
+														.alert("eiatype-delete-success");
 											}
 										});
 							}

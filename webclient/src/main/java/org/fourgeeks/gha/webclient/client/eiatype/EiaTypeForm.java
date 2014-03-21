@@ -58,15 +58,23 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	private GHAComboboxItem<Manufacturer> manItem;
 	private boolean cleanCodeItem = true;
 
+	private final String violationsOrder[] = { "name-not-null",
+			"eiatype-category-not-null", "mobility-not-null" };
+
 	private List<EIATypeSelectionListener> listeners;
 
 	{
+		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
+
 		codeItem = new GHACodeTextItem(false, changedHandler);
 		codeItem.disable();
 
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
 		categoryItem = new GHAEiaTypeCategoryPickTreeItem(
 				GHAStrings.get("category"));
+		categoryItem.addChangedHandler(changedHandler);
+		categoryItem.setRequired(true);
+
 		subTypeItem = new GHAEiaTypeSubTypeSelectItem(changedHandler);
 		eiaUmdnsItem = new GHATextItem("EIAUMDNS", false, changedHandler);
 		eiaUmdnsItem.setLength(16);
@@ -89,8 +97,6 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 				changedHandler);
 		//
 		listeners = new ArrayList<EIATypeSelectionListener>();
-
-		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
 
 		// Regex!
 
@@ -213,9 +219,6 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	}
 
 	private EiaType extract(boolean update) {
-		if (!hasUnCommittedChanges)
-			return null;
-
 		final List<String> violationsList = new ArrayList<String>();
 		final EiaType eiaType = new EiaType();
 
@@ -258,32 +261,24 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		if (subTypeItem.getValue() != null)
 			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
 					.getValueAsString()));
-		Set<ConstraintViolation<EiaType>> violations = null;
-		violations = validator.validate(eiaType);
-
-		if (violations.isEmpty() && form.validate())
+		Set<ConstraintViolation<EiaType>> violations = validator
+				.validate(eiaType);
+		if (violations.isEmpty() && form.validate()) {
 			return eiaType;
-		else {
+		} else {
 			for (final Iterator<ConstraintViolation<EiaType>> it = violations
-					.iterator(); it.hasNext();)
-				violationsList.add(it.next().getMessage());
+					.iterator(); it.hasNext();) {
+				String next = it.next().getMessage();
+				violationsList.add(next);
+			}
 			// GHAAlertManager.alert(violationsList);
 			// GHAAlertManager.oldAlert(violationsList.get(0));
 
-			String mensaje = "name-not-null";
-			if (violationsList.contains(mensaje)) {
-				GHAAlertManager.alert(mensaje);
-				return null;
-			}
-			mensaje = "eiatype-category-not-null";
-			if (violationsList.contains(mensaje)) {
-				GHAAlertManager.alert(mensaje);
-				return null;
-			}
-			mensaje = "mobility-not-null";
-			if (violationsList.contains(mensaje)) {
-				GHAAlertManager.alert(mensaje);
-				return null;
+			for (String errorCode : violationsOrder) {
+				if (violationsList.contains(errorCode)) {
+					GHAAlertManager.alert(errorCode);
+					break;
+				}
 			}
 		}
 		return null;
@@ -469,6 +464,8 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 
 	@Override
 	public void update(final GHAAsyncCallback<EiaType> callback) {
+		if (!hasUnCommittedChanges)
+			return;
 		final EiaType eiaType = extract(true);
 
 		if (eiaType == null)

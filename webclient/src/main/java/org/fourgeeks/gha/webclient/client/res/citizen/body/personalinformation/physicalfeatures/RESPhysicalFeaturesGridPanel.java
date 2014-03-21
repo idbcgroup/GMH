@@ -11,11 +11,12 @@ import com.smartgwt.client.types.Overflow;
  * @author jfuentes
  *
  */
+@Deprecated
 public class RESPhysicalFeaturesGridPanel extends GHAVerticalLayout {
 
-	private RESCitizenPhysicalFeaturesGrid grid;
+	private RESCitizenPhysicalFeaturesGrid featuresGrid;
 	{
-		grid = new RESCitizenPhysicalFeaturesGrid();
+		featuresGrid = new RESCitizenPhysicalFeaturesGrid();
 	}
 	/**
 	 * 
@@ -23,14 +24,14 @@ public class RESPhysicalFeaturesGridPanel extends GHAVerticalLayout {
 	public RESPhysicalFeaturesGridPanel() {
 		super();
 		setWidth100();
-		setHeight(GHAUiHelper.DEFAULT_PATIENT_MINIGRID_HEIGHT);
-		setMaxHeight(GHAUiHelper.DEFAULT_PATIENT_MINIGRID_HEIGHT);
+		setHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
+		setMaxHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
 		setBorder("1px solid #666666");
 		setOverflow(Overflow.AUTO);
 		//		setBackgroundColor("red");
 
 		final GHALabel title = new GHALabel(GHAStrings.get("citizen-physical-features-title")).colored();
-		addMembers(title,grid);
+		addMembers(title,featuresGrid);
 	}
 
 }

@@ -88,16 +88,16 @@ public class MaintenanceActivityPanel extends GHAPanel implements
 		addForm.addHideableListener(new HideableListener() {
 
 			@Override
+			public boolean canBeHidden(HideCloseAction closeAction) {
+				return true;
+			}
+
+			@Override
 			public void hide() throws UnavailableToHideException {
 				if (TabStatus.ENTITY_SELECTED.equals(currentStatus))
 					return;
 				else
 					search();
-			}
-
-			@Override
-			public boolean canBeHidden(HideCloseAction closeAction) {
-				return true;
 			}
 		});
 
@@ -127,6 +127,24 @@ public class MaintenanceActivityPanel extends GHAPanel implements
 	}
 
 	@Override
+	public void addMaintenanceActivitySelectionListener(
+			MaintenanceActivitySelectionListener activitySelectionListener) {
+		listeners.add(activitySelectionListener);
+	}
+
+	@Override
+	public void notifyMaintenanceActivity(MaintenanceActivity activity) {
+		for (MaintenanceActivitySelectionListener listener : listeners)
+			listener.select(activity);
+	}
+
+	@Override
+	public void removeMaintenanceActivitySelectionListener(
+			MaintenanceActivitySelectionListener activitySelectionListener) {
+		listeners.remove(activitySelectionListener);
+	}
+
+	@Override
 	public void search() {
 		if (currentStatus.equals(TabStatus.SEARCH))
 			return;
@@ -146,43 +164,24 @@ public class MaintenanceActivityPanel extends GHAPanel implements
 	}
 
 	@Override
-	public void show() {
-		super.show();
-		topForm.setVisibility(Visibility.VISIBLE);
-		if (currentStatus.equals(TabStatus.ADD))
-			return;
-		if (currentStatus.equals(TabStatus.SEARCH))
-			return;
-
-		if (currentStatus.equals(TabStatus.ENTITY_SELECTED))
-			internalTabSet.show();
-		else
-			resultSet.show();
-	}
-
-	@Override
-	public void addMaintenanceActivitySelectionListener(
-			MaintenanceActivitySelectionListener activitySelectionListener) {
-		listeners.add(activitySelectionListener);
-	}
-
-	@Override
-	public void removeMaintenanceActivitySelectionListener(
-			MaintenanceActivitySelectionListener activitySelectionListener) {
-		listeners.remove(activitySelectionListener);
-	}
-
-	@Override
-	public void notifyMaintenanceActivity(MaintenanceActivity activity) {
-		for (MaintenanceActivitySelectionListener listener : listeners)
-			listener.select(activity);
-	}
-
-	@Override
 	public void select(MaintenanceActivity activity) {
 		notifyMaintenanceActivity(activity);
 		header.unMarkAllButtons();
 		currentStatus = TabStatus.ENTITY_SELECTED;
+	}
+
+	@Override
+	public void show() {
+		super.show();
+		topForm.setVisibility(Visibility.VISIBLE);
+		if (currentStatus.equals(TabStatus.ADD)
+				|| (currentStatus.equals(TabStatus.SEARCH))
+				|| (currentStatus.equals(TabStatus.INIT)))
+			return;
+		if (currentStatus.equals(TabStatus.ENTITY_SELECTED))
+			internalTabSet.show();
+		else
+			resultSet.show();
 	}
 
 }

@@ -1,9 +1,11 @@
 package org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation.personalcontacts;
 
 import org.fourgeeks.gha.domain.mix.PhysicalFeatures;
-import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
+
+import com.google.gwt.event.logical.shared.ResizeEvent;
 
 /**
  * @author jfuentes
@@ -16,7 +18,11 @@ public class RESCitizenPersonalContactsGrid extends GhaGrid<PhysicalFeatures>{
 	 */
 	public RESCitizenPersonalContactsGrid() {
 		super();
-		setEmptyMessage(GHAStrings.get("no-results-to-show"));
+		setHeight("*");
+		setMinHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
+		//		setHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
+		//		setMaxHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
+		setBorder("1px solid #666666");
 
 		final GHAGridField phoneFromGridField = new GHAGridField("fromPhone", "Teléfono de");
 		final GHAGridField countryCodeGridField = new GHAGridField("cCode", "Cod. País");
@@ -35,9 +41,13 @@ public class RESCitizenPersonalContactsGrid extends GhaGrid<PhysicalFeatures>{
 		//				faiGridField, locationGridField, bpiGridField, statusGridField,
 		//				obuGridField, roleGridField, typeFiled, brandFiled, modelFiled);
 
-		setCanHover(true);
-		setShowHover(true);
-		setShowHoverComponents(true);
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		super.onResize(event);
+		setHeight("*");
+		//		setHeight(GHAUiHelper.DEFAULT_PATIENT_MINISECTION_HEIGHT);
 	}
 
 }

@@ -2,8 +2,7 @@ package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 
-import com.smartgwt.client.widgets.events.ClickEvent;
-import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.util.BooleanCallback;
 
 /**
  * @author alacret, naramirez
@@ -32,19 +31,30 @@ public abstract class GHAUpdateForm<T> extends GHASlideInWindow {
 			return;
 		}
 
-		GHAAlertManager.askYesNoCancel("unsaved-changes", new ClickHandler() {
+		//		GHAAlertManager.askYesNoCancel("unsaved-changes", new ClickHandler() {
+		//
+		//			@Override
+		//			public void onClick(ClickEvent event) {
+		//				form.undo();
+		//				hide();
+		//			}
+		//		}, new ClickHandler() {
+		//
+		//			@Override
+		//			public void onClick(ClickEvent event) {
+		//			}
+		//		}, null);
+		GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
 
 			@Override
-			public void onClick(ClickEvent event) {
-				form.undo();
-				hide();
+			public void execute(Boolean value) {
+				if(value)
+				{
+					form.undo();
+					hide();
+				}
 			}
-		}, new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-			}
-		}, null);
+		});
 
 	}
 

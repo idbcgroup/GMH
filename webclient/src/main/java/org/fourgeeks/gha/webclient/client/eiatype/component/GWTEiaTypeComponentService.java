@@ -14,10 +14,12 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
  * @author emiliot
- *
+ * 
  */
 @RemoteServiceRelativePath("eiaTypeComponent")
-public interface GWTEiaTypeComponentService extends RemoteService{
+public interface GWTEiaTypeComponentService extends RemoteService {
+	public void delete(List<EiaTypeComponent> entities) throws GHAEJBException;
+
 	/**
 	 * @param Id
 	 * @throws GHAEJBException

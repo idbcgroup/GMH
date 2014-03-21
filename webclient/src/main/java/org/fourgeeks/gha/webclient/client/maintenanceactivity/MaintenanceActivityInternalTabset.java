@@ -57,7 +57,7 @@ public class MaintenanceActivityInternalTabset extends GHAInternalTabSet
 		else if (selectedTab == subprotocolActivitiesSubTab) {
 			subprotocolActivitiesSubTab.getPane().show();
 		} else if (selectedTab == serviceAndResourceSubTab) {
-			serviceAndResourceSubTab.getPane().show();
+			serviceAndResourceSubTab.openFirstSection();
 		}
 
 		animateShow(AnimationEffect.FADE);

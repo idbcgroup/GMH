@@ -31,10 +31,9 @@ import org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
-import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
-import com.smartgwt.client.widgets.form.fields.events.KeyUpHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -44,8 +43,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIADamageAndPlanificationSearchForm extends GHASearchForm<Eia>
-		implements EIATypeSelectionListener, EIASelectionListener,
-		EiaSelectionProducer {
+implements EIATypeSelectionListener, EIASelectionListener,
+EiaSelectionProducer {
 
 	private GHATextItem serialNumber;
 	private GHAWorkingAreaSelectItem workingAreaLocationSelectItem;
@@ -79,52 +78,42 @@ public class EIADamageAndPlanificationSearchForm extends GHASearchForm<Eia>
 	public EIADamageAndPlanificationSearchForm(String title) {
 		super(title);
 
-		GHAUiHelper.addGHAResizeHandler(this);
-
 		form.setItems(serialNumber, new GHASpacerItem(),
 				workingAreaLocationSelectItem, facilityLocationSelectItem);
 
 		form.setAutoFocus(true);
 		serialNumber.setSelectOnFocus(true);
 
-		KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
-
-			@Override
-			public void onKeyUp(KeyUpEvent event) {
-				if (event.getKeyName().equals("Enter")) {
-					search();
-				}
-			}
-		};
 		// actualCostItem.addKeyUpHandler(searchKeyUpHandler);
 		serialNumber.addKeyUpHandler(searchKeyUpHandler);
 		workingAreaLocationSelectItem.addKeyUpHandler(searchKeyUpHandler);
 		facilityLocationSelectItem.addKeyUpHandler(searchKeyUpHandler);
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
+		final VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHACleanButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				clean();
-			}
-		}), new GHACancelButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				hide();
-				clean();
-			}
-		}));
+					@Override
+					public void onClick(ClickEvent event) {
+						clean();
+					}
+				}), new GHACancelButton(new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						hide();
+						clean();
+					}
+				}));
 
-		HLayout formLayout = new HLayout();
+		final HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
 		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ "px");
+		formLayout.setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMembers(formLayout,
 				GHAUiHelper
-						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-								+ "px"), resultSet);
+				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+						+ "px"), resultSet);
 		fill();
 	}
 
@@ -237,7 +226,7 @@ public class EIADamageAndPlanificationSearchForm extends GHASearchForm<Eia>
 	 */
 	@Override
 	public void search() {
-		Eia eia = new Eia();
+		final Eia eia = new Eia();
 		// Only eias that are in operation.
 		eia.setState(EiaStateEnum.IN_OPERATION);
 		eia.setEiaType(eiaType);
@@ -269,10 +258,10 @@ public class EIADamageAndPlanificationSearchForm extends GHASearchForm<Eia>
 			public void onSuccess(List<Eia> result) {
 				List<Eia> newList = new ArrayList<Eia>();
 				if (blackList != null) {
-					List<AbstractEntity> tmpList = GHAUtil
+					final List<AbstractEntity> tmpList = GHAUtil
 							.binarySearchFilterEntity(result, blackList);
-					List<Eia> newTmpList = new ArrayList<Eia>();
-					for (AbstractEntity entity : tmpList)
+					final List<Eia> newTmpList = new ArrayList<Eia>();
+					for (final AbstractEntity entity : tmpList)
 						newTmpList.add((Eia) entity);
 					newList = newTmpList;
 				} else

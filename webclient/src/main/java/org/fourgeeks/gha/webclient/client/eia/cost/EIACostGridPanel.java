@@ -6,8 +6,8 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -19,7 +19,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIACostGridPanel extends GHAFormLayout implements
 EIATypeSelectionListener, ClosableListener, HideableListener {
 
-	private EIADeprecationGrid eiaDeprecationGrid = new EIADeprecationGrid();
+	private final EIADeprecationGrid eiaDeprecationGrid = new EIADeprecationGrid();
 
 	public EIACostGridPanel() {
 		setWidth100();
@@ -27,11 +27,11 @@ EIATypeSelectionListener, ClosableListener, HideableListener {
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 
-		GHALabel title = new GHALabel("Costos/Depreciación (Pospuesta)");
-		GHALabel titleDep = new GHALabel("Registro de Depreciación");
+		final GHALabel title = new GHALabel("Costos/Depreciación (Pospuesta)");
+		final GHALabel titleDep = new GHALabel("Registro de Depreciación");
 
 		// //////Botones laterales
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
+		final VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/new.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
@@ -47,11 +47,11 @@ EIATypeSelectionListener, ClosableListener, HideableListener {
 					}
 				}));
 
-		HLayout mainPanel = new HLayout();
+		final HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(eiaDeprecationGrid, sideButtons);
 
 		addMembers(title, new LayoutSpacer(),
-				GHAUiHelper.verticalGraySeparator("10px"), titleDep, mainPanel,
+				GHAUiHelper.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT+"px"), titleDep, mainPanel,
 				new LayoutSpacer());
 	}
 

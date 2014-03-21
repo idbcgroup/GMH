@@ -21,6 +21,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormTyp
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -32,8 +33,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
-		implements MaintenancePlanSelectionListener,
-		MaintenancePlanSelectionProducer {
+implements MaintenancePlanSelectionListener,
+MaintenancePlanSelectionProducer {
 
 	private final GHADynamicForm form;
 	private GHATextItem nameItem, descriptionItem, frequencyItem;
@@ -60,13 +61,13 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 		resultSet = new MaintenancePlanResultSet(
 				ResultSetContainerType.SEARCH_FORM);
 		resultSet
-				.addMaintenancePlanSelectionListener(new MaintenancePlanSelectionListener() {
+		.addMaintenancePlanSelectionListener(new MaintenancePlanSelectionListener() {
 
-					@Override
-					public void select(MaintenancePlan maintenancePlan) {
-						hide();
-					}
-				});
+			@Override
+			public void select(MaintenancePlan maintenancePlan) {
+				hide();
+			}
+		});
 	}
 
 	/**
@@ -88,36 +89,37 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 		form.setAutoFocus(true);
 		nameItem.setSelectOnFocus(true);
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
+		final VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHACleanButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				clean();
-			}
-		}), new GHACancelButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				hide();
-			}
-		}));
+					@Override
+					public void onClick(ClickEvent event) {
+						clean();
+					}
+				}), new GHACancelButton(new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						hide();
+					}
+				}));
 
-		HLayout formLayout = new HLayout();
+		final HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
 		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ "px");
+		formLayout.setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMembers(formLayout,
 				GHAUiHelper
-						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-								+ "px"), resultSet);
+				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+						+ "px"), resultSet);
 	}
 
 	@Override
 	public void addMaintenancePlanSelectionListener(
 			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
 		resultSet
-				.addMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
+		.addMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
 
 	}
 
@@ -152,12 +154,12 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 	public void removeMaintenancePlanSelectionListener(
 			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
 		resultSet
-				.removeMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
+		.removeMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
 	}
 
 	@Override
 	public void search() {
-		MaintenancePlan maintenancePlan = new MaintenancePlan();
+		final MaintenancePlan maintenancePlan = new MaintenancePlan();
 		if (nameItem.getValue() != null)
 			maintenancePlan.setName(nameItem.getValueAsString());
 		if (descriptionItem.getValue() != null)
@@ -174,22 +176,22 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 	private void search(final MaintenancePlan maintenancePlan) {
 		MaintenancePlanModel.find(maintenancePlan,
 				new GHAAsyncCallback<List<MaintenancePlan>>() {
-					@Override
-					public void onSuccess(List<MaintenancePlan> result) {
-						List<MaintenancePlan> newList = null;
-						if (blackList != null) {
-							List<AbstractEntity> tmpList = GHAUtil
-									.binarySearchFilterEntity(result, blackList);
-							List<MaintenancePlan> newTmpList = new ArrayList<MaintenancePlan>();
-							for (AbstractEntity entity : tmpList)
-								newTmpList.add((MaintenancePlan) entity);
-							newList = newTmpList;
-						} else
-							newList = result;
+			@Override
+			public void onSuccess(List<MaintenancePlan> result) {
+				List<MaintenancePlan> newList = null;
+				if (blackList != null) {
+					final List<AbstractEntity> tmpList = GHAUtil
+							.binarySearchFilterEntity(result, blackList);
+					final List<MaintenancePlan> newTmpList = new ArrayList<MaintenancePlan>();
+					for (final AbstractEntity entity : tmpList)
+						newTmpList.add((MaintenancePlan) entity);
+					newList = newTmpList;
+				} else
+					newList = result;
 
-						resultSet.setRecords(newList, false);
-					}
-				});
+				resultSet.setRecords(newList, false);
+			}
+		});
 	}
 
 	@Override

@@ -22,6 +22,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormTyp
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -38,7 +39,8 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 	private GHATextItem codeTextItem, nameTextItem, descriptionTextItem,
 			modelTextItem, extCodeTextItem;
 	protected MaterialTypeEnum fixedMaterial = MaterialTypeEnum.MATERIAL;
-	private MaterialResultSet resultSet = new MaterialResultSet(ResultSetContainerType.SEARCH_FORM);
+	private final MaterialResultSet resultSet = new MaterialResultSet(
+			ResultSetContainerType.SEARCH_FORM);
 	private final GHADynamicForm form;
 
 	{
@@ -58,7 +60,7 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 				hide();
 			}
 		});
-		form = new GHADynamicForm(4,FormType.NORMAL_FORM);
+		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
 	}
 
 	/**
@@ -78,7 +80,7 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 		// typeSelectItem.addKeyUpHandler(searchKeyUpHandler);
 		// ////////////////////////////
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
+		final VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHACleanButton(new ClickHandler() {
 
 			@Override
@@ -90,13 +92,15 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 			@Override
 			public void onClick(ClickEvent event) {
 				hide();
+				clean();
 			}
 		}));
 
-		HLayout formLayout = new HLayout();
+		final HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
 		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ "px");
+		formLayout.setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMembers(formLayout,
@@ -104,7 +108,7 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
 								+ "px"), resultSet);
 
-		fillSelects();
+		fill();
 	}
 
 	@Override
@@ -121,7 +125,7 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 		resultSet.clean();
 	}
 
-	private void fillSelects() {
+	private void fill() {
 		// typeSelectItem.setValueMap(MaterialTypeEnum.toValueMap());
 	}
 
@@ -150,7 +154,7 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 
 	@Override
 	public void search() {
-		Material material = new Material();
+		final Material material = new Material();
 		material.setCode(codeTextItem.getValueAsString());
 		material.setName(nameTextItem.getValueAsString());
 		material.setDescription(descriptionTextItem.getValueAsString());
@@ -173,10 +177,10 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 			public void onSuccess(List<Material> results) {
 				List<Material> newList = null;
 				if (blackList != null) {
-					List<AbstractCodeEntity> tmpList = GHAUtil
+					final List<AbstractCodeEntity> tmpList = GHAUtil
 							.binarySearchFilterCodeEntity(results, blackList);
-					List<Material> newTmpList = new ArrayList<Material>();
-					for (AbstractCodeEntity abstractCodeEntity : tmpList)
+					final List<Material> newTmpList = new ArrayList<Material>();
+					for (final AbstractCodeEntity abstractCodeEntity : tmpList)
 						newTmpList.add((Material) abstractCodeEntity);
 					newList = newTmpList;
 				} else {
