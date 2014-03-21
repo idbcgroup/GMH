@@ -1,6 +1,5 @@
 package org.fourgeeks.gha.ejb;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -89,6 +88,9 @@ import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.gmh.RequiredResources;
 import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
+import org.fourgeeks.gha.domain.gom.CCDIDefinition;
+import org.fourgeeks.gha.domain.gom.CCDILevelDefinition;
+import org.fourgeeks.gha.domain.gom.CCDILevelValue;
 import org.fourgeeks.gha.domain.logs.GHALog;
 import org.fourgeeks.gha.domain.logs.UILog;
 import org.fourgeeks.gha.domain.mix.Bpi;
@@ -116,6 +118,9 @@ import org.fourgeeks.gha.ejb.gmh.EiaTypeService;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.MaintenanceActivityService;
 import org.fourgeeks.gha.ejb.gmh.MaintenanceActivityServiceRemote;
+import org.fourgeeks.gha.ejb.gom.CCDIService;
+import org.fourgeeks.gha.ejb.gom.CCDIServiceLocal;
+import org.fourgeeks.gha.ejb.gom.CCDIServiceRemote;
 import org.fourgeeks.gha.ejb.log.UILogService;
 import org.fourgeeks.gha.ejb.log.UILogServiceLocal;
 import org.fourgeeks.gha.ejb.log.UILogServiceRemote;
@@ -146,6 +151,12 @@ public class ActivityTypeServiceTest {
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap
 				.create(WebArchive.class, "test.war")
+				.addClass(CCDILevelValue.class)
+				.addClass(CCDILevelDefinition.class)
+				.addClass(CCDIDefinition.class)
+				.addClass(CCDIService.class)
+				.addClass(CCDIServiceLocal.class)
+				.addClass(CCDIServiceRemote.class)
 				.addClass(AbstractEntity.class)
 				.addClass(AbstractCodeEntity.class)
 				.addClass(App.class)
@@ -286,32 +297,26 @@ public class ActivityTypeServiceTest {
 					"Asistencial", "Logística", "Operaciones",
 					"Administrativa", "Del Sistema" };
 
-			HashMap<String, String[]> map = new HashMap<String, String[]>();
-
-			map.put("Mantenimiento", new String[] { "Medición", "Limpieza",
-					"Calibración", "Desarme", "Armado", "Instalación",
-					"Desinstalación", "Cambio de Repuesto",
-					"Cambio de Consumibles", "Aceptación Mantenimiento",
-					"Traslado" });
-
 			for (String typeName : activityTypeNames) {
 				ActivityType type = new ActivityType();
 				type.setDescription(typeName);
 				em.persist(type);
-
-				String[] subtypeNames = map.get(typeName);
-				if (subtypeNames == null)
-					continue;
-
-				for (String subTypeName : subtypeNames) {
-					final ActivityType subType = new ActivityType();
-					subType.setDescription(subTypeName);
-					subType.setParentActivityTypeId(type.getId());
-					em.persist(subType);
-				}
 			}
 
+			final String[] subTypesName = new String[] { "Medición",
+					"Limpieza", "Calibración", "Desarme", "Armado",
+					"Instalación", "Desinstalación", "Cambio de Repuesto",
+					"Cambio de Consumibles", "Aceptación Mantenimiento",
+					"Traslado" };
+
+			for (String subTypeName : subTypesName) {
+				final ActivityType subType = new ActivityType();
+				subType.setDescription(subTypeName);
+				subType.setParentActivityTypeId(1);
+				em.persist(subType);
+			}
 			em.flush();
+
 		} catch (final Exception e1) {
 			System.out.println("Error Creating ActivityType test data: " + e1);
 		}

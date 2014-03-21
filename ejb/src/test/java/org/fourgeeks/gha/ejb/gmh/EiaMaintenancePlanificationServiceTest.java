@@ -126,21 +126,18 @@ import org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote;
 import org.fourgeeks.gha.ejb.mix.LegalEntityService;
 import org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
  * @author naramirez
  * 
  */
-@RunWith(Arquillian.class)
+// @RunWith(Arquillian.class)
 public class EiaMaintenancePlanificationServiceTest {
 	/**
 	 * @return the deployment descriptor
@@ -352,7 +349,7 @@ public class EiaMaintenancePlanificationServiceTest {
 	}
 
 	/**  */
-	@Test
+	// @Test
 	public void test() {
 		EiaMaintenancePlanification planif = null;
 		final String sep = "\n---------------------------------------\n";
