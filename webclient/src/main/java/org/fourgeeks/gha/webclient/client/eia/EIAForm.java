@@ -399,64 +399,69 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		facilityLocationCodeTextItem.setTooltip(GHAStrings
 				.get("eia-tooltip-facility-service-code"));
 
-		realWarrantySinceSelectItem.addChangedHandler(new ChangedHandler() {
+		selectDate(realWarrantySinceSelectItem, realWarrantyBeginDate);
+
+		selectDate(intWarrantySinceSelectItem, intWarrantyBeginDate);
+
+	}
+
+	public void selectDate(final GHASelectItem selectDateItem,
+			final GHADateItem dateItem) {
+
+		selectDateItem.addChangedHandler(new ChangedHandler() {
 			@Override
 			public void onChanged(ChangedEvent event) {
 				changedHandler.onChanged(event);
 
-				if (realWarrantySinceSelectItem.getValueAsString()
-						.equalsIgnoreCase("PURCHASE")) {
+				if (selectDateItem.getValueAsString().equalsIgnoreCase(
+						"PURCHASE")) {
 					if (purchaseDateItem.getValue() == null) {
 						GHAAlertManager
 								.alert("WARNING", "Advertencia",
 										"Debe Ingresar o Seleccionar una Fecha de Compra");
 
 					} else {
-						realWarrantyBeginDate.setDisabled(true);
-						realWarrantyBeginDate.setValue(purchaseDateItem
-								.getValue());
+						dateItem.setDisabled(true);
+						dateItem.setValue(purchaseDateItem.getValue());
 					}
-				} else if (realWarrantySinceSelectItem.getValueAsString()
-						.equalsIgnoreCase("RECEPTION")) {
+				} else if (selectDateItem.getValueAsString().equalsIgnoreCase(
+						"RECEPTION")) {
 					if (receptionDateItem.getValue() == null) {
 						GHAAlertManager
 								.alert("WARNING", "Advertencia",
 										"Debe Ingresar o Seleccionar una Fecha de Recepción");
 
 					} else {
-						realWarrantyBeginDate.setDisabled(true);
-						realWarrantyBeginDate.setValue(receptionDateItem
-								.getValue());
+						dateItem.setDisabled(true);
+						dateItem.setValue(receptionDateItem.getValue());
 					}
-				} else if (realWarrantySinceSelectItem.getValueAsString()
-						.equalsIgnoreCase("INSTALATION")) {
+				} else if (selectDateItem.getValueAsString().equalsIgnoreCase(
+						"INSTALATION")) {
 					if (installationDateItem.getValue() == null) {
 						GHAAlertManager
 								.alert("WARNING", "Advertencia",
 										"Debe Ingresar o Seleccionar una Fecha de Instalación");
 
 					} else {
-						realWarrantyBeginDate.setDisabled(true);
-						realWarrantyBeginDate.setValue(installationDateItem
-								.getValue());
+						dateItem.setDisabled(true);
+						dateItem.setValue(installationDateItem.getValue());
 					}
-				} else if (realWarrantySinceSelectItem.getValueAsString()
-						.equalsIgnoreCase("ACCEPTATION")) {
+				} else if (selectDateItem.getValueAsString().equalsIgnoreCase(
+						"ACCEPTATION")) {
 
 					if (acceptationDateItem.getValue() == null) {
 						GHAAlertManager
 								.alert("WARNING", "Advertencia",
-										"Debe Ingresar o Seleccionar una Fecha de Instalación");
+										"Debe Ingresar o Seleccionar una Fecha de Aceptación");
 
 					} else {
-						realWarrantyBeginDate.setDisabled(true);
-						realWarrantyBeginDate.setValue(acceptationDateItem
-								.getValue());
+						dateItem.setDisabled(true);
+						dateItem.setValue(acceptationDateItem.getValue());
 					}
-				} else if (realWarrantySinceSelectItem.getValueAsString()
-						.equalsIgnoreCase("OTHER")) {
-					realWarrantyBeginDate.setDisabled(false);
-					realWarrantyBeginDate.clearValue();
+				} else if (selectDateItem.getValueAsString().equalsIgnoreCase(
+						"OTHER")) {
+					dateItem.setDisabled(false);
+					dateItem.clearValue();
 
 				}
 
@@ -468,10 +473,10 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 			@Override
 			public void onChanged(ChangedEvent event) {
 				// TODO Auto-generated method stub
-				if (realWarrantySinceSelectItem.getValueAsString()
-						.equalsIgnoreCase("PURCHASE")) {
-					realWarrantyBeginDate.setDisabled(true);
-					realWarrantyBeginDate.setValue(purchaseDateItem.getValue());
+				if (selectDateItem.getValueAsString().equalsIgnoreCase(
+						"PURCHASE")) {
+					dateItem.setDisabled(true);
+					dateItem.setValue(purchaseDateItem.getValue());
 				}
 			}
 		});
@@ -481,11 +486,10 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 			@Override
 			public void onChanged(ChangedEvent event) {
 				// TODO Auto-generated method stub
-				if (realWarrantySinceSelectItem.getValueAsString()
-						.equalsIgnoreCase("ACCEPTATION")) {
-					realWarrantyBeginDate.setDisabled(true);
-					realWarrantyBeginDate.setValue(acceptationDateItem
-							.getValue());
+				if (selectDateItem.getValueAsString().equalsIgnoreCase(
+						"ACCEPTATION")) {
+					dateItem.setDisabled(true);
+					dateItem.setValue(acceptationDateItem.getValue());
 				}
 			}
 		});
@@ -495,11 +499,10 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 			@Override
 			public void onChanged(ChangedEvent event) {
 				// TODO Auto-generated method stub
-				if (realWarrantySinceSelectItem.getValueAsString()
-						.equalsIgnoreCase("INSTALATION")) {
-					realWarrantyBeginDate.setDisabled(true);
-					realWarrantyBeginDate.setValue(installationDateItem
-							.getValue());
+				if (selectDateItem.getValueAsString().equalsIgnoreCase(
+						"INSTALATION")) {
+					dateItem.setDisabled(true);
+					dateItem.setValue(installationDateItem.getValue());
 				}
 			}
 		});
@@ -509,14 +512,13 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 			@Override
 			public void onChanged(ChangedEvent event) {
 				// TODO Auto-generated method stub
-				if (realWarrantySinceSelectItem.getValueAsString()
-						.equalsIgnoreCase("RECEPTION")) {
-					realWarrantyBeginDate.setDisabled(true);
-					realWarrantyBeginDate.setValue(receptionDateItem.getValue());
+				if (selectDateItem.getValueAsString().equalsIgnoreCase(
+						"RECEPTION")) {
+					dateItem.setDisabled(true);
+					dateItem.setValue(receptionDateItem.getValue());
 				}
 			}
 		});
-
 	}
 
 	/**
@@ -1061,9 +1063,9 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 
 	private void fillWarrantySelects() {
 		realWarrantySinceSelectItem.setValueMap(WarrantySinceEnum.toValueMap());
-		realWarrantySinceSelectItem.setValue(WarrantySinceEnum.PURCHASE.name());
+		// realWarrantySinceSelectItem.setValue(WarrantySinceEnum.PURCHASE.name());
 		intWarrantySinceSelectItem.setValueMap(WarrantySinceEnum.toValueMap());
-		intWarrantySinceSelectItem.setValue(WarrantySinceEnum.PURCHASE.name());
+		// intWarrantySinceSelectItem.setValue(WarrantySinceEnum.PURCHASE.name());
 
 		// GHACache.INSTANCE
 		// .getBuildingLocations(new GHAAsyncCallback<List<BuildingLocation>>()
