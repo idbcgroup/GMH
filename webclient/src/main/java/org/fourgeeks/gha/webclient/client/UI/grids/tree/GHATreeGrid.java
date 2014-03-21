@@ -27,13 +27,13 @@ public class GHATreeGrid<T> extends TreeGrid implements ResizeHandler {
 	 * @param entities
 	 */
 	public void setData(GHATreeGridNode<T>[] entities) {
-		setData(entities);
+		super.setData(entities);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public GHATreeGridNode<T> getSelectedRecord() {
-		TreeNode selectedRecord = super.getSelectedRecord();
+		final TreeNode selectedRecord = super.getSelectedRecord();
 		return (GHATreeGridNode<T>) selectedRecord;
 	}
 
@@ -42,8 +42,9 @@ public class GHATreeGrid<T> extends TreeGrid implements ResizeHandler {
 	 */
 	public T getSelectedEntity() {
 		@SuppressWarnings("unchecked")
+		final
 		GHATreeGridNode<T> selectedRecord = (GHATreeGridNode<T>) super
-				.getSelectedRecord();
+		.getSelectedRecord();
 		if (selectedRecord == null)
 			return null;
 		return selectedRecord.toEntity();
