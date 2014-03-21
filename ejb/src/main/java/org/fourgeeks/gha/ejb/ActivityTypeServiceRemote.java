@@ -26,6 +26,6 @@ public interface ActivityTypeServiceRemote {
 	 * @return A list of Activity Subtypes for the given type
 	 * @throws GHAEJBException
 	 */
-	public List<ActivityType> getSubType(ActivityType type)
+	public List<ActivityType> getSubTypes(ActivityType type)
 			throws GHAEJBException;
 }

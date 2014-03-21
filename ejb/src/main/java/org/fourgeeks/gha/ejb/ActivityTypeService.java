@@ -41,7 +41,7 @@ public class ActivityTypeService extends GHAEJBExceptionService implements
 	}
 
 	@Override
-	public List<ActivityType> getSubType(ActivityType type)
+	public List<ActivityType> getSubTypes(ActivityType type)
 			throws GHAEJBException {
 		try {
 			return em
