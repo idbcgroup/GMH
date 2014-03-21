@@ -26,13 +26,6 @@ public interface GWTEiaService extends RemoteService {
 	public List<Long> countByState() throws GHAEJBException;
 
 	/**
-	 * @param Id
-	 * @return a boolean with the result of the operation
-	 * @throws GHAEJBException
-	 */
-	public boolean delete(long Id) throws GHAEJBException;
-
-	/**
 	 * 
 	 * @param eias
 	 * @throws GHAEJBException
@@ -40,11 +33,31 @@ public interface GWTEiaService extends RemoteService {
 	public void delete(List<Eia> eias) throws GHAEJBException;
 
 	/**
+	 * @param Id
+	 * @throws GHAEJBException
+	 */
+	public boolean delete(long Id) throws GHAEJBException;
+
+	/**
 	 * @param eia
 	 * @return a List with Eia using an Eia as a filter
 	 * @throws GHAEJBException
 	 */
 	public List<Eia> find(Eia eia) throws GHAEJBException;
+
+	/**
+	 * @param Id
+	 * @return Find an Eia By Id
+	 * @throws GHAEJBException
+	 */
+	public Eia find(long Id) throws GHAEJBException;
+
+	/**
+	 * @param eiaType
+	 * @return a List with Eia searching by EiaType
+	 * @throws GHAEJBException
+	 */
+	public List<Eia> findByEiaType(EiaType eiaType) throws GHAEJBException;
 
 	/**
 	 * @param eia
@@ -58,26 +71,12 @@ public interface GWTEiaService extends RemoteService {
 
 	/**
 	 * @param eiaType
-	 * @return a List with Eia searching by EiaType
-	 * @throws GHAEJBException
-	 */
-	public List<Eia> findByEiaType(EiaType eiaType) throws GHAEJBException;
-
-	/**
-	 * @param eiaType
 	 * @return a list with eias that have the state DAMAGED or MAINTENANCE for
 	 *         the given eiaType
 	 * @throws GHAEJBException
 	 */
 	public List<Eia> findDamagedAndInMaintenance(EiaType eiaType)
 			throws GHAEJBException;
-
-	/**
-	 * @param Id
-	 * @return Find an Eia By Id
-	 * @throws GHAEJBException
-	 */
-	public Eia find(long Id) throws GHAEJBException;
 
 	/**
 	 * @return a List with all the Eia

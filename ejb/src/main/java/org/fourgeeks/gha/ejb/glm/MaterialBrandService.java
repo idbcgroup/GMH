@@ -297,6 +297,10 @@ public class MaterialBrandService extends GHAEJBExceptionService implements
 	public MaterialBrand save(MaterialBrand materialBrand)
 			throws GHAEJBException {
 		try {
+			Brand brand = materialBrand.getBrand();
+			brand = em.find(Brand.class, brand.getId());
+			materialBrand.setBrand(brand);
+
 			final Material material = materialBrand.getMaterial();
 			if (material != null) {
 				material.setCode(ccdiService.getNextElementCode(material

@@ -141,7 +141,7 @@ public class MaterialBrandAddForm extends GHAAddForm<MaterialBrand> implements
 
 			@Override
 			public void onSuccess(MaterialBrand entity) {
-				GHAAlertManager.alert("material-brand-save-success");
+				GHAAlertManager.alert("materialbrand-save-success");
 				hide();
 			}
 		});
