@@ -30,11 +30,11 @@ public class BpuHelper {
 	private LegalEntity legalEntity, legalEntity2;
 	private Institution institution;
 	private Bpi bpi;
-	private LegalEntityServiceRemote legalEntityServiceRemote;
-	private CitizenServiceRemote citizenServiceRemote;
-	private InstitutionServiceRemote institutionServiceRemote;
-	private BpuServiceRemote bpuServiceRemote;
-	private BpiServiceRemote bpiServiceRemote;
+	private final LegalEntityServiceRemote legalEntityServiceRemote;
+	private final CitizenServiceRemote citizenServiceRemote;
+	private final InstitutionServiceRemote institutionServiceRemote;
+	private final BpuServiceRemote bpuServiceRemote;
+	private final BpiServiceRemote bpiServiceRemote;
 
 	/**
 	 * @param legalEntityServiceRemote
@@ -43,10 +43,11 @@ public class BpuHelper {
 	 * @param institutionServiceRemote
 	 * @param citizenServiceRemote
 	 */
-	public BpuHelper(LegalEntityServiceRemote legalEntityServiceRemote,
-			CitizenServiceRemote citizenServiceRemote,
-			InstitutionServiceRemote institutionServiceRemote,
-			BpuServiceRemote bpuServiceRemote, BpiServiceRemote bpiServiceRemote) {
+	public BpuHelper(final LegalEntityServiceRemote legalEntityServiceRemote,
+			final CitizenServiceRemote citizenServiceRemote,
+			final InstitutionServiceRemote institutionServiceRemote,
+			final BpuServiceRemote bpuServiceRemote,
+			final BpiServiceRemote bpiServiceRemote) {
 		this.legalEntityServiceRemote = legalEntityServiceRemote;
 		this.citizenServiceRemote = citizenServiceRemote;
 		this.institutionServiceRemote = institutionServiceRemote;
@@ -62,6 +63,8 @@ public class BpuHelper {
 			legalEntity = legalEntityServiceRemote.save(new LegalEntity());
 			legalEntity2 = legalEntityServiceRemote.save(new LegalEntity());
 		} catch (final GHAEJBException e) {
+			System.out
+					.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 			removeBpu();
 			Assert.fail("failing creating the legalentity");
 		}

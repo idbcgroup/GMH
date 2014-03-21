@@ -27,6 +27,19 @@ public class EiaTypeCategoryService extends GHAEJBExceptionService implements
 			.getLogger(EiaTypeCategoryService.class.getName());
 
 	@Override
+	public void delete(final EiaTypeCategory entity) throws GHAEJBException {
+		try {
+			final EiaTypeCategory entity2 = em.find(EiaTypeCategory.class,
+					entity.getCode());
+			em.remove(entity2);
+		} catch (final Exception e) {
+			logger.log(Level.INFO, "ERROR: unable to delete eiatypecategory", e);
+			throw super.generateGHAEJBException("eiaTypeCategory-delete-fail",
+					em);
+		}
+	}
+
+	@Override
 	public List<EiaTypeCategory> getAll() throws GHAEJBException {
 		try {
 			List<EiaTypeCategory> res = em.createNamedQuery(
@@ -50,8 +63,9 @@ public class EiaTypeCategoryService extends GHAEJBExceptionService implements
 			em.flush();
 			return em.find(EiaTypeCategory.class, eiaTypeCategory.getCode());
 		} catch (final Exception e) {
-			logger.log(Level.INFO, "ERROR: saving eiatype", e);
-			throw super.generateGHAEJBException("eiatype-save-fail", em);
+			logger.log(Level.INFO, "ERROR: saving eiatypeCategory", e);
+			throw super
+					.generateGHAEJBException("eiatypeCategory-save-fail", em);
 		}
 	}
 }
