@@ -47,6 +47,8 @@ import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
 //import org.fourgeeks.gha.domain.gar.BuildingLocation;
 //import org.fourgeeks.gha.webclient.client.UI.GHACheckboxItem;
 //import com.google.gwt.user.client.Window;
+import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
+import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
 //import org.fourgeeks.gha.domain.enu.ItSystemEnum;
 
@@ -181,6 +183,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 				GHAStrings.get("intermediate-warranty"), 4);
 		realWarrantySinceSelectItem = new GHASelectItem(
 				GHAStrings.get("eia-select-desde"), false, changedHandler);
+
 		realWarrantyTimeTextItem = new GHATextItem(
 				GHAStrings.get("eia-duracion"), false, changedHandler);
 		realWarrantyTimeTextItem.setLength(3);
@@ -396,52 +399,123 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		facilityLocationCodeTextItem.setTooltip(GHAStrings
 				.get("eia-tooltip-facility-service-code"));
 
-		// // Costos Form Items
-		// adqCost_TitleItem = new GHATitletextItem("Costo Adquisición:", 4);
-		// actualCost_TitleItem = new GHATitletextItem("Costo Actual:", 4);
-		// depTime_TitleItem = new GHATitletextItem("Tiempo de Depreciación:");
-		// lifeTime_TitleItem = new GHATitletextItem("Tiempo de Vida:");
-		// adquisitionCostTextItem = new GHATextItem("Costo de Adq. del equipo",
-		// false, changedHandler);
-		// adquisitionCostTextItem.setLength(16);
-		// // adquisitionCostTextItem.setMask("################");
-		// adquisitionCostCurrencySelectItem = new GHASelectItem("Moneda",
-		// false,
-		// changedHandler);
-		// contabilizationDateItem = new GHADateItem("Fecha de Contabilización",
-		// true);
-		// contabilizationDateItem.addChangedHandler(changedHandler);
-		//
-		// adquisitionCostLocalTextItem = new GHATextItem("Costo de Adq. Local",
-		// false, changedHandler);
-		// adquisitionCostLocalTextItem.setLength(16);
-		// // adquisitionCostLocalTextItem.setMask("################");
-		// adquisitionCostCurrencyLocalSelectItem = new GHASelectItem(
-		// "Moneda Local", false, changedHandler);
-		// depreciationMethodSelectItem = new
-		// GHASelectItem("Metodo Depreciación",
-		// false, changedHandler);
-		// depreciationTimeTextItem = new GHATextItem("Duración", false,
-		// changedHandler);
-		// depreciationTimeTextItem.setLength(3);
-		// // depreciationTimeTextItem.setMask("###");
-		// depreciationTimePotSelectItem = new GHAPeriodOfTimeSelectItem(false,
-		// changedHandler);
-		// lastDepreciationDate = new GHADateItem("Fecha Ult. Depreciación",
-		// true);
-		// lastDepreciationDate.addChangedHandler(changedHandler);
-		// lifeTimeTextItem = new GHATextItem("Duración", false,
-		// changedHandler);
-		// lifeTimeTextItem.setLength(3);
-		// // lifeTimeTextItem.setMask("###");
-		// lifeTimePotSelectItem = new GHAPeriodOfTimeSelectItem(false,
-		// changedHandler);
-		// actualCostTextItem = new GHATextItem("Costo Actual en libros", false,
-		// changedHandler);
-		// actualCostTextItem.setLength(16);
-		// // actualCostTextItem.setMask("################");
-		// actualCostCurrencySelectItem = new GHASelectItem("Moneda", false,
-		// changedHandler);
+		realWarrantySinceSelectItem.addChangedHandler(new ChangedHandler() {
+			@Override
+			public void onChanged(ChangedEvent event) {
+				changedHandler.onChanged(event);
+
+				if (realWarrantySinceSelectItem.getValueAsString()
+						.equalsIgnoreCase("PURCHASE")) {
+					if (purchaseDateItem.getValue() == null) {
+						GHAAlertManager
+								.alert("WARNING", "Advertencia",
+										"Debe Ingresar o Seleccionar una Fecha de Compra");
+
+					} else {
+						realWarrantyBeginDate.setDisabled(true);
+						realWarrantyBeginDate.setValue(purchaseDateItem
+								.getValue());
+					}
+				} else if (realWarrantySinceSelectItem.getValueAsString()
+						.equalsIgnoreCase("RECEPTION")) {
+					if (receptionDateItem.getValue() == null) {
+						GHAAlertManager
+								.alert("WARNING", "Advertencia",
+										"Debe Ingresar o Seleccionar una Fecha de Recepción");
+
+					} else {
+						realWarrantyBeginDate.setDisabled(true);
+						realWarrantyBeginDate.setValue(receptionDateItem
+								.getValue());
+					}
+				} else if (realWarrantySinceSelectItem.getValueAsString()
+						.equalsIgnoreCase("INSTALATION")) {
+					if (installationDateItem.getValue() == null) {
+						GHAAlertManager
+								.alert("WARNING", "Advertencia",
+										"Debe Ingresar o Seleccionar una Fecha de Instalación");
+
+					} else {
+						realWarrantyBeginDate.setDisabled(true);
+						realWarrantyBeginDate.setValue(installationDateItem
+								.getValue());
+					}
+				} else if (realWarrantySinceSelectItem.getValueAsString()
+						.equalsIgnoreCase("ACCEPTATION")) {
+
+					if (acceptationDateItem.getValue() == null) {
+						GHAAlertManager
+								.alert("WARNING", "Advertencia",
+										"Debe Ingresar o Seleccionar una Fecha de Instalación");
+
+					} else {
+						realWarrantyBeginDate.setDisabled(true);
+						realWarrantyBeginDate.setValue(acceptationDateItem
+								.getValue());
+					}
+				} else if (realWarrantySinceSelectItem.getValueAsString()
+						.equalsIgnoreCase("OTHER")) {
+					realWarrantyBeginDate.setDisabled(false);
+					realWarrantyBeginDate.clearValue();
+
+				}
+
+			}
+		});
+
+		purchaseDateItem.addChangedHandler(new ChangedHandler() {
+
+			@Override
+			public void onChanged(ChangedEvent event) {
+				// TODO Auto-generated method stub
+				if (realWarrantySinceSelectItem.getValueAsString()
+						.equalsIgnoreCase("PURCHASE")) {
+					realWarrantyBeginDate.setDisabled(true);
+					realWarrantyBeginDate.setValue(purchaseDateItem.getValue());
+				}
+			}
+		});
+
+		acceptationDateItem.addChangedHandler(new ChangedHandler() {
+
+			@Override
+			public void onChanged(ChangedEvent event) {
+				// TODO Auto-generated method stub
+				if (realWarrantySinceSelectItem.getValueAsString()
+						.equalsIgnoreCase("ACCEPTATION")) {
+					realWarrantyBeginDate.setDisabled(true);
+					realWarrantyBeginDate.setValue(acceptationDateItem
+							.getValue());
+				}
+			}
+		});
+
+		installationDateItem.addChangedHandler(new ChangedHandler() {
+
+			@Override
+			public void onChanged(ChangedEvent event) {
+				// TODO Auto-generated method stub
+				if (realWarrantySinceSelectItem.getValueAsString()
+						.equalsIgnoreCase("INSTALATION")) {
+					realWarrantyBeginDate.setDisabled(true);
+					realWarrantyBeginDate.setValue(installationDateItem
+							.getValue());
+				}
+			}
+		});
+
+		receptionDateItem.addChangedHandler(new ChangedHandler() {
+
+			@Override
+			public void onChanged(ChangedEvent event) {
+				// TODO Auto-generated method stub
+				if (realWarrantySinceSelectItem.getValueAsString()
+						.equalsIgnoreCase("RECEPTION")) {
+					realWarrantyBeginDate.setDisabled(true);
+					realWarrantyBeginDate.setValue(receptionDateItem.getValue());
+				}
+			}
+		});
 
 	}
 
