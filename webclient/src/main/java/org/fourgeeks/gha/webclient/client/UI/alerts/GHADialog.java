@@ -38,10 +38,10 @@ Window.ScrollHandler {
 	// Internal Measures
 	private static final int DEFAULT_NOTIFICATION_WIDTH = 280;
 	private static final int DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT = 140;
-	private static final int DEFAULT_NOTIFICATION_BUTTONS_HEIGHT = 140;
+	private static final int DEFAULT_NOTIFICATION_BUTTONS_HEIGHT = 160;
 
 	private final int HEADER_HEIGHT = 25;
-	private final int FOOTER_HEIGHT = 18;
+	private final int FOOTER_HEIGHT = 15;
 	private final int RIGHT_MARGIN = 30;
 	private final int BORDER_SEPARATION = 8;
 
@@ -77,11 +77,12 @@ Window.ScrollHandler {
 		hasButtons = false;
 
 		initHandlers();
-		initialize();
-		setOriginalStyle();
 		initHeaderControls(canMinimize);
 		initFooterControls();
+		initialize();
+		setOriginalStyle();
 		initByType(type, time);
+
 
 		// ---Handlers
 		addCloseClickHandler(new CloseClickHandler() {
@@ -105,17 +106,17 @@ Window.ScrollHandler {
 			Button... buttons) {
 		super();
 		hasButtons = true;
-		initHandlers();
-		initialize();
-		setOriginalStyle();
-		initHeaderControls(canMinimize);
-		initFooterControls();
-		initByType(type, time);
-
 		// ---Buttons
 		if (hasButtons) {
 			setButtons(buttons);
 		}
+		initHandlers();
+		initHeaderControls(canMinimize);
+		initFooterControls();
+		initialize();
+		setOriginalStyle();
+		initByType(type, time);
+
 		// ---Handlers
 		addCloseClickHandler(new CloseClickHandler() {
 			@Override
@@ -225,7 +226,7 @@ Window.ScrollHandler {
 	}
 
 	/**
-	 * Set the neccesary parameters for the dialog to work
+	 * Set the necessary parameters for the dialog to work
 	 */
 	private void initialize() {
 		// ---Init
@@ -241,8 +242,7 @@ Window.ScrollHandler {
 
 		setHeight(dialogHeight);
 		setMaxHeight(dialogHeight);
-		bodyAC.setHeight(dialogHeight - (HEADER_HEIGHT + FOOTER_HEIGHT + BORDER_SEPARATION));
-		bodyAC.setMaxHeight(dialogHeight - (HEADER_HEIGHT + FOOTER_HEIGHT + BORDER_SEPARATION));
+		bodyAC.setHeight(dialogHeight - (HEADER_HEIGHT + FOOTER_HEIGHT  + BORDER_SEPARATION));
 
 		// bodyAC.setAlign(VerticalAlignment.CENTER);
 		// bodyAC.setAlign(Alignment.CENTER);

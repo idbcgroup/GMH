@@ -1,6 +1,6 @@
 * {
-/* 	padding: 0px; */
-/* 	margin: 0px; */
+	padding: 0px;
+	margin: 0px;
 	font-size: 12px;
 	font-family: Helvetica !important;
 }
@@ -652,8 +652,8 @@ div#header-bar.header-bar div#user-info.user-info div#isc_HLayout_0_wrapper div#
 }
 
 .dialogMessageStack{
-	height: 70px !important;
-	max-height: 70px !important;
+	height: 55px !important;
+	max-height: 55px !important;
 /* 	color:black; */
 /* 	font-size: 11px; */
 	overflow: overlay !important;	
@@ -666,11 +666,9 @@ div#header-bar.header-bar div#user-info.user-info div#isc_HLayout_0_wrapper div#
 }
 
 .windowHeaderText, .dialogHeaderText{
-	font-size: 10px !important;
+/* 	font-size: 10px !important; */
 	color: #000000 !important;
 	text-transform: uppercase;
-	height: 20px !important;
-	max-height: 20px !important;
 }
 
 .windowFooterText{
@@ -679,8 +677,8 @@ div#header-bar.header-bar div#user-info.user-info div#isc_HLayout_0_wrapper div#
 }
 
 .dialogHeaderStyle{
-	height: 20px !important;
-	max-height: 20px !important;
+	height: 25px !important;
+	max-height: 25px !important;
 }
 
 .windowStatusBar{
