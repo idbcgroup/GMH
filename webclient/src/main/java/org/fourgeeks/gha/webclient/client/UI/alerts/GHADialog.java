@@ -38,14 +38,15 @@ Window.ScrollHandler {
 	// Internal Measures
 	private static final int DEFAULT_NOTIFICATION_WIDTH = 280;
 	private static final int DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT = 140;
-	private static final int DEFAULT_NOTIFICATION_BUTTONS_HEIGHT = 145;
+	private static final int DEFAULT_NOTIFICATION_BUTTONS_HEIGHT = 140;
 
-	private final int HEADER_HEIGHT = 28;
-	private final int FOOTER_HEIGHT = 15;
+	private final int HEADER_HEIGHT = 25;
+	private final int FOOTER_HEIGHT = 18;
 	private final int RIGHT_MARGIN = 30;
 	private final int BORDER_SEPARATION = 8;
 
 	protected boolean hasButtons;
+	protected int dialogHeight;
 	protected String dialogType;
 	protected boolean isModal;
 	protected boolean isTimed;
@@ -191,6 +192,7 @@ Window.ScrollHandler {
 	private void initFooterControls() {
 		// ---Foooter controls
 		setShowFooter(true);
+
 		final Label function = new Label("Función");
 		function.setStyleName("windowFooterText");
 		final SimpleDateFormat sdf = new SimpleDateFormat(
@@ -231,18 +233,17 @@ Window.ScrollHandler {
 		setAutoCenter(false);
 		setWidth(DEFAULT_NOTIFICATION_WIDTH);
 		final Layout bodyAC = new Layout();
-		if (hasButtons) {
-			setHeight(DEFAULT_NOTIFICATION_BUTTONS_HEIGHT);
-			setMaxHeight(DEFAULT_NOTIFICATION_BUTTONS_HEIGHT);
-			bodyAC.setHeight(DEFAULT_NOTIFICATION_BUTTONS_HEIGHT
-					- (HEADER_HEIGHT + FOOTER_HEIGHT));
 
-		} else {
-			setHeight(DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT);
-			setMaxHeight(DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT);
-			bodyAC.setHeight(DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT
-					- (HEADER_HEIGHT + FOOTER_HEIGHT));
-		}
+		if (hasButtons)
+			dialogHeight = DEFAULT_NOTIFICATION_BUTTONS_HEIGHT;
+		else
+			dialogHeight = DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT;
+
+		setHeight(dialogHeight);
+		setMaxHeight(dialogHeight);
+		bodyAC.setHeight(dialogHeight - (HEADER_HEIGHT + FOOTER_HEIGHT + BORDER_SEPARATION));
+		bodyAC.setMaxHeight(dialogHeight - (HEADER_HEIGHT + FOOTER_HEIGHT + BORDER_SEPARATION));
+
 		// bodyAC.setAlign(VerticalAlignment.CENTER);
 		// bodyAC.setAlign(Alignment.CENTER);
 		changeAutoChildDefaults("body", bodyAC);
@@ -285,13 +286,17 @@ Window.ScrollHandler {
 			final int windowWidth = width;
 			final int windowHeight = height;
 
-			int multp = (openedPosition + 1)
-					* (DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION);
-			if (hasButtons)
-				multp = (openedPosition + 1)
-				* (DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION);
+			int multp = 0;
+			int rightMargin;
+			if (openedPosition < 0) {
+				rightMargin = (getWidth() + RIGHT_MARGIN) * 2;
+				multp = dialogHeight + BORDER_SEPARATION;
+			} else {
+				rightMargin = getWidth() + RIGHT_MARGIN;
+				multp = (openedPosition + 1) * (dialogHeight + BORDER_SEPARATION);
+			}
 
-			setLeft(left + (windowWidth - (getWidth() + RIGHT_MARGIN)));
+			setLeft(left + (windowWidth - rightMargin));
 			setTop(top + (windowHeight - multp));
 		}
 	}
@@ -375,25 +380,16 @@ Window.ScrollHandler {
 			final int windowHeight = Window.getClientHeight();
 
 			int multp = 0;
+			int rightMargin;
 			if (openedPosition < 0) {
-				setLeft(Window.getScrollLeft()
-						+ (windowWidth - (getWidth() + RIGHT_MARGIN) * 2));
-
-				multp = DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT
-						+ BORDER_SEPARATION;
-				if (hasButtons)
-					multp = DEFAULT_NOTIFICATION_BUTTONS_HEIGHT
-					+ BORDER_SEPARATION;
+				rightMargin = (getWidth() + RIGHT_MARGIN) * 2;
+				multp = dialogHeight + BORDER_SEPARATION;
 			} else {
-				setLeft(Window.getScrollLeft()
-						+ (windowWidth - (getWidth() + RIGHT_MARGIN)));
-
-				multp = (openedPosition + 1)
-						* (DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION);
-				if (hasButtons)
-					multp = (openedPosition + 1)
-					* (DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION);
+				rightMargin = getWidth() + RIGHT_MARGIN;
+				multp = (openedPosition + 1) * (dialogHeight + BORDER_SEPARATION);
 			}
+
+			setLeft(Window.getScrollLeft()	+ (windowWidth - rightMargin));
 			setTop(Window.getScrollTop() + Window.getClientHeight());
 
 			animateRect(null, Window.getScrollTop() + (windowHeight - multp),

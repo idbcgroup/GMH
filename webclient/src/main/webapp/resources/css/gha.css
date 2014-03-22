@@ -1,6 +1,6 @@
 * {
-	padding: 0px;
-	margin: 0px;
+/* 	padding: 0px; */
+/* 	margin: 0px; */
 	font-size: 12px;
 	font-family: Helvetica !important;
 }
@@ -631,7 +631,7 @@ div#header-bar.header-bar div#user-info.user-info div#isc_HLayout_0_wrapper div#
 	
 }
 
-/*Notifications testing*/
+/*GHADialog Classes --HARD CODED--*/
 
 .windowBackground, 
 .dialogBackground,
@@ -654,8 +654,8 @@ div#header-bar.header-bar div#user-info.user-info div#isc_HLayout_0_wrapper div#
 .dialogMessageStack{
 	height: 70px !important;
 	max-height: 70px !important;
-	color:black;
-	font-size: 11px;
+/* 	color:black; */
+/* 	font-size: 11px; */
 	overflow: overlay !important;	
 }
 
@@ -665,9 +665,12 @@ div#header-bar.header-bar div#user-info.user-info div#isc_HLayout_0_wrapper div#
 /* 	overflow: overlay !important;	 */
 }
 
-.windowHeaderText, .dialogHeaderText{ 
+.windowHeaderText, .dialogHeaderText{
+	font-size: 10px !important;
 	color: #000000 !important;
 	text-transform: uppercase;
+	height: 20px !important;
+	max-height: 20px !important;
 }
 
 .windowFooterText{
@@ -676,7 +679,8 @@ div#header-bar.header-bar div#user-info.user-info div#isc_HLayout_0_wrapper div#
 }
 
 .dialogHeaderStyle{
-	height: 20px important!;
+	height: 20px !important;
+	max-height: 20px !important;
 }
 
 .windowStatusBar{
