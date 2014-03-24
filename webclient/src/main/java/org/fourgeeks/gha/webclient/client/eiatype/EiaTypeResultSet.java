@@ -17,6 +17,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.util.BooleanCallback;
+import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -143,6 +144,7 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 														.getRecords().length);
 												GHAAlertManager
 														.alert("eiatypes-delete-success");
+												SC.say("lets see smartgwt4.1 say");
 											}
 										});
 							}

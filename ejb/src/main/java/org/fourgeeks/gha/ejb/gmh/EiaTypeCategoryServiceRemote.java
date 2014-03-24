@@ -21,4 +21,10 @@ public interface EiaTypeCategoryServiceRemote {
 	 * @throws GHAEJBException
 	 */
 	public List<EiaTypeCategory> getAll() throws GHAEJBException;
+
+	/**
+	 * 
+	 */
+	public EiaTypeCategory save(EiaTypeCategory eiaTypeCategory)
+			throws GHAEJBException;
 }
