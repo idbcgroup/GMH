@@ -13,12 +13,31 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
  */
 @Remote
 public interface ActivityTypeServiceRemote {
+	/**
+	 * 
+	 * @param id
+	 * @throws GHAEJBException
+	 */
+	public void delete(long id) throws GHAEJBException;
 
 	/**
-	 * @return A list with all the Activity Types
+	 * 
+	 * @param entities
+	 * @throws GHAEJBException
+	 */
+	public void delete(List<ActivityType> entities) throws GHAEJBException;
+
+	/**
+	 * @return A list with all the Activity Types that dont have parents
 	 * @throws GHAEJBException
 	 */
 	public List<ActivityType> getAllTypes() throws GHAEJBException;
+
+	/**
+	 * @return A list with all the Activity Types and Sub Types
+	 * @throws GHAEJBException
+	 */
+	public List<ActivityType> getAll() throws GHAEJBException;
 
 	/**
 	 * @param type
@@ -28,4 +47,13 @@ public interface ActivityTypeServiceRemote {
 	 */
 	public List<ActivityType> getSubTypes(ActivityType type)
 			throws GHAEJBException;
+
+	/**
+	 * 
+	 * @param entity
+	 * @return
+	 * @throws GHAEJBException
+	 */
+	public ActivityType save(ActivityType entity) throws GHAEJBException;
+
 }

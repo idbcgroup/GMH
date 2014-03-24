@@ -3,8 +3,6 @@ package org.fourgeeks.gha.ejb;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import junit.framework.Assert;
 
@@ -20,6 +18,11 @@ import org.fourgeeks.gha.domain.enu.BpiInstitutionRelationTypeEnum;
 import org.fourgeeks.gha.domain.enu.BpiOriginEnum;
 import org.fourgeeks.gha.domain.enu.BpiRiskEnum;
 import org.fourgeeks.gha.domain.enu.BpiTypeEnum;
+import org.fourgeeks.gha.domain.enu.CCDICodeTypeEnum;
+import org.fourgeeks.gha.domain.enu.CCDIEndValueActionEnum;
+import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
+import org.fourgeeks.gha.domain.enu.CCDIValueStatusEnum;
+import org.fourgeeks.gha.domain.enu.CCDIValueTypeEnum;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.DepreciationMethodEnum;
 import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
@@ -56,6 +59,7 @@ import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.ess.ui.App;
+import org.fourgeeks.gha.domain.ess.ui.AppView;
 import org.fourgeeks.gha.domain.ess.ui.Module;
 import org.fourgeeks.gha.domain.ess.ui.View;
 import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
@@ -91,6 +95,7 @@ import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 import org.fourgeeks.gha.domain.gom.CCDIDefinition;
 import org.fourgeeks.gha.domain.gom.CCDILevelDefinition;
 import org.fourgeeks.gha.domain.gom.CCDILevelValue;
+import org.fourgeeks.gha.domain.gom.Concept;
 import org.fourgeeks.gha.domain.logs.GHALog;
 import org.fourgeeks.gha.domain.logs.UILog;
 import org.fourgeeks.gha.domain.mix.Bpi;
@@ -151,6 +156,13 @@ public class ActivityTypeServiceTest {
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap
 				.create(WebArchive.class, "test.war")
+				.addClass(AppView.class)
+				.addClass(Concept.class)
+				.addClass(CCDIValueTypeEnum.class)
+				.addClass(CCDIEndValueActionEnum.class)
+				.addClass(CCDICodeTypeEnum.class)
+				.addClass(CCDIStatusEnum.class)
+				.addClass(CCDIValueStatusEnum.class)
 				.addClass(CCDILevelValue.class)
 				.addClass(CCDILevelDefinition.class)
 				.addClass(CCDIDefinition.class)
@@ -281,9 +293,6 @@ public class ActivityTypeServiceTest {
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
-	@PersistenceContext
-	EntityManager em;
-
 	@EJB(lookup = "java:global/test/ActivityTypeService")
 	private ActivityTypeServiceRemote service;
 
@@ -300,7 +309,7 @@ public class ActivityTypeServiceTest {
 			for (String typeName : activityTypeNames) {
 				ActivityType type = new ActivityType();
 				type.setDescription(typeName);
-				em.persist(type);
+				service.save(type);
 			}
 
 			final String[] subTypesName = new String[] { "Medición",
@@ -313,9 +322,8 @@ public class ActivityTypeServiceTest {
 				final ActivityType subType = new ActivityType();
 				subType.setDescription(subTypeName);
 				subType.setParentActivityTypeId(1);
-				em.persist(subType);
+				service.save(subType);
 			}
-			em.flush();
 
 		} catch (final Exception e1) {
 			System.out.println("Error Creating ActivityType test data: " + e1);
@@ -328,13 +336,8 @@ public class ActivityTypeServiceTest {
 		try {
 			System.out.println("REMOVING TEST DATA: ACTIVITY TYPE AND SUBTYPE");
 
-			final List<ActivityType> resultList = em.createQuery(
-					"SELECT atype FROM ActivityType", ActivityType.class)
-					.getResultList();
-
-			for (ActivityType activityType : resultList) {
-				em.remove(activityType);
-			}
+			final List<ActivityType> resultList = service.getAll();
+			service.delete(resultList);
 
 		} catch (final Exception e1) {
 			System.out.println("Error Removing ActivityType test data: " + e1);

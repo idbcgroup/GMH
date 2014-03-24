@@ -27,6 +27,49 @@ public class ActivityTypeService extends GHAEJBExceptionService implements
 			.getLogger(ActivityTypeService.class.getName());
 
 	@Override
+	public void delete(List<ActivityType> entities) throws GHAEJBException {
+		try {
+			for (ActivityType entity : entities) {
+				em.remove(entity);
+			}
+
+		} catch (final Exception e) {
+			logger.log(Level.INFO,
+					"ERROR: unable to delete the Activity Types", e);
+			throw super
+					.generateGHAEJBException("activityTypes-delete-fail", em);
+		}
+
+	}
+
+	@Override
+	public void delete(long id) throws GHAEJBException {
+		try {
+			final ActivityType entity = em.find(ActivityType.class, id);
+			em.remove(entity);
+
+		} catch (final Exception e) {
+			logger.log(Level.INFO, "ERROR: unable to delete ActivityType", e);
+			throw super.generateGHAEJBException("activityType-delete-fail", em);
+		}
+
+	}
+
+	@Override
+	public List<ActivityType> getAll() throws GHAEJBException {
+		try {
+			return em.createNamedQuery("ActivityType.getAll",
+					ActivityType.class).getResultList();
+		} catch (final Exception ex) {
+			String msg = "Error retrieving all the Activity Types and Subtypes";
+			String messageCode = "activityType-getAll-fail";
+
+			logger.log(Level.SEVERE, msg, ex);
+			throw super.generateGHAEJBException(messageCode, em);
+		}
+	}
+
+	@Override
 	public List<ActivityType> getAllTypes() throws GHAEJBException {
 		try {
 			return em.createNamedQuery("ActivityType.getAllTypes",
@@ -45,7 +88,7 @@ public class ActivityTypeService extends GHAEJBExceptionService implements
 			throws GHAEJBException {
 		try {
 			return em
-					.createNamedQuery("ActivityType.getSubType",
+					.createNamedQuery("ActivityType.getSubTypes",
 							ActivityType.class)
 					.setParameter("parentId", type.getId()).getResultList();
 
@@ -55,6 +98,19 @@ public class ActivityTypeService extends GHAEJBExceptionService implements
 
 			logger.log(Level.SEVERE, msg, ex);
 			throw super.generateGHAEJBException(messageCode, em);
+		}
+	}
+
+	@Override
+	public ActivityType save(ActivityType entity) throws GHAEJBException {
+		try {
+			em.persist(entity);
+			em.flush();
+			return em.find(ActivityType.class, entity.getId());
+
+		} catch (final Exception e) {
+			logger.log(Level.INFO, "ERROR: saving ActivityType ", e);
+			throw super.generateGHAEJBException("activityType-save-fail", em);
 		}
 	}
 

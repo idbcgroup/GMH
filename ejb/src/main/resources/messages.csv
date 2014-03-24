@@ -570,3 +570,7 @@ ES,eiatype-components-delete-confirm,¿Desea eliminar los componentes selecciona
 ES,eiatype-components-delete-success,Componentes eliminados correctamente,SUCCESS
 ES,activityType-getAllTypes-fail,Hubo un fallo al buscar todos los Tipos de Actividades,FAILURE
 ES,activityType-getSubType-fail,Hubo un fallo al buscar los Subtipos de Actividades para el Tipo de Actividad seleccionado,FAILURE
+ES,activityType-save-fail,Error guardando un tipo de actividad,FAILURE
+ES,activityType-delete-fail,Error eliminando un tipo de actividad,FAILURE
+ES,activityTypes-delete-fail,Error eliminando los tipos de actividades,FAILURE
+ES,activityType-getAll-fail,Hubo un fallo al buscar todos los Tipos y Subtipos de Actividades,FAILURE

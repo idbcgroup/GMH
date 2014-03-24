@@ -13,7 +13,8 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries(value = {
 		@NamedQuery(name = "ActivityType.getAllTypes", query = "SELECT atype FROM ActivityType atype WHERE atype.parentActivityTypeId = 0 ORDER BY atype.id"),
-		@NamedQuery(name = "ActivityType.getSubType", query = "SELECT atype FROM ActivityType atype WHERE atype.parentActivityTypeId = :parentId ORDER BY atype.id") })
+		@NamedQuery(name = "ActivityType.getSubTypes", query = "SELECT atype FROM ActivityType atype WHERE atype.parentActivityTypeId = :parentId ORDER BY atype.id"),
+		@NamedQuery(name = "ActivityType.getAll", query = "SELECT atype FROM ActivityType atype WHERE atype.parentActivityTypeId = :parentId ORDER BY atype.id") })
 public class ActivityType extends AbstractEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
