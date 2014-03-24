@@ -317,7 +317,7 @@ public class MaterialCategoryServiceTest {
 
 			List<MaterialCategory> categories = service.find(criteria);
 			Assert.assertNotNull(categories);
-			Assert.assertEquals(2, categories.size());
+			Assert.assertEquals(3, categories.size());
 
 			for (MaterialCategory category : categories)
 				Assert.assertEquals(true, category.getName().startsWith("test"));
