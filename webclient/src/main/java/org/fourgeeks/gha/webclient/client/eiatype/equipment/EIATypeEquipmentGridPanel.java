@@ -40,9 +40,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeEquipmentGridPanel extends GHAFormLayout implements
-EIATypeSelectionListener,/* EiaSelectionProducer, */
-EIASelectionListener, EiaDamageReportSelectionListener,
-HideableListener, ClosableListener {
+		EIATypeSelectionListener,/* EiaSelectionProducer, */
+		EIASelectionListener, EiaDamageReportSelectionListener,
+		HideableListener, ClosableListener {
 
 	private EIAGrid grid;
 	private EiaCountLabel eiaLabel;
@@ -79,53 +79,26 @@ HideableListener, ClosableListener {
 					}
 				}), new GHADeleteButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
+			@Override
+			public void onClick(ClickEvent event) {
+				delete();
+			}
 
-						final Eia selectedRecord = grid.getSelectedEntity();
+		}), new GHAEditButton(new ClickHandler() {
 
-						if (selectedRecord == null) {
-							GHAAlertManager.alert("record-not-selected");
-							return;
-						}
+			@Override
+			public void onClick(ClickEvent event) {
+				final Eia selectedRecord = grid.getSelectedEntity();
 
-						GHAAlertManager.confirm("eia-delete-confirm",
-								new BooleanCallback() {
+				if (selectedRecord == null) {
+					GHAAlertManager.alert("record-not-selected");
+					return;
+				}
 
-							@Override
-							public void execute(Boolean resultAsc) {
-								if (resultAsc)
-									EIAModel.delete(selectedRecord.getId(),
-											new GHAAsyncCallback<Boolean>() {
-
-										@Override
-										public void onSuccess(
-												Boolean result) {
-											loadData(eiaType);
-
-										}
-
-									});
-							}
-						});
-
-					}
-
-				}), new GHAEditButton(new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						final Eia selectedRecord = grid.getSelectedEntity();
-
-						if (selectedRecord == null) {
-							GHAAlertManager.alert("record-not-selected");
-							return;
-						}
-
-						eiaUpdateForm.setEia(selectedRecord);
-						eiaUpdateForm.open();
-					}
-				}));
+				eiaUpdateForm.setEia(selectedRecord);
+				eiaUpdateForm.open();
+			}
+		}));
 
 		final VLayout gridPanel = new VLayout();
 		gridPanel.setMembersMargin(10);
@@ -152,6 +125,57 @@ HideableListener, ClosableListener {
 		eiaUpdateForm.close();
 	}
 
+	private void delete() {
+		if (grid.getSelectedRecord() == null) {
+			GHAAlertManager.alert("record-not-selected");
+			return;
+		}
+
+		if (grid.getSelectedRecords().length > 1) {
+			GHAAlertManager.confirm("eias-delete-confirm",
+					new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								List<Eia> entities = grid.getSelectedEntities();
+								EIAModel.delete(entities,
+										new GHAAsyncCallback<Void>() {
+
+											@Override
+											public void onSuccess(Void result) {
+												GHAAlertManager
+														.alert("eias-delete-success");
+												loadData(EIATypeEquipmentGridPanel.this.eiaType);
+											}
+										});
+							}
+						}
+					});
+		} else {
+			GHAAlertManager.confirm("eia-delete-confirm",
+					new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								Eia entity = grid.getSelectedEntity();
+								EIAModel.delete(entity.getId(),
+										new GHAAsyncCallback<Boolean>() {
+
+											@Override
+											public void onSuccess(Boolean result) {
+												GHAAlertManager
+														.alert("eia-delete-success");
+												loadData(EIATypeEquipmentGridPanel.this.eiaType);
+											}
+										});
+							}
+						}
+					});
+		}
+	}
+
 	@Override
 	public void hide() {
 		if (eiaAddForm.isVisible())
@@ -168,11 +192,11 @@ HideableListener, ClosableListener {
 
 			@Override
 			public void onSuccess(List<Eia> result) {
-				final ListGridRecord[] array = EIAUtil.toGridRecords(result).toArray(
-						new EIARecord[] {});
+				final ListGridRecord[] array = EIAUtil.toGridRecords(result)
+						.toArray(new EIARecord[] {});
 				grid.setData(array);
 				EIATypeEquipmentGridPanel.this.eiaLabel
-				.setEiaStateTotals(result);
+						.setEiaStateTotals(result);
 			}
 		});
 	}

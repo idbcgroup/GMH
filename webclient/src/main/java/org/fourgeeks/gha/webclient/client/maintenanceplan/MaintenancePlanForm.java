@@ -92,7 +92,7 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 				.get("maintenance-plan-frequency-tooltip"));
 		frequencyItem.setShowErrorIcon(false);
 
-		frecuencyPoTItem = new GHAPeriodOfTimeSelectItem(true, changedHandler);
+		frecuencyPoTItem = new GHAPeriodOfTimeSelectItem(false, changedHandler);
 
 		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"),
 				changedHandler);

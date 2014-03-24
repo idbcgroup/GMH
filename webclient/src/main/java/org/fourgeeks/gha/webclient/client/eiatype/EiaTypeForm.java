@@ -58,6 +58,9 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	private GHAComboboxItem<Manufacturer> manItem;
 	private boolean cleanCodeItem = true;
 
+	private final String violationsOrder[] = { "name-not-null",
+			"eiatype-category-not-null", "mobility-not-null" };
+
 	private List<EIATypeSelectionListener> listeners;
 
 	{
@@ -67,7 +70,8 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		codeItem.disable();
 
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
-		categoryItem = new GHAEiaTypeCategoryPickTreeItem(GHAStrings.get("category"));
+		categoryItem = new GHAEiaTypeCategoryPickTreeItem(
+				GHAStrings.get("category"));
 		categoryItem.addChangedHandler(changedHandler);
 		categoryItem.setRequired(true);
 
@@ -270,20 +274,11 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 			// GHAAlertManager.alert(violationsList);
 			// GHAAlertManager.oldAlert(violationsList.get(0));
 
-			String mensaje = "name-not-null";
-			if (violationsList.contains(mensaje)) {
-				GHAAlertManager.alert(mensaje);
-				return null;
-			}
-			mensaje = "eiatype-category-not-null";
-			if (violationsList.contains(mensaje)) {
-				GHAAlertManager.alert(mensaje);
-				return null;
-			}
-			mensaje = "mobility-not-null";
-			if (violationsList.contains(mensaje)) {
-				GHAAlertManager.alert(mensaje);
-				return null;
+			for (String errorCode : violationsOrder) {
+				if (violationsList.contains(errorCode)) {
+					GHAAlertManager.alert(errorCode);
+					break;
+				}
 			}
 		}
 		return null;

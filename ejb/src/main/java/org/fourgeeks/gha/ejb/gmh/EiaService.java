@@ -247,6 +247,21 @@ public class EiaService extends GHAEJBExceptionService implements
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#find(long)
+	 */
+	@Override
+	public Eia find(long Id) throws GHAEJBException {
+		try {
+			return em.find(Eia.class, Id);
+		} catch (final Exception e) {
+			logger.log(Level.INFO, "ERROR: finding eia by id", e);
+			throw super.generateGHAEJBException("eia-find-fail", em);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see
 	 * org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#find(org.fourgeeks.gha.domain
 	 * .gmh.EiaType)
@@ -260,6 +275,23 @@ public class EiaService extends GHAEJBExceptionService implements
 			logger.log(Level.INFO, "Error: finding eia by eiatype", e);
 			throw super.generateGHAEJBException("eia-findByEiaType-fail", em);
 		}
+	}
+
+	@Override
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public List<Eia> findComponents(Eia entity, EiaType eiaType)
+			throws GHAEJBException {
+		final List<EiaTypeComponent> eiatypes = eiaTypeComponentService
+				.findByParentEiaType(eiaType);
+		final List<Eia> eias = find(entity);
+		final List<Eia> result = new ArrayList<Eia>();
+		for (final Eia eia : eias)
+			for (final EiaTypeComponent eiaType2 : eiatypes)
+				if (eiaType2.getEiaType().getCode()
+						.equals(eia.getEiaType().getCode()))
+					result.add(eia);
+		return result;
+
 	}
 
 	@Override
@@ -280,21 +312,6 @@ public class EiaService extends GHAEJBExceptionService implements
 			final String stringException = "Error: finding eia by eiatype and state DAMAGED or MAINTENANCE";
 			logger.log(Level.INFO, stringException, e);
 			throw super.generateGHAEJBException("eia-findByEiaType-fail", em);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#find(long)
-	 */
-	@Override
-	public Eia find(long Id) throws GHAEJBException {
-		try {
-			return em.find(Eia.class, Id);
-		} catch (final Exception e) {
-			logger.log(Level.INFO, "ERROR: finding eia by id", e);
-			throw super.generateGHAEJBException("eia-find-fail", em);
 		}
 	}
 
@@ -364,22 +381,5 @@ public class EiaService extends GHAEJBExceptionService implements
 			logger.log(Level.INFO, "ERROR: unable to update eia ", e);
 			throw super.generateGHAEJBException("eia-update-fail", em);
 		}
-	}
-
-	@Override
-	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public List<Eia> findComponents(Eia entity, EiaType eiaType)
-			throws GHAEJBException {
-		final List<EiaTypeComponent> eiatypes = eiaTypeComponentService
-				.findByParentEiaType(eiaType);
-		final List<Eia> eias = find(entity);
-		final List<Eia> result = new ArrayList<Eia>();
-		for (final Eia eia : eias)
-			for (final EiaTypeComponent eiaType2 : eiatypes)
-				if (eiaType2.getEiaType().getCode()
-						.equals(eia.getEiaType().getCode()))
-					result.add(eia);
-		return result;
-
 	}
 }
