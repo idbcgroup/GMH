@@ -367,14 +367,6 @@ public class EiaMaintenanceServiceTest {
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
-	// java:global/test/CCDIService!org.fourgeeks.gha.ejb.gom.CCDIServiceRemote
-	// java:app/test/CCDIService!org.fourgeeks.gha.ejb.gom.CCDIServiceRemote
-	// java:module/CCDIService!org.fourgeeks.gha.ejb.gom.CCDIServiceRemote
-	// java:jboss/exported/test/CCDIService!org.fourgeeks.gha.ejb.gom.CCDIServiceRemote
-	// java:global/test/CCDIService!org.fourgeeks.gha.ejb.gom.CCDIServiceLocal
-	// java:app/test/CCDIService!org.fourgeeks.gha.ejb.gom.CCDIServiceLocal
-	// java:module/CCDIService!org.fourgeeks.gha.ejb.gom.CCDIServiceLocal
-
 	@EJB(lookup = "java:global/test/CCDIService!org.fourgeeks.gha.ejb.gom.CCDIServiceRemote")
 	CCDIServiceRemote ccdiServiceRemote;
 
@@ -730,6 +722,7 @@ public class EiaMaintenanceServiceTest {
 			Bpu savedBpu = bpuHelper.createBpu();
 
 			eiaDamageReport = new EiaDamageReport();
+			eiaDamageReport.setEiaCondition(EiaStateEnum.CREATED);
 			eiaDamageReport.setEia(eia);
 			eiaDamageReport.setDamageStatus(EiaDamageStatusEnum.DAMAGE);
 			eiaDamageReport.setPriority(EiaDamagePriorityEnum.NORMAL);

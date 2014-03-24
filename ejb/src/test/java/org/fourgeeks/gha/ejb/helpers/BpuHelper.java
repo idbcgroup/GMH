@@ -61,20 +61,25 @@ public class BpuHelper {
 	public Bpu createBpu() {
 		try {
 			legalEntity = legalEntityServiceRemote.save(new LegalEntity());
+			System.out.println(legalEntity.getId());
 			legalEntity2 = legalEntityServiceRemote.save(new LegalEntity());
+			System.out.println(legalEntity2.getId());
 		} catch (final GHAEJBException e) {
-			System.out
-					.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 			removeBpu();
 			Assert.fail("failing creating the legalentity");
 		}
-
+		System.out.println(legalEntity.getId());
 		try {
 			final Citizen localCitizen = new Citizen();
+			System.out.println(legalEntity.getId());
 			localCitizen.setLegalEntity(legalEntity);
+			System.out.println(legalEntity.getId());
 			localCitizen.setIdNumber("id-number-legal-entity" + Math.random());
+			System.out.println(legalEntity.getId());
 			localCitizen.setIdType(DocumentTypeEnum.LOCAL);
+			System.out.println(legalEntity.getId());
 			localCitizen.setGender(GenderTypeEnum.FEMALE);
+			System.out.println(legalEntity.getId());
 			citizen = citizenServiceRemote.save(localCitizen);
 		} catch (final GHAEJBException e) {
 			removeBpu();
