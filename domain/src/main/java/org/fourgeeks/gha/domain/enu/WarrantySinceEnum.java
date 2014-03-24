@@ -7,28 +7,27 @@ import java.util.LinkedHashMap;
 
 /**
  * @author emiliot
- *
+ * 
  */
 public enum WarrantySinceEnum {
-	PURCHASE("Adquisición"),
-	RECEPTION("Recepción"),
-	INSTALATION("Instalación"),
-	ACCEPTATION("Aceptación");
-	
+	PURCHASE("Adquisición"), RECEPTION("Recepción"), INSTALATION("Instalación"), ACCEPTATION(
+			"Aceptación"), OTHER("Otro");
+
 	private String name;
-	
+
 	WarrantySinceEnum(String name) {
 		this.name = name;
 	}
-	
+
+	@Override
 	public String toString() {
 		return this.name;
 	}
-	
+
 	/**
 	 * @param string
-	 * @return the TimePeriodEnum representated by this value, or null if it does
-	 *         not exist
+	 * @return the TimePeriodEnum representated by this value, or null if it
+	 *         does not exist
 	 */
 	public static WarrantySinceEnum getByString(String string) {
 		if (string == null)
@@ -40,7 +39,7 @@ public enum WarrantySinceEnum {
 
 		return null;
 	}
-	
+
 	/**
 	 * @return a valueMap with this Enum values
 	 */

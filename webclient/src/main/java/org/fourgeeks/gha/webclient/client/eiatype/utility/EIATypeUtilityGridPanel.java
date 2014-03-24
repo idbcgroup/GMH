@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.glm.MaterialBrand;
+import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaterialBrand;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -47,6 +48,7 @@ public class EIATypeUtilityGridPanel extends GHAFormLayout implements
 	private UtilitySearchForm searchForm;
 	private UtilityAddForm addForm;
 	private EiaType eiaType;
+	private final MaterialTypeEnum defaultType = MaterialTypeEnum.UTILITARIO;
 	private final MaterialBrandSelectionListener materialBrandSelectionListener = new MaterialBrandSelectionListener() {
 
 		@Override
@@ -147,30 +149,57 @@ public class EIATypeUtilityGridPanel extends GHAFormLayout implements
 	 * 
 	 */
 	private void delete() {
-		final EiaTypeMaterialBrand entity = grid.getSelectedEntity();
-
-		if (entity == null) {
+		if (grid.getSelectedRecord() == null) {
 			GHAAlertManager.alert("record-not-selected");
 			return;
 		}
 
-		GHAAlertManager.confirm("eiatype-utility-service-delete-confirm",
-				new BooleanCallback() {
+		if (grid.getSelectedRecords().length > 1) {
+			GHAAlertManager.confirm("eiatype-utilities-delete-confirm",
+					new BooleanCallback() {
 
-					@Override
-					public void execute(Boolean value) {
-						if (value) {
-							EIATypeMaterialBrandModel.delete(entity.getId(),
-									new GHAAsyncCallback<Void>() {
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								List<EiaTypeMaterialBrand> entities = grid
+										.getSelectedEntities();
+								EIATypeMaterialBrandModel.delete(entities,
+										new GHAAsyncCallback<Void>() {
 
-										@Override
-										public void onSuccess(Void result) {
-											grid.removeSelectedData();
-										}
-									});
+											@Override
+											public void onSuccess(Void result) {
+												GHAAlertManager
+														.alert("eiatype-utilities-delete-success");
+												loadData();
+											}
+										});
+							}
 						}
-					}
-				});
+					});
+		} else {
+			GHAAlertManager.confirm("eiatype-utility-delete-confirm",
+					new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								EiaTypeMaterialBrand entity = grid
+										.getSelectedEntity();
+								EIATypeMaterialBrandModel.delete(
+										entity.getId(),
+										new GHAAsyncCallback<Void>() {
+
+											@Override
+											public void onSuccess(Void result) {
+												GHAAlertManager
+														.alert("eiatype-utility-delete-success");
+												loadData();
+											}
+										});
+							}
+						}
+					});
+		}
 	}
 
 	@Override
@@ -182,7 +211,7 @@ public class EIATypeUtilityGridPanel extends GHAFormLayout implements
 	}
 
 	private void loadData() {
-		EIATypeMaterialBrandModel.find(eiaType,
+		EIATypeMaterialBrandModel.find(eiaType, defaultType,
 				new GHAAsyncCallback<List<EiaTypeMaterialBrand>>() {
 
 					@Override

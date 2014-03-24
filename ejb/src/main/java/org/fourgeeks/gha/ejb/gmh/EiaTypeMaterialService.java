@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaterialBrand;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
@@ -32,17 +33,61 @@ public class EiaTypeMaterialService extends GHAEJBExceptionService implements
 	 * (non-Javadoc)
 	 * 
 	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaTypeMaterialServiceRemote#delete(java.util
+	 * .List)
+	 */
+	@Override
+	public void delete(List<EiaTypeMaterialBrand> entities)
+			throws GHAEJBException {
+		try {
+			for (EiaTypeMaterialBrand entity : entities) {
+				entity = em.find(EiaTypeMaterialBrand.class, entity.getId());
+				em.remove(entity);
+			}
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: unable to delete eiatypematerials",
+					e);
+			throw super.generateGHAEJBException(
+					"eiatype-materials-delete-fail", em);
+		}
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeMaterialServiceRemote#delete(long)
+	 */
+	@Override
+	public void delete(long id) throws GHAEJBException {
+		try {
+			EiaTypeMaterialBrand entity = em.find(EiaTypeMaterialBrand.class,
+					id);
+			em.remove(entity);
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: unable to delete eiatypematerial", e);
+			throw super.generateGHAEJBException("eiaTypeMaterial-delete-fail",
+					RuntimeParameters.getLang(), em);
+		}
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
 	 * org.fourgeeks.gha.ejb.gmh.EiaTypeMaterialServiceRemote#findByEiaType(
 	 * org.fourgeeks.gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public List<EiaTypeMaterialBrand> findByEiaType(EiaType eiaType)
-			throws GHAEJBException {
+	public List<EiaTypeMaterialBrand> findByEiaType(EiaType eiaType,
+			MaterialTypeEnum type) throws GHAEJBException {
 		try {
 			return em
 					.createNamedQuery("EiaTypeMaterial.findByEiaType",
 							EiaTypeMaterialBrand.class)
-					.setParameter("eiaType", eiaType).getResultList();
+					.setParameter("eiaType", eiaType)
+					.setParameter("type", type).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all EiaTypeMaterial", ex);
 			throw super.generateGHAEJBException(
@@ -78,24 +123,6 @@ public class EiaTypeMaterialService extends GHAEJBExceptionService implements
 			throw super.generateGHAEJBException("eiaTypeMaterial-save-fail",
 					RuntimeParameters.getLang(), em);
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeMaterialServiceRemote#delete(long)
-	 */
-	@Override
-	public void delete(long id) throws GHAEJBException {
-		try {
-			EiaTypeMaterialBrand entity = em.find(EiaTypeMaterialBrand.class, id);
-			em.remove(entity);
-		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: unable to delete eiatypematerial", e);
-			throw super.generateGHAEJBException("eiaTypeMaterial-delete-fail",
-					RuntimeParameters.getLang(), em);
-		}
-
 	}
 
 	/*
