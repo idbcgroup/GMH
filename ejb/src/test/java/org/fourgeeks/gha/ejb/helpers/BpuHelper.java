@@ -61,14 +61,11 @@ public class BpuHelper {
 	public Bpu createBpu() {
 		try {
 			legalEntity = legalEntityServiceRemote.save(new LegalEntity());
-			System.out.println(legalEntity.getId());
 			legalEntity2 = legalEntityServiceRemote.save(new LegalEntity());
-			System.out.println(legalEntity2.getId());
 		} catch (final GHAEJBException e) {
 			removeBpu();
 			Assert.fail("failing creating the legalentity");
 		}
-		System.out.println(legalEntity.getId());
 		try {
 			final Citizen localCitizen = new Citizen();
 			localCitizen.setLegalEntity(legalEntity);
