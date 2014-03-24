@@ -238,6 +238,13 @@ public class CCDIServiceTest {
 				.addClass(EiaMaintenanceServiceRemote.class)
 				.addClass(EiaPreventiveMaintenance.class)
 				.addClass(EiaCorrectiveMaintenance.class)
+				.addClass(MaintenanceServiceOrderServiceLocal.class)
+				.addClass(MaintenanceServiceOrderService.class)
+				.addClass(MaintenanceServiceOrderService.class)
+				.addClass(EiaMaintenanceService.class)
+				.addClass(EiaMaintenanceServiceRemote.class)
+				.addClass(MaintenanceServiceOrder.class)
+				.addClass(ServiceOrderState.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");

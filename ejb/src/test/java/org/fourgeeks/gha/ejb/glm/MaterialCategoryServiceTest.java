@@ -316,6 +316,12 @@ public class MaterialCategoryServiceTest {
 			criteria.setName("test-");
 
 			List<MaterialCategory> categories = service.find(criteria);
+
+			System.out.println("DEBUG");
+			for (MaterialCategory category : categories)
+				System.out.println(category.getName());
+			System.out.println("DEBUG");
+
 			Assert.assertNotNull(categories);
 			Assert.assertEquals(3, categories.size());
 
@@ -330,7 +336,7 @@ public class MaterialCategoryServiceTest {
 
 		try {
 			MaterialCategory update = new MaterialCategory();
-			update.setCode("010101");
+			update.setCode("T010101");
 			update.setName("test-name-change");
 			MaterialCategory updateRes = service.update(update);
 			Assert.assertNotNull(updateRes);
