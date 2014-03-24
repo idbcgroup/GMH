@@ -29,8 +29,11 @@ public class ActivityTypeService extends GHAEJBExceptionService implements
 	@Override
 	public void delete(List<ActivityType> entities) throws GHAEJBException {
 		try {
+
 			for (ActivityType entity : entities) {
-				em.remove(entity);
+				final ActivityType ent = em.find(ActivityType.class,
+						entity.getId());
+				em.remove(ent);
 			}
 
 		} catch (final Exception e) {

@@ -133,6 +133,9 @@ import org.fourgeeks.gha.ejb.mix.InstitutionService;
 import org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote;
 import org.fourgeeks.gha.ejb.mix.LegalEntityService;
 import org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote;
+import org.fourgeeks.gha.ejb.msg.MessageService;
+import org.fourgeeks.gha.ejb.msg.MessageServiceLocal;
+import org.fourgeeks.gha.ejb.msg.MessageServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -158,6 +161,9 @@ public class ActivityTypeServiceTest {
 				.create(WebArchive.class, "test.war")
 				.addClass(AppView.class)
 				.addClass(Concept.class)
+				.addClass(MessageService.class)
+				.addClass(MessageServiceLocal.class)
+				.addClass(MessageServiceRemote.class)
 				.addClass(CCDIValueTypeEnum.class)
 				.addClass(CCDIEndValueActionEnum.class)
 				.addClass(CCDICodeTypeEnum.class)

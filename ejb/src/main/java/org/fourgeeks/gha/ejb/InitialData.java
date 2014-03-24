@@ -762,10 +762,13 @@ public class InitialData {
 	}
 
 	private void activityTypeAndSubTypeTestData() {
-		final String query = "SELECT t FROM ActivityType t";
+		final String queryStr = "SELECT t FROM ActivityType t";
 		try {
-			em.createQuery(query).getSingleResult();
-		} catch (final NoResultException e) {
+			List<?> resultList = em.createQuery(queryStr).getResultList();
+			if (resultList.isEmpty())
+				throw new Exception();
+
+		} catch (final Exception e) {
 			try {
 				logger.info("Creating test data: activity type and subtype");
 

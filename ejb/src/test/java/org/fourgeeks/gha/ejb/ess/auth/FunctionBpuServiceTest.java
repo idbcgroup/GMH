@@ -130,18 +130,21 @@ import org.fourgeeks.gha.ejb.msg.MessageService;
 import org.fourgeeks.gha.ejb.msg.MessageServiceLocal;
 import org.fourgeeks.gha.ejb.msg.MessageServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * @author alacret
  * 
  */
-// @RunWith(Arquillian.class)
+@RunWith(Arquillian.class)
 public class FunctionBpuServiceTest {
 	private static final String TESTCODE = "TESTCODE" + Math.random() / 10;
 
@@ -350,7 +353,7 @@ public class FunctionBpuServiceTest {
 	/**
 	 * 
 	 */
-	// @Test
+	@Test
 	public void test() {
 		System.out.println("\n TESTING FUNCTION BPU SERVICE\n\n");
 

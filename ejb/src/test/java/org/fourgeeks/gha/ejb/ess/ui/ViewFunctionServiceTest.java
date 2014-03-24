@@ -116,16 +116,19 @@ import org.fourgeeks.gha.ejb.log.UILogServiceRemote;
 import org.fourgeeks.gha.ejb.mix.BpaService;
 import org.fourgeeks.gha.ejb.mix.BpaServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * @author alacret
  * 
  */
-// @RunWith(Arquillian.class)
+@RunWith(Arquillian.class)
 public class ViewFunctionServiceTest {
 	/**
 	 * @return the deployment descriptor
@@ -271,7 +274,7 @@ public class ViewFunctionServiceTest {
 	/**
 	 * 
 	 */
-	// @Test
+	@Test
 	public void test() {
 		System.out.println("\n TESTING VIEW FUNCTION SERVICE\n");
 
