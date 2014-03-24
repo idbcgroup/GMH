@@ -303,6 +303,21 @@ public class UILogServiceTest {
 		Assert.assertNotNull(uILogServiceLocal);
 		Assert.assertNotNull(ghaMessage);
 
+		List<UILog> all = null;
+		try {
+			all = uILogServiceRemote.getAll();
+		} catch (final Exception e) {
+			unset();
+			Assert.fail("failing retriving all ui logs" + e.getMessage());
+		}
+
+		try {
+			for (final UILog uiLog2 : all)
+				uILogServiceLocal.delete(uiLog2);
+		} catch (final Exception e) {
+			Assert.fail(e.getMessage());
+		}
+
 		try {
 			final UILog uiLog = new UILog();
 			uiLog.setBpu(bpu);
@@ -320,7 +335,6 @@ public class UILogServiceTest {
 			e1.printStackTrace();
 		}
 
-		List<UILog> all = null;
 		try {
 			all = uILogServiceRemote.getAll();
 		} catch (final Exception e) {
