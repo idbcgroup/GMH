@@ -32,8 +32,9 @@ public class PDT implements MessageListener {
 	/**
 	 * @see MessageListener#onMessage(Message)
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
-	public void onMessage(Message message) {
+	public void onMessage(final Message message) {
 		try {
 			ObjectMessage objectMessage = (ObjectMessage) message;
 			HashMap<String, Object> params = (HashMap<String, Object>) objectMessage
@@ -47,6 +48,8 @@ public class PDT implements MessageListener {
 					.lookup(transactParams.getJndiProcessorName());
 
 			processor.processMessage(params);
+
+			message.acknowledge();
 
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error al consumir el mensaje en PDT: ", e);
