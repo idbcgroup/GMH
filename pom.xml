@@ -12,7 +12,7 @@
 		<module>ear</module>
 	</modules>
 	<properties>
-		<skipTests>true</skipTests>
+		<skipTests>false</skipTests>
 	</properties>
 	<dependencies>
 		<dependency>

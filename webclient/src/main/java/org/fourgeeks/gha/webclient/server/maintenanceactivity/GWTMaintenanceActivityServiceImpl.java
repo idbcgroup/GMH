@@ -28,6 +28,7 @@ public class GWTMaintenanceActivityServiceImpl extends RemoteServiceServlet
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	@EJB(lookup = "java:global/ear-1/ejb-1/MaintenanceActivityService")
 	MaintenanceActivityServiceRemote ejbService;
 
@@ -51,6 +52,20 @@ public class GWTMaintenanceActivityServiceImpl extends RemoteServiceServlet
 	@Override
 	public MaintenanceActivity find(long Id) throws GHAEJBException {
 		return ejbService.find(Id);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol
+	 * .GWTMaintenanceActivityService
+	 * #find(org.fourgeeks.gha.domain.gmh.MaintenanceActivity)
+	 */
+	@Override
+	public List<MaintenanceActivity> find(
+			MaintenanceActivity maintenanceActivity) throws GHAEJBException {
+		return ejbService.find(maintenanceActivity);
 	}
 
 	/*
@@ -115,20 +130,6 @@ public class GWTMaintenanceActivityServiceImpl extends RemoteServiceServlet
 	public MaintenanceActivity update(MaintenanceActivity maintenanceActivity)
 			throws GHAEJBException {
 		return ejbService.update(maintenanceActivity);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol
-	 * .GWTMaintenanceActivityService
-	 * #find(org.fourgeeks.gha.domain.gmh.MaintenanceActivity)
-	 */
-	@Override
-	public List<MaintenanceActivity> find(
-			MaintenanceActivity maintenanceActivity) throws GHAEJBException {
-		return ejbService.find(maintenanceActivity);
 	}
 
 }

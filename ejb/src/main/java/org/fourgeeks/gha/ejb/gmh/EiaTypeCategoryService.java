@@ -11,7 +11,6 @@ import javax.persistence.PersistenceContext;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
-import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author emiliot
@@ -37,7 +36,22 @@ public class EiaTypeCategoryService extends GHAEJBExceptionService implements
 		} catch (final Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all eiatypes", ex);
 			throw super.generateGHAEJBException("eiatypecategory-getall-fail",
-					RuntimeParameters.getLang(), em);
+					em);
+		}
+	}
+
+	@Override
+	public EiaTypeCategory save(final EiaTypeCategory eiaTypeCategory)
+			throws GHAEJBException {
+		try {
+			if (eiaTypeCategory == null)
+				throw super.generateGHAEJBException("object-null", em);
+			em.persist(eiaTypeCategory);
+			em.flush();
+			return em.find(EiaTypeCategory.class, eiaTypeCategory.getCode());
+		} catch (final Exception e) {
+			logger.log(Level.INFO, "ERROR: saving eiatype", e);
+			throw super.generateGHAEJBException("eiatype-save-fail", em);
 		}
 	}
 }
