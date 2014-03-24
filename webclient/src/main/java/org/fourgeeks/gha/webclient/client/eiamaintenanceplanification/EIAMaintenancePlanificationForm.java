@@ -183,6 +183,7 @@ public class EIAMaintenancePlanificationForm extends
 		roleSelectItem.clearValue();
 		planificationStateSelectItem.clearValue();
 		planStateSelectItem.clearValue();
+		selectDateItem.clearValue();
 	}
 
 	@Override
@@ -191,8 +192,8 @@ public class EIAMaintenancePlanificationForm extends
 	}
 
 	private EiaMaintenancePlanification extract() {
-		if (!hasUnCommittedChanges)
-			return null;
+		// if (!hasUnCommittedChanges)
+		// return null;
 
 		final EiaMaintenancePlanification planification = new EiaMaintenancePlanification();
 		planification.setEia(selectedEia);
