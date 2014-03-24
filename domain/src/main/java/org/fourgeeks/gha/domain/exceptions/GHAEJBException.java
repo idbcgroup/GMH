@@ -25,13 +25,12 @@ public class GHAEJBException extends Exception implements Serializable {
 	 */
 	public GHAEJBException() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * @param message
 	 */
-	public GHAEJBException(GHAMessage message) {
+	public GHAEJBException(final GHAMessage message) {
 		super(message.getText());
 		this.ghaMessage = message;
 	}
@@ -39,7 +38,7 @@ public class GHAEJBException extends Exception implements Serializable {
 	/**
 	 * @param message
 	 */
-	public GHAEJBException(String message) {
+	public GHAEJBException(final String message) {
 		super(message);
 	}
 
@@ -54,7 +53,7 @@ public class GHAEJBException extends Exception implements Serializable {
 	 * @param ghaMessage
 	 *            the ghaMessage to set
 	 */
-	public void setGhaMessage(GHAMessage ghaMessage) {
+	public void setGhaMessage(final GHAMessage ghaMessage) {
 		this.ghaMessage = ghaMessage;
 	}
 }

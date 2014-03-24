@@ -28,6 +28,11 @@ public class EiaTypeCategoryService extends GHAEJBExceptionService implements
 
 	@Override
 	public void delete(final EiaTypeCategory entity) throws GHAEJBException {
+		if (entity == null) {
+			logger.log(Level.INFO, "ERROR: unable to delete eiatypecategory");
+			throw super.generateGHAEJBException("eiaTypeCategory-delete-fail",
+					em);
+		}
 		try {
 			final EiaTypeCategory entity2 = em.find(EiaTypeCategory.class,
 					entity.getCode());

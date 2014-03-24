@@ -31,26 +31,24 @@ public class GHAEJBExceptionService {
 	 * @param em
 	 * @return a ghaejbexception
 	 */
-	public GHAEJBException generateGHAEJBException(String messageCode,
-			EntityManager em) {
-		final GHAEJBException ghaejbException = new GHAEJBException();
+	public GHAEJBException generateGHAEJBException(final String messageCode,
+			final EntityManager em) {
 		final LanguageEnum lang = RuntimeParameters.getLang();
 
-		GHAMessage message = new GHAMessage(lang, "generic-error-msg",
-				"Unknow system failure, please contact IT support");
-		try {// the message throw by the method
-			message = em.find(GHAMessage.class, new GHAMessageId(messageCode,
-					lang));
-		} catch (final NoResultException e) {
+		GHAMessage message = em.find(GHAMessage.class, new GHAMessageId(
+				messageCode, lang));
+
+		if (message == null) {
 			logger.log(Level.SEVERE,
 					"Unavailable to obtain the error message: " + messageCode);
-			try {// a generic error message
-				message = em.find(GHAMessage.class, new GHAMessageId(
-						"message-find-fail", lang));
-			} catch (final NoResultException e1) {// a default create by hand
+			message = em.find(GHAMessage.class, new GHAMessageId(
+					"message-find-fail", lang));
+			if (message == null) {
 				logger.log(
 						Level.SEVERE,
 						"Unavailable to obtain the default error message that should be in the database");
+				message = new GHAMessage(lang, "generic-error-msg",
+						"Unknow system failure, please contact IT support");
 			}
 		}
 
@@ -59,6 +57,7 @@ public class GHAEJBExceptionService {
 		} catch (GHAEJBException e) {
 			logger.log(Level.SEVERE, "the service could not log");
 		}
+		final GHAEJBException ghaejbException = new GHAEJBException();
 		ghaejbException.setGhaMessage(message);
 
 		return ghaejbException;
@@ -73,8 +72,8 @@ public class GHAEJBExceptionService {
 	 *         this version is deprecated an error proun
 	 */
 	@Deprecated
-	public GHAEJBException generateGHAEJBException(String messageCode,
-			LanguageEnum lang, EntityManager em) {
+	public GHAEJBException generateGHAEJBException(final String messageCode,
+			final LanguageEnum lang, final EntityManager em) {
 		final GHAEJBException ghaejbException = new GHAEJBException();
 		try {// the messague throw by the method
 			final GHAMessage message = em.find(GHAMessage.class,

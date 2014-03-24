@@ -3,7 +3,7 @@ package org.fourgeeks.gha.ejb.gmh;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.List;
+import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 
@@ -169,6 +169,9 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Arquillian.class)
 public class EiaMaintenanceServiceTest {
+	private final static Logger logger = Logger
+			.getLogger(EiaMaintenanceServiceTest.class.getName());
+
 	/**
 	 * @return the deployment descriptor
 	 */
@@ -441,149 +444,26 @@ public class EiaMaintenanceServiceTest {
 	@EJB(lookup = "java:global/test/BpuService")
 	private BpuServiceRemote bpuService;
 
-	private EiaDamageReport eiaDamageReport;
+	private EiaDamageReport savedEiaDamageReport;
 	private EiaMaintenancePlanification savedEiaMPlani;
 	private EiaTypeMaintenancePlan savedEiaTypeMPlan;
 	private MaintenancePlan savedMaintenancePlan;
-	private EiaType eiaType;
-
 	private BpuHelper bpuHelper;
-
 	private Eia savedEia;
-
 	private ExternalProvider savedExternalProvider;
-
 	private Facility savedFacility;
-
 	private BuildingLocation savedBuildingLocation;
-
 	private Bsp savedBsp;
-
 	private Obu savedObu;
-
 	private Bpi savedBpi;
-
 	private Institution savedInstitution;
-
 	private LegalEntity savedLegalEntity;
-
 	private Role savedRole;
-
 	private EiaType savedEiatype;
-
 	private EiaTypeCategory savedEiatypeCategory;
-
 	private Brand savedBrand;
-
 	private Manufacturer savedManufacturer;
-
-	private void deleteTest(final EiaCorrectiveMaintenance cEntity,
-			final EiaPreventiveMaintenance pEntity) {
-		try {
-			service.deleteCorrectiveMaintenance(cEntity.getId());
-			service.deletePreventiveMaintenance(pEntity.getId());
-
-			List<EiaMaintenance> aux = service.find(eiaType);
-			Assert.assertEquals(0, aux.size());
-
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/** */
-	private void findByEiaTypeTest() {
-		int itemsExpected = 2;
-		try {
-			final List<EiaMaintenance> result = service.find(eiaType);
-			Assert.assertEquals(itemsExpected, result.size());
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void getEffectuatedPlanificationsCountTest(
-			final MaintenancePlan plan) {
-		final int countExpected = 1;
-		try {
-			final long result = planifServiceLocal
-					.getEffectuatedPlanificationsCount(plan);
-
-			Assert.assertEquals(countExpected, result);
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void getLastEffectuatedPlanificationDateTest(
-			final MaintenancePlan plan) {
-		try {
-			final Timestamp result = planifServiceLocal
-					.getLastEffectuatedPlanificationDate(plan);
-
-			Assert.assertNotNull(result);
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void getScheduleDateOfLastMaintenance(
-			final EiaMaintenancePlanification planif) {
-		try {
-			final Date result = planifServiceLocal
-					.getScheduleDateOfLastMaintenance(planif);
-
-			Assert.assertNotNull(result);
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/** */
-	private EiaCorrectiveMaintenance saveCorrectiveMaintenance() {
-		try {
-			final EiaCorrectiveMaintenance entity = new EiaCorrectiveMaintenance();
-			entity.setDamageReport(eiaDamageReport);
-
-			final EiaCorrectiveMaintenance result = service
-					.saveCorrectiveMaintenance(entity);
-
-			Assert.assertNotNull(result);
-			return result;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return null;
-	}
-
-	/** */
-	private EiaPreventiveMaintenance savePreventiveMaintenance() {
-		long time = Calendar.getInstance().getTimeInMillis();
-		Timestamp finishTimestamp = new Timestamp(time);
-		Date scheduledDate = new Date(time);
-
-		try {
-			EiaPreventiveMaintenance prevEntity = new EiaPreventiveMaintenance();
-			prevEntity.setPlanification(savedEiaMPlani);
-			prevEntity.setState(EiaMaintenanceState.ACCOMPLISHED);
-			prevEntity.setFinishTimestamp(finishTimestamp);
-			prevEntity.setScheduledDate(scheduledDate);
-
-			EiaPreventiveMaintenance result = service
-					.savePreventiveMaintenance(prevEntity);
-
-			Assert.assertNotNull(result);
-			return result;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return null;
-	}
+	private CCDIDefinition savedCCDIDefinition;
 
 	/** */
 	@Before
@@ -593,7 +473,7 @@ public class EiaMaintenanceServiceTest {
 			CCDIDefinition definition = new CCDIDefinition("CCDIDEFTEST");
 			definition.setLevels(1);
 			definition.setLength(10);
-			CCDIDefinition savedCCDIDefinition = ccdiServiceLocal
+			savedCCDIDefinition = ccdiServiceLocal
 					.createCCDIDefinition(definition);
 
 			// creating a ccdi level denition
@@ -721,124 +601,249 @@ public class EiaMaintenanceServiceTest {
 					bpiServiceRemote);
 			Bpu savedBpu = bpuHelper.createBpu();
 
-			eiaDamageReport = new EiaDamageReport();
+			EiaDamageReport eiaDamageReport = new EiaDamageReport();
 			eiaDamageReport.setEiaCondition(EiaStateEnum.CREATED);
-			eiaDamageReport.setEia(eia);
+			eiaDamageReport.setEia(savedEia);
 			eiaDamageReport.setDamageStatus(EiaDamageStatusEnum.DAMAGE);
 			eiaDamageReport.setPriority(EiaDamagePriorityEnum.NORMAL);
 			eiaDamageReport.setUserWhoRegistered(savedBpu);
 			eiaDamageReport.setUserWhoReported(savedBpu);
-			eiaDamageReport = damageReportService.save(eiaDamageReport);
+			savedEiaDamageReport = damageReportService.save(eiaDamageReport);
 
 		} catch (GHAEJBException e) {
+			unset();
+			Assert.fail("error setting: " + e.getMessage());
+		}
+	}
+
+	/**
+	 * 
+	 */
+	@Test
+	public void testCorrectiveMaintenance() {
+		EiaCorrectiveMaintenance result = null;
+		try {
+			final EiaCorrectiveMaintenance entity = new EiaCorrectiveMaintenance();
+			entity.setDamageReport(savedEiaDamageReport);
+
+			result = service.saveCorrectiveMaintenance(entity);
+
+			Assert.assertNotNull(result);
+
+		} catch (Exception e) {
 			e.printStackTrace();
+		}
+
+		try {
+			result.setEffectiveTime(3);
+			result.setEffectivePoT(TimePeriodEnum.MONTHS);
+
+			final EiaCorrectiveMaintenance localResult = service
+					.updateCorrectiveMaintenance(result);
+
+			Assert.assertEquals(localResult.getEffectiveTime(), 3);
+			Assert.assertEquals(localResult.getEffectivePoT(),
+					TimePeriodEnum.MONTHS);
+
+		} catch (Exception e) {
+			unset();
+			Assert.fail("error updating preventive maintenance");
+		}
+
+		try {
+			service.deleteCorrectiveMaintenance(result.getId());
+			Assert.assertTrue(true);
+		} catch (Exception e) {
+			unset();
+			Assert.fail("error deleting corrective maintenance");
 		}
 	}
 
 	/** */
 	@Test
-	public void test() {
-		// final String sep = "\n---------------------------------------\n";
-		//
-		// System.out.println("TESTING EIA MAINTENANCE SERVICE\n");
-		//
-		// System.out.println(sep + "savePreventiveMaintenance" + sep);
-		// EiaPreventiveMaintenance pEntity = savePreventiveMaintenance();
-		//
-		// System.out.println(sep + "saveCorrectiveMaintenance" + sep);
-		// EiaCorrectiveMaintenance cEntity = saveCorrectiveMaintenance();
-		//
-		// System.out.println(sep + "updatePreventiveMaintenance" + sep);
-		// pEntity = updatePreventiveMaintenance(pEntity);
-		//
-		// System.out.println(sep + "updateCorrectiveMaintenance" + sep);
-		// cEntity = updateCorrectiveMaintenance(cEntity);
-		//
-		// System.out.println(sep + "findByEiaTypeTest" + sep);
-		// findByEiaTypeTest();
-		//
-		// System.out.println(sep + "getEffectuatedPlanificationsCountTest" +
-		// sep);
-		// getEffectuatedPlanificationsCountTest(savedMaintenancePlan);
-		//
-		// System.out.println(sep + "getLastEffectuatedPlanificationDateTest"
-		// + sep);
-		// getLastEffectuatedPlanificationDateTest(savedMaintenancePlan);
-		//
-		// System.out.println(sep + "getScheduleDateOfLastMaintenance" + sep);
-		// getScheduleDateOfLastMaintenance(planif);
-		//
-		// System.out.println(sep + "deleteTest" + sep);
-		// deleteTest(cEntity, pEntity);
+	public void testPreventiveMaintenance() {
+		long time = Calendar.getInstance().getTimeInMillis();
+		Timestamp finishTimestamp = new Timestamp(time);
+		Date scheduledDate = new Date(time);
+
+		EiaPreventiveMaintenance result = null;
+		try {
+			EiaPreventiveMaintenance prevEntity = new EiaPreventiveMaintenance();
+			prevEntity.setPlanification(savedEiaMPlani);
+			prevEntity.setState(EiaMaintenanceState.ACCOMPLISHED);
+			prevEntity.setFinishTimestamp(finishTimestamp);
+			prevEntity.setScheduledDate(scheduledDate);
+			result = service.savePreventiveMaintenance(prevEntity);
+			Assert.assertNotNull(result);
+
+		} catch (Exception e) {
+			unset();
+			Assert.fail("error saving preventive maintenance");
+		}
+
+		try {
+			result.setEffectiveTime(3);
+			result.setEffectivePoT(TimePeriodEnum.MONTHS);
+
+			final EiaPreventiveMaintenance localResult = service
+					.updatePreventiveMaintenance(result);
+
+			Assert.assertEquals(localResult.getEffectiveTime(), 3);
+			Assert.assertEquals(localResult.getEffectivePoT(),
+					TimePeriodEnum.MONTHS);
+
+		} catch (Exception e) {
+			unset();
+			Assert.fail("error updating preventive maintenance");
+		}
+
+		try {
+			Assert.assertEquals(1, service.find(savedEiatype).size());
+		} catch (Exception e) {
+			unset();
+			Assert.fail("error finding preventive maintenance by eiatype");
+		}
+
+		try {
+			service.deletePreventiveMaintenance(result.getId());
+			Assert.assertTrue(true);
+		} catch (Exception e) {
+			unset();
+			Assert.fail("error deleting preventive maintenance");
+		}
+
+		try {
+			final long planis = planifServiceLocal
+					.getEffectuatedPlanificationsCount(savedMaintenancePlan);
+			Assert.assertEquals(0, planis);
+		} catch (GHAEJBException e) {
+			unset();
+			Assert.fail("error getting planification count");
+		}
+
+		try {
+			final Timestamp result1 = planifServiceLocal
+					.getLastEffectuatedPlanificationDate(savedMaintenancePlan);
+			Assert.assertNull(result1);
+		} catch (GHAEJBException e) {
+			unset();
+			Assert.fail("error getting last planification effectuate date");
+		}
+
+		try {
+			final Date result1 = planifServiceLocal
+					.getScheduleDateOfLastMaintenance(savedEiaMPlani);
+			Assert.assertNull(result1);
+		} catch (GHAEJBException e) {
+			unset();
+			Assert.fail("error getting last planification date");
+		}
+
 	}
 
 	/** */
 	@After
 	public void unset() {
 		try {
-			damageReportService.delete(eiaDamageReport.getId());
+			damageReportService.delete(savedEiaDamageReport.getId());
+		} catch (Exception e) {
+			logger.info("error deleting the damage report" + e.getMessage());
+		}
+		try {
 			bpuHelper.removeBpu();
+		} catch (Exception e) {
+			logger.info("error deleting the bpu " + e.getMessage());
+		}
+		try {
 			planifServiceRemote.delete(savedEiaMPlani.getId());
+		} catch (Exception e) {
+			logger.info("error deleting eia mPlaninif" + e.getMessage());
+		}
+		try {
 			eiaTypeMPlanService.delete(savedEiaTypeMPlan.getId());
+		} catch (Exception e) {
+			logger.info("error deleting eiatype mplan " + e.getMessage());
+		}
+		try {
 			maintenancePlanService.delete(savedMaintenancePlan.getId());
+		} catch (Exception e) {
+			logger.info("error deleting maintenance plan" + e.getMessage());
+		}
+		try {
 			eiaServiceRemote.delete(savedEia.getId());
+		} catch (Exception e) {
+			logger.info("error deleting plan eia " + e.getMessage());
+		}
+		try {
 			externalProviderServiceRemote.delete(savedExternalProvider.getId());
+		} catch (Exception e) {
+			logger.info("error deleting external provider " + e.getMessage());
+		}
+		try {
 			facilityServiceRemote.delete(savedFacility.getId());
+		} catch (Exception e) {
+			logger.info("error deleting facility " + e.getMessage());
+		}
+		try {
 			buildingLocationServiceRemote.delete(savedBuildingLocation
 					.getCode());
+		} catch (Exception e) {
+			logger.info("error deleting building location" + e.getMessage());
+		}
+		try {
 			bspServiceRemote.delete(savedBsp.getId());
+		} catch (Exception e) {
+			logger.info("error deleting bsp" + e.getMessage());
+		}
+		try {
 			obuServiceRemote.delete(savedObu.getId());
+		} catch (Exception e) {
+			logger.info("error deleting obu " + e.getMessage());
+		}
+		try {
 			bpiServiceRemote.delete(savedBpi.getId());
+		} catch (Exception e) {
+			logger.info("error deleting bpi " + e.getMessage());
+		}
+		try {
 			institutionServiceRemote.delete(savedInstitution.getId());
+		} catch (Exception e) {
+			logger.info("error deleting institution " + e.getMessage());
+		}
+		try {
 			legalEntityServiceRemote.delete(savedLegalEntity.getId());
+		} catch (Exception e) {
+			logger.info("error deleting legal entity " + e.getMessage());
+		}
+		try {
 			roleServiceRemote.delete(savedRole.getId());
+		} catch (Exception e) {
+			logger.info("error deleting role " + e.getMessage());
+		}
+		try {
 			eiaTypeServiceRemote.delete(savedEiatype.getCode());
+		} catch (Exception e) {
+			logger.info("error deleting eiatype " + e.getMessage());
+		}
+		try {
 			eiaTypeCategoryServiceRemote.delete(savedEiatypeCategory);
+		} catch (Exception e) {
+			logger.info("error deleting eiatypecategory " + e.getMessage());
+		}
+		try {
 			brandServiceRemote.delete(savedBrand.getId());
+		} catch (Exception e) {
+			logger.info("error deleting a brand " + e.getMessage());
+		}
+		try {
 			manufacturerServiceRemote.delete(savedManufacturer.getId());
-
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/** */
-	private EiaCorrectiveMaintenance updateCorrectiveMaintenance(
-			final EiaCorrectiveMaintenance entity) {
-		try {
-			entity.setEffectiveTime(1);
-			entity.setEffectivePoT(TimePeriodEnum.SEMESTERS);
-
-			EiaCorrectiveMaintenance result = service
-					.updateCorrectiveMaintenance(entity);
-
-			Assert.assertNotNull(result);
-			return result;
-
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info("error deleting manufacturer " + e.getMessage());
 		}
-
-		return null;
-	}
-
-	/** */
-	private EiaPreventiveMaintenance updatePreventiveMaintenance(
-			final EiaPreventiveMaintenance entity) {
 		try {
-			entity.setEffectiveTime(3);
-			entity.setEffectivePoT(TimePeriodEnum.MONTHS);
-
-			final EiaPreventiveMaintenance result = service
-					.updatePreventiveMaintenance(entity);
-
-			Assert.assertNotNull(result);
-			return result;
-
+			ccdiServiceLocal.deleteByCode(savedCCDIDefinition.getCode());
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info("error deleting ccdi definition" + e.getMessage());
 		}
-
-		return null;
 	}
 }

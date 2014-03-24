@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.logs.UILog;
+import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.msg.MessageService;
 
@@ -29,19 +30,7 @@ public class UILogService extends GHAEJBExceptionService implements
 	private EntityManager em;
 
 	@Override
-	@Asynchronous
-	public void log(UILog log) throws GHAEJBException {
-		try {
-			em.persist(log);
-		} catch (final Exception e) {
-			logger.log(Level.INFO, "ERROR: unable to log ="
-					+ log.getClass().getName() + " with id = " + log.getId(), e);
-			throw super.generateGHAEJBException("log-fail", em);
-		}
-	}
-
-	@Override
-	public void delete(UILog log) throws GHAEJBException {
+	public void delete(final UILog log) throws GHAEJBException {
 		try {
 			final UILog entity = em.find(UILog.class, log.getId());
 			em.remove(entity);
@@ -60,6 +49,25 @@ public class UILogService extends GHAEJBExceptionService implements
 		} catch (final Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all uilogs", ex);
 			throw super.generateGHAEJBException("uilog-getall-fail", em);
+		}
+	}
+
+	@Override
+	@Asynchronous
+	public void log(final UILog log) throws GHAEJBException {
+		GHAMessage message = log.getMessage();
+		if (message == null) {
+			logger.log(Level.INFO,
+					"ERROR: logging, the message could not be null =");
+			throw super.generateGHAEJBException("log-fail", em);
+		}
+		try {
+			em.merge(message);
+			em.persist(log);
+		} catch (final Exception e) {
+			logger.log(Level.INFO, "ERROR: unable to log ="
+					+ log.getClass().getName() + " with id = " + log.getId(), e);
+			throw super.generateGHAEJBException("log-fail", em);
 		}
 	}
 
