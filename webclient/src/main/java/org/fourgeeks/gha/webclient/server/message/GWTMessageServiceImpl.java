@@ -45,10 +45,10 @@ public class GWTMessageServiceImpl extends RemoteServiceServlet implements
 		try {
 			final String user = String.valueOf(getThreadLocalRequest()
 					.getSession().getAttribute("user"));
-			return ejbService.find(user, messages);
+			return ejbService.findAndLog(user, messages);
 		} catch (final NullPointerException e) {
 			logger.info("ERROR:user not found where it should be found");
-			return ejbService.find(null, messages);
+			return ejbService.findAndLog(null, messages);
 		}
 	}
 
@@ -64,10 +64,10 @@ public class GWTMessageServiceImpl extends RemoteServiceServlet implements
 		try {
 			final String user = String.valueOf(getThreadLocalRequest()
 					.getSession().getAttribute("user"));
-			return ejbService.find(user, id);
+			return ejbService.findAndLog(user, id);
 		} catch (final NullPointerException e) {
 			logger.info("ERROR:user not found where it should be found");
-			return ejbService.find(null, id);
+			return ejbService.findAndLog(null, id);
 		}
 	}
 
