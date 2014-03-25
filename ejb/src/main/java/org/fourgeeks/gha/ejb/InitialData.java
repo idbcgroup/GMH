@@ -226,9 +226,9 @@ public class InitialData {
 			String moduleCode = strings[0];
 			String appCode = strings[1];
 			String appToken = strings[2];
-
 			Module module = em.find(Module.class, moduleCode);
-			em.persist(new App(module, appCode, appCode, appToken));
+			em.merge(new App(module, appCode, appCode, appToken));
+			em.flush();
 		}
 
 		try {
@@ -867,11 +867,11 @@ public class InitialData {
 		modules();
 		apps();
 
-		try {
-			functions();
-		} catch (final IOException e) {
-			e.printStackTrace();
-		}
+		// try {
+		// functions();
+		// } catch (final IOException e) {
+		// e.printStackTrace();
+		// }
 		menus();
 		messageTypes();
 		messages();
@@ -1281,12 +1281,13 @@ public class InitialData {
 			String text = strings[1];
 			String parentCode = strings[2];
 			if (parentCode.equals("null"))
-				em.persist(new MenuLevel(code, text, null));
+				em.merge(new MenuLevel(code, text, null));
 			else
-				em.persist(new MenuLevel(code, text, em.find(MenuLevel.class,
+				em.merge(new MenuLevel(code, text, em.find(MenuLevel.class,
 						parentCode)));
-		}
 
+			em.flush();
+		}
 		try {
 			csvReader.close();
 		} catch (IOException e1) {
@@ -1452,8 +1453,10 @@ public class InitialData {
 				continue;
 			String code = strings[0];
 			String name = strings[1];
-			em.persist(new Module(code, name));
+			em.merge(new Module(code, name));
 		}
+
+		em.flush();
 
 		try {
 			csvReader.close();

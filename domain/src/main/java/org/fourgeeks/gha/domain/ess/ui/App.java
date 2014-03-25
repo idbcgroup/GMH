@@ -25,6 +25,9 @@ public class App extends AbstractCodeEntity {
 	@NotNull
 	@Column(nullable = false)
 	private String name;
+
+	@NotNull
+	@Column(nullable = false)
 	private String token;
 
 	@ManyToOne
@@ -32,7 +35,7 @@ public class App extends AbstractCodeEntity {
 	private Module module;
 
 	@ManyToOne
-	@JoinColumn(name = "menuFk", nullable = false)
+	@JoinColumn(name = "menuFk", nullable = true)
 	private MenuLevel menu;
 
 	/**
