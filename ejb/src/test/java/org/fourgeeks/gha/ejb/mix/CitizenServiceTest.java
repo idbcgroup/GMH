@@ -307,8 +307,6 @@ public class CitizenServiceTest {
 	@EJB(lookup = "java:global/test/SubProtocolAndCheklistService!"
 			+ "org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistServiceLocal")
 	private SubProtocolAndCheklistServiceLocal serviceLocal;
-	
-	private CitizenServiceRemote citizenServiceRemote;
 
 	private Activity activity;
 	private Activity parentActivity;
