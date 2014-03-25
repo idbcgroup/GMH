@@ -813,7 +813,6 @@ public class InitialData {
 			csvReader = new CSVReader(new InputStreamReader(resourceAsStream,
 					"UTF-8"), ',', '\'', 1);
 			final List<String[]> readAll = csvReader.readAll();
-			Module module = null;
 			App app = null;
 			View view = null;
 			AppView appView = null;
@@ -823,22 +822,16 @@ public class InitialData {
 			for (final String[] strings : readAll) {
 				if (strings[0].startsWith("#") || strings[0].startsWith("//"))
 					continue;
-				final String moduleCode = strings[0];
-				module = em.find(Module.class, moduleCode);
-				em.merge(module);
-				final String appCode = strings[1];
-				final String appToken = strings[2];
-				final String name = appCode;
-				app = new App(module, name, appCode, appToken);
-				em.merge(app);
-				final String viewCode = strings[3];
-				final String viewDescription = strings[4];
+				final String appCode = strings[0];
+				app = em.find(App.class, appCode);
+				final String viewCode = strings[1];
+				final String viewDescription = strings[2];
 				view = new View(viewCode, null, viewDescription);
 				em.merge(view);
 				appView = new AppView(app, view);
 				em.merge(appView);
-				final String permissionCode = strings[5];
-				final String functionDescription = strings[6];
+				final String permissionCode = strings[3];
+				final String functionDescription = strings[4];
 				permission = new Function(permissionCode, null,
 						functionDescription);
 				em.merge(permission);
