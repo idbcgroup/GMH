@@ -26,12 +26,11 @@ public class View extends AbstractCodeEntity {
 	}
 
 	/**
-	 * @param app
 	 * @param name
 	 * @param code
 	 * @param description
 	 */
-	public View(String code, String name, String description) {
+	public View(final String code, final String name, final String description) {
 		this.name = name;
 		setCode(code);
 		this.description = description;

@@ -31,6 +31,10 @@ public class App extends AbstractCodeEntity {
 	@JoinColumn(name = "moduleFk", nullable = false)
 	private Module module;
 
+	@ManyToOne
+	@JoinColumn(name = "menuFk", nullable = false)
+	private MenuLevel menu;
+
 	/**
 	 * 
 	 */
@@ -43,7 +47,8 @@ public class App extends AbstractCodeEntity {
 	 * @param code
 	 * @param token
 	 */
-	public App(Module module, String name, String code, String token) {
+	public App(final Module module, final String name, final String code,
+			final String token) {
 		this.module = module;
 		this.name = name;
 		this.token = token;

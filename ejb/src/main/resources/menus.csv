@@ -1,0 +1,36 @@
+code,text,parentCode
+PERINST,Personas e instituciones,null
+PERINST-PER,Personas,PERINST 
+PERINST-INS,Instituciones,PERINST-INS 
+LOGIST,Logística,null
+LOGIST-SA,Soporte Asistencial,LOGIST
+LOGIST-SO,Soporte Operativo,LOGIST
+LOGIST-PL,Planificación,LOGIST
+ADMPAC,Administración de Pacientes,null
+ADMPAC-AP,Admisión Paciente,ADMPAC
+ADMPAC-CT,Costos y Tarifas,ADMPAC
+ADMPAC-CO,Convenios,ADMPAC
+ATEMED,Atención Médica,null
+ATEMED-AC,Agendas y Citas,ATEMED
+ATEMED-HM,HME,ATEMED
+REPORT,Reportes,null
+DMACONF,Data Maestra y Configuración,null
+DMACONF-DM,Data Maestra,DMACONF
+DMACONF-CO,Configuración,DMACONF
+PPRPLA,Procesos, Protodolos y Plantillas,null
+PPRPLA-AC,Actividades,PPRPLA
+PPRPLA-PR,Protocolos,PPRPLA
+PPRPLA-AM,Algoritmos Médicos,PPRPLA
+PPRPLA-RN,Reglas de Negocio,PPRPLA
+PPRPLA-PO,Procesos,PPRPLA
+PPRPLA-PL,Plantillas,PPRPLA
+SISTEM,Sistema,null
+SISTEM-FU,Funciones,SISTEM
+SISTEM-PA,Parámetros,SISTEM
+SISTEM-CA,Catálogos,SISTEM
+SISTEM-ME,Menús,SISTEM
+SISTEM-RB,Roles Base,SISTEM
+SISTEM-US,Usuarios,SISTEM
+SISTEM-AC,Accesos,SISTEM
+SISTEM-PL,Plantillas,SISTEM
+SISTEM-EN,Engines,SISTEM
