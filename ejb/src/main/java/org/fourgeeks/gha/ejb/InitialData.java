@@ -824,7 +824,7 @@ public class InitialData {
 				if (strings[0].startsWith("#") || strings[0].startsWith("//"))
 					continue;
 				final String moduleCode = strings[0];
-				module = new Module(moduleCode, null);
+				module = em.find(Module.class, moduleCode);
 				em.merge(module);
 				final String appCode = strings[1];
 				final String appToken = strings[2];
