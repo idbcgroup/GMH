@@ -3,6 +3,7 @@ package org.fourgeeks.gha.ejb;
 import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.Activity;
+import org.fourgeeks.gha.domain.ActivityType;
 import org.fourgeeks.gha.domain.HasKey;
 import org.fourgeeks.gha.domain.TimerParams;
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
@@ -112,6 +113,8 @@ import org.fourgeeks.gha.ejb.ess.auth.RoleService;
 import org.fourgeeks.gha.ejb.ess.auth.RoleServiceRemote;
 import org.fourgeeks.gha.ejb.ess.auth.SSOUserService;
 import org.fourgeeks.gha.ejb.ess.auth.SSOUserServiceRemote;
+import org.fourgeeks.gha.ejb.ess.ui.ViewFunctionService;
+import org.fourgeeks.gha.ejb.ess.ui.ViewFunctionServiceRemote;
 import org.fourgeeks.gha.ejb.gar.BpuService;
 import org.fourgeeks.gha.ejb.gar.BpuServiceRemote;
 import org.fourgeeks.gha.ejb.gar.BspService;
@@ -386,6 +389,11 @@ public abstract class GHAArquillianBaseServiceTest {
 				.addClass(PDTMessageProducer.class)
 				.addClass(PDTMessageProducerLocal.class)
 				.addClass(Concept.class)
+				.addClass(ActivityType.class)
+				.addClass(ActivityTypeService.class)
+				.addClass(ActivityTypeServiceRemote.class)
+				.addClass(ViewFunctionService.class)
+				.addClass(ViewFunctionServiceRemote.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
