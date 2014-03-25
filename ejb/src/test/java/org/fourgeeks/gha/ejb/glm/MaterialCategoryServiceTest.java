@@ -266,7 +266,7 @@ public class MaterialCategoryServiceTest {
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
-	@EJB(lookup = "java:global/ear-1/ejb-1/MaterialCategoryService")
+	@EJB(lookup = "java:global/test/MaterialCategoryService")
 	MaterialCategoryServiceRemote service;
 
 	@Before
@@ -275,6 +275,7 @@ public class MaterialCategoryServiceTest {
 
 	@Test
 	public void test() {
+		Assert.assertNotNull(service);
 		MaterialCategory category1 = new MaterialCategory();
 		category1.setName("test-1");
 		category1.setCode("T010101");
