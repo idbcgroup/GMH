@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.domain.gom;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,7 +25,9 @@ public class CCDIDefinition extends AbstractCodeEntity {
 	private static final long serialVersionUID = 1L;
 
 	private String name;
+	@Column(nullable = false)
 	private int length;
+	@Column(nullable = false)
 	private int levels;
 	private CCDIStatusEnum status;
 
@@ -45,6 +48,13 @@ public class CCDIDefinition extends AbstractCodeEntity {
 
 	/**
 	 * @param code
+	 */
+	public CCDIDefinition(final String code) {
+		this.code = code;
+	}
+
+	/**
+	 * @param code
 	 * @param name
 	 * @param length
 	 * @param levels
@@ -54,9 +64,10 @@ public class CCDIDefinition extends AbstractCodeEntity {
 	 * @param verification
 	 * @param verificationMethod
 	 */
-	public CCDIDefinition(String code, String name, int length, int levels,
-			CCDIStatusEnum status, Concept concept, CCDICodeTypeEnum type,
-			boolean verification, String verificationMethod) {
+	public CCDIDefinition(final String code, final String name,
+			final int length, final int levels, final CCDIStatusEnum status,
+			final Concept concept, final CCDICodeTypeEnum type,
+			final boolean verification, final String verificationMethod) {
 		this.code = code;
 		this.name = name;
 		this.length = length;
@@ -128,7 +139,7 @@ public class CCDIDefinition extends AbstractCodeEntity {
 	 * @param concept
 	 *            the concept to set
 	 */
-	public void setConcept(Concept concept) {
+	public void setConcept(final Concept concept) {
 		this.concept = concept;
 	}
 
@@ -136,7 +147,7 @@ public class CCDIDefinition extends AbstractCodeEntity {
 	 * @param length
 	 *            the length to set
 	 */
-	public void setLength(int length) {
+	public void setLength(final int length) {
 		this.length = length;
 	}
 
@@ -144,7 +155,7 @@ public class CCDIDefinition extends AbstractCodeEntity {
 	 * @param levels
 	 *            the levels to set
 	 */
-	public void setLevels(int levels) {
+	public void setLevels(final int levels) {
 		this.levels = levels;
 	}
 
@@ -152,7 +163,7 @@ public class CCDIDefinition extends AbstractCodeEntity {
 	 * @param name
 	 *            the name to set
 	 */
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -160,7 +171,7 @@ public class CCDIDefinition extends AbstractCodeEntity {
 	 * @param status
 	 *            the status to set
 	 */
-	public void setStatus(CCDIStatusEnum status) {
+	public void setStatus(final CCDIStatusEnum status) {
 		this.status = status;
 	}
 
@@ -168,7 +179,7 @@ public class CCDIDefinition extends AbstractCodeEntity {
 	 * @param type
 	 *            the type to set
 	 */
-	public void setType(CCDICodeTypeEnum type) {
+	public void setType(final CCDICodeTypeEnum type) {
 		this.type = type;
 	}
 
@@ -176,7 +187,7 @@ public class CCDIDefinition extends AbstractCodeEntity {
 	 * @param verification
 	 *            the verification to set
 	 */
-	public void setVerification(boolean verification) {
+	public void setVerification(final boolean verification) {
 		this.verification = verification;
 	}
 
@@ -184,7 +195,7 @@ public class CCDIDefinition extends AbstractCodeEntity {
 	 * @param verificationMethod
 	 *            the verificationMethod to set
 	 */
-	public void setVerificationMethod(String verificationMethod) {
+	public void setVerificationMethod(final String verificationMethod) {
 		this.verificationMethod = verificationMethod;
 	}
 

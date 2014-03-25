@@ -102,7 +102,7 @@ public class EiaType extends ServiceAndResource {
 	/**
 	 * @param code
 	 */
-	public EiaType(String code) {
+	public EiaType(final String code) {
 		this.code = code;
 	}
 
@@ -115,9 +115,9 @@ public class EiaType extends ServiceAndResource {
 	 * @param subtype
 	 * @param model
 	 */
-	public EiaType(String code, Brand brand, String name,
-			EiaMobilityEnum mobility, EiaTypeEnum type, EiaSubTypeEnum subtype,
-			String model) {
+	public EiaType(final String code, final Brand brand, final String name,
+			final EiaMobilityEnum mobility, final EiaTypeEnum type,
+			final EiaSubTypeEnum subtype, final String model) {
 		super();
 		this.brand = brand;
 		this.name = name;
@@ -151,6 +151,9 @@ public class EiaType extends ServiceAndResource {
 		return description;
 	}
 
+	/**
+	 * @return the category of the eiatype
+	 */
 	public EiaTypeCategory getEiaTypeCategory() {
 		return eiaTypeCategory;
 	}
@@ -189,43 +192,43 @@ public class EiaType extends ServiceAndResource {
 		return useDescription;
 	}
 
-	public void setBrand(Brand brand) {
+	public void setBrand(final Brand brand) {
 		this.brand = brand;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 
-	public void setEiaTypeCategory(EiaTypeCategory eiaTypeCategory) {
+	public void setEiaTypeCategory(final EiaTypeCategory eiaTypeCategory) {
 		this.eiaTypeCategory = eiaTypeCategory;
 	}
 
-	public void setEiaUmdns(String eiaUmdns) {
+	public void setEiaUmdns(final String eiaUmdns) {
 		this.eiaUmdns = eiaUmdns;
 	}
 
-	public void setMobility(EiaMobilityEnum mobility) {
+	public void setMobility(final EiaMobilityEnum mobility) {
 		this.mobility = mobility;
 	}
 
-	public void setModel(String model) {
+	public void setModel(final String model) {
 		this.model = model;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
-	public void setSubtype(EiaSubTypeEnum subtype) {
+	public void setSubtype(final EiaSubTypeEnum subtype) {
 		this.subtype = subtype;
 	}
 
-	public void setType(EiaTypeEnum type) {
+	public void setType(final EiaTypeEnum type) {
 		this.type = type;
 	}
 
-	public void setUseDescription(String useDescription) {
+	public void setUseDescription(final String useDescription) {
 		this.useDescription = useDescription;
 	}
 }

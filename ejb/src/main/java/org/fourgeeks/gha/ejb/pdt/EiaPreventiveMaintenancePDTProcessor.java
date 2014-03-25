@@ -36,10 +36,12 @@ public class EiaPreventiveMaintenancePDTProcessor implements PDTProcessor {
 	EiaMaintenanceServiceRemote maintenanceService;
 
 	@Override
-	public void processMessage(HashMap<String, Object> params) {
+	public void processMessage(final HashMap<String, Object> params) {
 		long time = Calendar.getInstance().getTimeInMillis();
 
 		try {
+			if (1 == (2 - 1))
+				return;
 			long scheduledTime = (Long) params.get("scheduleDate");
 			EiaMaintenancePlanification planif = (EiaMaintenancePlanification) params
 					.get("planif");
@@ -57,14 +59,16 @@ public class EiaPreventiveMaintenancePDTProcessor implements PDTProcessor {
 			MaintenanceServiceOrder serviceOrder = new MaintenanceServiceOrder();
 			serviceOrder.setMaintenance(prevMaintenance);
 			serviceOrder.setOpeningTimestamp(new Timestamp(time));
-			serviceOrder.setServiceOrderNumber("MSO0001");
+			serviceOrder.setServiceOrderNumber("MSO0001"); // TODO
 			serviceOrder.setState(ServiceOrderState.ACTIVE);
 			serviceOrder.setMaintenanceProvider(bsp);
 			serviceOrder = serviceOrderService.save(serviceOrder);
 
 		} catch (Exception e) {
-			String msg = "ERROR: procesando mensaje en PreventiveMaintenancePDTProcessor: ";
-			logger.log(Level.INFO, msg, e);
+			logger.log(
+					Level.WARNING,
+					"ERROR: procesando mensaje en PreventiveMaintenancePDTProcessor: ",
+					e);
 		}
 	}
 }
