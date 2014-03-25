@@ -3,6 +3,7 @@ package org.fourgeeks.gha.ejb.gmh;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 
@@ -160,6 +161,9 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Arquillian.class)
 public class EiaMaintenancePlanificationServiceTest {
+	private final static Logger logger = Logger
+			.getLogger(EiaMaintenancePlanificationServiceTest.class.getName());
+
 	/**
 	 * @return the deployment descriptor
 	 */
@@ -455,11 +459,12 @@ public class EiaMaintenancePlanificationServiceTest {
 	private void getPlanificationsCountTest() {
 		final long countExpected = 1;
 		try {
-			MaintenancePlan maintenancePlan = new MaintenancePlan(1);
 			final long result = serviceLocal
 					.getPlanificationsCount(maintenancePlan);
+			System.out.println("3");
 
 			Assert.assertEquals(countExpected, result);
+			System.out.println("4");
 		} catch (GHAEJBException e) {
 			e.printStackTrace();
 		}
@@ -552,12 +557,20 @@ public class EiaMaintenancePlanificationServiceTest {
 
 		try {
 			eiaTypeMPlanService.delete(eiaTypeMPlan.getId());
-			maintenancePlanService.delete(maintenancePlan.getId());
-			eiaHelper.removeEia();
-
 		} catch (final GHAEJBException e) {
-			e.printStackTrace();
+			logger.info("error deleting eieTypeMPlan" + e.getMessage());
 		}
+		try {
+			maintenancePlanService.delete(maintenancePlan.getId());
+		} catch (Exception e) {
+			logger.info("error deleting maintenance plan" + e.getMessage());
+		}
+		try {
+			eiaHelper.removeEia();
+		} catch (Exception e) {
+			logger.info("error deleting eia" + e.getMessage());
+		}
+
 	}
 
 }
