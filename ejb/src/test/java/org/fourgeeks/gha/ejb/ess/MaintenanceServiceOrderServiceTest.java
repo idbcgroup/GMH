@@ -1,7 +1,8 @@
 package org.fourgeeks.gha.ejb.ess;
 
+import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -11,6 +12,7 @@ import junit.framework.Assert;
 import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.Activity;
+import org.fourgeeks.gha.domain.ActivityType;
 import org.fourgeeks.gha.domain.HasKey;
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.ActivityState;
@@ -110,6 +112,8 @@ import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
+import org.fourgeeks.gha.ejb.ActivityTypeService;
+import org.fourgeeks.gha.ejb.ActivityTypeServiceRemote;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 import org.fourgeeks.gha.ejb.ess.auth.RoleService;
@@ -118,10 +122,18 @@ import org.fourgeeks.gha.ejb.ess.auth.SSOUserService;
 import org.fourgeeks.gha.ejb.ess.auth.SSOUserServiceRemote;
 import org.fourgeeks.gha.ejb.gar.BpuService;
 import org.fourgeeks.gha.ejb.gar.BpuServiceRemote;
+import org.fourgeeks.gha.ejb.gar.BspService;
+import org.fourgeeks.gha.ejb.gar.BspServiceRemote;
+import org.fourgeeks.gha.ejb.gar.FacilityService;
+import org.fourgeeks.gha.ejb.gar.FacilityServiceRemote;
 import org.fourgeeks.gha.ejb.gar.ObuService;
 import org.fourgeeks.gha.ejb.gar.ObuServiceRemote;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderService;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.BrandService;
+import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.BuildingLocationService;
+import org.fourgeeks.gha.ejb.gmh.BuildingLocationServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaDamageReportService;
 import org.fourgeeks.gha.ejb.gmh.EiaDamageReportServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationService;
@@ -131,6 +143,8 @@ import org.fourgeeks.gha.ejb.gmh.EiaMaintenanceService;
 import org.fourgeeks.gha.ejb.gmh.EiaMaintenanceServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaService;
 import org.fourgeeks.gha.ejb.gmh.EiaServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.EiaTypeCategoryService;
+import org.fourgeeks.gha.ejb.gmh.EiaTypeCategoryServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentService;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceLocal;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote;
@@ -144,15 +158,23 @@ import org.fourgeeks.gha.ejb.gmh.MaintenancePlanService;
 import org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolService;
 import org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.ManufacturerService;
+import org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistService;
 import org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistServiceLocal;
 import org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistServiceRemote;
 import org.fourgeeks.gha.ejb.gom.CCDIService;
 import org.fourgeeks.gha.ejb.gom.CCDIServiceLocal;
 import org.fourgeeks.gha.ejb.gom.CCDIServiceRemote;
+import org.fourgeeks.gha.ejb.helpers.BpuHelper;
+import org.fourgeeks.gha.ejb.helpers.EiaHelper;
 import org.fourgeeks.gha.ejb.log.UILogService;
 import org.fourgeeks.gha.ejb.log.UILogServiceLocal;
 import org.fourgeeks.gha.ejb.log.UILogServiceRemote;
+import org.fourgeeks.gha.ejb.mix.BpiService;
+import org.fourgeeks.gha.ejb.mix.BpiServiceRemote;
+import org.fourgeeks.gha.ejb.mix.CitizenService;
+import org.fourgeeks.gha.ejb.mix.CitizenServiceRemote;
 import org.fourgeeks.gha.ejb.mix.InstitutionService;
 import org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote;
 import org.fourgeeks.gha.ejb.mix.LegalEntityService;
@@ -182,6 +204,31 @@ public class MaintenanceServiceOrderServiceTest {
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap
 				.create(WebArchive.class, "test.war")
+				.addClass(BpuHelper.class)
+				.addClass(CitizenService.class)
+				.addClass(CitizenServiceRemote.class)
+				.addClass(EiaHelper.class)
+				.addClass(BuildingLocationService.class)
+				.addClass(BuildingLocationServiceRemote.class)
+				.addClass(FacilityService.class)
+				.addClass(FacilityServiceRemote.class)
+				.addClass(BspService.class)
+				.addClass(BspServiceRemote.class)
+				.addClass(Bpi.class)
+				.addClass(BpiService.class)
+				.addClass(BpiServiceRemote.class)
+				.addClass(Brand.class)
+				.addClass(BrandService.class)
+				.addClass(BrandServiceRemote.class)
+				.addClass(EiaTypeCategory.class)
+				.addClass(EiaTypeCategoryService.class)
+				.addClass(EiaTypeCategoryServiceRemote.class)
+				.addClass(Manufacturer.class)
+				.addClass(ManufacturerService.class)
+				.addClass(ManufacturerServiceRemote.class)
+				.addClass(ActivityType.class)
+				.addClass(ActivityTypeService.class)
+				.addClass(ActivityTypeServiceRemote.class)
 				.addClass(Function.class)
 				.addClass(Role.class)
 				.addClass(App.class)
@@ -189,12 +236,10 @@ public class MaintenanceServiceOrderServiceTest {
 				.addClass(AppView.class)
 				.addClass(AbstractEntity.class)
 				.addClass(AbstractCodeEntity.class)
-				.addClass(Bpi.class)
 				.addClass(BpiOriginEnum.class)
 				.addClass(BpiRiskEnum.class)
 				.addClass(BpiInstitutionRelationTypeEnum.class)
 				.addClass(BpiTypeEnum.class)
-				.addClass(Brand.class)
 				.addClass(BuildingLocation.class)
 				.addClass(Bpu.class)
 				.addClass(Citizen.class)
@@ -342,6 +387,51 @@ public class MaintenanceServiceOrderServiceTest {
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
+	@EJB(lookup = "java:global/test/CCDIService!org.fourgeeks.gha.ejb.gom.CCDIServiceRemote")
+	CCDIServiceRemote ccdiServiceRemote;
+
+	@EJB(lookup = "java:global/test/CCDIService!org.fourgeeks.gha.ejb.gom.CCDIServiceLocal")
+	CCDIServiceLocal ccdiServiceLocal;
+
+	@EJB(lookup = "java:global/test/ManufacturerService")
+	private ManufacturerServiceRemote manufacturerServiceRemote;
+
+	@EJB(lookup = "java:global/test/EiaTypeCategoryService")
+	private EiaTypeCategoryServiceRemote eiaTypeCategoryServiceRemote;
+
+	@EJB(lookup = "java:global/test/BrandService")
+	private BrandServiceRemote brandServiceRemote;
+
+	@EJB(lookup = "java:global/test/EiaTypeService")
+	private EiaTypeServiceRemote eiaTypeServiceRemote;
+
+	@EJB(lookup = "java:global/test/RoleService")
+	private RoleServiceRemote roleServiceRemote;
+
+	@EJB(lookup = "java:global/test/LegalEntityService")
+	private LegalEntityServiceRemote legalEntityServiceRemote;
+
+	@EJB(lookup = "java:global/test/BpiService")
+	private BpiServiceRemote bpiServiceRemote;
+
+	@EJB(lookup = "java:global/test/InstitutionService")
+	private InstitutionServiceRemote institutionServiceRemote;
+
+	@EJB(lookup = "java:global/test/ObuService")
+	private ObuServiceRemote obuServiceRemote;
+
+	@EJB(lookup = "java:global/test/BspService")
+	private BspServiceRemote bspServiceRemote;
+
+	@EJB(lookup = "java:global/test/ExternalProviderService")
+	private ExternalProviderServiceRemote externalProviderServiceRemote;
+
+	@EJB(lookup = "java:global/test/FacilityService")
+	private FacilityServiceRemote facilityServiceRemote;
+
+	@EJB(lookup = "java:global/test/BuildingLocationService")
+	private BuildingLocationServiceRemote buildingLocationServiceRemote;
+
 	@EJB(lookup = "java:global/test/EiaMaintenanceService")
 	private EiaMaintenanceServiceRemote maintenanceService;
 
@@ -360,13 +450,16 @@ public class MaintenanceServiceOrderServiceTest {
 	private EiaTypeMaintenancePlanServiceRemote eiaTypeMPlanService;
 
 	@EJB(lookup = "java:global/test/EiaService")
-	private EiaServiceRemote eiaService;
+	private EiaServiceRemote eiaServiceRemote;
 
 	@EJB(lookup = "java:global/test/MaintenancePlanService")
 	private MaintenancePlanServiceRemote maintenancePlanService;
 
 	@EJB(lookup = "java:global/test/BpuService")
 	private BpuServiceRemote bpuService;
+
+	@EJB(lookup = "java:global/test/CitizenService")
+	private CitizenServiceRemote citizenServiceRemote;
 
 	@EJB(lookup = "java:global/test/MaintenanceServiceOrderService")
 	private MaintenanceServiceOrderServiceLocal serviceOrderService;
@@ -375,9 +468,14 @@ public class MaintenanceServiceOrderServiceTest {
 	private EiaMaintenancePlanification planif;
 	private EiaTypeMaintenancePlan eiaTypeMPlan;
 	private MaintenancePlan maintenancePlan;
-	EiaCorrectiveMaintenance maintenance;
-	private EiaType eiaType;
-	private Eia eia;
+	private EiaCorrectiveMaintenance maintenance;
+	private EiaHelper eiaHelper;
+	private static Calendar calendar;
+	private BpuHelper bpuHelper;
+
+	static {
+		calendar = Calendar.getInstance();
+	}
 
 	private void deleteTest(MaintenanceServiceOrder entity) {
 		final int resultExpected = 0;
@@ -433,12 +531,11 @@ public class MaintenanceServiceOrderServiceTest {
 
 	private MaintenanceServiceOrder saveTest() {
 		try {
-			final long time = (new Date()).getTime();
 
 			final MaintenanceServiceOrder entity = new MaintenanceServiceOrder();
 			entity.setServiceOrderNumber("MSO1");
 			entity.setMaintenance(maintenance);
-			entity.setOpeningTimestamp(new Timestamp(time));
+			entity.setOpeningTimestamp(new Timestamp(calendar.getTimeInMillis()));
 			entity.setState(ServiceOrderState.ACTIVE);
 
 			final MaintenanceServiceOrder result = serviceOrderService
@@ -471,25 +568,36 @@ public class MaintenanceServiceOrderServiceTest {
 					.setCancelationOption(MaintenancePlanCancelationOption.DEFERRABLE);
 			maintenancePlan = maintenancePlanService.save(maintenancePlan);
 
-			eiaType = new EiaType("3000000001");
-
-			eia = eiaService.findByEiaType(eiaType).get(0);
+			eiaHelper = new EiaHelper(ccdiServiceLocal,
+					manufacturerServiceRemote, eiaTypeCategoryServiceRemote,
+					brandServiceRemote, eiaTypeServiceRemote,
+					roleServiceRemote, legalEntityServiceRemote,
+					bpiServiceRemote, institutionServiceRemote,
+					obuServiceRemote, bspServiceRemote,
+					externalProviderServiceRemote, facilityServiceRemote,
+					buildingLocationServiceRemote, eiaServiceRemote);
+			Eia eia = eiaHelper.createEia();
 
 			eiaTypeMPlan = new EiaTypeMaintenancePlan();
-			eiaTypeMPlan.setEiaType(eiaType);
+			eiaTypeMPlan.setEiaType(eia.getEiaType());
 			eiaTypeMPlan.setMaintenancePlan(maintenancePlan);
 			eiaTypeMPlan = eiaTypeMPlanService.save(eiaTypeMPlan);
 
 			planif = new EiaMaintenancePlanification();
 			planif.setEia(eia);
 			planif.setPlan(eiaTypeMPlan);
+			planif.setBeginningDate(new Date(calendar.getTimeInMillis()));
 			planif = planifServiceRemote.save(planif);
 
-			final Bpu bpu = bpuService.find(1);
+			bpuHelper = new BpuHelper(legalEntityServiceRemote,
+					citizenServiceRemote, institutionServiceRemote, bpuService,
+					bpiServiceRemote);
+			final Bpu bpu = bpuHelper.createBpu();
 			eiaDamageReport = new EiaDamageReport();
 			eiaDamageReport.setEia(eia);
 			eiaDamageReport.setDamageStatus(EiaDamageStatusEnum.DAMAGE);
 			eiaDamageReport.setPriority(EiaDamagePriorityEnum.NORMAL);
+			eiaDamageReport.setEiaCondition(EiaStateEnum.ACQUIRED);
 			eiaDamageReport.setUserWhoRegistered(bpu);
 			eiaDamageReport.setUserWhoReported(bpu);
 			eiaDamageReport = damageReportService.save(eiaDamageReport);
@@ -543,6 +651,8 @@ public class MaintenanceServiceOrderServiceTest {
 			eiaTypeMPlanService.delete(eiaTypeMPlan.getId());
 			maintenancePlanService.delete(maintenancePlan.getId());
 			damageReportService.delete(eiaDamageReport.getId());
+			bpuHelper.removeBpu();
+			eiaHelper.removeEia();
 
 		} catch (final GHAEJBException e) {
 			e.printStackTrace();
