@@ -18,6 +18,7 @@ import org.fourgeeks.gha.domain.enu.CCDIEndValueActionEnum;
 import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
 import org.fourgeeks.gha.domain.enu.CCDIValueStatusEnum;
 import org.fourgeeks.gha.domain.enu.CCDIValueTypeEnum;
+import org.fourgeeks.gha.domain.enu.CredentialTypeEnum;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.DepreciationMethodEnum;
 import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
@@ -53,8 +54,11 @@ import org.fourgeeks.gha.domain.ess.MaintenanceServiceOrder;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.ess.auth.Function;
 import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
+import org.fourgeeks.gha.domain.ess.auth.InstanceLogon;
+import org.fourgeeks.gha.domain.ess.auth.ItSystem;
 import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.ess.auth.SSOUser;
+import org.fourgeeks.gha.domain.ess.auth.SystemInstance;
 import org.fourgeeks.gha.domain.ess.ui.App;
 import org.fourgeeks.gha.domain.ess.ui.AppView;
 import org.fourgeeks.gha.domain.ess.ui.Module;
@@ -98,6 +102,7 @@ import org.fourgeeks.gha.domain.gom.CCDILevelValue;
 import org.fourgeeks.gha.domain.gom.Concept;
 import org.fourgeeks.gha.domain.logs.GHALog;
 import org.fourgeeks.gha.domain.logs.UILog;
+import org.fourgeeks.gha.domain.mix.Bpa;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.domain.mix.Institution;
@@ -109,6 +114,8 @@ import org.fourgeeks.gha.ejb.ess.MaintenanceServiceOrderService;
 import org.fourgeeks.gha.ejb.ess.MaintenanceServiceOrderServiceLocal;
 import org.fourgeeks.gha.ejb.ess.auth.FunctionService;
 import org.fourgeeks.gha.ejb.ess.auth.FunctionServiceRemote;
+import org.fourgeeks.gha.ejb.ess.auth.InstanceLogonService;
+import org.fourgeeks.gha.ejb.ess.auth.InstanceLogonServiceRemote;
 import org.fourgeeks.gha.ejb.ess.auth.RoleService;
 import org.fourgeeks.gha.ejb.ess.auth.RoleServiceRemote;
 import org.fourgeeks.gha.ejb.ess.auth.SSOUserService;
@@ -166,6 +173,8 @@ import org.fourgeeks.gha.ejb.helpers.BpuHelper;
 import org.fourgeeks.gha.ejb.log.UILogService;
 import org.fourgeeks.gha.ejb.log.UILogServiceLocal;
 import org.fourgeeks.gha.ejb.log.UILogServiceRemote;
+import org.fourgeeks.gha.ejb.mix.BpaService;
+import org.fourgeeks.gha.ejb.mix.BpaServiceRemote;
 import org.fourgeeks.gha.ejb.mix.BpiService;
 import org.fourgeeks.gha.ejb.mix.BpiServiceRemote;
 import org.fourgeeks.gha.ejb.mix.CitizenService;
@@ -394,6 +403,15 @@ public abstract class GHAArquillianBaseServiceTest {
 				.addClass(ActivityTypeServiceRemote.class)
 				.addClass(ViewFunctionService.class)
 				.addClass(ViewFunctionServiceRemote.class)
+				.addClass(InstanceLogonService.class)
+				.addClass(InstanceLogonServiceRemote.class)
+				.addClass(InstanceLogon.class)
+				.addClass(SystemInstance.class)
+				.addClass(Bpa.class)
+				.addClass(CredentialTypeEnum.class)
+				.addClass(ItSystem.class)
+				.addClass(BpaService.class)
+				.addClass(BpaServiceRemote.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
