@@ -37,7 +37,8 @@ public class EiaMaintenancePlanification extends AbstractEntity {
 	 * El equipo al que se la aplicara el plan de mantenimiento
 	 */
 	@ManyToOne
-	@JoinColumn(name = "eiaFk")
+	@NotNull(message = "eia-not-null")
+	@JoinColumn(name = "eiaFk", nullable = false)
 	private Eia eia;
 
 	/**
