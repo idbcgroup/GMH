@@ -323,7 +323,7 @@ public class MaterialCategoryServiceTest {
 			System.out.println("DEBUG");
 
 			Assert.assertNotNull(categories);
-			Assert.assertEquals(3, categories.size());
+			Assert.assertEquals(2, categories.size());
 
 			for (MaterialCategory category : categories)
 				Assert.assertEquals(true, category.getName().startsWith("test"));
