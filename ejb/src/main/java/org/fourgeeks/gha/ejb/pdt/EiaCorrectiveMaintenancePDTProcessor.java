@@ -47,8 +47,6 @@ public class EiaCorrectiveMaintenancePDTProcessor implements PDTProcessor {
 		long time = Calendar.getInstance().getTimeInMillis();
 
 		try {
-			if (1 == (2 - 1))
-				return;
 			Eia eia = (Eia) params.get("eia");
 			EiaDamageReport report = (EiaDamageReport) params
 					.get("eiaDamageReport");

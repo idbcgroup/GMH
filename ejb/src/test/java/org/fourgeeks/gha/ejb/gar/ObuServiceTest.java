@@ -15,14 +15,14 @@ import junit.framework.Assert;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Obu;
-import org.fourgeeks.gha.ejb.GhaServiceTest;
+import org.fourgeeks.gha.ejb.GHAArquillianBaseServiceTest;
 
 /**
  * @author vivi.torresg
  * 
  */
 // @RunWith(Arquillian.class)
-public class ObuServiceTest extends GhaServiceTest {
+public class ObuServiceTest extends GHAArquillianBaseServiceTest {
 	@PersistenceContext
 	EntityManager em;
 

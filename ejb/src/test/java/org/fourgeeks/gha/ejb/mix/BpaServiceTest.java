@@ -16,14 +16,14 @@ import junit.framework.Assert;
 import org.fourgeeks.gha.domain.enu.CredentialTypeEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.Bpa;
-import org.fourgeeks.gha.ejb.GhaServiceTest;
+import org.fourgeeks.gha.ejb.GHAArquillianBaseServiceTest;
 
 /**
  * @author vivi.torresg
  * 
  */
 // @RunWith(Arquillian.class)
-public class BpaServiceTest extends GhaServiceTest {
+public class BpaServiceTest extends GHAArquillianBaseServiceTest {
 	@PersistenceContext
 	EntityManager em;
 

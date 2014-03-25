@@ -15,14 +15,14 @@ import junit.framework.Assert;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaComponent;
-import org.fourgeeks.gha.ejb.GhaServiceTest;
+import org.fourgeeks.gha.ejb.GHAArquillianBaseServiceTest;
 
 /**
  * @author vivi.torresg
  * 
  */
 // @RunWith(Arquillian.class)
-public class EiaComponentServiceTest extends GhaServiceTest {
+public class EiaComponentServiceTest extends GHAArquillianBaseServiceTest {
 	@PersistenceContext
 	EntityManager em;
 
@@ -44,8 +44,8 @@ public class EiaComponentServiceTest extends GhaServiceTest {
 		em.joinTransaction();
 
 		EiaComponent entity = new EiaComponent();
-		entity.setEia(super.getEia(em));
-		entity.setParentEia(super.getEia(em));
+		// entity.setEia(super.getEia(em));
+		// entity.setParentEia(super.getEia(em));
 		entity.setComponentObs("EiaComponent test componentObs");
 		entity = service.save(entity);
 
