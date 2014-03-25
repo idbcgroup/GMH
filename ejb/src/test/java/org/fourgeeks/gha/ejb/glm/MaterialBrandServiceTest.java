@@ -272,22 +272,22 @@ public class MaterialBrandServiceTest {
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
-	@EJB(lookup = "java:global/ear-1/ejb-1/MaterialBrandService!org.fourgeeks.gha.ejb.glm.MaterialBrandServiceRemote")
+	@EJB(lookup = "java:global/test/MaterialBrandService!org.fourgeeks.gha.ejb.glm.MaterialBrandServiceRemote")
 	MaterialBrandServiceRemote service;
 
-	@EJB(lookup = "java:global/ear-1/ejb-1/MaterialCategoryService")
+	@EJB(lookup = "java:global/test/MaterialCategoryService")
 	MaterialCategoryServiceRemote materialCategoryService;
 
-	@EJB(lookup = "java:global/ear-1/ejb-1/CCDIService!org.fourgeeks.gha.ejb.gom.CCDIServiceRemote")
+	@EJB(lookup = "java:global/test/CCDIService!org.fourgeeks.gha.ejb.gom.CCDIServiceRemote")
 	CCDIServiceRemote ccdiService;
 
-	@EJB(lookup = "java:global/ear-1/ejb-1/ManufacturerService")
+	@EJB(lookup = "java:global/test/ManufacturerService")
 	ManufacturerServiceRemote manufacturerService;
 
-	@EJB(lookup = "java:global/ear-1/ejb-1/BrandService")
+	@EJB(lookup = "java:global/test/BrandService")
 	BrandServiceRemote brandService;
 
-	@EJB(lookup = "java:global/ear-1/ejb-1/MaterialService")
+	@EJB(lookup = "java:global/test/MaterialService")
 	MaterialServiceRemote materialService;
 
 	Brand brand1 = new Brand();
