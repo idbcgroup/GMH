@@ -36,7 +36,7 @@ public class App extends AbstractCodeEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "menuFk", nullable = true)
-	private MenuLevel menu;
+	private Menu menu;
 
 	/**
 	 * 

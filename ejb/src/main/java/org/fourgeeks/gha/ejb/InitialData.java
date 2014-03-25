@@ -56,7 +56,7 @@ import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.ess.ui.App;
 import org.fourgeeks.gha.domain.ess.ui.AppView;
-import org.fourgeeks.gha.domain.ess.ui.MenuLevel;
+import org.fourgeeks.gha.domain.ess.ui.Menu;
 import org.fourgeeks.gha.domain.ess.ui.Module;
 import org.fourgeeks.gha.domain.ess.ui.View;
 import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
@@ -867,11 +867,11 @@ public class InitialData {
 		modules();
 		apps();
 
-		// try {
-		// functions();
-		// } catch (final IOException e) {
-		// e.printStackTrace();
-		// }
+		try {
+			functions();
+		} catch (final IOException e) {
+			e.printStackTrace();
+		}
 		menus();
 		messageTypes();
 		messages();
@@ -1281,10 +1281,9 @@ public class InitialData {
 			String text = strings[1];
 			String parentCode = strings[2];
 			if (parentCode.equals("null"))
-				em.merge(new MenuLevel(code, text, null));
+				em.merge(new Menu(code, text, null));
 			else
-				em.merge(new MenuLevel(code, text, em.find(MenuLevel.class,
-						parentCode)));
+				em.merge(new Menu(code, text, em.find(Menu.class, parentCode)));
 
 			em.flush();
 		}
