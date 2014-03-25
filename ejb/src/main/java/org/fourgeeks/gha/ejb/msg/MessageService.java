@@ -61,7 +61,7 @@ public class MessageService extends GHAEJBExceptionService implements
 	}
 
 	@Override
-	public GHAMessage find(String user, String id) throws GHAEJBException {
+	public GHAMessage findAndLog(String user, String id) throws GHAEJBException {
 		try {
 			final GHAMessage find = em.find(GHAMessage.class, new GHAMessageId(
 					id, RuntimeParameters.getLang()));
@@ -136,7 +136,7 @@ public class MessageService extends GHAEJBExceptionService implements
 	}
 
 	@Override
-	public List<GHAMessage> find(String user, List<String> messages)
+	public List<GHAMessage> findAndLog(String user, List<String> messages)
 			throws GHAEJBException {
 		try {
 			final List<GHAMessage> resultList = em

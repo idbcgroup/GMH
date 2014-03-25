@@ -16,14 +16,14 @@ import junit.framework.Assert;
 import org.fourgeeks.gha.domain.enu.EiaPictureStateEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaTypePicture;
-import org.fourgeeks.gha.ejb.GhaServiceTest;
+import org.fourgeeks.gha.ejb.GHAArquillianBaseServiceTest;
 
 /**
  * @author vivi.torresg
  * 
  */
 // @RunWith(Arquillian.class)
-public class EiaTypePictureServiceTest extends GhaServiceTest {
+public class EiaTypePictureServiceTest extends GHAArquillianBaseServiceTest {
 	@PersistenceContext
 	EntityManager em;
 
@@ -45,9 +45,9 @@ public class EiaTypePictureServiceTest extends GhaServiceTest {
 		em.joinTransaction();
 
 		EiaTypePicture entity = new EiaTypePicture();
-		entity.setEiaType(super.getEiaType(em));
+		// entity.setEiaType(super.getEiaType(em));
 		entity.setDescription("EiaTypePicture test description");
-		entity.setDate(super.getDate());
+		// entity.setDate(super.getDate());
 		entity.setPicture("EiaTypePicture test picture");
 		entity.setPictureState(EiaPictureStateEnum.ACTIVE);
 		entity = service.save(entity);

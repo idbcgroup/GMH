@@ -16,14 +16,14 @@ import junit.framework.Assert;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Institution;
-import org.fourgeeks.gha.ejb.GhaServiceTest;
+import org.fourgeeks.gha.ejb.GHAArquillianBaseServiceTest;
 
 /**
  * @author vivi.torresg
  * 
  */
 // @RunWith(Arquillian.class)
-public class BpiServiceTest extends GhaServiceTest {
+public class BpiServiceTest extends GHAArquillianBaseServiceTest {
 	@PersistenceContext
 	EntityManager em;
 
@@ -45,7 +45,7 @@ public class BpiServiceTest extends GhaServiceTest {
 		em.joinTransaction();
 
 		Bpi entity = new Bpi();
-		entity.setInstitution(super.getInstitution(em));
+		// entity.setInstitution(super.getInstitution(em));
 
 		entity = service.save(entity);
 
@@ -64,7 +64,7 @@ public class BpiServiceTest extends GhaServiceTest {
 		Institution oldInstitution = entity.getInstitution();
 		Institution institution = new Institution();
 		institution.setName("Institution name test updated");
-		institution.setLegalEntity(getLegalEntity(em));
+		// institution.setLegalEntity(getLegalEntity(em));
 		em.persist(institution);
 		em.flush();
 		institution = em.find(Institution.class, institution.getId());

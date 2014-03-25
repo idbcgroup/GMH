@@ -15,6 +15,14 @@ import org.fourgeeks.gha.domain.msg.GHAMessage;
 @Remote
 public interface MessageServiceRemote {
 	/**
+	 * @param messages
+	 * @return a list with the gha messages according to the id's
+	 * @throws GHAEJBException
+	 */
+	@Deprecated
+	public List<GHAMessage> find(List<String> messages) throws GHAEJBException;
+
+	/**
 	 * @param id
 	 * @return the message
 	 * @throws GHAEJBException
@@ -26,28 +34,21 @@ public interface MessageServiceRemote {
 	 * Find a ghamessage to show. Aditionally it logs in the UILOG the event
 	 * 
 	 * @param user
-	 * @param id
-	 * @return the message
-	 * @throws GHAEJBException
-	 */
-	public GHAMessage find(String user, String id) throws GHAEJBException;
-
-	/**
 	 * @param messages
 	 * @return a list with the gha messages according to the id's
 	 * @throws GHAEJBException
 	 */
 	@Deprecated
-	public List<GHAMessage> find(List<String> messages) throws GHAEJBException;
+	public List<GHAMessage> findAndLog(String user, List<String> messages)
+			throws GHAEJBException;
 
 	/**
 	 * Find a ghamessage to show. Aditionally it logs in the UILOG the event
 	 * 
 	 * @param user
-	 * @param messages
-	 * @return a list with the gha messages according to the id's
+	 * @param id
+	 * @return the message
 	 * @throws GHAEJBException
 	 */
-	public List<GHAMessage> find(String user, List<String> messages)
-			throws GHAEJBException;
+	public GHAMessage findAndLog(String user, String id) throws GHAEJBException;
 }

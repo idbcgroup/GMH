@@ -40,8 +40,6 @@ public class EiaPreventiveMaintenancePDTProcessor implements PDTProcessor {
 		long time = Calendar.getInstance().getTimeInMillis();
 
 		try {
-			if (1 == (2 - 1))
-				return;
 			long scheduledTime = (Long) params.get("scheduleDate");
 			EiaMaintenancePlanification planif = (EiaMaintenancePlanification) params
 					.get("planif");

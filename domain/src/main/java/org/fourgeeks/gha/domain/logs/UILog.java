@@ -20,7 +20,11 @@ import org.fourgeeks.gha.domain.msg.GHAMessage;
 
 @Entity
 @Table(name = "UILog", schema = "log")
-@NamedQueries(value = { @NamedQuery(name = "UILog.getAll", query = "SELECT e from UILog e order by e.id") })
+@NamedQueries(value = { @NamedQuery(name = "UILog.getAll", query = "SELECT e from UILog e order by e.id")
+
+}
+
+)
 public class UILog extends GHALog {
 
 	/**
@@ -43,7 +47,7 @@ public class UILog extends GHALog {
 	 * @param message
 	 * 
 	 */
-	public UILog(Bpu bpu, GHAMessage message) {
+	public UILog(final Bpu bpu, final GHAMessage message) {
 		this.bpu = bpu;
 		this.message = message;
 	}
@@ -58,7 +62,7 @@ public class UILog extends GHALog {
 	/**
 	 * @param bpu
 	 */
-	public void setBpu(Bpu bpu) {
+	public void setBpu(final Bpu bpu) {
 		this.bpu = bpu;
 	}
 

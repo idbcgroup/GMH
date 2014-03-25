@@ -1,15 +1,10 @@
-package org.fourgeeks.gha.ejb.gmh;
-
-import java.util.List;
-
-import javax.ejb.EJB;
-
-import junit.framework.Assert;
+package org.fourgeeks.gha.ejb;
 
 import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.HasKey;
+import org.fourgeeks.gha.domain.TimerParams;
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.ActivityState;
 import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
@@ -88,7 +83,9 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.gmh.RequiredResources;
 import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
@@ -107,45 +104,92 @@ import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
-import org.fourgeeks.gha.ejb.RuntimeParameters;
 import org.fourgeeks.gha.ejb.ess.MaintenanceServiceOrderService;
 import org.fourgeeks.gha.ejb.ess.MaintenanceServiceOrderServiceLocal;
+import org.fourgeeks.gha.ejb.ess.auth.FunctionService;
+import org.fourgeeks.gha.ejb.ess.auth.FunctionServiceRemote;
 import org.fourgeeks.gha.ejb.ess.auth.RoleService;
 import org.fourgeeks.gha.ejb.ess.auth.RoleServiceRemote;
 import org.fourgeeks.gha.ejb.ess.auth.SSOUserService;
 import org.fourgeeks.gha.ejb.ess.auth.SSOUserServiceRemote;
+import org.fourgeeks.gha.ejb.gar.BpuService;
+import org.fourgeeks.gha.ejb.gar.BpuServiceRemote;
+import org.fourgeeks.gha.ejb.gar.BspService;
+import org.fourgeeks.gha.ejb.gar.BspServiceRemote;
+import org.fourgeeks.gha.ejb.gar.FacilityService;
+import org.fourgeeks.gha.ejb.gar.FacilityServiceRemote;
 import org.fourgeeks.gha.ejb.gar.ObuService;
 import org.fourgeeks.gha.ejb.gar.ObuServiceRemote;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderService;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.BrandService;
+import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.BuildingLocationService;
+import org.fourgeeks.gha.ejb.gmh.BuildingLocationServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.EiaDamageReportService;
+import org.fourgeeks.gha.ejb.gmh.EiaDamageReportServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationService;
+import org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceLocal;
+import org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.EiaMaintenanceService;
+import org.fourgeeks.gha.ejb.gmh.EiaMaintenanceServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.EiaService;
+import org.fourgeeks.gha.ejb.gmh.EiaServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.EiaServiceTest;
+import org.fourgeeks.gha.ejb.gmh.EiaTypeCategoryService;
+import org.fourgeeks.gha.ejb.gmh.EiaTypeCategoryServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentService;
+import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceLocal;
+import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenancePlanService;
+import org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenancePlanServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.EiaTypeService;
+import org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.MaintenanceActivityService;
+import org.fourgeeks.gha.ejb.gmh.MaintenanceActivityServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.MaintenancePlanService;
+import org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolService;
+import org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.ManufacturerService;
+import org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistService;
+import org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistServiceLocal;
+import org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistServiceRemote;
 import org.fourgeeks.gha.ejb.gom.CCDIService;
 import org.fourgeeks.gha.ejb.gom.CCDIServiceLocal;
 import org.fourgeeks.gha.ejb.gom.CCDIServiceRemote;
+import org.fourgeeks.gha.ejb.helpers.BpuHelper;
 import org.fourgeeks.gha.ejb.log.UILogService;
 import org.fourgeeks.gha.ejb.log.UILogServiceLocal;
 import org.fourgeeks.gha.ejb.log.UILogServiceRemote;
+import org.fourgeeks.gha.ejb.mix.BpiService;
+import org.fourgeeks.gha.ejb.mix.BpiServiceRemote;
+import org.fourgeeks.gha.ejb.mix.CitizenService;
+import org.fourgeeks.gha.ejb.mix.CitizenServiceRemote;
 import org.fourgeeks.gha.ejb.mix.InstitutionService;
 import org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote;
 import org.fourgeeks.gha.ejb.mix.LegalEntityService;
 import org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote;
+import org.fourgeeks.gha.ejb.msg.MessageService;
+import org.fourgeeks.gha.ejb.msg.MessageServiceLocal;
+import org.fourgeeks.gha.ejb.msg.MessageServiceRemote;
+import org.fourgeeks.gha.ejb.pdt.PDTMessageProducer;
+import org.fourgeeks.gha.ejb.pdt.PDTMessageProducerLocal;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
- * @author naramirez
+ * A class for extend that provides the createDeployment method necesary for
+ * arquillian test
+ * 
+ * @author alacret
  * 
  */
-@RunWith(Arquillian.class)
-public class EiaMaintenancePlanificationServiceTest {
+public abstract class GHAArquillianBaseServiceTest {
 	/**
 	 * @return the deployment descriptor
 	 */
@@ -153,33 +197,34 @@ public class EiaMaintenancePlanificationServiceTest {
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap
 				.create(WebArchive.class, "test.war")
+
 				.addClass(AppView.class)
-				.addClass(CCDIValueTypeEnum.class)
-				.addClass(CCDICodeTypeEnum.class)
-				.addClass(CCDIValueStatusEnum.class)
-				.addClass(CCDIStatusEnum.class)
-				.addClass(CCDIEndValueActionEnum.class)
-				.addClass(Concept.class)
-				.addClass(CCDILevelValue.class)
-				.addClass(CCDILevelDefinition.class)
-				.addClass(CCDIDefinition.class)
-				.addClass(CCDIService.class)
-				.addClass(CCDIServiceRemote.class)
-				.addClass(CCDIServiceLocal.class)
 				.addClass(AbstractEntity.class)
 				.addClass(AbstractCodeEntity.class)
 				.addClass(App.class)
-				.addClass(ViewFunction.class)
-				.addClass(FunctionBpu.class)
+				.addClass(Bsp.class)
+				.addClass(BspService.class)
+				.addClass(BspServiceRemote.class)
+				.addClass(BpuService.class)
+				.addClass(BpuServiceRemote.class)
 				.addClass(Bpi.class)
+				.addClass(BpiService.class)
+				.addClass(BpiServiceRemote.class)
 				.addClass(BpiOriginEnum.class)
 				.addClass(BpiRiskEnum.class)
 				.addClass(BpiInstitutionRelationTypeEnum.class)
 				.addClass(BpiTypeEnum.class)
 				.addClass(Brand.class)
+				.addClass(BrandService.class)
+				.addClass(BrandServiceRemote.class)
 				.addClass(BuildingLocation.class)
+				.addClass(BuildingLocationService.class)
+				.addClass(BuildingLocationServiceRemote.class)
 				.addClass(Bpu.class)
+				.addClass(BpuHelper.class)
 				.addClass(Citizen.class)
+				.addClass(CitizenService.class)
+				.addClass(CitizenServiceRemote.class)
 				.addClass(CurrencyTypeEnum.class)
 				.addClass(DepreciationMethodEnum.class)
 				.addClass(DocumentTypeEnum.class)
@@ -192,6 +237,8 @@ public class EiaMaintenancePlanificationServiceTest {
 				.addClass(EiaTypeEnum.class)
 				.addClass(EiaSubTypeEnum.class)
 				.addClass(EiaTypeCategory.class)
+				.addClass(EiaTypeCategoryService.class)
+				.addClass(EiaTypeCategoryServiceRemote.class)
 				.addClass(EiaType.class)
 				.addClass(EiaTypeComponent.class)
 				.addClass(EiaTypeMaintenancePlan.class)
@@ -210,6 +257,8 @@ public class EiaMaintenancePlanificationServiceTest {
 				.addClass(EiaPreventiveMaintenance.class)
 				.addClass(ExternalProvider.class)
 				.addClass(Facility.class)
+				.addClass(FacilityService.class)
+				.addClass(FacilityServiceRemote.class)
 				.addClass(FacilityCategory.class)
 				.addClass(Function.class)
 				.addClass(GenderTypeEnum.class)
@@ -235,11 +284,11 @@ public class EiaMaintenancePlanificationServiceTest {
 				.addClass(MaintenancePlanCancelationOption.class)
 				.addClass(MaintenancePlanState.class)
 				.addClass(MaintenancePlanType.class)
+				.addClass(MessageService.class)
+				.addClass(MessageServiceLocal.class)
+				.addClass(MessageServiceRemote.class)
 				.addClass(EiaMaintenanceState.class)
 				.addClass(MaintenanceProtocol.class)
-				.addClass(MaintenanceServiceOrder.class)
-				.addClass(MaintenanceServiceOrderService.class)
-				.addClass(MaintenanceServiceOrderServiceLocal.class)
 				.addClass(ActivityState.class)
 				.addClass(ActivityCategoryEnum.class)
 				.addClass(Manufacturer.class)
@@ -279,173 +328,66 @@ public class EiaMaintenancePlanificationServiceTest {
 				.addClass(EiaMaintenancePlanificationService.class)
 				.addClass(EiaMaintenancePlanificationServiceRemote.class)
 				.addClass(EiaMaintenancePlanificationServiceLocal.class)
-				.addClass(EiaTypeMaintenancePlanService.class)
-				.addClass(EiaTypeMaintenancePlanServiceRemote.class)
+				.addClass(EiaMaintenanceService.class)
+				.addClass(EiaMaintenanceServiceRemote.class)
 				.addClass(UILog.class)
+				.addClass(ServiceOrderState.class)
 				.addClass(UILogService.class)
 				.addClass(UILogServiceLocal.class)
 				.addClass(UILogServiceRemote.class)
 				.addClass(SSOUser.class)
-				.addClass(ServiceOrderState.class)
 				.addClass(SSOUserService.class)
 				.addClass(SSOUserServiceRemote.class)
 				.addClass(ServiceAndResourceType.class)
 				.addClass(GHALog.class)
 				.addClass(EiaCorrectiveMaintenance.class)
 				.addClass(EiaMaintenance.class)
+				.addClass(FunctionService.class)
+				.addClass(FunctionServiceRemote.class)
+				.addClass(GHAArquillianBaseServiceTest.class)
 				.addClass(UserLogonStatusEnum.class)
 				.addClass(MaintenanceCancelationCause.class)
+				.addClass(MaintenanceServiceOrder.class)
+				.addClass(MaintenanceServiceOrderService.class)
+				.addClass(MaintenanceServiceOrderServiceLocal.class)
 				.addClass(MaintenancePlanificationState.class)
-				.addClass(EiaMaintenanceService.class)
-				.addClass(EiaMaintenanceServiceRemote.class)
+				.addClass(Manufacturer.class)
+				.addClass(ManufacturerService.class)
+				.addClass(ManufacturerServiceRemote.class)
+				.addClass(ViewFunction.class)
+				.addClass(FunctionBpu.class)
+				.addClass(EiaDamageReportService.class)
+				.addClass(EiaDamageReportServiceRemote.class)
+				.addClass(EiaTypeMaintenancePlanService.class)
+				.addClass(EiaTypeMaintenancePlanServiceRemote.class)
+				.addClass(MaintenancePlanService.class)
+				.addClass(MaintenancePlanServiceRemote.class)
+				.addClass(MaintenanceProtocolService.class)
+				.addClass(MaintenanceProtocolServiceRemote.class)
+				.addClass(MaintenancePlanStadisticData.class)
+				.addClass(MaintenanceProtocolStadisticData.class)
+				.addClass(TimerParams.class)
+				.addClass(TimerParamsService.class)
+				.addClass(TimerParamsServiceLocal.class)
+				.addClass(CCDIEndValueActionEnum.class)
+				.addClass(CCDICodeTypeEnum.class)
+				.addClass(CCDIValueStatusEnum.class)
+				.addClass(CCDIValueTypeEnum.class)
+				.addClass(CCDIStatusEnum.class)
+				.addClass(CCDILevelDefinition.class)
+				.addClass(CCDILevelValue.class)
+				.addClass(CCDIDefinition.class)
+				.addClass(CCDIService.class)
+				.addClass(CCDIServiceLocal.class)
+				.addClass(CCDIServiceRemote.class)
+				.addClass(CCDIService.class)
+				.addClass(CCDIServiceLocal.class)
+				.addClass(CCDIServiceRemote.class)
+				.addClass(PDTMessageProducer.class)
+				.addClass(PDTMessageProducerLocal.class)
+				.addClass(Concept.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-	}
-
-	@EJB(lookup = "java:global/test/EiaMaintenancePlanificationService!"
-			+ "org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceRemote")
-	private EiaMaintenancePlanificationServiceRemote serviceRemote;
-
-	@EJB(lookup = "java:global/test/EiaMaintenancePlanificationService!"
-			+ "org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceLocal")
-	private EiaMaintenancePlanificationServiceLocal serviceLocal;
-
-	@EJB(lookup = "java:global/test/EiaTypeMaintenancePlanService")
-	private EiaTypeMaintenancePlanServiceRemote eiaTypeMPlanService;
-
-	@EJB(lookup = "java:global/test/EiaService")
-	private EiaServiceRemote eiaService;
-
-	EiaTypeMaintenancePlan eiaTypeMPlan;
-	EiaType eiaType;
-	Eia eia;
-
-	private void deleteTest(final EiaMaintenancePlanification planif) {
-		final int itemsExpected = 0;
-		try {
-			serviceRemote.delete(planif.getId());
-
-			List<EiaMaintenancePlanification> aux = serviceRemote.find(eiaType);
-
-			Assert.assertEquals(itemsExpected, aux.size());
-
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void findByEiaTypeTest() {
-		int itemsExpected = 1;
-		try {
-			final List<EiaMaintenancePlanification> result = serviceRemote
-					.find(eiaType);
-
-			Assert.assertEquals(itemsExpected, result.size());
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void getAllTest() {
-		int itemsExpected = 1;
-		try {
-			final List<EiaMaintenancePlanification> result = serviceLocal
-					.getAll();
-
-			Assert.assertEquals(itemsExpected, result.size());
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void getPlanificationsCountTest() {
-		final long countExpected = 1;
-		try {
-			MaintenancePlan maintenancePlan = new MaintenancePlan(1);
-			final long result = serviceLocal
-					.getPlanificationsCount(maintenancePlan);
-
-			Assert.assertEquals(countExpected, result);
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private EiaMaintenancePlanification saveTest() {
-		try {
-			EiaMaintenancePlanification planif = serviceRemote
-					.save(new EiaMaintenancePlanification(eia, eiaTypeMPlan));
-
-			Assert.assertNotNull(planif);
-			return planif;
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	/** */
-	@Before
-	public void set() {
-		try {
-			// obteniendo tipo de equipo
-			eiaType = new EiaType("3000000001");
-			List<EiaTypeMaintenancePlan> list = eiaTypeMPlanService
-					.findByEiaType(eiaType);
-
-			if (!list.isEmpty()) {
-				// obteniendo eia
-				eia = eiaService.findByEiaType(eiaType).get(0);
-
-				// obteniendo asociacion de plan a tipo de equipo
-				eiaTypeMPlan = list.get(0);
-
-			} else {
-				MaintenancePlan plan = null;
-
-				// obteniendo eia
-				eia = eiaService.findByEiaType(eiaType).get(0);
-
-				// asociando planes a tipos de equipo
-				plan = new MaintenancePlan(1);
-				eiaTypeMPlan = eiaTypeMPlanService
-						.save(new EiaTypeMaintenancePlan(eiaType, plan));
-			}
-
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**  */
-	@Test
-	public void test() {
-		EiaMaintenancePlanification planif = null;
-		final String sep = "\n---------------------------------------\n";
-
-		System.out.println("TESTING EIA MAINTENANCE PLANIFICATION SERVICE\n");
-
-		System.out.println(sep + "saveTest" + sep);
-		planif = saveTest();
-
-		System.out.println(sep + "getAllTest" + sep);
-		getAllTest();
-
-		System.out.println(sep + "findByEiaTypeTest" + sep);
-		findByEiaTypeTest();
-
-		System.out.println(sep + "getPlanificationsCountTest" + sep);
-		getPlanificationsCountTest();
-
-		System.out.println(sep + "deleteTest" + sep);
-		deleteTest(planif);
-	}
-
-	/** */
-	@After
-	public void unset() {
 	}
 }
