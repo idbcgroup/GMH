@@ -102,7 +102,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		nameItem.validateWords();
 		nameItem.setTooltip(GHAStrings.get("eiatype-name-tooltip"));
 
-		modelItem.validateWords();
+		modelItem.validateSerial();
 		modelItem.setTooltip(GHAStrings.get("eiatype-model-tooltip"));
 
 		categoryItem.setTooltip(GHAStrings.get("eiatype-type-tooltip"));
