@@ -89,6 +89,8 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 		codeTextItem = new GHATextItem(GHAStrings.get("code"), false);
 		nameTextItem = new GHATextItem(GHAStrings.get("activity-name"), true,
 				changedHandler);
+		nameTextItem.setKeyPressFilter("^[a-zA-ZáéíóúÁÉÍÓÚÑñ ]+$");
+
 		stateSelectItem = new GHAActivityStateSelectItem();
 		stateSelectItem.setDisabled(true);
 		categorySelectItem = new GHAActivityCategorySelectItem(true,
@@ -111,10 +113,12 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 				changedHandler);
 		estimatedTimeTextItem = new GHATextItem(
 				GHAStrings.get("estimated-time"), true, changedHandler);
+		estimatedTimeTextItem.setKeyPressFilter("^[0-9]+$");
 		estimatedTimePoTSelectItem = new GHAPeriodOfTimeSelectItem(false,
 				changedHandler);
 		estimatedCostTextItem = new GHATextItem(
 				GHAStrings.get("estimated-cost"), true, changedHandler);
+		estimatedCostTextItem.setKeyPressFilter("^[0-9]+$");
 		estimatedCostCurrencySelectItem = new GHACurrencyTypeSelectItem(false,
 				changedHandler);
 		instructionsAndObsTextAreaItem.setColSpan(4);

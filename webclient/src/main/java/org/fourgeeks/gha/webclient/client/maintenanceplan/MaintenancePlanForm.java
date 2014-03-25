@@ -80,9 +80,8 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 	{
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
 		nameItem.setLength(100);
-		nameItem.validateWords();
+		nameItem.setKeyPressFilter("^[a-zA-ZáéíóúÁÉÍÓÚÑñ ]+$");
 		nameItem.setTooltip(GHAStrings.get("maintenance-name-tooltip"));
-		nameItem.setShowErrorIcon(false);
 
 		frequencyItem = new GHATextItem(GHAStrings.get("frecuency"), true,
 				changedHandler);
@@ -91,6 +90,7 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 		frequencyItem.setTooltip(GHAStrings
 				.get("maintenance-plan-frequency-tooltip"));
 		frequencyItem.setShowErrorIcon(false);
+		frequencyItem.setKeyPressFilter("^[0-9]+$");
 
 		frecuencyPoTItem = new GHAPeriodOfTimeSelectItem(false, changedHandler);
 
@@ -106,6 +106,7 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 
 		cancelationOptionItem = new GHAMaintenancePlanCancelationOptionSelectItem(
 				true, changedHandler);
+
 		providerSelectItem = new GHABspSelectItem();
 		roleSelectItem = new GHAJobSelectItem(false, changedHandler);
 
