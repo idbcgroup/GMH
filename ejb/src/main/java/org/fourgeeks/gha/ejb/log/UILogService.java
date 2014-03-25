@@ -31,9 +31,19 @@ public class UILogService extends GHAEJBExceptionService implements
 
 	@Override
 	public void delete(final UILog log) throws GHAEJBException {
+		if (log == null) {
+			logger.log(Level.INFO, "ERROR: unable to delete the log ");
+			throw super.generateGHAEJBException("message-delete-fail", em);
+		}
 		try {
+			System.out.println("INNER : " + log.getId());
 			final UILog entity = em.find(UILog.class, log.getId());
+			System.out.println("INNER : " + (entity == null));
+			System.out.println("INNER : " + (entity.getId()));
 			em.remove(entity);
+			em.flush();
+			System.out.println("INNER GETTING OUT : ");
+
 		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete ="
 					+ log.getClass().getName() + " with id = " + log.getId(), e);

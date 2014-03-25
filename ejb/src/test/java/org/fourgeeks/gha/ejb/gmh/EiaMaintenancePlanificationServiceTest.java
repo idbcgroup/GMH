@@ -48,10 +48,12 @@ import org.fourgeeks.gha.domain.enu.ProviderResourceTypeEnum;
 import org.fourgeeks.gha.domain.enu.ProviderServicesEnum;
 import org.fourgeeks.gha.domain.enu.ProviderTypeEnum;
 import org.fourgeeks.gha.domain.enu.ServiceAndResourceType;
+import org.fourgeeks.gha.domain.enu.ServiceOrderState;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.LocationType;
+import org.fourgeeks.gha.domain.ess.MaintenanceServiceOrder;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.ess.auth.Function;
 import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
@@ -107,6 +109,8 @@ import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
+import org.fourgeeks.gha.ejb.ess.MaintenanceServiceOrderService;
+import org.fourgeeks.gha.ejb.ess.MaintenanceServiceOrderServiceLocal;
 import org.fourgeeks.gha.ejb.ess.auth.RoleService;
 import org.fourgeeks.gha.ejb.ess.auth.RoleServiceRemote;
 import org.fourgeeks.gha.ejb.ess.auth.SSOUserService;
@@ -233,6 +237,9 @@ public class EiaMaintenancePlanificationServiceTest {
 				.addClass(MaintenancePlanType.class)
 				.addClass(EiaMaintenanceState.class)
 				.addClass(MaintenanceProtocol.class)
+				.addClass(MaintenanceServiceOrder.class)
+				.addClass(MaintenanceServiceOrderService.class)
+				.addClass(MaintenanceServiceOrderServiceLocal.class)
 				.addClass(ActivityState.class)
 				.addClass(ActivityCategoryEnum.class)
 				.addClass(Manufacturer.class)
@@ -279,6 +286,7 @@ public class EiaMaintenancePlanificationServiceTest {
 				.addClass(UILogServiceLocal.class)
 				.addClass(UILogServiceRemote.class)
 				.addClass(SSOUser.class)
+				.addClass(ServiceOrderState.class)
 				.addClass(SSOUserService.class)
 				.addClass(SSOUserServiceRemote.class)
 				.addClass(ServiceAndResourceType.class)
@@ -313,6 +321,72 @@ public class EiaMaintenancePlanificationServiceTest {
 	EiaType eiaType;
 	Eia eia;
 
+	private void deleteTest(final EiaMaintenancePlanification planif) {
+		final int itemsExpected = 0;
+		try {
+			serviceRemote.delete(planif.getId());
+
+			List<EiaMaintenancePlanification> aux = serviceRemote.find(eiaType);
+
+			Assert.assertEquals(itemsExpected, aux.size());
+
+		} catch (GHAEJBException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void findByEiaTypeTest() {
+		int itemsExpected = 1;
+		try {
+			final List<EiaMaintenancePlanification> result = serviceRemote
+					.find(eiaType);
+
+			Assert.assertEquals(itemsExpected, result.size());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void getAllTest() {
+		int itemsExpected = 1;
+		try {
+			final List<EiaMaintenancePlanification> result = serviceLocal
+					.getAll();
+
+			Assert.assertEquals(itemsExpected, result.size());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void getPlanificationsCountTest() {
+		final long countExpected = 1;
+		try {
+			MaintenancePlan maintenancePlan = new MaintenancePlan(1);
+			final long result = serviceLocal
+					.getPlanificationsCount(maintenancePlan);
+
+			Assert.assertEquals(countExpected, result);
+		} catch (GHAEJBException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private EiaMaintenancePlanification saveTest() {
+		try {
+			EiaMaintenancePlanification planif = serviceRemote
+					.save(new EiaMaintenancePlanification(eia, eiaTypeMPlan));
+
+			Assert.assertNotNull(planif);
+			return planif;
+		} catch (GHAEJBException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	/** */
 	@Before
 	public void set() {
@@ -346,11 +420,6 @@ public class EiaMaintenancePlanificationServiceTest {
 		}
 	}
 
-	/** */
-	@After
-	public void unset() {
-	}
-
 	/**  */
 	@Test
 	public void test() {
@@ -375,69 +444,8 @@ public class EiaMaintenancePlanificationServiceTest {
 		deleteTest(planif);
 	}
 
-	private void findByEiaTypeTest() {
-		int itemsExpected = 1;
-		try {
-			final List<EiaMaintenancePlanification> result = serviceRemote
-					.find(eiaType);
-
-			Assert.assertEquals(itemsExpected, result.size());
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void getAllTest() {
-		int itemsExpected = 1;
-		try {
-			final List<EiaMaintenancePlanification> result = serviceLocal
-					.getAll();
-
-			Assert.assertEquals(itemsExpected, result.size());
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private EiaMaintenancePlanification saveTest() {
-		try {
-			EiaMaintenancePlanification planif = serviceRemote
-					.save(new EiaMaintenancePlanification(eia, eiaTypeMPlan));
-
-			Assert.assertNotNull(planif);
-			return planif;
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	private void getPlanificationsCountTest() {
-		final long countExpected = 1;
-		try {
-			MaintenancePlan maintenancePlan = new MaintenancePlan(1);
-			final long result = serviceLocal
-					.getPlanificationsCount(maintenancePlan);
-
-			Assert.assertEquals(countExpected, result);
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void deleteTest(EiaMaintenancePlanification planif) {
-		final int itemsExpected = 0;
-		try {
-			serviceRemote.delete(planif.getId());
-
-			List<EiaMaintenancePlanification> aux = serviceRemote.find(eiaType);
-
-			Assert.assertEquals(itemsExpected, aux.size());
-
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
+	/** */
+	@After
+	public void unset() {
 	}
 }

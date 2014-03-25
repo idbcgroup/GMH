@@ -303,20 +303,50 @@ public class UILogServiceTest {
 		Assert.assertNotNull(uILogServiceLocal);
 		Assert.assertNotNull(ghaMessage);
 
+		List<UILog> all = null;
+		try {
+			all = uILogServiceRemote.getAll();
+		} catch (final Exception e) {
+			unset();
+			Assert.fail("failing retriving all ui logs" + e.getMessage());
+		}
+
+		try {
+			for (final UILog uiLog2 : all)
+				uILogServiceLocal.delete(uiLog2);
+		} catch (final Exception e) {
+			Assert.fail(e.getMessage());
+		}
+
 		try {
 			final UILog uiLog = new UILog();
 			uiLog.setBpu(bpu);
 			uiLog.setMessage(ghaMessage);
 			uILogServiceRemote.log(uiLog);
 		} catch (final GHAEJBException e1) {
+			unset();
+			Assert.fail("failing creating a uilog");
 		}
 
 		try {
-			final List<UILog> all = uILogServiceRemote.getAll();
-			Assert.assertEquals(1, all.size());
+			Thread.sleep(5000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		try {
+			all = uILogServiceRemote.getAll();
+		} catch (final Exception e) {
+			unset();
+			Assert.fail("failing retriving all ui logs" + e.getMessage());
+		}
+		Assert.assertEquals(1, all.size());
+
+		try {
 			for (final UILog uiLog2 : all)
 				uILogServiceLocal.delete(uiLog2);
-		} catch (final GHAEJBException e) {
+		} catch (final Exception e) {
 			Assert.fail(e.getMessage());
 		}
 
@@ -329,7 +359,8 @@ public class UILogServiceTest {
 	public void unset() {
 		try {
 			messageServiceLocal.delete(ghaMessage);
-		} catch (final GHAEJBException e) {
+		} catch (final Exception e) {
+			System.out.println(e.getMessage());
 		}
 		bpuHelper.removeBpu();
 	}
