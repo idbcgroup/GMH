@@ -15,14 +15,14 @@ import junit.framework.Assert;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Facility;
-import org.fourgeeks.gha.ejb.GhaServiceTest;
+import org.fourgeeks.gha.ejb.GHAArquillianBaseServiceTest;
 
 /**
  * @author vivi.torresg
  * 
  */
 // @RunWith(Arquillian.class)
-public class FacilityServiceTest extends GhaServiceTest {
+public class FacilityServiceTest extends GHAArquillianBaseServiceTest {
 	@PersistenceContext
 	EntityManager em;
 
@@ -44,7 +44,7 @@ public class FacilityServiceTest extends GhaServiceTest {
 		em.joinTransaction();
 
 		Facility entity = new Facility();
-		entity.setBuildingLocation(super.getBuildingLocation(em));
+		// entity.setBuildingLocation(super.getBuildingLocation(em));
 		entity = service.save(entity);
 
 		Assert.assertNotNull(entity);

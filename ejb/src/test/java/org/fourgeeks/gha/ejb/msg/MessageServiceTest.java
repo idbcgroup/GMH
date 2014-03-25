@@ -2,7 +2,6 @@ package org.fourgeeks.gha.ejb.msg;
 
 import static junit.framework.Assert.assertNotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -278,89 +277,52 @@ public class MessageServiceTest {
 	 */
 	@Test
 	public void test() {
-		System.out.println("TESTING MESSAGE SERVICE \n\n");
-
 		assertNotNull(messageServiceLocal);
 		assertNotNull(messageServiceRemote);
 
-		final String code1 = "unit-test-message1";
-		final String code2 = "unit-test-message2";
-		final String code3 = "unit-test-message3";
-		final String code4 = "unit-test-message4";
-		GHAMessage ghaMessage1 = new GHAMessage(code1, LanguageEnum.ES);
-		GHAMessage ghaMessage2 = new GHAMessage(code2, LanguageEnum.ES);
-		GHAMessage ghaMessage3 = new GHAMessage(code3, LanguageEnum.ES);
-		GHAMessage ghaMessage4 = new GHAMessage(code4, LanguageEnum.ES);
-		ghaMessage1.setText("ghaMessage unit test");
-		ghaMessage2.setText("ghaMessage unit test");
-		ghaMessage3.setText("ghaMessage unit test");
-		ghaMessage4.setText("ghaMessage unit test");
+		final String code = "GHAMESSAGE-TESTCODE";
+		GHAMessage ghaMessage = new GHAMessage(code, LanguageEnum.ES);
+		ghaMessage.setText("ghaMessage unit test");
 
 		try {
-			ghaMessage1 = messageServiceLocal.save(ghaMessage1);
-			ghaMessage2 = messageServiceLocal.save(ghaMessage2);
-			ghaMessage3 = messageServiceLocal.save(ghaMessage3);
-			ghaMessage4 = messageServiceLocal.save(ghaMessage4);
-		} catch (final GHAEJBException e1) {
-			e1.printStackTrace();
-			System.out
-					.print("\n\n\n\nError de pruebas unitarias en metodo Save de Message Service.\n\n\n\n");
-		}
-		Assert.assertNotNull(ghaMessage1);
-		Assert.assertNotNull(ghaMessage2);
-		Assert.assertNotNull(ghaMessage3);
-		Assert.assertNotNull(ghaMessage4);
-
-		GHAMessage result1 = null;
-		GHAMessage result2 = null;
-		try {
-			result1 = messageServiceRemote.find(null, code1);
-			result2 = messageServiceRemote.find(null, code2);
+			ghaMessage = messageServiceLocal.save(ghaMessage);
 		} catch (final GHAEJBException e) {
-			e.printStackTrace();
-			System.out
-					.print("\n\n\n\nError de pruebas unitarias en metodo Find by code de Message Service.\n\n\n\n");
+			unset();
+			Assert.fail(e.getMessage());
 		}
-		Assert.assertNotNull(result1);
-		Assert.assertNotNull(result2);
+		Assert.assertNotNull(ghaMessage);
 
-		final List<String> codigos = new ArrayList<String>();
-		codigos.add(code1);
-		codigos.add(code2);
-		codigos.add(code3);
-		codigos.add(code4);
-
-		List<GHAMessage> messages = new ArrayList<GHAMessage>();
+		GHAMessage result = null;
 		try {
-			messages = messageServiceRemote.find(null, codigos);
+			result = messageServiceRemote.findAndLog(null, code);
 		} catch (final GHAEJBException e) {
-			e.printStackTrace();
-			System.out
-					.print("\n\n\n\nError de pruebas unitarias en metodo Find by code list de Message Service.\n\n\n\n");
+			unset();
+			Assert.fail(e.getMessage());
 		}
-		Assert.assertEquals(4, messages.size());
+		Assert.assertNotNull(result);
 
-		List<UILog> uiLogList = null;
 		try {
-			uiLogList = uILogServiceRemote.getAll();
+			Thread.sleep(5000);
+		} catch (InterruptedException e2) {
+			unset();
+			Assert.fail(e2.getMessage());
+		}
+
+		try {
+			List<UILog> uiLogList = uILogServiceRemote.getAll();
 			for (final UILog u : uiLogList) {
 				uILogServiceLocal.delete(u);
 			}
 		} catch (final GHAEJBException e) {
-			e.printStackTrace();
-			System.out
-					.print("\n\n\n\nError de pruebas unitarias en metodo Delete del UILog relacionado.\n\n\n\n");
+			unset();
+			Assert.fail(e.getMessage());
 		}
 
 		try {
-			messageServiceLocal.delete(ghaMessage1);
-			messageServiceLocal.delete(ghaMessage2);
-			messageServiceLocal.delete(ghaMessage3);
-			messageServiceLocal.delete(ghaMessage4);
-		} catch (final GHAEJBException e1) {
-			e1.printStackTrace();
-			System.out
-					.print("\n\n\n\nError de pruebas unitarias en metodo Delete de Message Service.\n\n\n\n");
+			messageServiceLocal.delete(ghaMessage);
+		} catch (final GHAEJBException e) {
+			unset();
+			Assert.fail(e.getMessage());
 		}
 	}
 

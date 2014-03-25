@@ -15,14 +15,14 @@ import junit.framework.Assert;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaTypeUtility;
-import org.fourgeeks.gha.ejb.GhaServiceTest;
+import org.fourgeeks.gha.ejb.GHAArquillianBaseServiceTest;
 
 /**
  * @author vivi.torresg
  * 
  */
 // @RunWith(Arquillian.class)
-public class EiaTypeUtilityServiceTest extends GhaServiceTest {
+public class EiaTypeUtilityServiceTest extends GHAArquillianBaseServiceTest {
 	@PersistenceContext
 	EntityManager em;
 
@@ -44,7 +44,7 @@ public class EiaTypeUtilityServiceTest extends GhaServiceTest {
 		em.joinTransaction();
 
 		EiaTypeUtility entity = new EiaTypeUtility();
-		entity.setEiaType(super.getEiaType(em));
+		// entity.setEiaType(super.getEiaType(em));
 		entity = service.save(entity);
 
 		Assert.assertNotNull(entity);

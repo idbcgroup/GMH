@@ -16,14 +16,14 @@ import junit.framework.Assert;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
-import org.fourgeeks.gha.ejb.GhaServiceTest;
+import org.fourgeeks.gha.ejb.GHAArquillianBaseServiceTest;
 
 /**
  * @author vivi.torresg
  * 
  */
 // @RunWith(Arquillian.class)
-public class BuildingLocationServiceTest extends GhaServiceTest {
+public class BuildingLocationServiceTest extends GHAArquillianBaseServiceTest {
 	@PersistenceContext
 	EntityManager em;
 
@@ -47,7 +47,7 @@ public class BuildingLocationServiceTest extends GhaServiceTest {
 		BuildingLocation entity = new BuildingLocation();
 		entity.setCode("BuildingLocation test code");
 		entity.setLocationLevel(LocationLevelEnum.AREA_HALL);
-		entity.setBpi(super.getBpi(em));
+		// entity.setBpi(super.getBpi(em));
 		entity = service.save(entity);
 
 		Assert.assertNotNull(entity);
