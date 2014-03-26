@@ -116,8 +116,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 
 		useDescriptionItem.setTooltip(GHAStrings
 				.get("eiatype-use-description-tooltip"));
-		// Incierto si requiere validacion o no
-		// eiaUmdnsItem.validateWords();
+		eiaUmdnsItem.validateAlphanumeric();
 	}
 
 	/**
