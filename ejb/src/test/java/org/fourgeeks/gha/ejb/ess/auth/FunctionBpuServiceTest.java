@@ -351,7 +351,7 @@ public class FunctionBpuServiceTest {
 				bpuServiceRemote, bpiServiceRemote);
 		bpu = bpuHelper.createBpu();
 
-		function = new Function(TESTCODE, null, null);
+		function = new Function(TESTCODE, null);
 
 		try {
 			function = functionService.save(function);

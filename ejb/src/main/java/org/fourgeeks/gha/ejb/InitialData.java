@@ -179,6 +179,7 @@ public class InitialData {
 	}
 
 	private void apps() {
+		logger.info("creating apps test data");
 		final InputStream resourceAsStream = InitialData.class
 				.getResourceAsStream("/apps.csv");
 
@@ -806,6 +807,7 @@ public class InitialData {
 	}
 
 	private void functions() throws IOException {
+		logger.info("creating functions test data");
 		final InputStream resourceAsStream = InitialData.class
 				.getResourceAsStream("/codes.csv");
 		CSVReader csvReader = null;
@@ -1393,6 +1395,7 @@ public class InitialData {
 	}
 
 	private void modules() {
+		logger.info("creating modules test data");
 		final InputStream resourceAsStream = InitialData.class
 				.getResourceAsStream("/modules.csv");
 
@@ -1817,6 +1820,7 @@ public class InitialData {
 	}
 
 	private void views() {
+		logger.info("creating views test data");
 		final InputStream resourceAsStream = InitialData.class
 				.getResourceAsStream("/views.csv");
 
