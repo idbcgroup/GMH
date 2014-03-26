@@ -75,4 +75,13 @@ public interface RequiredResourcesServiceRemote {
 	 */
 	public RequiredResources update(RequiredResources requiredResources)
 			throws GHAEJBException;
+
+	/**
+	 * 
+	 * @param entities
+	 * @return the persistent entities
+	 * @throws GHAEJBException
+	 */
+	public List<RequiredResources> save(List<RequiredResources> entities)
+			throws GHAEJBException;
 }

@@ -30,14 +30,16 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
-		EiaTypeSelectionProducer {
+		EiaTypeSelectionProducer, EiaTypeListSelectionProducer {
+
 	private List<EIATypeSelectionListener> listeners;
+	private List<EiaTypeListSelectionListener> listenersList;
 	private final EIATypeGrid grid;
 	private final ResultSetContainerType containerType;
 
 	{
 		listeners = new ArrayList<EIATypeSelectionListener>();
-
+		listenersList = new ArrayList<EiaTypeListSelectionListener>();
 	}
 
 	/**
@@ -72,7 +74,10 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 
 			@Override
 			public void onClick(ClickEvent event) {
-				notifySelectedEiaType();
+				if (grid.getSelectedRecords().length > 1)
+					notifySelectedEiaTypes();
+				else
+					notifySelectedEiaType();
 			}
 		});
 
@@ -228,6 +233,31 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 		grid.setData(array);
 		if (!isVisible())
 			this.animateShow(AnimationEffect.FADE);
+
+	}
+
+	@Override
+	public void addEiaTypeListSelectionListener(
+			EiaTypeListSelectionListener eiaTypeListSelectionListener) {
+		listenersList.add(eiaTypeListSelectionListener);
+	}
+
+	@Override
+	public void removeEiaTypeListSelectionListener(
+			EiaTypeListSelectionListener eiaTypeListSelectionListener) {
+		listenersList.remove(eiaTypeListSelectionListener);
+	}
+
+	@Override
+	public void notifyEiaTypeList(List<EiaType> eiaTypes) {
+		for (EiaTypeListSelectionListener listener : listenersList)
+			listener.select(eiaTypes);
+	}
+
+	private void notifySelectedEiaTypes() {
+		notifyEiaTypeList(grid.getSelectedEntities());
+		hide();
+		grid.removeSelectedData();
 
 	}
 }

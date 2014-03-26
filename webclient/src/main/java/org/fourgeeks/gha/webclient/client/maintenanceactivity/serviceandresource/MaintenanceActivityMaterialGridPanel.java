@@ -19,6 +19,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
+import org.fourgeeks.gha.webclient.client.material.MaterialListSelectionListener;
 import org.fourgeeks.gha.webclient.client.material.MaterialSearchForm;
 import org.fourgeeks.gha.webclient.client.material.MaterialSelectionListener;
 
@@ -37,8 +38,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaintenanceActivityMaterialGridPanel extends GHAFormLayout
-implements ClosableListener, HideableListener,
-MaintenanceActivitySelectionListener {
+		implements ClosableListener, HideableListener,
+		MaintenanceActivitySelectionListener {
 
 	private MaterialSearchForm materialSearchForm;
 	private MaintenanceActivityServiceAndResourceGrid grid;
@@ -51,28 +52,38 @@ MaintenanceActivitySelectionListener {
 			public void onCellSaved(CellSavedEvent event) {
 				final MaintenanceActivityRequiredResourcesRecord rec = (MaintenanceActivityRequiredResourcesRecord) grid
 						.getRecord(event.getRowNum());
-				final RequiredResources requiredR = rec.toRequiredResourcesEntity();
+				final RequiredResources requiredR = rec
+						.toRequiredResourcesEntity();
 				requiredR.setQuantity((Integer) grid.getEditedCell(
 						event.getRowNum(), event.getColNum()));
 				RequiredResourcesModel.update(requiredR,
 						new GHAAsyncCallback<RequiredResources>() {
-					@Override
-					public void onSuccess(RequiredResources result) {
-						loadData();
-					}
-				});
+							@Override
+							public void onSuccess(RequiredResources result) {
+								loadData();
+							}
+						});
 			}
 		});
 
 		materialSearchForm = new MaterialSearchForm(GHAStrings.get("materials"));
 		materialSearchForm
-		.addMaterialSelectionListener(new MaterialSelectionListener() {
-			@Override
-			public void select(Material material) {
-				save(material);
-				materialSearchForm.clean();
-			}
-		});
+				.addMaterialSelectionListener(new MaterialSelectionListener() {
+					@Override
+					public void select(Material material) {
+						save(material);
+						materialSearchForm.clean();
+					}
+				});
+		materialSearchForm
+				.addMaterialListSelectionListener(new MaterialListSelectionListener() {
+
+					@Override
+					public void select(List<Material> materials) {
+						save(materials);
+						materialSearchForm.clean();
+					}
+				});
 	}
 
 	/**
@@ -90,14 +101,16 @@ MaintenanceActivitySelectionListener {
 				addResource();
 			}
 		});
-		final GHADeleteButton deleteButton = new GHADeleteButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				delete();
-			}
-		});
+		final GHADeleteButton deleteButton = new GHADeleteButton(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						delete();
+					}
+				});
 
-		final VLayout sideButtons = GHAUiHelper.createBar(addButton, deleteButton);
+		final VLayout sideButtons = GHAUiHelper.createBar(addButton,
+				deleteButton);
 
 		final VLayout gridLayout = new VLayout(10);
 		gridLayout.addMembers(grid);
@@ -162,11 +175,30 @@ MaintenanceActivitySelectionListener {
 
 		RequiredResourcesModel.save(entity,
 				new GHAAsyncCallback<RequiredResources>() {
-			@Override
-			public void onSuccess(final RequiredResources result) {
-				loadData();
-			}
-		});
+					@Override
+					public void onSuccess(final RequiredResources result) {
+						loadData();
+					}
+				});
+	}
+
+	private void save(List<Material> materials) {
+		final List<RequiredResources> entities = new ArrayList<RequiredResources>();
+		for (Material material : materials) {
+			RequiredResources entity = new RequiredResources();
+			entity.setActivity(maintenanceActivity.getActivity());
+			entity.setResource(material);
+
+			entities.add(entity);
+		}
+
+		RequiredResourcesModel.save(entities,
+				new GHAAsyncCallback<List<RequiredResources>>() {
+					@Override
+					public void onSuccess(final List<RequiredResources> result) {
+						loadData();
+					}
+				});
 	}
 
 	private void delete() {
@@ -180,37 +212,37 @@ MaintenanceActivitySelectionListener {
 		if (selectedEntities.size() == 0) {
 			GHAAlertManager.alert("record-not-selected");
 		} else {
-			if(selectedEntities.size() == 1)
+			if (selectedEntities.size() == 1)
 				GHAAlertManager.confirm("resource-delete-confirm",
 						new BooleanCallback() {
-					@Override
-					public void execute(Boolean value) {
-						if (value)
-							deleteSelectedEntities(selectedEntities);
-						grid.focus();
-					}
-				});
+							@Override
+							public void execute(Boolean value) {
+								if (value)
+									deleteSelectedEntities(selectedEntities);
+								grid.focus();
+							}
+						});
 			else
 				GHAAlertManager.confirm("resources-delete-confirm",
 						new BooleanCallback() {
-					@Override
-					public void execute(Boolean value) {
-						if (value)
-							deleteSelectedEntities(selectedEntities);
-						grid.focus();
-					}
-				});
+							@Override
+							public void execute(Boolean value) {
+								if (value)
+									deleteSelectedEntities(selectedEntities);
+								grid.focus();
+							}
+						});
 		}
 	}
 
 	private void deleteSelectedEntities(List<RequiredResources> selectedEntities) {
 		RequiredResourcesModel.delete(selectedEntities,
 				new GHAAsyncCallback<Void>() {
-			@Override
-			public void onSuccess(Void result) {
-				loadData();
-				GHAAlertManager.alert("delete-resources-success");
-			}
-		});
+					@Override
+					public void onSuccess(Void result) {
+						loadData();
+						GHAAlertManager.alert("delete-resources-success");
+					}
+				});
 	}
 }
