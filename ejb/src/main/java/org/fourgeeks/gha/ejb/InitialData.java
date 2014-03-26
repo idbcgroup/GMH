@@ -813,37 +813,29 @@ public class InitialData {
 			csvReader = new CSVReader(new InputStreamReader(resourceAsStream,
 					"UTF-8"), ',', '\'', 1);
 			final List<String[]> readAll = csvReader.readAll();
-			App app = null;
 			View view = null;
-			AppView appView = null;
 			Function permission = null;
 			ViewFunction ViewPermission = null;
 
 			for (final String[] strings : readAll) {
 				if (strings[0].startsWith("#") || strings[0].startsWith("//"))
 					continue;
-				final String appCode = strings[0];
-				app = em.find(App.class, appCode);
-				final String viewCode = strings[1];
-				final String viewDescription = strings[2];
-				view = new View(viewCode, null, viewDescription);
-				em.merge(view);
-				appView = new AppView(app, view);
-				em.merge(appView);
-				final String permissionCode = strings[3];
-				final String functionDescription = strings[4];
-				permission = new Function(permissionCode, null,
-						functionDescription);
+				final String viewCode = strings[0];
+				view = em.find(View.class, viewCode);
+				final String permissionCode = strings[1];
+				final String functionDescription = strings[2];
+				permission = new Function(permissionCode, functionDescription);
 				em.merge(permission);
 				ViewPermission = new ViewFunction(view, permission);
 				em.merge(ViewPermission);
+				em.flush();
 			}
 			csvReader.close();
 		} catch (final UnsupportedEncodingException e3) {
 			csvReader.close();
 			logger.log(
 					Level.SEVERE,
-					"Error loading modules, screens, views and functions: incorrect file encoding",
+					"Error loading views and functions: incorrect file encoding",
 					e3);
 		} finally {
 			if (csvReader != null)
@@ -859,6 +851,7 @@ public class InitialData {
 	public void inicializar() {
 		modules();
 		apps();
+		views();
 
 		try {
 			functions();
@@ -1819,6 +1812,81 @@ public class InitialData {
 			} catch (final IOException e) {
 				logger.log(Level.SEVERE, "ERROR in UisTrings", e);
 			}
+		}
+
+	}
+
+	private void views() {
+		final InputStream resourceAsStream = InitialData.class
+				.getResourceAsStream("/views.csv");
+
+		InputStreamReader reader = null;
+		try {
+			reader = new InputStreamReader(resourceAsStream, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			logger.log(Level.SEVERE,
+					"Error in modules(): incorrect file encoding", e);
+			try {
+				resourceAsStream.close();
+			} catch (IOException e1) {
+				logger.log(Level.SEVERE,
+						"Error in modules(): closing the stream", e1);
+			}
+			return;
+		}
+
+		CSVReader csvReader = new CSVReader(reader, ',', '\'', 1);
+
+		List<String[]> readAll;
+		try {
+			readAll = csvReader.readAll();
+		} catch (IOException e) {
+			logger.log(Level.SEVERE, "Error in modules(): io exception", e);
+			try {
+				csvReader.close();
+			} catch (IOException e1) {
+				logger.log(Level.SEVERE, "Error in modules(): io exception", e1);
+			}
+			try {
+				resourceAsStream.close();
+			} catch (IOException e1) {
+				logger.log(Level.SEVERE,
+						"Error in modules(): closing the stream", e1);
+			}
+			return;
+		}
+
+		App app;
+		View view;
+		AppView appView;
+		for (final String[] strings : readAll) {
+			final String language = strings[0];
+			if (language.startsWith("#") || language.startsWith("//"))
+				continue;
+
+			String appCode = strings[0];
+			String viewCode = strings[1];
+			String viewDescription = strings[2];
+
+			app = em.find(App.class, appCode);
+			view = new View(viewCode, viewDescription);
+			em.merge(view);
+			appView = new AppView(app, view);
+			em.merge(appView);
+
+			em.flush();
+		}
+
+		try {
+			csvReader.close();
+		} catch (IOException e1) {
+			logger.log(Level.SEVERE, "Error in modules(): io exception", e1);
+		}
+		try {
+			resourceAsStream.close();
+		} catch (IOException e1) {
+			logger.log(Level.SEVERE, "Error in modules(): closing the stream",
+					e1);
 		}
 
 	}

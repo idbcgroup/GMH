@@ -22,7 +22,6 @@ public class Function extends AbstractCodeEntity {
 	private static final long serialVersionUID = 1L;
 
 	private String name;
-	private String description;
 
 	/**
 	 * 
@@ -33,19 +32,10 @@ public class Function extends AbstractCodeEntity {
 	/**
 	 * @param code
 	 * @param name
-	 * @param description
 	 */
-	public Function(String code, String name, String description) {
+	public Function(final String code, final String name) {
 		this.name = name;
 		this.code = code;
-		this.description = description;
-	}
-
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
 	}
 
 	/**
@@ -53,21 +43,6 @@ public class Function extends AbstractCodeEntity {
 	 */
 	public String getName() {
 		return name;
-	}
-
-	/**
-	 * @param description
-	 *            the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	/**
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
 	}
 
 }
