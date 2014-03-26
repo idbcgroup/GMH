@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version last-->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EiaMantReport" language="bsh" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="606d8e54-0a0a-4415-92bf-390680ff9945">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EiaMantHistoryReport" language="bsh" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="606d8e54-0a0a-4415-92bf-390680ff9945">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="gha"/>
 	<property name="ireport.zoom" value="0.75"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -13,7 +14,6 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="gha"/>
 	<style name="estiloTitulosColumHeader" mode="Opaque" forecolor="#000000" backcolor="#BDD6EE" hAlign="Center" vAlign="Middle" fontName="Calibri Light" fontSize="11" isBold="true">
 		<pen lineWidth="1.0" lineColor="#F2F2F2"/>
 	</style>
@@ -42,17 +42,87 @@
 	<parameter name="eiaid" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[2]]></defaultValueExpression>
 	</parameter>
+	<parameter name="state" class="java.lang.Integer"/>
+	<parameter name="type" class="java.lang.Integer"/>
 	<queryString language="SQL">
-		<![CDATA[select maintenanceplan.name, maintenanceplanfk as maintenance_id, frequency, pot, state from maintenanceplan, eiamaintenanceplanification, eiatypemaintenanceplan
-where eiafk = $P{eiaid}
-and eiatypemaintenanceplanfk = eiatypemaintenanceplan.id
-and maintenanceplan.id = maintenanceplanfk]]>
+		<![CDATA[select * from eiacorrectivemaintenance, eiadamagereport, maintenanceplan, eiapreventivemaintenance, eia, eiatypemaintenanceplan
+where
+	(
+		eiadamagereportfk = eiadamagereport.id
+		and eiadamagereport.eiafk = $P{eiaid}
+		and eia.eiatypefk = eiatypemaintenanceplan.eiatypefk
+		and eiatypemaintenanceplan.maintenanceplanfk = maintenanceplan.id
+	) or (
+		eiapreventivemaintenance.maintenanceplanificationfk = maintenanceplan.id
+		and eia.eiatypefk = eiatypemaintenanceplan.eiatypefk
+		and eiatypemaintenanceplan.maintenanceplanfk = maintenanceplan.id
+	)
+	and state = $P{state} and type = $P{type}]]>
 	</queryString>
+	<field name="id" class="java.lang.Long"/>
+	<field name="cancelationoption" class="java.lang.Integer"/>
+	<field name="description" class="java.lang.String"/>
 	<field name="frequency" class="java.lang.Integer"/>
 	<field name="name" class="java.lang.String"/>
 	<field name="pot" class="java.lang.Integer"/>
 	<field name="state" class="java.lang.Integer"/>
-	<field name="maintenance_id" class="java.lang.Long"/>
+	<field name="type" class="java.lang.Integer"/>
+	<field name="jobfk" class="java.lang.Long"/>
+	<field name="bspfk" class="java.lang.Long"/>
+	<field name="eiatypefk" class="java.lang.String"/>
+	<field name="maintenanceplanfk" class="java.lang.Long"/>
+	<field name="eiafk" class="java.lang.Long"/>
+	<field name="maintenanceproviderfk" class="java.lang.Long"/>
+	<field name="estimatedmaintenance" class="java.lang.Integer"/>
+	<field name="estimatedmaintenancepot" class="java.lang.Integer"/>
+	<field name="eiadamagereportfk" class="java.lang.Long"/>
+	<field name="damagemotive" class="java.lang.String"/>
+	<field name="damagestatus" class="java.lang.Integer"/>
+	<field name="datetimestamp" class="java.sql.Timestamp"/>
+	<field name="eiacondition" class="java.lang.Integer"/>
+	<field name="priority" class="java.lang.Integer"/>
+	<field name="userwhoregisteredfk" class="java.lang.Long"/>
+	<field name="userwhoreportedfk" class="java.lang.Long"/>
+	<field name="maintenanceplanificationfk" class="java.lang.Long"/>
+	<field name="acceptationdate" class="java.sql.Date"/>
+	<field name="actualcost" class="java.math.BigDecimal"/>
+	<field name="actualcostcurrency" class="java.lang.Integer"/>
+	<field name="adquisitioncost" class="java.math.BigDecimal"/>
+	<field name="adquisitioncostcurrency" class="java.lang.Integer"/>
+	<field name="adquisitioncostcurrencylocal" class="java.lang.Integer"/>
+	<field name="adquisitioncostlocal" class="java.math.BigDecimal"/>
+	<field name="code" class="java.lang.String"/>
+	<field name="contabilizationdate" class="java.sql.Date"/>
+	<field name="datelastdepreciation" class="java.sql.Date"/>
+	<field name="depreciationmethod" class="java.lang.Integer"/>
+	<field name="depreciationtime" class="java.lang.Integer"/>
+	<field name="depreciationtimepot" class="java.lang.Integer"/>
+	<field name="fixedassetidentifier" class="java.lang.String"/>
+	<field name="installationdate" class="java.sql.Date"/>
+	<field name="intwarrantybegin" class="java.sql.Date"/>
+	<field name="intwarrantypot" class="java.lang.Integer"/>
+	<field name="intwarrantysince" class="java.lang.Integer"/>
+	<field name="intwarrantytime" class="java.lang.Integer"/>
+	<field name="lifetime" class="java.lang.Integer"/>
+	<field name="lifetimepot" class="java.lang.Integer"/>
+	<field name="purchasedate" class="java.sql.Date"/>
+	<field name="purchaseinvoicedate" class="java.sql.Date"/>
+	<field name="purchaseinvoicenumber" class="java.lang.String"/>
+	<field name="purchaseorderdate" class="java.sql.Date"/>
+	<field name="purchaseordernumber" class="java.lang.String"/>
+	<field name="realwarrantybegin" class="java.sql.Date"/>
+	<field name="realwarrantypot" class="java.lang.Integer"/>
+	<field name="realwarrantysince" class="java.lang.Integer"/>
+	<field name="realwarrantytime" class="java.lang.Integer"/>
+	<field name="receptiondate" class="java.sql.Date"/>
+	<field name="serialnumber" class="java.lang.String"/>
+	<field name="emaintenanceplan_id" class="java.lang.Long"/>
+	<field name="facilityfk" class="java.lang.Long"/>
+	<field name="installationproviderfk" class="java.lang.Long"/>
+	<field name="obufk" class="java.lang.Long"/>
+	<field name="externalproviderfk" class="java.lang.Long"/>
+	<field name="baserolefk" class="java.lang.Long"/>
+	<field name="workingareafk" class="java.lang.Long"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -124,111 +194,12 @@ and maintenanceplan.id = maintenanceplanfk]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Calibri Light" size="13"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Planes de mantenimiento definidos para el Equipo " + $P{eianame}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Historia de mantenimientos correctivos para el Equipo " + $P{eianame}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
-	<detail>
-		<band height="110" splitType="Stretch">
-			<property name="local_mesure_unitheight" value="pixel"/>
-			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="0" y="40" width="150" height="20" uuid="223d7c29-c14c-4be1-aa44-712b89400f80">
-					<property name="local_mesure_unitheight" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="local_mesure_unitx" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-				</reportElement>
-				<box>
-					<topPen lineWidth="1.0" lineColor="#A5A5A5"/>
-					<leftPen lineWidth="1.0" lineColor="#A5A5A5"/>
-					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
-					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
-					<paragraph leftIndent="2"/>
-				</textElement>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="150" y="40" width="152" height="20" uuid="3c1994ea-7207-44c1-84d3-07337ec3c7de">
-					<property name="local_mesure_unitheight" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<box>
-					<topPen lineWidth="1.0" lineColor="#A5A5A5"/>
-					<leftPen lineWidth="1.0" lineColor="#A5A5A5"/>
-					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
-					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
-					<paragraph leftIndent="5"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="302" y="40" width="150" height="20" uuid="3eb1344d-820a-4a8e-8dee-051a09240fc6">
-					<property name="local_mesure_unitheight" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<box>
-					<topPen lineWidth="1.0" lineColor="#A5A5A5"/>
-					<leftPen lineWidth="1.0" lineColor="#A5A5A5"/>
-					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
-					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
-					<paragraph leftIndent="5"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{frequency}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="452" y="40" width="150" height="20" uuid="4b12d988-bb50-410c-83d9-63c53070ad82">
-					<property name="local_mesure_unitheight" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<box>
-					<topPen lineWidth="1.0" lineColor="#A5A5A5"/>
-					<leftPen lineWidth="1.0" lineColor="#A5A5A5"/>
-					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
-					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
-					<paragraph leftIndent="5"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{pot}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="602" y="40" width="150" height="20" uuid="0a08c96c-e822-4ff5-8042-b2ba35ef8312">
-					<property name="local_mesure_unitheight" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<box>
-					<topPen lineWidth="1.0" lineColor="#A5A5A5"/>
-					<leftPen lineWidth="1.0" lineColor="#A5A5A5"/>
-					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
-					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
-					<paragraph leftIndent="5"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{state}]]></textFieldExpression>
-			</textField>
-			<subreport>
-				<reportElement stretchType="RelativeToBandHeight" x="0" y="60" width="752" height="50" uuid="36b5bf33-890c-497e-b5d2-8dba37c63340">
-					<property name="local_mesure_unitheight" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<subreportParameter name="maintenanceid">
-					<subreportParameterExpression><![CDATA[$F{maintenance_id}]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["GMH.LPMP.01.Protocol.SR.jasper"]]></subreportExpression>
-			</subreport>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
 			<staticText>
 				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="150" y="20" width="152" height="20" uuid="601c798b-027d-4a30-a9d3-cd0cde3e6ff2">
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -282,7 +253,7 @@ and maintenanceplan.id = maintenanceplanfk]]>
 				<textElement>
 					<font size="11" isBold="true" pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Frecuencia]]></text>
+				<text><![CDATA[Fecha]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="452" y="20" width="150" height="20" uuid="ee888fc6-4408-4ef8-9ce4-9017d19755f9">
@@ -300,7 +271,7 @@ and maintenanceplan.id = maintenanceplanfk]]>
 				<textElement>
 					<font size="11" isBold="true" pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Periodo de Tiempo]]></text>
+				<text><![CDATA[Type]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="602" y="20" width="150" height="20" uuid="75ef3a9e-b8bf-40b5-84d9-7d20858a11b7">
@@ -338,8 +309,99 @@ and maintenanceplan.id = maintenanceplanfk]]>
 					<font pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
 					<paragraph leftIndent="10"/>
 				</textElement>
-				<text><![CDATA[Plan de Mantenimiento]]></text>
+				<text><![CDATA[Planes de Mantenimiento]]></text>
 			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="0" y="0" width="150" height="20" uuid="223d7c29-c14c-4be1-aa44-712b89400f80">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<leftPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="150" y="0" width="152" height="20" uuid="3c1994ea-7207-44c1-84d3-07337ec3c7de">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<leftPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="302" y="0" width="150" height="20" uuid="3eb1344d-820a-4a8e-8dee-051a09240fc6">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<leftPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{beginningdate}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="452" y="0" width="150" height="20" uuid="4b12d988-bb50-410c-83d9-63c53070ad82">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<leftPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{type}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="602" y="0" width="150" height="20" uuid="0a08c96c-e822-4ff5-8042-b2ba35ef8312">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<leftPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{planificationstate}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<pageFooter>
