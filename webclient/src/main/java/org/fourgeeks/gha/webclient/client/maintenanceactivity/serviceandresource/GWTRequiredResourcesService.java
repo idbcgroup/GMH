@@ -78,4 +78,12 @@ public interface GWTRequiredResourcesService extends RemoteService {
 	public List<RequiredResources> findMaterialByActivity(Activity activity)
 			throws GHAEJBException;
 
+	/**
+	 * 
+	 * @param entities
+	 * @return the persistent entities
+	 * @throws GHAEJBException
+	 */
+	public List<RequiredResources> save(List<RequiredResources> entities)
+			throws GHAEJBException;
 }

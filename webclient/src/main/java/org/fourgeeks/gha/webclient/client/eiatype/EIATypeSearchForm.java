@@ -40,7 +40,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
-EIATypeSelectionListener, EiaTypeSelectionProducer {
+		EIATypeSelectionListener, EiaTypeSelectionProducer,
+		EiaTypeListSelectionProducer {
 
 	private GHATextItem nameItem;
 	private GHATextItem modelItem;
@@ -68,6 +69,13 @@ EIATypeSelectionListener, EiaTypeSelectionProducer {
 				hide();
 			}
 		});
+		resultSet
+				.addEiaTypeListSelectionListener(new EiaTypeListSelectionListener() {
+					@Override
+					public void select(List<EiaType> eiaTypes) {
+						hide();
+					}
+				});
 	}
 
 	/**
@@ -89,17 +97,17 @@ EIATypeSelectionListener, EiaTypeSelectionProducer {
 
 		final VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHACleanButton(new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						clean();
-					}
-				}), new GHACancelButton(new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						hide();
-						clean();
-					}
-				}));
+			@Override
+			public void onClick(ClickEvent event) {
+				clean();
+			}
+		}), new GHACancelButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				hide();
+				clean();
+			}
+		}));
 
 		final HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
@@ -110,8 +118,8 @@ EIATypeSelectionListener, EiaTypeSelectionProducer {
 
 		addMembers(formLayout,
 				GHAUiHelper
-				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-						+ "px"), resultSet);
+						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+								+ "px"), resultSet);
 		fill();
 	}
 
@@ -231,5 +239,22 @@ EIATypeSelectionListener, EiaTypeSelectionProducer {
 		// Reload the Brand Select field, to prevent outdated cached list of
 		// brands
 		fillBrands(true);
+	}
+
+	@Override
+	public void addEiaTypeListSelectionListener(
+			EiaTypeListSelectionListener eiaTypeListSelectionListener) {
+		resultSet.addEiaTypeListSelectionListener(eiaTypeListSelectionListener);
+	}
+
+	@Override
+	public void removeEiaTypeListSelectionListener(
+			EiaTypeListSelectionListener eiaTypeListSelectionListener) {
+		resultSet
+				.removeEiaTypeListSelectionListener(eiaTypeListSelectionListener);
+	}
+
+	@Override
+	public void notifyEiaTypeList(List<EiaType> eiaTypes) {
 	}
 }

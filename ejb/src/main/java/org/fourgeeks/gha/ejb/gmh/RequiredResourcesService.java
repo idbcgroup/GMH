@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.ejb.gmh;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -166,6 +167,28 @@ public class RequiredResourcesService extends GHAEJBExceptionService implements
 			logger.log(Level.INFO, "ERROR: updating RequiredResources ", e);
 			throw super.generateGHAEJBException(
 					"requiredResources-update-fail",
+					RuntimeParameters.getLang(), em);
+		}
+	}
+
+	@Override
+	public List<RequiredResources> save(List<RequiredResources> entities)
+			throws GHAEJBException {
+		try {
+			for (RequiredResources requiredResources : entities) {
+				em.persist(requiredResources);
+				em.flush();
+			}
+
+			List<RequiredResources> returnList = new ArrayList<RequiredResources>();
+			for (RequiredResources requiredResources : entities)
+				returnList.add(em.find(RequiredResources.class,
+						requiredResources.getId()));
+
+			return returnList;
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: saving RequiredResources ", e);
+			throw super.generateGHAEJBException("requiredResources-save-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}

@@ -26,14 +26,16 @@ import com.smartgwt.client.widgets.layout.HLayout;
  * 
  */
 public class MaterialResultSet extends GHAResultSet<Material> implements
-		MaterialSelectionProducer {
+		MaterialSelectionProducer, MaterialListSelectionProducer {
 
 	private List<MaterialSelectionListener> listeners;
+	private List<MaterialListSelectionListener> listenersList;
 	private MaterialGrid grid;
 	private ResultSetContainerType containerType;
 
 	{
 		listeners = new ArrayList<MaterialSelectionListener>();
+		listenersList = new ArrayList<MaterialListSelectionListener>();
 	}
 
 	/**
@@ -42,8 +44,8 @@ public class MaterialResultSet extends GHAResultSet<Material> implements
 	public MaterialResultSet(ResultSetContainerType container) {
 		super(GHAStrings.get("search-results"));
 		this.containerType = container;
-		
-		grid = new MaterialGrid(){
+
+		grid = new MaterialGrid() {
 			@Override
 			public void onResize(ResizeEvent event) {
 				super.onResize(event);
@@ -58,21 +60,22 @@ public class MaterialResultSet extends GHAResultSet<Material> implements
 			}
 		});
 		grid.setHeight(GHAUiHelper.getResultSetGridSize(containerType));
-		
+
 		setHeight(GHAUiHelper.getResultSetHeight(containerType));
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(grid,
 				GHAUiHelper.createBar(new GHACheckButton(new ClickHandler() {
-
 					@Override
 					public void onClick(ClickEvent event) {
-						notifySelectedMaterial();
-
+						if (grid.getSelectedRecords().length > 1)
+							notifySelectedMaterials();
+						else
+							notifySelectedMaterial();
 					}
 				})));
-//		if (containerType == ResultSetContainerType.SEARCH_FORM) {
-//			setHeight(getHeight() - 42);
-//		}
+		// if (containerType == ResultSetContainerType.SEARCH_FORM) {
+		// setHeight(getHeight() - 42);
+		// }
 		addMember(gridPanel);
 
 	}
@@ -167,10 +170,33 @@ public class MaterialResultSet extends GHAResultSet<Material> implements
 			this.animateShow(AnimationEffect.FADE);
 
 	}
-	
+
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getResultSetHeight(containerType));
 	}
 
+	@Override
+	public void addMaterialListSelectionListener(
+			MaterialListSelectionListener materialListSelectionListener) {
+		listenersList.add(materialListSelectionListener);
+	}
+
+	@Override
+	public void removeMaterialListSelectionListener(
+			MaterialListSelectionListener materialListSelectionListener) {
+		listenersList.remove(materialListSelectionListener);
+	}
+
+	@Override
+	public void notifyMaterialList(List<Material> materials) {
+		for (MaterialListSelectionListener listener : listenersList)
+			listener.select(materials);
+	}
+
+	private void notifySelectedMaterials() {
+		notifyMaterialList(grid.getSelectedEntities());
+		hide();
+		grid.removeSelectedData();
+	}
 }
