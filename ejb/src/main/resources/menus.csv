@@ -1,7 +1,7 @@
 code,text,parentCode
 PERINST,Personas e instituciones,null
-PERINST-PER,Personas,PERINST 
-PERINST-INS,Instituciones,PERINST-INS 
+PERINST-PER,Personas,PERINST
+PERINST-INS,Instituciones,PERINST
 LOGIST,Logística,null
 LOGIST-SA,Soporte Asistencial,LOGIST
 LOGIST-SO,Soporte Operativo,LOGIST
@@ -17,7 +17,7 @@ REPORT,Reportes,null
 DMACONF,Data Maestra y Configuración,null
 DMACONF-DM,Data Maestra,DMACONF
 DMACONF-CO,Configuración,DMACONF
-PPRPLA,Procesos, Protodolos y Plantillas,null
+PPRPLA,'Procesos, Protocolos y Plantillas',null
 PPRPLA-AC,Actividades,PPRPLA
 PPRPLA-PR,Protocolos,PPRPLA
 PPRPLA-AM,Algoritmos Médicos,PPRPLA

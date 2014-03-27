@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
+import org.fourgeeks.gha.domain.ess.auth.Function;
 import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
@@ -30,18 +31,19 @@ public class GWTFunctionBpuServiceImpl extends RemoteServiceServlet implements
 	FunctionBpuServiceRemote service;
 
 	@Override
-	public void delete(FunctionBpu bpuFunction) throws GHAEJBException {
+	public void delete(final FunctionBpu bpuFunction) throws GHAEJBException {
 		service.delete(bpuFunction);
 	}
 
 	@Override
-	public List<FunctionBpu> getPermissionsByBpu(Bpu bpu)
+	public List<Function> getPermissionsByBpu(final Bpu bpu)
 			throws GHAEJBException {
 		return service.getFunctionByBpu(bpu);
 	}
 
 	@Override
-	public FunctionBpu save(FunctionBpu bpuFunction) throws GHAEJBException {
+	public FunctionBpu save(final FunctionBpu bpuFunction)
+			throws GHAEJBException {
 		return service.save(bpuFunction);
 	}
 

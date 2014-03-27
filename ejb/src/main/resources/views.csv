@@ -39,5 +39,5 @@ user,user-credential-subtab,credential-view-for-user-administration
 user,user-credential-subtab,credential-view-for-user-administration
 maintenance,man-csearch-subtab,credential-view-for-man-administration
 activity,man-csearch-subtab,credential-view-for-man-administration
-emh,main-view,main-view-for-medical.history
+#emh,main-view,main-view-for-medical.history
 res,main-view,main-view-for-health

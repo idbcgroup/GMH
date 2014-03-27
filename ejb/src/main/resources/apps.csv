@@ -1,8 +1,8 @@
-moduleCode,AppCode,AppToken,Menu
-GMH,eiatype,eiatype
-GMH,eia,eia
-MIX,user,user
-GMH,maintenance,mplan
-GMH,activity,activity
-GMH,emh,emh
-GMH,res,res
+moduleCode,AppCode,AppToken,MenuCode
+GMH,eiatype,eiatype,LOGIST-SO
+GMH,eia,eia,LOGIST-SO
+MIX,user,user,SISTEM-US
+GMH,maintenance,mplan,LOGIST-PL
+GMH,activity,activity,PPRPLA-AC
+#GMH,emh,emh,ATEMED-HM
+GMH,res,res,ADMPAC-AP

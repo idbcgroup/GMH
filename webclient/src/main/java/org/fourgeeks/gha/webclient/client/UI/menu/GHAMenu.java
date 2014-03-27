@@ -230,7 +230,6 @@ public class GHAMenu {
 		List<GHAMenuOption> menuOptions = getMenuOptions();
 		for (GHAMenuOption ghaMenuOption : menuOptions)
 			verticalMenu.addOption(ghaMenuOption);
-
 	}
 
 	/**

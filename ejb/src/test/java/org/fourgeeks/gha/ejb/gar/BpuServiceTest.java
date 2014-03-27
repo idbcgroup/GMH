@@ -15,7 +15,7 @@ import javax.transaction.UserTransaction;
 
 import junit.framework.Assert;
 
-import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
+import org.fourgeeks.gha.domain.ess.auth.Function;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.ejb.GHAArquillianBaseServiceTest;
@@ -36,6 +36,16 @@ public class BpuServiceTest extends GHAArquillianBaseServiceTest {
 	UserTransaction ux;
 
 	// @Test
+	/**
+	 * @throws NotSupportedException
+	 * @throws SystemException
+	 * @throws SecurityException
+	 * @throws IllegalStateException
+	 * @throws RollbackException
+	 * @throws HeuristicMixedException
+	 * @throws HeuristicRollbackException
+	 * @throws GHAEJBException
+	 */
 	public void test() throws NotSupportedException, SystemException,
 			SecurityException, IllegalStateException, RollbackException,
 			HeuristicMixedException, HeuristicRollbackException,
@@ -60,7 +70,7 @@ public class BpuServiceTest extends GHAArquillianBaseServiceTest {
 		Assert.assertTrue(service.getAll() != null
 				&& service.getAll().size() >= 1);
 		Assert.assertNull(service.find(entity.getId()).getFunctions());
-		entity.setFunctions(new ArrayList<FunctionBpu>());
+		entity.setFunctions(new ArrayList<Function>());
 		entity = service.update(entity);
 		Assert.assertNotNull(service.find(entity.getId()).getFunctions());
 		long id = entity.getId();

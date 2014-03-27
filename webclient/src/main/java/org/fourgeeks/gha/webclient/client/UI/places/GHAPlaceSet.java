@@ -49,7 +49,6 @@ public final class GHAPlaceSet {
 	 */
 	public static void buildMenu() {
 		GHAMenu.build();
-
 	}
 
 	/**

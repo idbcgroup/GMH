@@ -51,6 +51,13 @@ public class Menu extends AbstractCodeEntity {
 	}
 
 	/**
+	 * @return the parentMenu
+	 */
+	public Menu getParentMenu() {
+		return parentMenu;
+	}
+
+	/**
 	 * @return the text
 	 */
 	public String getText() {

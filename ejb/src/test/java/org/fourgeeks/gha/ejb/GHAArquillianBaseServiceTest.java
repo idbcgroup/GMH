@@ -61,6 +61,7 @@ import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.ess.auth.SystemInstance;
 import org.fourgeeks.gha.domain.ess.ui.App;
 import org.fourgeeks.gha.domain.ess.ui.AppView;
+import org.fourgeeks.gha.domain.ess.ui.Menu;
 import org.fourgeeks.gha.domain.ess.ui.Module;
 import org.fourgeeks.gha.domain.ess.ui.View;
 import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
@@ -75,6 +76,10 @@ import org.fourgeeks.gha.domain.gar.JobPosition;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
+import org.fourgeeks.gha.domain.glm.Material;
+import org.fourgeeks.gha.domain.glm.MaterialBrand;
+import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenance;
@@ -112,6 +117,8 @@ import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.ejb.ess.MaintenanceServiceOrderService;
 import org.fourgeeks.gha.ejb.ess.MaintenanceServiceOrderServiceLocal;
+import org.fourgeeks.gha.ejb.ess.auth.FunctionBpuService;
+import org.fourgeeks.gha.ejb.ess.auth.FunctionBpuServiceRemote;
 import org.fourgeeks.gha.ejb.ess.auth.FunctionService;
 import org.fourgeeks.gha.ejb.ess.auth.FunctionServiceRemote;
 import org.fourgeeks.gha.ejb.ess.auth.InstanceLogonService;
@@ -132,6 +139,12 @@ import org.fourgeeks.gha.ejb.gar.ObuService;
 import org.fourgeeks.gha.ejb.gar.ObuServiceRemote;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderService;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderServiceRemote;
+import org.fourgeeks.gha.ejb.glm.MaterialBrandService;
+import org.fourgeeks.gha.ejb.glm.MaterialBrandServiceRemote;
+import org.fourgeeks.gha.ejb.glm.MaterialCategoryService;
+import org.fourgeeks.gha.ejb.glm.MaterialCategoryServiceRemote;
+import org.fourgeeks.gha.ejb.glm.MaterialService;
+import org.fourgeeks.gha.ejb.glm.MaterialServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.BrandService;
 import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.BuildingLocationService;
@@ -170,6 +183,7 @@ import org.fourgeeks.gha.ejb.gom.CCDIService;
 import org.fourgeeks.gha.ejb.gom.CCDIServiceLocal;
 import org.fourgeeks.gha.ejb.gom.CCDIServiceRemote;
 import org.fourgeeks.gha.ejb.helpers.BpuHelper;
+import org.fourgeeks.gha.ejb.helpers.EiaHelper;
 import org.fourgeeks.gha.ejb.log.UILogService;
 import org.fourgeeks.gha.ejb.log.UILogServiceLocal;
 import org.fourgeeks.gha.ejb.log.UILogServiceRemote;
@@ -241,6 +255,7 @@ public abstract class GHAArquillianBaseServiceTest {
 				.addClass(DepreciationMethodEnum.class)
 				.addClass(DocumentTypeEnum.class)
 				.addClass(Eia.class)
+				.addClass(EiaHelper.class)
 				.addClass(EiaStateEnum.class)
 				.addClass(EiaDamageReport.class)
 				.addClass(EiaMaintenancePlanification.class)
@@ -273,6 +288,8 @@ public abstract class GHAArquillianBaseServiceTest {
 				.addClass(FacilityServiceRemote.class)
 				.addClass(FacilityCategory.class)
 				.addClass(Function.class)
+				.addClass(FunctionBpuService.class)
+				.addClass(FunctionBpuServiceRemote.class)
 				.addClass(GenderTypeEnum.class)
 				.addClass(GHAEJBException.class)
 				.addClass(GHAMessage.class)
@@ -291,6 +308,11 @@ public abstract class GHAArquillianBaseServiceTest {
 				.addClass(LocationLevelEnum.class)
 				.addClass(LocationType.class)
 				.addClass(LanguageEnum.class)
+				.addClass(Material.class)
+				.addClass(MaterialService.class)
+				.addClass(MaterialServiceRemote.class)
+				.addClass(MaterialTypeEnum.class)
+				.addClass(MaterialBrand.class)
 				.addClass(MaintenancePlan.class)
 				.addClass(MaintenancePlanStatus.class)
 				.addClass(MaintenancePlanCancelationOption.class)
@@ -333,6 +355,8 @@ public abstract class GHAArquillianBaseServiceTest {
 				.addClass(SubProtocolAndChecklist.class)
 				.addClass(MaintenanceActivity.class)
 				.addClass(MaintenanceActivityService.class)
+				.addClass(MaterialBrandService.class)
+				.addClass(MaterialBrandServiceRemote.class)
 				.addClass(MaintenanceActivityServiceRemote.class)
 				.addClass(SubProtocolAndCheklistService.class)
 				.addClass(SubProtocolAndCheklistServiceRemote.class)
@@ -360,6 +384,7 @@ public abstract class GHAArquillianBaseServiceTest {
 				.addClass(UserLogonStatusEnum.class)
 				.addClass(MaintenanceCancelationCause.class)
 				.addClass(MaintenanceServiceOrder.class)
+				.addClass(MaterialCategory.class)
 				.addClass(MaintenanceServiceOrderService.class)
 				.addClass(MaintenanceServiceOrderServiceLocal.class)
 				.addClass(MaintenancePlanificationState.class)
@@ -375,8 +400,11 @@ public abstract class GHAArquillianBaseServiceTest {
 				.addClass(MaintenancePlanService.class)
 				.addClass(MaintenancePlanServiceRemote.class)
 				.addClass(MaintenanceProtocolService.class)
+				.addClass(MaterialCategoryService.class)
+				.addClass(MaterialCategoryServiceRemote.class)
 				.addClass(MaintenanceProtocolServiceRemote.class)
 				.addClass(MaintenancePlanStadisticData.class)
+				.addClass(Menu.class)
 				.addClass(MaintenanceProtocolStadisticData.class)
 				.addClass(TimerParams.class)
 				.addClass(TimerParamsService.class)

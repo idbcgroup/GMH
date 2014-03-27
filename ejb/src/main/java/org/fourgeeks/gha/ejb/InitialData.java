@@ -227,8 +227,10 @@ public class InitialData {
 			String moduleCode = strings[0];
 			String appCode = strings[1];
 			String appToken = strings[2];
+			String menuCode = strings[3];
 			Module module = em.find(Module.class, moduleCode);
-			em.merge(new App(module, appCode, appCode, appToken));
+			Menu menu = em.find(Menu.class, menuCode);
+			em.merge(new App(module, appCode, appCode, appToken, menu));
 			em.flush();
 		}
 

@@ -20,7 +20,7 @@ eiatype-service-subtab,eiatype-service-search,searchs-and-adds-a-type-of-equipme
 eiatype-service-subtab,eiatype-service-add,adds-new-services
 eiatype-service-subtab,eiatype-service-delete,delete-the-service-selected-from-the-category-of-equipment-type
 eia-seach-view,eia-show,shows-the-search-view-for-equipment
-eia-seach-view,eia-search,searchs-general-or-especifics-equipment
+eia-seach-view,traeia-search,searchs-general-or-especifics-equipment
 eia-seach-view,eia-delete,deletes-an-equipment
 eia-add-view,eia-add,adds-new-equipments
 eia-information-subtab,eia-update,edit -the-equipments-information-previously-created
