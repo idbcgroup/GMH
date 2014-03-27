@@ -1,22 +1,14 @@
 package org.fourgeeks.gha.webclient.client.UI.places;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
-import org.fourgeeks.gha.domain.gar.Bpu;
-import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
-import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
-import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu.GHAMenuBar;
-import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu.GHAMenuOption;
+import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu;
 
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
@@ -34,14 +26,12 @@ public final class GHAPlaceSet {
 	private final static Map<String, GHAPlace> places;
 	private static GHAPlace currentPlace;
 	private final static HorizontalPanel hPanel;
-	private static GHAMenuBar verticalMenu;
 	static {
 		places = new HashMap<String, GHAPlace>();
 		hPanel = new HorizontalPanel();
 		hPanel.setHeight(GHAUiHelper.MENU_BAR_HEIGTH + "px");
 		hPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		verticalMenu = new GHAMenuBar();
-		hPanel.add(verticalMenu.getMenuButton());
+		hPanel.add(GHAMenu.getMenuButton());
 		RootPanel.get("menu-bar").add(hPanel);
 	}
 
@@ -55,13 +45,11 @@ public final class GHAPlaceSet {
 	}
 
 	/**
-	 * Build the Menu
+	 * 
 	 */
 	public static void buildMenu() {
-		final Bpu user = GHASessionData.getLoggedUser();
-		final List<GHAMenuOption> menuOptions = getMenuOptions(user);
-		for (final GHAMenuOption ghaMenuOption : menuOptions)
-			verticalMenu.addOption(ghaMenuOption);
+		GHAMenu.build();
+
 	}
 
 	/**
@@ -116,27 +104,6 @@ public final class GHAPlaceSet {
 	 */
 	public static GHAPlace getById(final String id) {
 		return places.get(id);
-	}
-
-	/**
-	 * @return the list of menu option
-	 */
-	private static List<GHAMenuOption> getMenuOptions(final Bpu loggedUser) {
-		final List<GHAMenuOption> menuOptions = new ArrayList<GHAMenuOption>();
-		try {
-			final Map<String, String> appMap = GHASessionData.getAppsMapp();
-			final Set<Entry<String, String>> entrySet = appMap.entrySet();
-
-			for (final Entry<String, String> entry : entrySet) {
-				menuOptions.add(new GHAMenuOption(GHAStrings.get(entry
-						.getValue()), entry.getKey(),
-						"../resources/icons/menu/" + entry.getKey() + ".png"));
-			}
-			return menuOptions;
-		} catch (final LoginNeededException e) {
-			return menuOptions;
-		}
-
 	}
 
 	/**

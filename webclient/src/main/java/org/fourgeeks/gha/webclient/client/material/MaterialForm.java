@@ -25,6 +25,8 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 
 /**
+ * The form to be use to add, update a Material
+ * 
  * @author emiliot
  * 
  */
@@ -59,6 +61,9 @@ public class MaterialForm extends GHAForm<Material> implements
 
 	}
 
+	/**
+	 * 
+	 */
 	public MaterialForm() {
 		super();
 		form.setItems(nameItem, new GHASpacerItem(), codeItem,
@@ -77,7 +82,7 @@ public class MaterialForm extends GHAForm<Material> implements
 
 	@Override
 	public void addMaterialSelectionListener(
-			MaterialSelectionListener materialSelectionListener) {
+			final MaterialSelectionListener materialSelectionListener) {
 		listeners.add(materialSelectionListener);
 
 	}
@@ -149,20 +154,20 @@ public class MaterialForm extends GHAForm<Material> implements
 	}
 
 	@Override
-	public void notifyMaterial(Material material) {
+	public void notifyMaterial(final Material material) {
 		for (final MaterialSelectionListener listener : listeners)
 			listener.select(material);
 	}
 
 	@Override
-	public void onResize(ResizeEvent event) {
+	public void onResize(final ResizeEvent event) {
 		// TODO Auto-generated method stub
 		form.resize();
 	}
 
 	@Override
 	public void removeMaterialSelectionListener(
-			MaterialSelectionListener materialSelectionListener) {
+			final MaterialSelectionListener materialSelectionListener) {
 		listeners.remove(materialSelectionListener);
 
 	}
@@ -177,7 +182,7 @@ public class MaterialForm extends GHAForm<Material> implements
 			MaterialModel.save(material, new GHAAsyncCallback<Material>() {
 
 				@Override
-				public void onSuccess(Material result) {
+				public void onSuccess(final Material result) {
 					hasUnCommittedChanges = false;
 					notifyMaterial(result);
 					cancel();
@@ -191,7 +196,7 @@ public class MaterialForm extends GHAForm<Material> implements
 	 * @param materialCategory
 	 */
 	@Override
-	public void set(Material material) {
+	public void set(final Material material) {
 		this.originalEntity = material;
 
 		codeItem.setValue(material.getCode());
@@ -211,7 +216,7 @@ public class MaterialForm extends GHAForm<Material> implements
 	/**
 	 * @param type
 	 */
-	public void setType(MaterialTypeEnum type) {
+	public void setType(final MaterialTypeEnum type) {
 		typeItem.setValue(type.name());
 		typeItem.setDisabled(true);
 	}
@@ -230,7 +235,7 @@ public class MaterialForm extends GHAForm<Material> implements
 	}
 
 	@Override
-	public void update(GHAAsyncCallback<Material> callback) {
+	public void update(final GHAAsyncCallback<Material> callback) {
 		// TODO Auto-generated method stub
 
 	}

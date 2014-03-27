@@ -2,9 +2,14 @@ package org.fourgeeks.gha.webclient.client.UI.menu;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
+import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
@@ -14,6 +19,7 @@ import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.ui.Widget;
 import com.smartgwt.client.core.Rectangle;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.Cursor;
@@ -33,7 +39,6 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret The Menu
  */
 public class GHAMenu {
-
 	/**
 	 * @author alacret
 	 * 
@@ -42,7 +47,7 @@ public class GHAMenu {
 			ResizeHandler {
 
 		private final GHAImgButton menuButton;
-		private final List<GHAMenuOption> options = new ArrayList<GHAMenu.GHAMenuOption>();
+		private final List<GHAMenuOption> options = new ArrayList<GHAMenuOption>();
 
 		/**
 		 * creates a menu bar
@@ -71,6 +76,7 @@ public class GHAMenu {
 			setScrollbarSize(5);
 			setShadowDepth(6);
 			setShowShadow(true);
+
 			GHAUiHelper.addGHAResizeHandler(this);
 			// Titulo
 			GHAMenuOption option = new GHAMenuOption();
@@ -132,8 +138,8 @@ public class GHAMenu {
 		}
 
 		/**
-		 * 
-		 */
+			 * 
+			 */
 		public void open() {
 			for (final GHAMenuOption option : options)
 				option.setVisible(true);
@@ -211,6 +217,43 @@ public class GHAMenu {
 			addMember(titulo);
 			addMember(new LayoutSpacer());
 
+		}
+
+	}
+
+	private static GHAMenuBar verticalMenu = new GHAMenuBar();
+
+	/**
+	 * 
+	 */
+	public static void build() {
+		List<GHAMenuOption> menuOptions = getMenuOptions();
+		for (GHAMenuOption ghaMenuOption : menuOptions)
+			verticalMenu.addOption(ghaMenuOption);
+
+	}
+
+	/**
+	 * @return the button that opens the menu
+	 */
+	public static Widget getMenuButton() {
+		return verticalMenu.getMenuButton();
+	}
+
+	private static List<GHAMenuOption> getMenuOptions() {
+		final List<GHAMenuOption> menuOptions = new ArrayList<GHAMenuOption>();
+		try {
+			final Map<String, String> appMap = GHASessionData.getAppsMapp();
+			final Set<Entry<String, String>> entrySet = appMap.entrySet();
+
+			for (final Entry<String, String> entry : entrySet) {
+				menuOptions.add(new GHAMenuOption(GHAStrings.get(entry
+						.getValue()), entry.getKey(),
+						"../resources/icons/menu/" + entry.getKey() + ".png"));
+			}
+			return menuOptions;
+		} catch (final LoginNeededException e) {
+			return menuOptions;
 		}
 
 	}

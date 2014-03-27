@@ -58,7 +58,7 @@ public abstract class GHASessionData {
 		userButton
 				.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
 					@Override
-					public void onClick(ClickEvent event) {
+					public void onClick(final ClickEvent event) {
 						if (userMenu.isVisible())
 							userMenu.hide();
 						else
@@ -85,7 +85,7 @@ public abstract class GHASessionData {
 		userInfo.addFocusChangedHandler(new FocusChangedHandler() {
 
 			@Override
-			public void onFocusChanged(FocusChangedEvent event) {
+			public void onFocusChanged(final FocusChangedEvent event) {
 				Window.alert(event.getHasFocus() + "");
 
 			}
@@ -116,7 +116,7 @@ public abstract class GHASessionData {
 	 * @return if it has permission for this App
 	 * @throws LoginNeededException
 	 */
-	public static boolean hasAppPermission(String code)
+	public static boolean hasAppPermission(final String code)
 			throws LoginNeededException {
 		if (appMap.isEmpty())
 			throw new LoginNeededException();
@@ -128,7 +128,7 @@ public abstract class GHASessionData {
 	 * @return wheter this code is present on the permissions
 	 * @throws LoginNeededException
 	 */
-	public static boolean hasFunctionPermission(String code)
+	public static boolean hasFunctionPermission(final String code)
 			throws LoginNeededException {
 		if (functionTreeSet == null)
 			throw new LoginNeededException();
@@ -140,7 +140,7 @@ public abstract class GHASessionData {
 	 * @return wheter this code is present on the permissions
 	 * @throws LoginNeededException
 	 */
-	public static boolean hasViewPermission(String code)
+	public static boolean hasViewPermission(final String code)
 			throws LoginNeededException {
 		if (viewTreeSet == null)
 			throw new LoginNeededException();
@@ -150,7 +150,7 @@ public abstract class GHASessionData {
 	/**
 	 * @param loggedUser
 	 */
-	public static void setLoggedUser(Bpu loggedUser) {
+	public static void setLoggedUser(final Bpu loggedUser) {
 		GHASessionData.loggedUser = loggedUser;
 		final List<FunctionBpu> functions = loggedUser.getFunctions();
 		for (final FunctionBpu function : functions)
