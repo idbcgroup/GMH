@@ -14,7 +14,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu.GHAMenuBar;
 import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu.GHAMenuOption;
@@ -23,8 +22,6 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.smartgwt.client.widgets.events.ClickEvent;
-import com.smartgwt.client.widgets.events.ClickHandler;
 
 /**
  * @author alacret
@@ -43,6 +40,8 @@ public final class GHAPlaceSet {
 		hPanel = new HorizontalPanel();
 		hPanel.setHeight(GHAUiHelper.MENU_BAR_HEIGTH + "px");
 		hPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		verticalMenu = new GHAMenuBar();
+		hPanel.add(verticalMenu.getMenuButton());
 		RootPanel.get("menu-bar").add(hPanel);
 	}
 
@@ -59,24 +58,6 @@ public final class GHAPlaceSet {
 	 * Build the Menu
 	 */
 	public static void buildMenu() {
-		final GHAImgButton menu = new GHAImgButton(
-				"../resources/icons/menu.png");
-		menu.setSize("34px", "22px");
-		menu.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				verticalMenu.bringToFront();
-				if (!verticalMenu.isVisible()) {
-					verticalMenu.open();
-				} else {
-					verticalMenu.hide();
-				}
-			}
-		});
-		hPanel.add(menu);
-		verticalMenu = new GHAMenuBar(menu);
-		GHAUiHelper.addGHAResizeHandler(verticalMenu);
-
 		final Bpu user = GHASessionData.getLoggedUser();
 		final List<GHAMenuOption> menuOptions = getMenuOptions(user);
 		for (final GHAMenuOption ghaMenuOption : menuOptions)
@@ -87,7 +68,7 @@ public final class GHAPlaceSet {
 	 * @param hideAction
 	 * @throws UnavailableToHideException
 	 */
-	public static void closeCurrentPlace(HideCloseAction hideAction)
+	public static void closeCurrentPlace(final HideCloseAction hideAction)
 			throws UnavailableToHideException {
 		closePlace(currentPlace, hideAction);
 	}
@@ -101,7 +82,8 @@ public final class GHAPlaceSet {
 	}
 
 	private static void closePlace(final GHAPlace place,
-			HideCloseAction closeAction) throws UnavailableToCloseException {
+			final HideCloseAction closeAction)
+			throws UnavailableToCloseException {
 		if (place == null)
 			return;
 
@@ -132,14 +114,14 @@ public final class GHAPlaceSet {
 	 * @param id
 	 * @return the tab with that ID
 	 */
-	public static GHAPlace getById(String id) {
+	public static GHAPlace getById(final String id) {
 		return places.get(id);
 	}
 
 	/**
 	 * @return the list of menu option
 	 */
-	private static List<GHAMenuOption> getMenuOptions(Bpu loggedUser) {
+	private static List<GHAMenuOption> getMenuOptions(final Bpu loggedUser) {
 		final List<GHAMenuOption> menuOptions = new ArrayList<GHAMenuOption>();
 		try {
 			final Map<String, String> appMap = GHASessionData.getAppsMapp();
@@ -148,7 +130,7 @@ public final class GHAPlaceSet {
 			for (final Entry<String, String> entry : entrySet) {
 				menuOptions.add(new GHAMenuOption(GHAStrings.get(entry
 						.getValue()), entry.getKey(),
-						"../resources/icons/menu/" + entry.getKey() + ".png", verticalMenu));
+						"../resources/icons/menu/" + entry.getKey() + ".png"));
 			}
 			return menuOptions;
 		} catch (final LoginNeededException e) {
@@ -161,19 +143,20 @@ public final class GHAPlaceSet {
 	 * @param hideAction
 	 * @throws UnavailableToHideException
 	 */
-	public static void hideCurrentPlace(HideCloseAction hideAction)
+	public static void hideCurrentPlace(final HideCloseAction hideAction)
 			throws UnavailableToHideException {
 		hidePlace(currentPlace, hideAction);
 		currentPlace = null;
 		History.forward();
 	}
 
-	private static void hidePlace(GHAPlace tab)
+	private static void hidePlace(final GHAPlace tab)
 			throws UnavailableToHideException {
 		hidePlace(tab, HideCloseAction.ASK);
 	}
 
-	private static void hidePlace(GHAPlace place, HideCloseAction hideAction) {
+	private static void hidePlace(final GHAPlace place,
+			final HideCloseAction hideAction) {
 		if (place.canBeHidden(hideAction)) {
 			try {
 				place.hide();
@@ -197,7 +180,7 @@ public final class GHAPlaceSet {
 	 * @param place
 	 * @throws UnavailableToHideException
 	 */
-	public static void showPlace(GHAPlace place)
+	public static void showPlace(final GHAPlace place)
 			throws UnavailableToHideException {
 		if (place == null)
 			return;
@@ -223,7 +206,7 @@ public final class GHAPlaceSet {
 	/**
 	 * @param historyToken
 	 */
-	public static void showPlace(String historyToken) {
+	public static void showPlace(final String historyToken) {
 		final int indexOf = historyToken.indexOf("/");
 		final String token;
 		if (indexOf == -1)

@@ -684,3 +684,13 @@ div#header-bar.header-bar div#user-info.user-info div#isc_HLayout_0_wrapper div#
 .windowStatusBar{
 	border:none !important;
 }
+
+
+
+
+/* MENU*/
+.menu-title{
+	text-transform: capitalize;
+	height:50px;
+	background-color: dark-blue;
+}

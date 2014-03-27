@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.UI.menu;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
@@ -33,29 +34,35 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class GHAMenu {
 
-	private GHAMenu() {
-		throw new UnsupportedOperationException(
-				"This class mus not be instantiaded");
-	}
-
 	/**
 	 * @author alacret
 	 * 
 	 */
 	public static class GHAMenuBar extends VLayout implements EventListener,
-	ResizeHandler {
+			ResizeHandler {
 
 		private final GHAImgButton menuButton;
 		private final List<GHAMenuOption> options = new ArrayList<GHAMenu.GHAMenuOption>();
 
 		/**
-		 * 
+		 * creates a menu bar
 		 */
-		public GHAMenuBar(GHAImgButton button) {
-			menuButton = button;
-			setWidth("200px");
+		public GHAMenuBar() {
+			menuButton = new GHAImgButton("../resources/icons/menu.png");
+			menuButton.setSize("34px", "22px");
+			menuButton.addClickHandler(new ClickHandler() {
+				@Override
+				public void onClick(final ClickEvent event) {
+					bringToFront();
+					if (!isVisible()) {
+						open();
+					} else {
+						hide();
+					}
+				}
+			});
 			setHeight(GHAUiHelper.getTabHeight() + 15 + "px");
-			setMembersMargin(10);
+			// setMembersMargin(10);
 			setLeft(0);
 			setTop(GHAUiHelper.HEADER_HEIGTH);
 			setVisible(false);
@@ -64,10 +71,47 @@ public class GHAMenu {
 			setScrollbarSize(5);
 			setShadowDepth(6);
 			setShowShadow(true);
+			GHAUiHelper.addGHAResizeHandler(this);
+			// Titulo
+			GHAMenuOption option = new GHAMenuOption();
+			GHAImg menuImg = new GHAImg("../resources/icons/menu.png");
+			// menuImg.setSize("34px", "22px");
+			GHALabel title = new GHALabel(GHAStrings.get("menu"));
+			title.setWidth("150px");
+			title.setHeight("25px");
+
+			option.addMember(title);
+			option.addMember(new LayoutSpacer());
+			option.addMember(menuImg);
+			addOption(option);
+
+		}
+
+		/**
+		 * @param option
+		 */
+		public void addOption(final GHAMenuOption option) {
+			options.add(option);
+			option.setVisible(false);
+			addMember(option);
+		}
+
+		/**
+		 * @return the menu button
+		 */
+		public GHAImgButton getMenuButton() {
+			return menuButton;
 		}
 
 		@Override
-		public void onBrowserEvent(Event event) {
+		public void hide() {
+			animateHide(AnimationEffect.FLY);
+			GHAUiHelper.removeDocumentMouseOverHandler(this);
+			menuButton.blur();
+		}
+
+		@Override
+		public void onBrowserEvent(final Event event) {
 			final int mouseX = event.getClientX();
 			final int mouseY = event.getClientY();
 			final Rectangle rect = getRect();
@@ -83,17 +127,8 @@ public class GHAMenu {
 		}
 
 		@Override
-		public void onResize(ResizeEvent event) {
+		public void onResize(final ResizeEvent event) {
 			setHeight(GHAUiHelper.getTabHeight() + 15 + "px");
-		}
-
-		/**
-		 * @param option
-		 */
-		public void addOption(GHAMenuOption option) {
-			options.add(option);
-			option.setVisible(false);
-			addMember(option);
 		}
 
 		/**
@@ -105,28 +140,10 @@ public class GHAMenu {
 			animateShow(AnimationEffect.FLY, new AnimationCallback() {
 
 				@Override
-				public void execute(boolean earlyFinish) {
-					GHAUiHelper.addDocumentMouseOverHandler(GHAMenuBar.this);
+				public void execute(final boolean earlyFinish) {
+					// GHAUiHelper.addDocumentMouseOverHandler(GHAMenuBar.this);
 				}
 			});
-		}
-
-		@Override
-		public void hide() {
-			animateHide(AnimationEffect.FLY);
-			GHAUiHelper.removeDocumentMouseOverHandler(this);
-			menuButton.blur();
-		}
-
-		/**
-		 * @param token
-		 * @return the ghamenuoption of this token or null if is not found
-		 */
-		public GHAMenuOption getByToken(String token) {
-			for (final GHAMenuOption option : options)
-				if (option.getToken().equals(token))
-					return option;
-			return null;
 		}
 	}
 
@@ -136,19 +153,12 @@ public class GHAMenu {
 	 */
 	static public class GHAMenuOption extends HLayout {
 
-		private final String token;
-		private final GHAMenuBar parent;
+		// private final String token;
 
 		/**
-		 * @param text
-		 * @param token
-		 * @param imgSrc
-		 * @param bar TODO
+		 * 
 		 */
-		public GHAMenuOption(final String text, final String token,
-				String imgSrc, GHAMenuBar bar) {
-			this.token = token;
-			parent=bar;
+		public GHAMenuOption() {
 			setWidth100();
 			setHeight("30px");
 			setMembersMargin(7);
@@ -156,10 +166,19 @@ public class GHAMenu {
 			setCursor(Cursor.HAND);
 			setVisible(false);
 			setStyleName("menu-option");
+			addMember(new LayoutSpacer());
+		}
+
+		/**
+		 * @param text
+		 * @param token
+		 * @param imgSrc
+		 */
+		public GHAMenuOption(final String text, final String token,
+				final String imgSrc) {
+			this();
 			final GHAImg iconButton = new GHAImg(imgSrc);
-
-			addMembers(new LayoutSpacer(), iconButton);
-
+			addMember(iconButton);
 			final GHALabel titulo = new GHALabel(text);
 			titulo.setWidth("150px");
 			titulo.setHeight("25px");
@@ -168,16 +187,15 @@ public class GHAMenu {
 			addClickHandler(new ClickHandler() {
 
 				@Override
-				public void onClick(ClickEvent event) {
+				public void onClick(final ClickEvent event) {
 					History.newItem(token);
-					parent.hide();
 				}
 			});
 
 			addMouseOverHandler(new MouseOverHandler() {
 
 				@Override
-				public void onMouseOver(MouseOverEvent event) {
+				public void onMouseOver(final MouseOverEvent event) {
 					setBackgroundColor(GHAUiHelper.DEFAULT_PLACES_BAR_BACKGROUND_COLOR);
 				}
 			});
@@ -185,7 +203,7 @@ public class GHAMenu {
 			addMouseOutHandler(new MouseOutHandler() {
 
 				@Override
-				public void onMouseOut(MouseOutEvent event) {
+				public void onMouseOut(final MouseOutEvent event) {
 					setBackgroundColor("#FFFFFF");
 				}
 			});
@@ -195,12 +213,10 @@ public class GHAMenu {
 
 		}
 
-		/**
-		 * @return the token
-		 */
-		public String getToken() {
-			return token;
-		}
+	}
 
+	private GHAMenu() {
+		throw new UnsupportedOperationException(
+				"This class mus not be instantiaded");
 	}
 }
