@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version last-->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EiaCompReport" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="606d8e54-0a0a-4415-92bf-390680ff9945">
-	<property name="ireport.zoom" value="1.0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EiaMantHistoryReport" language="bsh" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="606d8e54-0a0a-4415-92bf-390680ff9945">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="gha"/>
+	<property name="ireport.zoom" value="0.75"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -13,7 +14,6 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="gha"/>
 	<style name="estiloTitulosColumHeader" mode="Opaque" forecolor="#000000" backcolor="#BDD6EE" hAlign="Center" vAlign="Middle" fontName="Calibri Light" fontSize="11" isBold="true">
 		<pen lineWidth="1.0" lineColor="#F2F2F2"/>
 	</style>
@@ -35,50 +35,94 @@
 	<parameter name="nombreOperador" class="java.lang.String">
 		<defaultValueExpression><![CDATA["Rigoberto Sanchez"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="eiaid" class="java.lang.Integer"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["/home/eloy/workspace/gha/webclient/src/main/webapp/resources/reportes/editables/"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="eianame" class="java.lang.String"/>
+	<parameter name="eiaid" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[2]]></defaultValueExpression>
+	</parameter>
+	<parameter name="state" class="java.lang.Integer"/>
+	<parameter name="type" class="java.lang.Integer"/>
 	<queryString language="SQL">
-		<![CDATA[select eia.code, eiatype.name, brand.name as brand_name, model, manufacturer.name as manufacturer_name
-from eiacomponent, eiatype, eia, brand, manufacturer
-where eiacomponent.parenteiafk = $P{eiaid}
-and eiacomponent.eiafk = eia.id
-and eia.eiatypefk = eiatype.code and brandfk = brand.id
-and manufacturerfk = manufacturer.id]]>
+		<![CDATA[select * from eiacorrectivemaintenance, eiadamagereport, maintenanceplan, eiapreventivemaintenance, eia, eiatypemaintenanceplan
+where
+	(
+		eiadamagereportfk = eiadamagereport.id
+		and eiadamagereport.eiafk = $P{eiaid}
+		and eia.eiatypefk = eiatypemaintenanceplan.eiatypefk
+		and eiatypemaintenanceplan.maintenanceplanfk = maintenanceplan.id
+	) or (
+		eiapreventivemaintenance.maintenanceplanificationfk = maintenanceplan.id
+		and eia.eiatypefk = eiatypemaintenanceplan.eiatypefk
+		and eiatypemaintenanceplan.maintenanceplanfk = maintenanceplan.id
+	)
+	and maintenanceplan.state = $P{state} and maintenanceplan.type = $P{type}]]>
 	</queryString>
-	<field name="code" class="java.lang.String"/>
+	<field name="id" class="java.lang.Long"/>
+	<field name="cancelationoption" class="java.lang.Integer"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="frequency" class="java.lang.Integer"/>
 	<field name="name" class="java.lang.String"/>
-	<field name="brand_name" class="java.lang.String"/>
-	<field name="model" class="java.lang.String"/>
-	<field name="manufacturer_name" class="java.lang.String"/>
-	<group name="LCRU.SR.Group">
-		<groupHeader>
-			<band splitType="Stretch"/>
-		</groupHeader>
-		<groupFooter>
-			<band height="50">
-				<subreport runToBottom="false">
-					<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="752" height="50" uuid="4563b771-e779-4394-baec-78cd33c0f278"/>
-					<subreportParameter name="logo">
-						<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
-					</subreportParameter>
-					<subreportParameter name="fechaHoraReporte">
-						<subreportParameterExpression><![CDATA[$P{fechaHoraReporte}]]></subreportParameterExpression>
-					</subreportParameter>
-					<subreportParameter name="nombreOperador">
-						<subreportParameterExpression><![CDATA[$P{nombreOperador}]]></subreportParameterExpression>
-					</subreportParameter>
-					<subreportParameter name="eiaid">
-						<subreportParameterExpression><![CDATA[$P{eiaid}]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "GMH.LCRU.01.SR.jasper"]]></subreportExpression>
-				</subreport>
-			</band>
-		</groupFooter>
-	</group>
+	<field name="pot" class="java.lang.Integer"/>
+	<field name="state" class="java.lang.Integer"/>
+	<field name="type" class="java.lang.Integer"/>
+	<field name="jobfk" class="java.lang.Long"/>
+	<field name="bspfk" class="java.lang.Long"/>
+	<field name="eiatypefk" class="java.lang.String"/>
+	<field name="maintenanceplanfk" class="java.lang.Long"/>
+	<field name="eiafk" class="java.lang.Long"/>
+	<field name="maintenanceproviderfk" class="java.lang.Long"/>
+	<field name="estimatedmaintenance" class="java.lang.Integer"/>
+	<field name="estimatedmaintenancepot" class="java.lang.Integer"/>
+	<field name="eiadamagereportfk" class="java.lang.Long"/>
+	<field name="damagemotive" class="java.lang.String"/>
+	<field name="damagestatus" class="java.lang.Integer"/>
+	<field name="datetimestamp" class="java.sql.Timestamp"/>
+	<field name="eiacondition" class="java.lang.Integer"/>
+	<field name="priority" class="java.lang.Integer"/>
+	<field name="userwhoregisteredfk" class="java.lang.Long"/>
+	<field name="userwhoreportedfk" class="java.lang.Long"/>
+	<field name="maintenanceplanificationfk" class="java.lang.Long"/>
+	<field name="acceptationdate" class="java.sql.Date"/>
+	<field name="actualcost" class="java.math.BigDecimal"/>
+	<field name="actualcostcurrency" class="java.lang.Integer"/>
+	<field name="adquisitioncost" class="java.math.BigDecimal"/>
+	<field name="adquisitioncostcurrency" class="java.lang.Integer"/>
+	<field name="adquisitioncostcurrencylocal" class="java.lang.Integer"/>
+	<field name="adquisitioncostlocal" class="java.math.BigDecimal"/>
+	<field name="code" class="java.lang.String"/>
+	<field name="contabilizationdate" class="java.sql.Date"/>
+	<field name="datelastdepreciation" class="java.sql.Date"/>
+	<field name="depreciationmethod" class="java.lang.Integer"/>
+	<field name="depreciationtime" class="java.lang.Integer"/>
+	<field name="depreciationtimepot" class="java.lang.Integer"/>
+	<field name="fixedassetidentifier" class="java.lang.String"/>
+	<field name="installationdate" class="java.sql.Date"/>
+	<field name="intwarrantybegin" class="java.sql.Date"/>
+	<field name="intwarrantypot" class="java.lang.Integer"/>
+	<field name="intwarrantysince" class="java.lang.Integer"/>
+	<field name="intwarrantytime" class="java.lang.Integer"/>
+	<field name="lifetime" class="java.lang.Integer"/>
+	<field name="lifetimepot" class="java.lang.Integer"/>
+	<field name="purchasedate" class="java.sql.Date"/>
+	<field name="purchaseinvoicedate" class="java.sql.Date"/>
+	<field name="purchaseinvoicenumber" class="java.lang.String"/>
+	<field name="purchaseorderdate" class="java.sql.Date"/>
+	<field name="purchaseordernumber" class="java.lang.String"/>
+	<field name="realwarrantybegin" class="java.sql.Date"/>
+	<field name="realwarrantypot" class="java.lang.Integer"/>
+	<field name="realwarrantysince" class="java.lang.Integer"/>
+	<field name="realwarrantytime" class="java.lang.Integer"/>
+	<field name="receptiondate" class="java.sql.Date"/>
+	<field name="serialnumber" class="java.lang.String"/>
+	<field name="emaintenanceplan_id" class="java.lang.Long"/>
+	<field name="facilityfk" class="java.lang.Long"/>
+	<field name="installationproviderfk" class="java.lang.Long"/>
+	<field name="obufk" class="java.lang.Long"/>
+	<field name="externalproviderfk" class="java.lang.Long"/>
+	<field name="baserolefk" class="java.lang.Long"/>
+	<field name="workingareafk" class="java.lang.Long"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -150,7 +194,7 @@ and manufacturerfk = manufacturer.id]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Calibri Light" size="13"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Componentes y Repuestos del equipo " + $P{eianame}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Historia de mantenimientos correctivos para el Equipo " + $P{eianame}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -191,7 +235,7 @@ and manufacturerfk = manufacturer.id]]>
 				<textElement>
 					<font pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Codigo]]></text>
+				<text><![CDATA[Nro]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="302" y="20" width="150" height="20" uuid="e80d169a-ab46-4628-8f1f-6f999fb112b8">
@@ -209,7 +253,7 @@ and manufacturerfk = manufacturer.id]]>
 				<textElement>
 					<font size="11" isBold="true" pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Marca]]></text>
+				<text><![CDATA[Fecha]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="452" y="20" width="150" height="20" uuid="ee888fc6-4408-4ef8-9ce4-9017d19755f9">
@@ -227,7 +271,7 @@ and manufacturerfk = manufacturer.id]]>
 				<textElement>
 					<font size="11" isBold="true" pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Modelo]]></text>
+				<text><![CDATA[Type]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="602" y="20" width="150" height="20" uuid="75ef3a9e-b8bf-40b5-84d9-7d20858a11b7">
@@ -245,7 +289,7 @@ and manufacturerfk = manufacturer.id]]>
 				<textElement>
 					<font size="11" isBold="true" pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Fabricante]]></text>
+				<text><![CDATA[Estado]]></text>
 			</staticText>
 			<staticText>
 				<reportElement key="" style="estiloTitulosColumHeader" mode="Opaque" x="0" y="0" width="752" height="20" backcolor="#B6BDC3" uuid="ab3c0e14-738b-424d-a0c5-8482d4e5b25a">
@@ -263,8 +307,9 @@ and manufacturerfk = manufacturer.id]]>
 				</box>
 				<textElement textAlignment="Left">
 					<font pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
+					<paragraph leftIndent="10"/>
 				</textElement>
-				<text><![CDATA[Componentes]]></text>
+				<text><![CDATA[Planes de Mantenimiento]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -284,10 +329,10 @@ and manufacturerfk = manufacturer.id]]>
 					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement mode="Transparent" x="150" y="0" width="152" height="20" uuid="3c1994ea-7207-44c1-84d3-07337ec3c7de">
@@ -301,7 +346,7 @@ and manufacturerfk = manufacturer.id]]>
 					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
@@ -318,10 +363,10 @@ and manufacturerfk = manufacturer.id]]>
 					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{brand_name}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{datetimestamp}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement mode="Transparent" x="452" y="0" width="150" height="20" uuid="4b12d988-bb50-410c-83d9-63c53070ad82">
@@ -335,10 +380,10 @@ and manufacturerfk = manufacturer.id]]>
 					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{model}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{type}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement mode="Transparent" x="602" y="0" width="150" height="20" uuid="0a08c96c-e822-4ff5-8042-b2ba35ef8312">
@@ -352,10 +397,10 @@ and manufacturerfk = manufacturer.id]]>
 					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{manufacturer_name}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{state}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
