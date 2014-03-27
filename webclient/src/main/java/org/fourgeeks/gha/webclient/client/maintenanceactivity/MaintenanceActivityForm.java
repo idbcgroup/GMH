@@ -229,16 +229,23 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 	 * @return
 	 */
 	private MaintenanceActivity extract(boolean update) {
+
 		final MaintenanceActivity entity = new MaintenanceActivity();
+
 		Activity activity = new Activity();
 
 		if (update) {
+
 			entity.setId(this.originalEntity.getId());
-			activity = this.originalEntity.getActivity();
+
+			// activity = this.originalEntity.getActivity();
+			activity.setId(this.originalEntity.getId());
 
 			if (stateSelectItem.getValue() != null) {
+
 				activity.setState(ActivityState.valueOf(stateSelectItem
 						.getValueAsString()));
+
 			}
 		} else {
 			activity.setState(ActivityState.CREATED);
@@ -289,11 +296,9 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 					.getValueAsString();
 			activity.setInstructionsAndObservations(value);
 		}
-
 		// TODO Agregar atributos para proveedor responsable
 		// TODO Agregar atributos para cargo responsable
 		activity.setIsSubProtocol(isSubProtocolCheckboxItem.getValueAsBoolean());
-
 		activity.setMaterialsRequired(materialsRequierdCheckboxItem
 				.getValueAsBoolean());
 		activity.setEquipsRequired(equipsRequiredCheckboxItem
@@ -303,11 +308,11 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 		entity.setActivity(activity);
 		final Set<ConstraintViolation<Activity>> violations = validator
 				.validate(activity);
+
 		if (form.validate() && violations.isEmpty()) {
 			return entity;
 
 		} else {
-
 			final List<String> violationsList = new ArrayList<String>();
 			for (final Iterator<ConstraintViolation<Activity>> it = violations
 					.iterator(); it.hasNext();) {
