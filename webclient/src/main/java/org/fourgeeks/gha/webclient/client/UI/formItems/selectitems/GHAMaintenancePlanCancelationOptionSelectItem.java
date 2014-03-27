@@ -19,7 +19,7 @@ public class GHAMaintenancePlanCancelationOptionSelectItem extends
 		super(GHAStrings.get("cancelation-option"));
 
 		setValueMap(toValueMap());
-		setDefaultValue(MaintenancePlanCancelationOption.UNDEFERRABLE.name());
+		// setDefaultValue(MaintenancePlanCancelationOption.UNDEFERRABLE.name());
 	}
 
 	/**

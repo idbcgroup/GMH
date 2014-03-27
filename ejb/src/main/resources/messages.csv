@@ -16,7 +16,7 @@ ES,name-not-null,Debe indicar el Nombre,WARNING
 ES,mobility-not-null,Debe indicar la Movilidad,WARNING
 ES,base-role-not-null,Debe indicar el Cargo Responsable,WARNING
 ES,obu-not-null,Debe indicar la Departamento Responsable,WARNING
-ES,state-not-null,Debe indicar el Estado,WARNING
+ES,state-not-null,Debe indicar el Estado del plan,WARNING
 ES,gender-not-null,Debe indicar el Género,WARNING
 ES,bpi-not-null,Debe indicar la Institución,WARNING
 ES,institution-not-null,Debe indicar la Institución,WARNING
@@ -33,7 +33,7 @@ ES,eiaDamageReport-save-success,El Reporte de Equipo Dañado ha sido almacenado 
 ES,maintenance-plan-save-success,El Plan de Mantenimiento ha sido almacenado exitosamente,SUCCESS
 ES,eiatype-save-success,El Tipo de Equipo ha sido almacenado exitosamente,SUCCESS
 ES,eiatype-delete-success,El Tipo de Equipo ha sido eliminado exitosamente,SUCCESS
-ES,eiatypes-delete-success,Los Tipos de Equipo ha sido eliminado exitosamente,SUCCESS
+ES,eiatypes-delete-success,Los tipos de equipo han sido eliminados exitosamente,SUCCESS
 ES,material-save-success,El Material ha sido almacenado exitosamente,SUCCESS
 ES,user-save-success,El Usuario ha sido almacenado exitosamente,SUCCESS
 ES,mplan-save-success,El Plan de Mantenimiento ha sido almacenado exitosamente,SUCCESS
@@ -507,10 +507,10 @@ ES,cancelation-option-not-null,Debe indicar la Opción de Cancelación ,WARNING
 ES,activity-save-success,La actividad ha sido almacenada exitosamente,SUCCESS
 ES,activity-update-success,La actividad ha sido actualizada exitosamente,SUCCESS
 ES,form-errors,El formulario contiene errores,WARNING
-ES,eiatype-material-delete-confirm,¿Desea eliminar la asociación entre este Material y este Tipo de Equipo?,CONFIRMATION
+ES,eiatype-material-delete-confirm,¿Desea que este tipo de equipo no utilice este material?,CONFIRMATION
 ES,eiatype-utility-service-delete-confirm,¿Desea eliminar la asociación entre este Servicio Utilitario y este Tipo de Equipo?,CONFIRMATION
 ES,eiatype-delete-confirm,¿Desea eliminar el Tipo de Equipo seleccionado?,CONFIRMATION
-ES,eiatypes-delete-confirm,¿Desea eliminar los Tipos de Equipo?,CONFIRMATION
+ES,eiatypes-delete-confirm,¿Desea eliminar los Tipos de Equipo seleccionados?,CONFIRMATION
 ES,maintenance-plan-delete-confirm,¿Desea eliminar el Plan de Mantenimiento seleccionado?,CONFIRMATION
 ES,maintenances-plan-delete-confirm,¿Desea eliminar los planes de mantenimiento?,CONFIRMATION
 ES,eia-delete-confirm,¿Desea eliminar el equipo seleccionado?,CONFIRMATION
@@ -560,7 +560,7 @@ ES,utilityservice-save-success,El Servicio Utilitario fue guardado con éxito,SU
 ES,eiatype-material-delete-success,Material eliminado a este tipo de equipo satisfactoriamente,SUCCESS
 ES,eiatype-materials-delete-success,Materiales eliminados a este tipo de equipo satisfactoriamente,SUCCESS
 ES,eiatype-utility-delete-success,Material utilitario eliminado a este tipo de equipo satisfactoriamente,SUCCESS
-ES,eiatype-utilities-delete-success,Materiales utilitarios eliminados a este tipo de equipo satisfactoriamente,SUCCESS
+ES,eiatype-utilities-delete-success,Los servicios utilitarios han sido eliminados de este tipo de equipo,SUCCESS
 ES,eiatype-materials-delete-confirm,¿Desea eliminar la asociación entre estos Materiales y este Tipo de Equipo?,CONFIRMATION
 ES,eiatype-utilities-delete-confirm,¿Desea eliminar la asociación entre estos Materiales Utilitarios y este Tipo de Equipo?,CONFIRMATION
 ES,eiatype-utility-delete-confirm,¿Desea eliminar la asociación entre este Material Utilitario y este Tipo de Equipo?,CONFIRMATION
