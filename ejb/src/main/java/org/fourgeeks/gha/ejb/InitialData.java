@@ -22,6 +22,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.Activity;
+import org.fourgeeks.gha.domain.ActivityType;
 import org.fourgeeks.gha.domain.TimerParams;
 import org.fourgeeks.gha.domain.TransactionParams;
 import org.fourgeeks.gha.domain.conf.Parameter;
