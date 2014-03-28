@@ -575,3 +575,6 @@ ES,activityType-save-fail,Error guardando un tipo de actividad,FAILURE
 ES,activityType-delete-fail,Error eliminando un tipo de actividad,FAILURE
 ES,activityTypes-delete-fail,Error eliminando los tipos de actividades,FAILURE
 ES,activityType-getAll-fail,Hubo un fallo al buscar todos los Tipos y Subtipos de Actividades,FAILURE
+ES,activityType-getAll-fail,Hubo un fallo al buscar todos los Tipos y Subtipos de Actividades,FAILURE
+ES,maintenance-eia-exists,El plan tiene asociado equipos no puede ser eliminado,WARNING
+ES,maintenance-plan-exists-activity,El Plan Seleccionado no tiene asociada actividades,WARNING

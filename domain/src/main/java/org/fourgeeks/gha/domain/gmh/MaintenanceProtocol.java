@@ -31,7 +31,7 @@ public class MaintenanceProtocol extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	@JoinColumn(name = "maintenancePlanFk")
+	@JoinColumn(name = "maintenancePlanFk", columnDefinition = "bigint REFERENCES maintenanceplan(id) ON UPDATE CASCADE ON DELETE CASCADE")
 	private MaintenancePlan maintenancePlan;
 
 	@ManyToOne
