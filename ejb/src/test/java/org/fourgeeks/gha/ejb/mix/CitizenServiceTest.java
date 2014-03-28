@@ -162,6 +162,7 @@ public class CitizenServiceTest {
 		return ShrinkWrap
 				.create(WebArchive.class, "test.war")
 				.addClass(ActivityType.class)
+				.addClass(CitizenServiceRemote.class)
 				.addClass(ActivityTypeService.class)
 				.addClass(ActivityTypeServiceRemote.class)
 				.addClass(CCDICodeTypeEnum.class)
@@ -304,10 +305,27 @@ public class CitizenServiceTest {
 	@EJB(lookup = "java:global/test/CitizenService!"
 			+ "org.fourgeeks.gha.ejb.mix.CitizenServiceRemote")
 	private CitizenServiceRemote serviceRemote;
+	private LegalEntity legalEntity;
+	private Citizen citizen;
 
 	/** */
 	@Before
 	public void set() {
+		legalEntity = new LegalEntity("V-123456789-J");
+
+		citizen = new Citizen();
+		citizen.setLegalEntity(legalEntity);
+		citizen.setGender(GenderTypeEnum.MALE);
+		citizen.setIdType(DocumentTypeEnum.LOCAL);
+		citizen.setIdNumber("123456789");
+		citizen.setFirstName("firstName");
+		citizen.setSecondName("secondName");
+		citizen.setFirstLastName("firstLastname");
+		citizen.setSecondLastName("SecondLastname");
+		citizen.setBirthDate(new Date(100, 1, 1));
+		citizen.setNationality("Venezolano");
+		citizen.setPrimaryEmail("primary@email.com");
+		citizen.setAlternativeEmail("alternative@email.com");
 	}
 
 	/** */
@@ -331,20 +349,6 @@ public class CitizenServiceTest {
 
 	private Citizen saveTest() {
 		try {
-			LegalEntity legalEntity = new LegalEntity("V-123456789-J");
-
-			Citizen citizen = new Citizen(legalEntity, GenderTypeEnum.MALE);
-			citizen.setIdType(DocumentTypeEnum.LOCAL);
-			citizen.setIdNumber("123456789");
-			citizen.setFirstName("firstName");
-			citizen.setSecondName("secondName");
-			citizen.setFirstLastName("firstLastname");
-			citizen.setSecondLastName("secondLastname");
-			citizen.setBirthDate(new Date(1));
-			citizen.setNationality("Venezolano");
-			citizen.setPrimaryEmail("primary@email.com");
-			citizen.setAlternativeEmail("alternative@email.com");
-
 			Citizen result = serviceRemote.save(citizen);
 			Assert.assertNotNull(result);
 
