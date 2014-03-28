@@ -159,6 +159,7 @@ public class CitizenServiceTest {
 		return ShrinkWrap
 				.create(WebArchive.class, "test.war")
 				.addClass(CCDICodeTypeEnum.class)
+				.addClass(CitizenServiceRemote.class)
 				.addClass(CCDIEndValueActionEnum.class)
 				.addClass(FunctionBpu.class)
 				.addClass(App.class)
