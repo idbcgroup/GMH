@@ -22,7 +22,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.Activity;
-import org.fourgeeks.gha.domain.ActivityType;
 import org.fourgeeks.gha.domain.TimerParams;
 import org.fourgeeks.gha.domain.TransactionParams;
 import org.fourgeeks.gha.domain.conf.Parameter;
@@ -114,6 +113,68 @@ public class InitialData {
 
 	@EJB(lookup = "java:global/ear-1/ejb-1/CCDIService!org.fourgeeks.gha.ejb.gom.CCDIServiceRemote")
 	CCDIServiceRemote ccdiServiceRemote;
+
+	private void activityTypeAndSubTypeTestData() {
+		final String queryStr = "SELECT t FROM ActivityType t";
+		try {
+			final List<?> resultList = em.createQuery(queryStr).getResultList();
+			if (resultList.isEmpty())
+				throw new Exception();
+
+		} catch (final Exception e) {
+			try {
+				logger.info("Creating test data: activity type and subtype");
+
+				final String activityTypeNames[] = { "Mantenimiento",
+						"Asistencial", "Logística", "Operaciones",
+						"Administrativa", "Del Sistema" };
+
+				final HashMap<String, String[]> map = new HashMap<String, String[]>();
+
+				map.put("Mantenimiento", new String[] { "Medición", "Limpieza",
+						"Calibración", "Desarme", "Armado", "Instalación",
+						"Desinstalación", "Cambio de Repuesto",
+						"Cambio de Consumibles", "Aceptación Mantenimiento",
+				"Traslado" });
+
+				map.put("Asistencial", new String[] { "Asistencia Paciente",
+						"Bañado de paciente", "Consulta",
+						"Recepción de Paciente", "Acompañar al Paciente",
+						"Hacer procedimiento", "calificación del Paciente",
+						"Pruebas Diagnósticas", "Medicación",
+						"Estudios Diagnósticos", "Tratamientos",
+				"Procedimientos" });
+
+				map.put("Logística", new String[] { "Dar Cita",
+						"Despacho de Materiales", "Mantenimiento Habitación" });
+
+				map.put("Administrativa", new String[] { "Admisión Paciente",
+						"Egreso Paciente", "Facturación" });
+
+				for (final String typeName : activityTypeNames) {
+					final ActivityType type = new ActivityType();
+					type.setDescription(typeName);
+					em.persist(type);
+
+					final String[] subtypeNames = map.get(typeName);
+					if (subtypeNames == null)
+						continue;
+
+					for (final String subTypeName : subtypeNames) {
+						final ActivityType subType = new ActivityType();
+						subType.setDescription(subTypeName);
+						subType.setParentActivityTypeId(type.getId());
+						em.persist(subType);
+					}
+				}
+
+				em.flush();
+			} catch (final Exception e1) {
+				logger.log(Level.INFO,
+						"error Creating MaintenanceActivity test data", e1);
+			}
+		}
+	}
 
 	private void bpiTestData() {
 		final String query = "SELECT t from Bpi t WHERE t.id = 1 ";
@@ -757,68 +818,6 @@ public class InitialData {
 			} catch (final Exception e1) {
 				logger.log(Level.INFO, "error creating test data legal entity",
 						e);
-			}
-		}
-	}
-
-	private void activityTypeAndSubTypeTestData() {
-		final String queryStr = "SELECT t FROM ActivityType t";
-		try {
-			List<?> resultList = em.createQuery(queryStr).getResultList();
-			if (resultList.isEmpty())
-				throw new Exception();
-
-		} catch (final Exception e) {
-			try {
-				logger.info("Creating test data: activity type and subtype");
-
-				final String activityTypeNames[] = { "Mantenimiento",
-						"Asistencial", "Logística", "Operaciones",
-						"Administrativa", "Del Sistema" };
-
-				HashMap<String, String[]> map = new HashMap<String, String[]>();
-
-				map.put("Mantenimiento", new String[] { "Medición", "Limpieza",
-						"Calibración", "Desarme", "Armado", "Instalación",
-						"Desinstalación", "Cambio de Repuesto",
-						"Cambio de Consumibles", "Aceptación Mantenimiento",
-						"Traslado" });
-
-				map.put("Asistencial", new String[] { "Asistencia Paciente",
-						"Bañado de paciente", "Consulta",
-						"Recepción de Paciente", "Acompañar al Paciente",
-						"Hacer procedimiento", "calificación del Paciente",
-						"Pruebas Diagnósticas", "Medicación",
-						"Estudios Diagnósticos", "Tratamientos",
-						"Procedimientos" });
-
-				map.put("Logística", new String[] { "Dar Cita",
-						"Despacho de Materiales", "Mantenimiento Habitación" });
-
-				map.put("Administrativa", new String[] { "Admisión Paciente",
-						"Egreso Paciente", "Facturación" });
-
-				for (String typeName : activityTypeNames) {
-					ActivityType type = new ActivityType();
-					type.setDescription(typeName);
-					em.persist(type);
-
-					String[] subtypeNames = map.get(typeName);
-					if (subtypeNames == null)
-						continue;
-
-					for (String subTypeName : subtypeNames) {
-						final ActivityType subType = new ActivityType();
-						subType.setDescription(subTypeName);
-						subType.setParentActivityTypeId(type.getId());
-						em.persist(subType);
-					}
-				}
-
-				em.flush();
-			} catch (final Exception e1) {
-				logger.log(Level.INFO,
-						"error Creating MaintenanceActivity test data", e1);
 			}
 		}
 	}
