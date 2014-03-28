@@ -22,11 +22,11 @@ import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
-import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author emiliot, vivi.torresg
  * 
+ *         The services for the citizen operations
  */
 
 @Stateless
@@ -38,8 +38,8 @@ public class CitizenService extends GHAEJBExceptionService implements
 	private final static Logger logger = Logger.getLogger(CitizenService.class
 			.getName());
 
-	private static Predicate buildFilters(Citizen entity, CriteriaBuilder cb,
-			Root<Citizen> root) {
+	private static final Predicate buildFilters(final Citizen entity,
+			final CriteriaBuilder cb, final Root<Citizen> root) {
 		Predicate criteria = cb.conjunction();
 
 		if (entity.getFirstName() != null) {
@@ -122,7 +122,7 @@ public class CitizenService extends GHAEJBExceptionService implements
 	 * @see org.fourgeeks.gha.ejb.mix.CitizenServiceRemote#delete(long)
 	 */
 	@Override
-	public void delete(List<Citizen> citizens) throws GHAEJBException {
+	public void delete(final List<Citizen> citizens) throws GHAEJBException {
 		try {
 			for (final Citizen citizen : citizens) {
 				final Citizen entity = em.find(Citizen.class, citizen.getId());
@@ -131,8 +131,7 @@ public class CitizenService extends GHAEJBExceptionService implements
 
 		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete Citizen", e);
-			throw super.generateGHAEJBException("citizen-delete-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("citizen-delete-fail", em);
 		}
 	}
 
@@ -144,7 +143,7 @@ public class CitizenService extends GHAEJBExceptionService implements
 	 * .domain.mix.Citizen)
 	 */
 	@Override
-	public List<Citizen> find(Citizen citizen) throws GHAEJBException {
+	public List<Citizen> find(final Citizen citizen) throws GHAEJBException {
 		try {
 			final CriteriaBuilder cb = em.getCriteriaBuilder();
 			final CriteriaQuery<Citizen> cQuery = cb.createQuery(Citizen.class);
@@ -212,7 +211,7 @@ public class CitizenService extends GHAEJBExceptionService implements
 		} catch (final Exception ex) {
 			logger.log(Level.SEVERE, "Error finding Citizen by citizen", ex);
 			throw super.generateGHAEJBException("citizen-findByCitizen-fail",
-					RuntimeParameters.getLang(), em);
+					em);
 		}
 	}
 
@@ -222,7 +221,7 @@ public class CitizenService extends GHAEJBExceptionService implements
 	 * @see org.fourgeeks.gha.ejb.mix.CitizenServiceRemote#find(long)
 	 */
 	@Override
-	public Citizen find(long id) throws GHAEJBException {
+	public Citizen find(final long id) throws GHAEJBException {
 		try {
 			return em.find(Citizen.class, id);
 		} catch (final Exception e) {
@@ -243,8 +242,7 @@ public class CitizenService extends GHAEJBExceptionService implements
 					.getResultList();
 		} catch (final Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all Citizen", ex);
-			throw super.generateGHAEJBException("citizen-getAll-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("citizen-getAll-fail", em);
 		}
 	}
 
@@ -256,16 +254,15 @@ public class CitizenService extends GHAEJBExceptionService implements
 	 * .domain.mix.Citizen)
 	 */
 	@Override
-	public Citizen save(Citizen citizen) throws GHAEJBException {
+	public Citizen save(final Citizen citizen) throws GHAEJBException {
 		try {
-			em.persist(citizen.getLegalEntity());
+			em.merge(citizen.getLegalEntity());
 			em.persist(citizen);
 			em.flush();
 			return em.find(Citizen.class, citizen.getId());
 		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: saving Citizen ", e);
-			throw super.generateGHAEJBException("citizen-save-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("citizen-save-fail", em);
 		}
 	}
 
@@ -277,15 +274,14 @@ public class CitizenService extends GHAEJBExceptionService implements
 	 * .domain.mix.Citizen)
 	 */
 	@Override
-	public Citizen update(Citizen citizen) throws GHAEJBException {
+	public Citizen update(final Citizen citizen) throws GHAEJBException {
 		try {
 			final Citizen res = em.merge(citizen);
 			em.flush();
 			return res;
 		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update Citizen ", e);
-			throw super.generateGHAEJBException("citizen-update-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("citizen-update-fail", em);
 		}
 	}
 }

@@ -284,7 +284,6 @@ public class GHAAlertManager {
 				final GHADialog messageDialog = new GHAAskDialog(result
 						.getType(), result.getText(), result.getTime(),
 						buttonYes, buttonNo, buttonCancel);
-
 				buttonYes.addClickHandler(new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
@@ -677,8 +676,8 @@ public class GHAAlertManager {
 			final GHAMessage message = messageQueue.poll();
 			// Window.alert("Dequeing a message: type:"+message.getType().getCode()+" Text:"+message.getText());
 			final GHAMessageType messageType = message.getType();
-			if (!messageType.equals("ASKYESNO")
-					&& !messageType.equals("CONFIRMATION"))
+			if (!messageType.getCode().equals("ASKYESNO")
+					&& !messageType.getCode().equals("CONFIRMATION"))
 				alert(message);
 		}
 	}

@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.RootPanel;
  */
 public class ForgottenPasswordPlace extends GHAPlace {
 
-	private final mailCheckPanel mailCheckPanel = new mailCheckPanel();
+	private final MailCheckPanel mailCheckPanel = new MailCheckPanel();
 
 	/**
 	 * @param token

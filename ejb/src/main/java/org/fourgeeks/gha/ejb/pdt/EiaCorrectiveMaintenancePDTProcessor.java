@@ -43,7 +43,7 @@ public class EiaCorrectiveMaintenancePDTProcessor implements PDTProcessor {
 	EiaServiceRemote eiaService;
 
 	@Override
-	public void processMessage(HashMap<String, Object> params) {
+	public void processMessage(final HashMap<String, Object> params) {
 		long time = Calendar.getInstance().getTimeInMillis();
 
 		try {
@@ -74,8 +74,10 @@ public class EiaCorrectiveMaintenancePDTProcessor implements PDTProcessor {
 			serviceOrder = serviceOrderService.save(serviceOrder);
 
 		} catch (Exception e) {
-			String msg = "ERROR: procesando mensaje en CorrectiveMaintenancePDTProcessor: ";
-			logger.log(Level.INFO, msg, e);
+			logger.log(
+					Level.WARNING,
+					"ERROR: procesando mensaje en CorrectiveMaintenancePDTProcessor: ",
+					e);
 		}
 	}
 }

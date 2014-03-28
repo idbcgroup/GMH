@@ -21,7 +21,7 @@ public class GHAPickTreeItem extends IPickTreeItem {
 		setHeight(20);
 		setWidth(GHAUiHelper.DEFAULT_ITEM_WIDTH);
 		setOriginalStyle();
-		//		final Canvas buttonDefaults = Canvas.createIfSupported();
+		setShowErrorIcon(true);
 	}
 
 	/**
@@ -39,6 +39,19 @@ public class GHAPickTreeItem extends IPickTreeItem {
 	public GHAPickTreeItem(String name, String title) {
 		this(name);
 		setTitle(title);
+	}
+
+	/**
+	 * @param width
+	 */
+	@Deprecated
+	public void resizeWidth(int width) {
+		if (width < GHAUiHelper.DEFAULT_ITEM_WIDTH) {
+			setWidth(GHAUiHelper.DEFAULT_ITEM_WIDTH);
+		} else {
+			setWidth(width);
+		}
+		redraw();
 	}
 
 	/**
@@ -60,18 +73,5 @@ public class GHAPickTreeItem extends IPickTreeItem {
 		} else {
 			setOriginalStyle();
 		}
-	}
-
-	/**
-	 * @param width
-	 */
-	@Deprecated
-	public void resizeWidth(int width){
-		if(width < GHAUiHelper.DEFAULT_ITEM_WIDTH){
-			setWidth(GHAUiHelper.DEFAULT_ITEM_WIDTH);
-		}else{
-			setWidth(width);
-		}
-		redraw();
 	}
 }

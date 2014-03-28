@@ -15,6 +15,7 @@ import org.fourgeeks.gha.webclient.client.eia.EIAForm;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer;
 
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -83,22 +84,32 @@ ClosableListener {
 				return true;
 			}
 
-			GHAAlertManager.askYesNoCancel("unsaved-changes", new ClickHandler() {
+			//			GHAAlertManager.askYesNoCancel("unsaved-changes", new ClickHandler() {
+			//
+			//				@Override
+			//				public void onClick(ClickEvent event) {
+			//					GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
+			//
+			//				}
+			//			}, new ClickHandler() {
+			//
+			//				@Override
+			//				public void onClick(ClickEvent event) {
+			//					GHAPlaceSet
+			//					.closeCurrentPlace(HideCloseAction.DISCARD);
+			//
+			//				}
+			//			}, null);
+			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
 
 				@Override
-				public void onClick(ClickEvent event) {
-					GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
-
+				public void execute(Boolean value) {
+					if(value)
+					{
+						GHAPlaceSet.closeCurrentPlace(HideCloseAction.DISCARD);
+					}
 				}
-			}, new ClickHandler() {
-
-				@Override
-				public void onClick(ClickEvent event) {
-					GHAPlaceSet
-					.closeCurrentPlace(HideCloseAction.DISCARD);
-
-				}
-			}, null);
+			});
 			return false;
 		}
 		return true;
@@ -115,22 +126,32 @@ ClosableListener {
 				return true;
 			}
 
-			GHAAlertManager.askYesNoCancel("unsaved-changes", new ClickHandler() {
+			//			GHAAlertManager.askYesNoCancel("unsaved-changes", new ClickHandler() {
+			//
+			//				@Override
+			//				public void onClick(ClickEvent event) {
+			//					GHAPlaceSet.hideCurrentPlace(HideCloseAction.SAVE);
+			//
+			//				}
+			//			}, new ClickHandler() {
+			//
+			//				@Override
+			//				public void onClick(ClickEvent event) {
+			//					GHAPlaceSet
+			//					.hideCurrentPlace(HideCloseAction.DISCARD);
+			//
+			//				}
+			//			}, null);
+			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
 
 				@Override
-				public void onClick(ClickEvent event) {
-					GHAPlaceSet.hideCurrentPlace(HideCloseAction.SAVE);
-
+				public void execute(Boolean value) {
+					if(value)
+					{
+						GHAPlaceSet.closeCurrentPlace(HideCloseAction.DISCARD);
+					}
 				}
-			}, new ClickHandler() {
-
-				@Override
-				public void onClick(ClickEvent event) {
-					GHAPlaceSet
-					.hideCurrentPlace(HideCloseAction.DISCARD);
-
-				}
-			}, null);
+			});
 			return false;
 		}
 		return true;

@@ -60,13 +60,10 @@ public class GwtHostingHttpServlet extends HttpServlet {
 			writer.append("<html lang=\"en\">");
 			writer.append("<head>");
 			writer.append("<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">");
-			writer.append("<link type=\"text/css\" rel=\"stylesheet\"");
-			writer.append("href=\"resources/css/gha.css\">");
+			writer.append("<link type=\"text/css\" rel=\"stylesheet\" href=\"resources/css/normalize.css\">");
+			writer.append("<link type=\"text/css\" rel=\"stylesheet\" href=\"resources/css/gha.css\">");
 			writer.append("<script src=\"webclient/language.js\"></script>");
-			writer.append("<link type=\"text/css\" rel=\"stylesheet\"");
-			writer.append("href=\"resources/css/normalize.css\">");
-			writer.append("<link rel=\"icon\" type=\"image/x-icon\"");
-			writer.append("href=\"resources/icons/favicon.ico\">");
+			writer.append("<link rel=\"icon\" type=\"image/x-icon\" href=\"resources/icons/favicon.ico\">");
 			writer.append("<title>GHA</title>");
 			writer.append("</head>");
 			writer.append("<body>");
@@ -99,13 +96,10 @@ public class GwtHostingHttpServlet extends HttpServlet {
 		} else {
 			writer.append("<!DOCTYPE html><html lang=\"en\"><head>");
 			writer.append("<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">");
-			writer.append("<link type=\"text/css\" rel=\"stylesheet\"");
-			writer.append("href=\"resources/css/gha.css\">");
+			writer.append("<link type=\"text/css\" rel=\"stylesheet\" href=\"resources/css/gha.css\">");
+			writer.append("<link type=\"text/css\" rel=\"stylesheet\" href=\"resources/css/normalize.css\">");
 			writer.append("<script src=\"webclient/language.js\"></script>");
-			writer.append("<link type=\"text/css\" rel=\"stylesheet\"");
-			writer.append("href=\"resources/css/normalize.css\">");
-			writer.append("<link rel=\"icon\" type=\"image/x-icon\"");
-			writer.append("href=\"resources/icons/favicon.ico\">");
+			writer.append("<link rel=\"icon\" type=\"image/x-icon\" href=\"resources/icons/favicon.ico\">");
 			writer.append("<title>GHA</title>");
 			writer.append("<script>");
 			writer.append("var isomorphicDir = \"webclient/sc/\";");
@@ -142,7 +136,7 @@ public class GwtHostingHttpServlet extends HttpServlet {
 		if (user == null || user.equals("")) {
 			GHAMessage ghaMessage = null;
 			try {
-				ghaMessage = messageService.find(null, "LOGIN003");
+				ghaMessage = messageService.findAndLog(null, "LOGIN003");
 				req.getSession().setAttribute("cause", ghaMessage.getText());
 				doGet(req, resp);
 				return;
@@ -159,7 +153,7 @@ public class GwtHostingHttpServlet extends HttpServlet {
 		} catch (final GHAEJBException e1) {
 			GHAMessage ghaMessage = null;
 			try {
-				ghaMessage = messageService.find(null, "LOGIN005");
+				ghaMessage = messageService.findAndLog(null, "LOGIN005");
 				req.getSession().setAttribute("cause", ghaMessage.getText());
 				doGet(req, resp);
 				return;
@@ -184,7 +178,7 @@ public class GwtHostingHttpServlet extends HttpServlet {
 		} catch (final ServletException e) {
 			GHAMessage ghaMessage = null;
 			try {
-				ghaMessage = messageService.find(null, "LOGIN002");
+				ghaMessage = messageService.findAndLog(null, "LOGIN002");
 			} catch (final GHAEJBException e1) {
 				e1.printStackTrace();
 			}

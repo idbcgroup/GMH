@@ -8,12 +8,12 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
 
-import com.smartgwt.client.util.BooleanCallback;
+import com.smartgwt.client.widgets.AnimationCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -26,7 +26,6 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class MaterialBrandAddForm extends GHAAddForm<MaterialBrand> implements
 		MaterialBrandSelectionProducer {
-	protected MaterialBrandForm form;
 	{
 		form = new MaterialBrandForm(GHAStrings.get("autogen-field"));
 	}
@@ -43,11 +42,11 @@ public class MaterialBrandAddForm extends GHAAddForm<MaterialBrand> implements
 					public void onClick(ClickEvent event) {
 						save();
 					}
-				}), new GHACancelButton(new ClickHandler() {
+				}), new GHACloseButton(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				hide();
+				cancel();
 			}
 		}));
 		HLayout gridPanel = new HLayout();
@@ -66,59 +65,34 @@ public class MaterialBrandAddForm extends GHAAddForm<MaterialBrand> implements
 	@Override
 	public void addMaterialBrandSelectionListener(
 			MaterialBrandSelectionListener listener) {
-		form.addMaterialBrandSelectionListener(listener);
+		((MaterialBrandSelectionProducer) form)
+				.addMaterialBrandSelectionListener(listener);
 	}
 
 	@Override
-	public boolean canBeClosen(HideCloseAction hideAction) {// TODO
-		if (form.hasUnCommittedChanges()) {
-			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
-
-				@Override
-				public void execute(Boolean value) {
-					if (value) {
-						form.undo();
-					}
-				}
-			});
-			return false;
-		}
+	public boolean canBeClosen(HideCloseAction hideAction) {
 		return true;
 	}
 
 	@Override
-	public boolean canBeHidden(HideCloseAction hideAction) {// TODO
-		if (form.hasUnCommittedChanges()) {
-			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
-
-				@Override
-				public void execute(Boolean value) {
-					if (value) {
-						form.undo();
-					}
-				}
-			});
-			return false;
-		}
+	public boolean canBeHidden(HideCloseAction hideAction) {
 		return true;
+	}
+
+	@Override
+	public void close() {
+		hide(new AnimationCallback() {
+
+			@Override
+			public void execute(boolean earlyFinish) {
+				form.hide();
+				destroy();
+			}
+		});
 	}
 
 	@Override
 	public void hide() {
-		if (form.hasUnCommittedChanges()) {
-			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
-
-				@Override
-				public void execute(Boolean value) {
-					if (value) {
-						form.undo();
-						form.hide();
-						MaterialBrandAddForm.super.hide();
-					}
-				}
-			});
-			return;
-		}
 		form.hide();
 		super.hide();
 	}
@@ -132,7 +106,7 @@ public class MaterialBrandAddForm extends GHAAddForm<MaterialBrand> implements
 	 */
 	@Override
 	public void notifyMaterialBrand(MaterialBrand materialBrand) {
-		form.notifyMaterialBrand(materialBrand);
+		return;
 	}
 
 	@Override
@@ -152,7 +126,8 @@ public class MaterialBrandAddForm extends GHAAddForm<MaterialBrand> implements
 	@Override
 	public void removeMaterialBrandSelectionListener(
 			MaterialBrandSelectionListener listener) {
-		form.removeMaterialBrandSelectionListener(listener);
+		((MaterialBrandSelectionProducer) form)
+				.removeMaterialBrandSelectionListener(listener);
 	}
 
 	/*
@@ -166,7 +141,7 @@ public class MaterialBrandAddForm extends GHAAddForm<MaterialBrand> implements
 
 			@Override
 			public void onSuccess(MaterialBrand entity) {
-				GHAAlertManager.alert("material-brand-save-success");
+				GHAAlertManager.alert("materialbrand-save-success");
 				hide();
 			}
 		});

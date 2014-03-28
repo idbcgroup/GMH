@@ -10,7 +10,6 @@ import javax.validation.ConstraintViolation;
 
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
-import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
@@ -34,8 +33,6 @@ import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
-import com.smartgwt.client.widgets.form.fields.events.FocusEvent;
-import com.smartgwt.client.widgets.form.fields.events.FocusHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 
@@ -44,7 +41,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * 
  */
 public class EiaTypeForm extends GHAForm<EiaType> implements
-EiaTypeSelectionProducer {
+		EiaTypeSelectionProducer {
 
 	protected GHADynamicForm form;
 	private GHACodeTextItem codeItem;
@@ -58,6 +55,9 @@ EiaTypeSelectionProducer {
 	private GHAComboboxItem<Manufacturer> manItem;
 	private boolean cleanCodeItem = true;
 
+	private final String violationsOrder[] = { "name-not-null",
+			"eiatype-category-not-null", "mobility-not-null" };
+
 	private List<EIATypeSelectionListener> listeners;
 
 	{
@@ -67,9 +67,10 @@ EiaTypeSelectionProducer {
 		codeItem.disable();
 
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
-		categoryItem = new GHAEiaTypeCategoryPickTreeItem(GHAStrings.get("category"));
-		categoryItem.addChangedHandler(changedHandler);
+		categoryItem = new GHAEiaTypeCategoryPickTreeItem(
+				GHAStrings.get("category"));
 		categoryItem.setRequired(true);
+		categoryItem.addChangedHandler(changedHandler);
 
 		subTypeItem = new GHAEiaTypeSubTypeSelectItem(changedHandler);
 		eiaUmdnsItem = new GHATextItem("EIAUMDNS", false, changedHandler);
@@ -94,13 +95,12 @@ EiaTypeSelectionProducer {
 		//
 		listeners = new ArrayList<EIATypeSelectionListener>();
 
-
 		// Regex!
 
 		nameItem.validateWords();
 		nameItem.setTooltip(GHAStrings.get("eiatype-name-tooltip"));
 
-		modelItem.validateWords();
+		modelItem.validateSerial();
 		modelItem.setTooltip(GHAStrings.get("eiatype-model-tooltip"));
 
 		categoryItem.setTooltip(GHAStrings.get("eiatype-type-tooltip"));
@@ -114,8 +114,7 @@ EiaTypeSelectionProducer {
 
 		useDescriptionItem.setTooltip(GHAStrings
 				.get("eiatype-use-description-tooltip"));
-		// Incierto si requiere validacion o no
-		// eiaUmdnsItem.validateWords();
+		eiaUmdnsItem.validateAlphanumeric();
 	}
 
 	/**
@@ -126,29 +125,27 @@ EiaTypeSelectionProducer {
 		final HLayout gridPanel = new HLayout();
 		// disable the brand select if no manufacturer is selected
 		brandItem.disable();
-		brandItem.addFocusHandler(new FocusHandler() {
+		brandItem.setDefaultToFirstOption(true);
 
-			@Override
-			public void onFocus(FocusEvent event) {
-				final String manItemValue = manItem.getValueAsString();
-				if (manItemValue.matches("[1-9]+\\d*")) {
-					fillBrands(new Manufacturer(Integer.valueOf(manItemValue),
-							null));
-				}
-				brandItem.setValue("");
-
-			}
-		});
 		// set the handler for selected manufacturer
 		manItem.addChangedHandler(new ChangedHandler() {
 
 			@Override
 			public void onChanged(ChangedEvent event) {
 				final String manItemValue = manItem.getValueAsString();
+				brandItem.clearValue();
+
 				if (manItemValue == null || manItemValue.isEmpty()) {
 					brandItem.disable();
-					brandItem.setValue("");
 				} else {
+					if (manItemValue.matches("[1-9]+\\d*")) {
+						fillBrands(new Manufacturer(Integer
+								.valueOf(manItemValue), null));
+					} else {
+						final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+						brandItem.setValueMap(valueMap);
+						brandItem.redraw();
+					}
 					brandItem.enable();
 				}
 			}
@@ -216,9 +213,6 @@ EiaTypeSelectionProducer {
 	}
 
 	private EiaType extract(boolean update) {
-		if (!hasUnCommittedChanges)
-			return null;
-
 		final List<String> violationsList = new ArrayList<String>();
 		final EiaType eiaType = new EiaType();
 
@@ -261,32 +255,24 @@ EiaTypeSelectionProducer {
 		if (subTypeItem.getValue() != null)
 			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
 					.getValueAsString()));
-		Set<ConstraintViolation<EiaType>> violations = null;
-		violations = validator.validate(eiaType);
-
-		if (violations.isEmpty() && form.validate())
+		Set<ConstraintViolation<EiaType>> violations = validator
+				.validate(eiaType);
+		if (violations.isEmpty() && form.validate()) {
 			return eiaType;
-		else {
+		} else {
 			for (final Iterator<ConstraintViolation<EiaType>> it = violations
-					.iterator(); it.hasNext();)
-				violationsList.add(it.next().getMessage());
+					.iterator(); it.hasNext();) {
+				String next = it.next().getMessage();
+				violationsList.add(next);
+			}
 			// GHAAlertManager.alert(violationsList);
 			// GHAAlertManager.oldAlert(violationsList.get(0));
 
-			String mensaje = "name-not-null";
-			if (violationsList.contains(mensaje)) {
-				GHAAlertManager.alert(mensaje);
-				return null;
-			}
-			mensaje = "eiatype-category-not-null";
-			if (violationsList.contains(mensaje)) {
-				GHAAlertManager.alert(mensaje);
-				return null;
-			}
-			mensaje = "mobility-not-null";
-			if (violationsList.contains(mensaje)) {
-				GHAAlertManager.alert(mensaje);
-				return null;
+			for (String errorCode : violationsOrder) {
+				if (violationsList.contains(errorCode)) {
+					GHAAlertManager.alert(errorCode);
+					break;
+				}
 			}
 		}
 		return null;
@@ -297,41 +283,37 @@ EiaTypeSelectionProducer {
 		BrandModel.findByManufacturer(manufacturer,
 				new GHAAsyncCallback<List<Brand>>() {
 
-			@Override
-			public void onSuccess(List<Brand> result) {
-				final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for (final Brand brand : result)
-					valueMap.put(brand.getId() + "", brand.getName());
-				brandItem.setValueMap(valueMap);
-				brandItem.setValue(brand.getId());
-			}
+					@Override
+					public void onSuccess(List<Brand> result) {
+						final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+						for (final Brand brand : result)
+							valueMap.put(brand.getId() + "", brand.getName());
+						brandItem.setValueMap(valueMap);
+						brandItem.setValue(brand.getId());
+					}
 
-		});
+				});
 
 	}
 
 	private void fillBrands(Manufacturer manufacturer) {
 		final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-		brandItem.setValueMap(valueMap);
-		brandItem.redraw();
 
 		BrandModel.findByManufacturer(manufacturer,
 				new GHAAsyncCallback<List<Brand>>() {
 
-			@Override
-			public void onSuccess(List<Brand> result) {
-				for (final Brand brand : result)
-					valueMap.put(brand.getId() + "", brand.getName());
-				brandItem.setValueMap(valueMap);
-				brandItem.redraw();
-			}
+					@Override
+					public void onSuccess(List<Brand> result) {
+						for (final Brand brand : result)
+							valueMap.put(brand.getId() + "", brand.getName());
+						brandItem.setValueMap(valueMap);
+						brandItem.redraw();
+					}
 
-		});
+				});
 	}
 
 	private void fillExtras() {
-		// types
-		categoryItem.setValueMap(EiaTypeEnum.toValueMap());
 		// subtypes
 		subTypeItem.setValueMap(EiaSubTypeEnum.toValueMap());
 		// mobility
@@ -420,6 +402,7 @@ EiaTypeSelectionProducer {
 		if (eiaType.getBrand() != null) {
 			fillBrands(eiaType.getBrand());
 			fillMans(eiaType.getBrand().getManufacturer());
+			brandItem.enable();
 		} else {
 			manItem.clearValue();
 			brandItem.clearValue();
@@ -472,6 +455,8 @@ EiaTypeSelectionProducer {
 
 	@Override
 	public void update(final GHAAsyncCallback<EiaType> callback) {
+		if (!hasUnCommittedChanges)
+			return;
 		final EiaType eiaType = extract(true);
 
 		if (eiaType == null)

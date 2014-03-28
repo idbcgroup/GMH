@@ -15,6 +15,7 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EiaTypeForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer;
 
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -26,8 +27,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeInformationFormPanel extends GHAFormLayout implements
-		EIATypeSelectionListener, EiaTypeSelectionProducer, HideableListener,
-		ClosableListener {
+EIATypeSelectionListener, EiaTypeSelectionProducer, HideableListener,
+ClosableListener {
 
 	private final EiaTypeForm form = new EiaTypeForm();
 
@@ -36,7 +37,7 @@ public class EIATypeInformationFormPanel extends GHAFormLayout implements
 	 */
 	public EIATypeInformationFormPanel() {
 		super();
-		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
+		final VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
 
 					@Override
@@ -45,13 +46,13 @@ public class EIATypeInformationFormPanel extends GHAFormLayout implements
 					}
 				}), new GHAUndoButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				undo();
-			}
-		}));
+					@Override
+					public void onClick(ClickEvent event) {
+						undo();
+					}
+				}));
 
-		HLayout gridPanel = new HLayout();
+		final HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMember(gridPanel);
@@ -74,23 +75,33 @@ public class EIATypeInformationFormPanel extends GHAFormLayout implements
 				return true;
 			}
 
-			GHAAlertManager.askYesNoCancel("unsaved-changes",
-					new ClickHandler() {
+			//			GHAAlertManager.askYesNoCancel("unsaved-changes",
+			//					new ClickHandler() {
+			//
+			//						@Override
+			//						public void onClick(ClickEvent event) {
+			//							GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
+			//
+			//						}
+			//					}, new ClickHandler() {
+			//
+			//						@Override
+			//						public void onClick(ClickEvent event) {
+			//							GHAPlaceSet
+			//									.closeCurrentPlace(HideCloseAction.DISCARD);
+			//
+			//						}
+			//					}, null);
+			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
 
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
-
-						}
-					}, new ClickHandler() {
-
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet
-									.closeCurrentPlace(HideCloseAction.DISCARD);
-
-						}
-					}, null);
+				@Override
+				public void execute(Boolean value) {
+					if(value)
+					{
+						GHAPlaceSet.closeCurrentPlace(HideCloseAction.DISCARD);
+					}
+				}
+			});
 			return false;
 		}
 		return true;
@@ -107,23 +118,33 @@ public class EIATypeInformationFormPanel extends GHAFormLayout implements
 				return true;
 			}
 
-			GHAAlertManager.askYesNoCancel("unsaved-changes",
-					new ClickHandler() {
+			//			GHAAlertManager.askYesNoCancel("unsaved-changes",
+			//					new ClickHandler() {
+			//
+			//				@Override
+			//				public void onClick(ClickEvent event) {
+			//					GHAPlaceSet.hideCurrentPlace(HideCloseAction.SAVE);
+			//
+			//				}
+			//			}, new ClickHandler() {
+			//
+			//				@Override
+			//				public void onClick(ClickEvent event) {
+			//					GHAPlaceSet
+			//					.hideCurrentPlace(HideCloseAction.DISCARD);
+			//
+			//				}
+			//			}, null);
+			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
 
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet.hideCurrentPlace(HideCloseAction.SAVE);
-
-						}
-					}, new ClickHandler() {
-
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet
-									.hideCurrentPlace(HideCloseAction.DISCARD);
-
-						}
-					}, null);
+				@Override
+				public void execute(Boolean value) {
+					if(value)
+					{
+						GHAPlaceSet.closeCurrentPlace(HideCloseAction.DISCARD);
+					}
+				}
+			});
 			return false;
 		}
 		return true;

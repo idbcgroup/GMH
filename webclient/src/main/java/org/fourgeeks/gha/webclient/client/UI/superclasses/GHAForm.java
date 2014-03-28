@@ -16,7 +16,7 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * 
  */
 public abstract class GHAForm<T> extends GHAVerticalLayout implements
-ResizeHandler {
+		ResizeHandler {
 
 	protected T originalEntity = null;
 	protected boolean hasUnCommittedChanges = false;
@@ -44,11 +44,6 @@ ResizeHandler {
 	public abstract void activate();
 
 	/**
-	 * deactivate the form
-	 */
-	public abstract void deactivate();
-
-	/**
 	 * clear the form fields
 	 */
 	@Override
@@ -57,10 +52,26 @@ ResizeHandler {
 	}
 
 	/**
-	 * @return wheter the form has uncommited changes
+	 * deactivate the form
+	 */
+	public abstract void deactivate();
+
+	@Override
+	public void destroy() {
+		GHAUiHelper.removeGHAResizeHandler(this);
+		super.destroy();
+	}
+
+	/**
+	 * @return whether the form has uncommited changes
 	 */
 	public boolean hasUnCommittedChanges() {
 		return hasUnCommittedChanges;
+	}
+
+	@Override
+	public void hide() {
+		super.hide();
 	}
 
 	/**
@@ -78,6 +89,11 @@ ResizeHandler {
 	public abstract void save(final GHAAsyncCallback<T> callback);
 
 	/**
+	 * @param entity
+	 */
+	public abstract void set(T entity);
+
+	/**
 	 * undo the changes to the entity
 	 */
 	public void undo() {
@@ -89,33 +105,17 @@ ResizeHandler {
 	}
 
 	/**
-	 * Update the entity providing a callback
-	 * 
-	 * @param callback
-	 */
-	public abstract void update(final GHAAsyncCallback<T> callback);
-
-	/**
-	 * @param entity
-	 */
-	public abstract void set(T entity);
-
-	/**
 	 * Update the entity
 	 */
 	public void update() {
 		update(null);
 	}
 
-	@Override
-	public void hide() {
-		super.hide();
-	}
-
-	@Override
-	public void destroy() {
-		GHAUiHelper.removeGHAResizeHandler(this);
-		super.destroy();
-	}
+	/**
+	 * Update the entity providing a callback
+	 * 
+	 * @param callback
+	 */
+	public abstract void update(final GHAAsyncCallback<T> callback);
 
 }

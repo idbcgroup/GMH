@@ -231,8 +231,6 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 	 * @return the SSOUser to save/update
 	 */
 	private SSOUser extract(boolean update) {
-		if (!hasUnCommittedChanges)
-			return null;
 
 		final List<String> violationsList = new ArrayList<String>();
 		final SSOUser ssoUser = new SSOUser();
@@ -346,8 +344,8 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		if (passwordItem.getValue() == null)
 			violationsList.add("password-not-null");
 
-		if (passwordItem.getValueAsString() != confirmPasswordItem
-				.getValueAsString()) {
+		if (!passwordItem.getValueAsString().equals(
+				confirmPasswordItem.getValueAsString())) {
 			violationsList.add("password-missmatch");
 		}
 
@@ -567,6 +565,10 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 
 	@Override
 	public void update(final GHAAsyncCallback<SSOUser> callback) {
+
+		if (!hasUnCommittedChanges)
+			return;
+
 		final SSOUser ssoUser = extract(true);
 		// if the validation fail, return
 		if (ssoUser == null)

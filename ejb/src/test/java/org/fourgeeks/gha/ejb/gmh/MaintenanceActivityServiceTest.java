@@ -259,6 +259,85 @@ public class MaintenanceActivityServiceTest {
 	private Activity activity;
 	private MaintenanceActivity maintenanceActivity;
 
+	private void deleteTest() {
+		try {
+			service.delete(maintenanceActivity.getId());
+			Assert.assertEquals(10, service.getAll().size());
+		} catch (GHAEJBException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void findByIdTest() {
+		try {
+			MaintenanceActivity result = service.find(1);
+			Assert.assertNotNull(result);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void findByMaintenanceActivityTest() {
+		try {
+			Activity activity = new Activity();
+			activity.setName("Desconectar");
+			activity.setDescription("Desconecte el equipo de la corriente eléctrica");
+			activity.setState(ActivityState.CREATED);
+			activity.setCategory(ActivityCategoryEnum.MAINTENANCE);
+			activity.setSubCategory(ActivitySubCategoryEnum.CALIBRATION);
+			activity.setEstimatedDuration(new BigDecimal(1));
+			activity.setEstimatedDurationPoT(TimePeriodEnum.DAYS);
+			activity.setEstimatedCost(new BigDecimal(1300.42));// TODO
+			activity.setEstimatedCostCurrency(CurrencyTypeEnum.BS);
+			activity.setIsSubProtocol(false);
+
+			MaintenanceActivity maintenanceActivity = new MaintenanceActivity();
+			maintenanceActivity.setActivity(activity);
+
+			List<MaintenanceActivity> result = service
+					.find(maintenanceActivity);
+
+			Assert.assertEquals(1, result.size());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private void getAllTest() {
+		try {
+			List<MaintenanceActivity> result = service.getAll();
+			Assert.assertEquals(10, result.size());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void getAllTest2() {
+		try {
+			List<MaintenanceActivity> result = service.getAll(1, 4);
+			Assert.assertEquals(4, result.size());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void saveTest() {
+		maintenanceActivity = new MaintenanceActivity();
+		maintenanceActivity.setActivity(activity);
+
+		try {
+			maintenanceActivity = service.save(maintenanceActivity);
+			Assert.assertNotNull(maintenanceActivity);
+		} catch (GHAEJBException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/** */
 	@Before
 	public void set() {
@@ -273,12 +352,6 @@ public class MaintenanceActivityServiceTest {
 		activity.setEstimatedCost(new BigDecimal(1));
 		activity.setEstimatedCostCurrency(CurrencyTypeEnum.BS);
 		activity.setIsSubProtocol(true);
-	}
-
-	/** */
-	@After
-	public void unset() {
-
 	}
 
 	/** */
@@ -305,83 +378,10 @@ public class MaintenanceActivityServiceTest {
 
 	}
 
-	private void saveTest() {
-		maintenanceActivity = new MaintenanceActivity();
-		maintenanceActivity.setActivity(activity);
+	/** */
+	@After
+	public void unset() {
 
-		try {
-			maintenanceActivity = service.save(maintenanceActivity);
-			Assert.assertNotNull(maintenanceActivity);
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void deleteTest() {
-		try {
-			service.delete(maintenanceActivity.getId());
-			Assert.assertEquals(10, service.getAll().size());
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void findByMaintenanceActivityTest() {
-		try {
-			Activity activity = new Activity();
-			activity.setName("Desconectar");
-			activity.setDescription("Desconecte el equipo de la corriente eléctrica");
-			activity.setState(ActivityState.CREATED);
-			activity.setCategory(ActivityCategoryEnum.MAINTENANCE);
-			activity.setSubCategory(ActivitySubCategoryEnum.CALIBRATION);
-			activity.setEstimatedDuration(new BigDecimal(1));
-			activity.setEstimatedDurationPoT(TimePeriodEnum.DAYS);
-			activity.setEstimatedCost(new BigDecimal(1300.42));
-			activity.setEstimatedCostCurrency(CurrencyTypeEnum.BS);
-			activity.setIsSubProtocol(false);
-
-			MaintenanceActivity maintenanceActivity = new MaintenanceActivity();
-			maintenanceActivity.setActivity(activity);
-
-			List<MaintenanceActivity> result = service
-					.find(maintenanceActivity);
-
-			Assert.assertEquals(1, result.size());
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	private void findByIdTest() {
-		try {
-			MaintenanceActivity result = service.find(1);
-			Assert.assertNotNull(result);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void getAllTest() {
-		try {
-			List<MaintenanceActivity> result = service.getAll();
-			Assert.assertEquals(10, result.size());
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void getAllTest2() {
-		try {
-			List<MaintenanceActivity> result = service.getAll(1, 4);
-			Assert.assertEquals(4, result.size());
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	private void updateTest() {

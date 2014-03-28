@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.gmh.Brand;
@@ -29,11 +30,13 @@ public class MaterialBrand extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	@JoinColumn(name = "materialFk")
+	@NotNull(message = "material-not-null")
+	@JoinColumn(name = "materialFk", nullable = false)
 	private Material material;
 
 	@ManyToOne
-	@JoinColumn(name = "brandFk")
+	@NotNull(message = "brand-not-null")
+	@JoinColumn(name = "brandFk", nullable = false)
 	private Brand brand;
 
 	private int amount;

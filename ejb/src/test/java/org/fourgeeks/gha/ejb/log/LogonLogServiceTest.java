@@ -14,14 +14,14 @@ import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.ejb.GhaServiceTest;
+import org.fourgeeks.gha.ejb.GHAArquillianBaseServiceTest;
 
 /**
  * @author alacret
  * 
  */
 // @RunWith(Arquillian.class)
-public class LogonLogServiceTest extends GhaServiceTest {
+public class LogonLogServiceTest extends GHAArquillianBaseServiceTest {
 
 	@PersistenceContext
 	EntityManager em;

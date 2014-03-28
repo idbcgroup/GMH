@@ -18,6 +18,7 @@ import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelecti
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionProducer;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener;
 
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -37,7 +38,7 @@ MaintenancePlanSelectionProducer, ClosableListener, HideableListener {
 	/** */
 	public MaintenancePlanInformationFormPanel() {
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
+		final VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
@@ -50,7 +51,7 @@ MaintenancePlanSelectionProducer, ClosableListener, HideableListener {
 					}
 				}));
 
-		HLayout gridPanel = new HLayout();
+		final HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMember(gridPanel);
@@ -73,18 +74,28 @@ MaintenancePlanSelectionProducer, ClosableListener, HideableListener {
 				return true;
 			}
 
-			GHAAlertManager.askYesNoCancel("unsaved-changes", new ClickHandler() {
+			//			GHAAlertManager.askYesNoCancel("unsaved-changes", new ClickHandler() {
+			//				@Override
+			//				public void onClick(ClickEvent event) {
+			//					GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
+			//				}
+			//			}, new ClickHandler() {
+			//				@Override
+			//				public void onClick(ClickEvent event) {
+			//					GHAPlaceSet
+			//					.closeCurrentPlace(HideCloseAction.DISCARD);
+			//				}
+			//			}, null);
+			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
+
 				@Override
-				public void onClick(ClickEvent event) {
-					GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
+				public void execute(Boolean value) {
+					if(value)
+					{
+						GHAPlaceSet.closeCurrentPlace(HideCloseAction.DISCARD);
+					}
 				}
-			}, new ClickHandler() {
-				@Override
-				public void onClick(ClickEvent event) {
-					GHAPlaceSet
-					.closeCurrentPlace(HideCloseAction.DISCARD);
-				}
-			}, null);
+			});
 			return false;
 		}
 		return true;
@@ -101,18 +112,28 @@ MaintenancePlanSelectionProducer, ClosableListener, HideableListener {
 				return true;
 			}
 
-			GHAAlertManager.askYesNoCancel("unsaved-changes", new ClickHandler() {
+			//			GHAAlertManager.askYesNoCancel("unsaved-changes", new ClickHandler() {
+			//				@Override
+			//				public void onClick(ClickEvent event) {
+			//					GHAPlaceSet.hideCurrentPlace(HideCloseAction.SAVE);
+			//				}
+			//			}, new ClickHandler() {
+			//				@Override
+			//				public void onClick(ClickEvent event) {
+			//					GHAPlaceSet
+			//					.hideCurrentPlace(HideCloseAction.DISCARD);
+			//				}
+			//			}, null);
+			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
+
 				@Override
-				public void onClick(ClickEvent event) {
-					GHAPlaceSet.hideCurrentPlace(HideCloseAction.SAVE);
+				public void execute(Boolean value) {
+					if(value)
+					{
+						GHAPlaceSet.closeCurrentPlace(HideCloseAction.DISCARD);
+					}
 				}
-			}, new ClickHandler() {
-				@Override
-				public void onClick(ClickEvent event) {
-					GHAPlaceSet
-					.hideCurrentPlace(HideCloseAction.DISCARD);
-				}
-			}, null);
+			});
 			return false;
 		}
 		return true;

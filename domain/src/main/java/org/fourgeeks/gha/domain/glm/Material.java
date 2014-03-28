@@ -35,11 +35,15 @@ public class Material extends ServiceAndResource {
 	@Column(nullable = false)
 	private MaterialTypeEnum type;
 
+	@NotNull(message = "category-not-null")
 	@ManyToOne
-	@JoinColumn(name = "materialCategoryFk")
+	@JoinColumn(name = "materialCategoryFk", nullable = false)
 	private MaterialCategory materialCategory;
 
 	private String description;
+
+	@NotNull(message = "name-not-null")
+	@Column(nullable = false)
 	private String name;
 	private String externalCode;
 	private String model;

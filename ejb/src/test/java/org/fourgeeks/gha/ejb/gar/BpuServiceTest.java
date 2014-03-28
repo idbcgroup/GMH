@@ -18,14 +18,14 @@ import junit.framework.Assert;
 import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
-import org.fourgeeks.gha.ejb.GhaServiceTest;
+import org.fourgeeks.gha.ejb.GHAArquillianBaseServiceTest;
 
 /**
  * @author vivi.torresg
  * 
  */
 // @RunWith(Arquillian.class)
-public class BpuServiceTest extends GhaServiceTest {
+public class BpuServiceTest extends GHAArquillianBaseServiceTest {
 	@PersistenceContext
 	EntityManager em;
 
@@ -47,8 +47,8 @@ public class BpuServiceTest extends GhaServiceTest {
 		em.joinTransaction();
 
 		Bpu entity = new Bpu();
-		entity.setBpi(super.getBpi(em));
-		entity.setCitizen(super.getCitizen(em));
+		// entity.setBpi(super.getBpi(em));
+		// entity.setCitizen(super.getCitizen(em));
 		entity = service.save(entity);
 
 		Assert.assertNotNull(entity);

@@ -15,6 +15,7 @@ import org.fourgeeks.gha.webclient.client.user.UserForm;
 import org.fourgeeks.gha.webclient.client.user.UserSelectionListener;
 import org.fourgeeks.gha.webclient.client.user.UserSelectionProducer;
 
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -25,8 +26,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class UserInformationFormPanel extends GHAFormLayout implements
-		ClosableListener, HideableListener, UserSelectionProducer,
-		UserSelectionListener {
+ClosableListener, HideableListener, UserSelectionProducer,
+UserSelectionListener {
 
 	private final UserForm form = new UserForm();
 
@@ -44,11 +45,11 @@ public class UserInformationFormPanel extends GHAFormLayout implements
 					}
 				}), new GHAUndoButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				undo();
-			}
-		}));
+					@Override
+					public void onClick(ClickEvent event) {
+						undo();
+					}
+				}));
 
 		final HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, sideButtons);
@@ -80,23 +81,33 @@ public class UserInformationFormPanel extends GHAFormLayout implements
 				return true;
 			}
 
-			GHAAlertManager.askYesNoCancel("unsaved-changes",
-					new ClickHandler() {
+			//			GHAAlertManager.askYesNoCancel("unsaved-changes",
+			//					new ClickHandler() {
+			//
+			//						@Override
+			//						public void onClick(ClickEvent event) {
+			//							GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
+			//
+			//						}
+			//					}, new ClickHandler() {
+			//
+			//						@Override
+			//						public void onClick(ClickEvent event) {
+			//							GHAPlaceSet
+			//									.closeCurrentPlace(HideCloseAction.DISCARD);
+			//
+			//						}
+			//					}, null);
+			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
 
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
-
-						}
-					}, new ClickHandler() {
-
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet
-									.closeCurrentPlace(HideCloseAction.DISCARD);
-
-						}
-					}, null);
+				@Override
+				public void execute(Boolean value) {
+					if(value)
+					{
+						GHAPlaceSet.closeCurrentPlace(HideCloseAction.DISCARD);
+					}
+				}
+			});
 			return false;
 		}
 		return true;
@@ -113,23 +124,33 @@ public class UserInformationFormPanel extends GHAFormLayout implements
 				return true;
 			}
 
-			GHAAlertManager.askYesNoCancel("unsaved-changes",
-					new ClickHandler() {
+			//			GHAAlertManager.askYesNoCancel("unsaved-changes",
+			//					new ClickHandler() {
+			//
+			//				@Override
+			//				public void onClick(ClickEvent event) {
+			//					GHAPlaceSet.hideCurrentPlace(HideCloseAction.SAVE);
+			//
+			//				}
+			//			}, new ClickHandler() {
+			//
+			//				@Override
+			//				public void onClick(ClickEvent event) {
+			//					GHAPlaceSet
+			//					.hideCurrentPlace(HideCloseAction.DISCARD);
+			//
+			//				}
+			//			}, null);
+			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
 
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet.hideCurrentPlace(HideCloseAction.SAVE);
-
-						}
-					}, new ClickHandler() {
-
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet
-									.hideCurrentPlace(HideCloseAction.DISCARD);
-
-						}
-					}, null);
+				@Override
+				public void execute(Boolean value) {
+					if(value)
+					{
+						GHAPlaceSet.closeCurrentPlace(HideCloseAction.DISCARD);
+					}
+				}
+			});
 			return false;
 		}
 		return true;

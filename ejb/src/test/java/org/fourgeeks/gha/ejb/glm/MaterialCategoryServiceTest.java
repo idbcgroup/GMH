@@ -266,7 +266,7 @@ public class MaterialCategoryServiceTest {
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
-	@EJB(lookup = "java:global/ear-1/ejb-1/MaterialCategoryService")
+	@EJB(lookup = "java:global/test/MaterialCategoryService")
 	MaterialCategoryServiceRemote service;
 
 	@Before
@@ -275,6 +275,7 @@ public class MaterialCategoryServiceTest {
 
 	@Test
 	public void test() {
+		Assert.assertNotNull(service);
 		MaterialCategory category1 = new MaterialCategory();
 		category1.setName("test-1");
 		category1.setCode("T010101");
@@ -316,6 +317,12 @@ public class MaterialCategoryServiceTest {
 			criteria.setName("test-");
 
 			List<MaterialCategory> categories = service.find(criteria);
+
+			System.out.println("DEBUG");
+			for (MaterialCategory category : categories)
+				System.out.println(category.getName());
+			System.out.println("DEBUG");
+
 			Assert.assertNotNull(categories);
 			Assert.assertEquals(2, categories.size());
 
@@ -330,7 +337,7 @@ public class MaterialCategoryServiceTest {
 
 		try {
 			MaterialCategory update = new MaterialCategory();
-			update.setCode("010101");
+			update.setCode("T010101");
 			update.setName("test-name-change");
 			MaterialCategory updateRes = service.update(update);
 			Assert.assertNotNull(updateRes);
