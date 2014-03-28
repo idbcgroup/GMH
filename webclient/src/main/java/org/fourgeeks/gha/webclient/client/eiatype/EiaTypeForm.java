@@ -10,7 +10,6 @@ import javax.validation.ConstraintViolation;
 
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
-import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
@@ -34,8 +33,6 @@ import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
-import com.smartgwt.client.widgets.form.fields.events.FocusEvent;
-import com.smartgwt.client.widgets.form.fields.events.FocusHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 
@@ -72,8 +69,8 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
 		categoryItem = new GHAEiaTypeCategoryPickTreeItem(
 				GHAStrings.get("category"));
-		categoryItem.addChangedHandler(changedHandler);
 		categoryItem.setRequired(true);
+		categoryItem.addChangedHandler(changedHandler);
 
 		subTypeItem = new GHAEiaTypeSubTypeSelectItem(changedHandler);
 		eiaUmdnsItem = new GHATextItem("EIAUMDNS", false, changedHandler);
@@ -103,7 +100,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		nameItem.validateWords();
 		nameItem.setTooltip(GHAStrings.get("eiatype-name-tooltip"));
 
-		modelItem.validateWords();
+		modelItem.validateSerial();
 		modelItem.setTooltip(GHAStrings.get("eiatype-model-tooltip"));
 
 		categoryItem.setTooltip(GHAStrings.get("eiatype-type-tooltip"));
@@ -117,8 +114,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 
 		useDescriptionItem.setTooltip(GHAStrings
 				.get("eiatype-use-description-tooltip"));
-		// Incierto si requiere validacion o no
-		// eiaUmdnsItem.validateWords();
+		eiaUmdnsItem.validateAlphanumeric();
 	}
 
 	/**
@@ -129,29 +125,27 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		final HLayout gridPanel = new HLayout();
 		// disable the brand select if no manufacturer is selected
 		brandItem.disable();
-		brandItem.addFocusHandler(new FocusHandler() {
+		brandItem.setDefaultToFirstOption(true);
 
-			@Override
-			public void onFocus(FocusEvent event) {
-				final String manItemValue = manItem.getValueAsString();
-				if (manItemValue.matches("[1-9]+\\d*")) {
-					fillBrands(new Manufacturer(Integer.valueOf(manItemValue),
-							null));
-				}
-				brandItem.setValue("");
-
-			}
-		});
 		// set the handler for selected manufacturer
 		manItem.addChangedHandler(new ChangedHandler() {
 
 			@Override
 			public void onChanged(ChangedEvent event) {
 				final String manItemValue = manItem.getValueAsString();
+				brandItem.clearValue();
+
 				if (manItemValue == null || manItemValue.isEmpty()) {
 					brandItem.disable();
-					brandItem.setValue("");
 				} else {
+					if (manItemValue.matches("[1-9]+\\d*")) {
+						fillBrands(new Manufacturer(Integer
+								.valueOf(manItemValue), null));
+					} else {
+						final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+						brandItem.setValueMap(valueMap);
+						brandItem.redraw();
+					}
 					brandItem.enable();
 				}
 			}
@@ -304,8 +298,6 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 
 	private void fillBrands(Manufacturer manufacturer) {
 		final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-		brandItem.setValueMap(valueMap);
-		brandItem.redraw();
 
 		BrandModel.findByManufacturer(manufacturer,
 				new GHAAsyncCallback<List<Brand>>() {
@@ -322,8 +314,6 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	}
 
 	private void fillExtras() {
-		// types
-		categoryItem.setValueMap(EiaTypeEnum.toValueMap());
 		// subtypes
 		subTypeItem.setValueMap(EiaSubTypeEnum.toValueMap());
 		// mobility
@@ -412,6 +402,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		if (eiaType.getBrand() != null) {
 			fillBrands(eiaType.getBrand());
 			fillMans(eiaType.getBrand().getManufacturer());
+			brandItem.enable();
 		} else {
 			manItem.clearValue();
 			brandItem.clearValue();

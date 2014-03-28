@@ -933,18 +933,6 @@ EiaSelectionProducer {
 		locationTypeSelectItem.setValueMap(valueMapLocationType);
 	}
 
-	// private DynamicForm getEquiposIT() {
-	// DynamicForm equiposITForm = new DynamicForm();
-	// equiposITForm.setTitleOrientation(TitleOrientation.TOP);
-	// equiposITForm.setNumCols(2);
-	//
-	// equiposITForm.setItems(it_TitleItem, new GHASpacerItem(),
-	// itTypeSelectItem, machineNameTextItem, ipAddresTextItem,
-	// macAddressTextItem);
-	//
-	// return equiposITForm;
-	// }
-
 	private void fillWarrantySelects() {
 		realWarrantySinceSelectItem.setValueMap(WarrantySinceEnum.toValueMap());
 		// realWarrantySinceSelectItem.setValue(WarrantySinceEnum.PURCHASE.name());
@@ -981,6 +969,18 @@ EiaSelectionProducer {
 		// }
 		// });
 	}
+
+	// private DynamicForm getEquiposIT() {
+	// DynamicForm equiposITForm = new DynamicForm();
+	// equiposITForm.setTitleOrientation(TitleOrientation.TOP);
+	// equiposITForm.setNumCols(2);
+	//
+	// equiposITForm.setItems(it_TitleItem, new GHASpacerItem(),
+	// itTypeSelectItem, machineNameTextItem, ipAddresTextItem,
+	// macAddressTextItem);
+	//
+	// return equiposITForm;
+	// }
 
 	/**
 	 * @return
@@ -1069,6 +1069,15 @@ EiaSelectionProducer {
 			listener.select(eia);
 	}
 
+	@Override
+	public void onResize(ResizeEvent arg0) {
+		infoBasicaForm.resize();
+		adquisicionForm.resize();
+		ubicacionForm.resize();
+		costosForm.resize();
+		// garantiasMantForm.resize(GHAUiHelper.getSectionFormFormWidth(30),3);
+	}
+
 	// /**
 	// * @return
 	// */
@@ -1109,15 +1118,6 @@ EiaSelectionProducer {
 	 * codeMant_WarrMant_TextItem.setValue(event.getValue()); } }); }
 	 */
 
-	@Override
-	public void onResize(ResizeEvent arg0) {
-		infoBasicaForm.resize();
-		adquisicionForm.resize();
-		ubicacionForm.resize();
-		costosForm.resize();
-		// garantiasMantForm.resize(GHAUiHelper.getSectionFormFormWidth(30),3);
-	}
-
 	public void openFirstSection() {
 		sectionForm.openFirst();
 	}
@@ -1151,6 +1151,122 @@ EiaSelectionProducer {
 			eiaTypeSelectItem.setValue(eiaType.getCode());
 			eiaTypeSelectItem.disable();
 		}
+	}
+
+	public void selectDate(final GHASelectItem selectDateItem,
+			final GHADateItem dateItem) {
+
+		selectDateItem.addChangedHandler(new ChangedHandler() {
+			@Override
+			public void onChanged(ChangedEvent event) {
+				changedHandler.onChanged(event);
+
+				if (selectDateItem.getValueAsString().equalsIgnoreCase(
+						"PURCHASE")) {
+					if (purchaseDateItem.getValue() == null) {
+						GHAAlertManager
+								.alert("WARNING", "Advertencia",
+										"Debe Ingresar o Seleccionar una Fecha de Compra");
+
+					} else {
+						dateItem.setDisabled(true);
+						dateItem.setValue(purchaseDateItem.getValue());
+					}
+				} else if (selectDateItem.getValueAsString().equalsIgnoreCase(
+						"RECEPTION")) {
+					if (receptionDateItem.getValue() == null) {
+						GHAAlertManager
+								.alert("WARNING", "Advertencia",
+										"Debe Ingresar o Seleccionar una Fecha de Recepción");
+
+					} else {
+						dateItem.setDisabled(true);
+						dateItem.setValue(receptionDateItem.getValue());
+					}
+				} else if (selectDateItem.getValueAsString().equalsIgnoreCase(
+						"INSTALATION")) {
+					if (installationDateItem.getValue() == null) {
+						GHAAlertManager
+								.alert("WARNING", "Advertencia",
+										"Debe Ingresar o Seleccionar una Fecha de Instalación");
+
+					} else {
+						dateItem.setDisabled(true);
+						dateItem.setValue(installationDateItem.getValue());
+					}
+				} else if (selectDateItem.getValueAsString().equalsIgnoreCase(
+						"ACCEPTATION")) {
+
+					if (acceptationDateItem.getValue() == null) {
+						GHAAlertManager
+								.alert("WARNING", "Advertencia",
+										"Debe Ingresar o Seleccionar una Fecha de Aceptación");
+
+					} else {
+						dateItem.setDisabled(true);
+						dateItem.setValue(acceptationDateItem.getValue());
+					}
+				} else if (selectDateItem.getValueAsString().equalsIgnoreCase(
+						"OTHER")) {
+					dateItem.setDisabled(false);
+					dateItem.clearValue();
+
+				}
+
+			}
+		});
+
+		purchaseDateItem.addChangedHandler(new ChangedHandler() {
+
+			@Override
+			public void onChanged(ChangedEvent event) {
+				// TODO Auto-generated method stub
+				if (selectDateItem.getValueAsString().equalsIgnoreCase(
+						"PURCHASE")) {
+					dateItem.setDisabled(true);
+					dateItem.setValue(purchaseDateItem.getValue());
+				}
+			}
+		});
+
+		acceptationDateItem.addChangedHandler(new ChangedHandler() {
+
+			@Override
+			public void onChanged(ChangedEvent event) {
+				// TODO Auto-generated method stub
+				if (selectDateItem.getValueAsString().equalsIgnoreCase(
+						"ACCEPTATION")) {
+					dateItem.setDisabled(true);
+					dateItem.setValue(acceptationDateItem.getValue());
+				}
+			}
+		});
+
+		installationDateItem.addChangedHandler(new ChangedHandler() {
+
+			@Override
+			public void onChanged(ChangedEvent event) {
+				// TODO Auto-generated method stub
+				if (selectDateItem.getValueAsString().equalsIgnoreCase(
+						"INSTALATION")) {
+					dateItem.setDisabled(true);
+					dateItem.setValue(installationDateItem.getValue());
+				}
+			}
+		});
+
+		receptionDateItem.addChangedHandler(new ChangedHandler() {
+
+			@Override
+			public void onChanged(ChangedEvent event) {
+				// TODO Auto-generated method stub
+				if (selectDateItem.getValueAsString().equalsIgnoreCase(
+						"RECEPTION")) {
+					dateItem.setDisabled(true);
+					dateItem.setValue(receptionDateItem.getValue());
+				}
+			}
+		});
 	}
 
 	public void selectDate(final GHASelectItem selectDateItem,

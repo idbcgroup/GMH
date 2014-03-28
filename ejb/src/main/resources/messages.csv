@@ -16,7 +16,7 @@ ES,name-not-null,Debe indicar el Nombre,VEM-VALIDATION
 ES,mobility-not-null,Debe indicar la Movilidad,VEM-VALIDATION
 ES,base-role-not-null,Debe indicar el Cargo Responsable,VEM-VALIDATION
 ES,obu-not-null,Debe indicar la Departamento Responsable,VEM-VALIDATION
-ES,state-not-null,Debe indicar el Estado,VEM-VALIDATION
+ES,state-not-null,Debe indicar el Estado del plan,VEM-VALIDATION
 ES,gender-not-null,Debe indicar el Género,VEM-VALIDATION
 ES,bpi-not-null,Debe indicar la Institución,VEM-VALIDATION
 ES,institution-not-null,Debe indicar la Institución,VEM-VALIDATION
@@ -33,7 +33,7 @@ ES,eiaDamageReport-save-success,El Reporte de Equipo Dañado ha sido almacenado 
 ES,maintenance-plan-save-success,El Plan de Mantenimiento ha sido almacenado exitosamente,VEM-RESULTS
 ES,eiatype-save-success,El Tipo de Equipo ha sido almacenado exitosamente,VEM-RESULTS
 ES,eiatype-delete-success,El Tipo de Equipo ha sido eliminado exitosamente,VEM-RESULTS
-ES,eiatypes-delete-success,Los Tipos de Equipo ha sido eliminado exitosamente,VEM-RESULTS
+ES,eiatypes-delete-success,Los tipos de equipo han sido eliminados exitosamente,VEM-RESULTS
 ES,material-save-success,El Material ha sido almacenado exitosamente,VEM-RESULTS
 ES,user-save-success,El Usuario ha sido almacenado exitosamente,VEM-RESULTS
 ES,mplan-save-success,El Plan de Mantenimiento ha sido almacenado exitosamente,VEM-RESULTS
@@ -507,10 +507,10 @@ ES,cancelation-option-not-null,Debe indicar la Opción de Cancelación ,VEM-VALI
 ES,activity-save-success,La actividad ha sido almacenada exitosamente,VEM-RESULTS
 ES,activity-update-success,La actividad ha sido actualizada exitosamente,VEM-RESULTS
 ES,form-errors,El formulario contiene errores,VEM-VALIDATION
-ES,eiatype-material-delete-confirm,¿Desea eliminar la asociación entre este Material y este Tipo de Equipo?,VEC-USER-DECISION
+ES,eiatype-material-delete-confirm,�Desea que este tipo de equipo no utilice este material?,VEC-USER-DECISION
 ES,eiatype-utility-service-delete-confirm,¿Desea eliminar la asociación entre este Servicio Utilitario y este Tipo de Equipo?,VEC-USER-DECISION
 ES,eiatype-delete-confirm,¿Desea eliminar el Tipo de Equipo seleccionado?,VEC-USER-DECISION
-ES,eiatypes-delete-confirm,¿Desea eliminar los Tipos de Equipo?,VEC-USER-DECISION
+ES,eiatypes-delete-confirm,¿Desea eliminar los Tipos de Equipo seleccionados?,VEC-USER-DECISION
 ES,maintenance-plan-delete-confirm,¿Desea eliminar el Plan de Mantenimiento seleccionado?,VEC-USER-DECISION
 ES,maintenances-plan-delete-confirm,¿Desea eliminar los planes de mantenimiento?,VEC-USER-DECISION
 ES,eia-delete-confirm,¿Desea eliminar el equipo seleccionado?,VEC-USER-DECISION
@@ -560,7 +560,7 @@ ES,utilityservice-save-success,El Servicio Utilitario fue guardado con éxito,VE
 ES,eiatype-material-delete-success,Material eliminado a este tipo de equipo satisfactoriamente,VEM-RESULTS
 ES,eiatype-materials-delete-success,Materiales eliminados a este tipo de equipo satisfactoriamente,VEM-RESULTS
 ES,eiatype-utility-delete-success,Material utilitario eliminado a este tipo de equipo satisfactoriamente,VEM-RESULTS
-ES,eiatype-utilities-delete-success,Materiales utilitarios eliminados a este tipo de equipo satisfactoriamente,VEM-RESULTS
+ES,eiatype-utilities-delete-success,Los servicios utilitarios han sido eliminados de este tipo de equipo,VEM-RESULTS
 ES,eiatype-materials-delete-confirm,¿Desea eliminar la asociación entre estos Materiales y este Tipo de Equipo?,VEC-USER-DECISION
 ES,eiatype-utilities-delete-confirm,¿Desea eliminar la asociación entre estos Materiales Utilitarios y este Tipo de Equipo?,VEC-USER-DECISION
 ES,eiatype-utility-delete-confirm,¿Desea eliminar la asociación entre este Material Utilitario y este Tipo de Equipo?,VEC-USER-DECISION
@@ -569,3 +569,12 @@ ES,eias-delete-fail,Falló la eliminación de los Equipos,VEC-MINOR-ERROR
 ES,eiatype-component-delete-success,Componente eliminado correctamente,VEM-RESULTS
 ES,eiatype-components-delete-confirm,¿Desea eliminar los componentes seleccionados?,VEC-USER-DECISION
 ES,eiatype-components-delete-success,Componentes eliminados correctamente,VEM-RESULTS
+ES,activityType-getAllTypes-fail,Hubo un fallo al buscar todos los Tipos de Actividades,VEC-MINOR-ERROR
+ES,activityType-getSubType-fail,Hubo un fallo al buscar los Subtipos de Actividades para el Tipo de Actividad seleccionado,VEC-MINOR-ERROR
+ES,activityType-save-fail,Error guardando un tipo de actividad,VEC-MINOR-ERROR
+ES,activityType-delete-fail,Error eliminando un tipo de actividad,VEC-MINOR-ERROR
+ES,activityTypes-delete-fail,Error eliminando los tipos de actividades,VEC-MINOR-ERROR
+ES,activityType-getAll-fail,Hubo un fallo al buscar todos los Tipos y Subtipos de Actividades,VEC-MINOR-ERROR
+ES,activityType-getAll-fail,Hubo un fallo al buscar todos los Tipos y Subtipos de Actividades,VEC-MINOR-ERROR
+ES,maintenance-eia-exists,El plan tiene asociado equipos no puede ser eliminado,VEM-WARNING
+ES,maintenance-plan-exists-activity,El Plan Seleccionado no tiene asociada actividades,VEM-WARNING

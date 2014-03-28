@@ -1,6 +1,5 @@
 package org.fourgeeks.gha.ejb;
 
-import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -10,8 +9,8 @@ import junit.framework.Assert;
 import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.Activity;
+import org.fourgeeks.gha.domain.ActivityType;
 import org.fourgeeks.gha.domain.HasKey;
-import org.fourgeeks.gha.domain.TimerParams;
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.ActivityState;
 import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
@@ -50,12 +49,10 @@ import org.fourgeeks.gha.domain.enu.ProviderResourceTypeEnum;
 import org.fourgeeks.gha.domain.enu.ProviderServicesEnum;
 import org.fourgeeks.gha.domain.enu.ProviderTypeEnum;
 import org.fourgeeks.gha.domain.enu.ServiceAndResourceType;
-import org.fourgeeks.gha.domain.enu.ServiceOrderState;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.LocationType;
-import org.fourgeeks.gha.domain.ess.MaintenanceServiceOrder;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.ess.auth.Function;
 import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
@@ -65,6 +62,7 @@ import org.fourgeeks.gha.domain.ess.ui.App;
 import org.fourgeeks.gha.domain.ess.ui.AppView;
 import org.fourgeeks.gha.domain.ess.ui.Module;
 import org.fourgeeks.gha.domain.ess.ui.View;
+import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
@@ -89,14 +87,11 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.gmh.RequiredResources;
 import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
-import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
 import org.fourgeeks.gha.domain.gom.CCDIDefinition;
 import org.fourgeeks.gha.domain.gom.CCDILevelDefinition;
 import org.fourgeeks.gha.domain.gom.CCDILevelValue;
@@ -110,44 +105,24 @@ import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
-import org.fourgeeks.gha.ejb.ess.MaintenanceServiceOrderService;
-import org.fourgeeks.gha.ejb.ess.MaintenanceServiceOrderServiceLocal;
 import org.fourgeeks.gha.ejb.ess.auth.RoleService;
 import org.fourgeeks.gha.ejb.ess.auth.RoleServiceRemote;
 import org.fourgeeks.gha.ejb.ess.auth.SSOUserService;
 import org.fourgeeks.gha.ejb.ess.auth.SSOUserServiceRemote;
-import org.fourgeeks.gha.ejb.gar.BpuService;
-import org.fourgeeks.gha.ejb.gar.BpuServiceRemote;
 import org.fourgeeks.gha.ejb.gar.ObuService;
 import org.fourgeeks.gha.ejb.gar.ObuServiceRemote;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderService;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderServiceRemote;
-import org.fourgeeks.gha.ejb.gmh.EiaDamageReportService;
-import org.fourgeeks.gha.ejb.gmh.EiaDamageReportServiceRemote;
-import org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationService;
-import org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceLocal;
-import org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceRemote;
-import org.fourgeeks.gha.ejb.gmh.EiaMaintenanceService;
-import org.fourgeeks.gha.ejb.gmh.EiaMaintenanceServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaService;
 import org.fourgeeks.gha.ejb.gmh.EiaServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaServiceTest;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentService;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceLocal;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote;
-import org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenancePlanService;
-import org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenancePlanServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeService;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.MaintenanceActivityService;
 import org.fourgeeks.gha.ejb.gmh.MaintenanceActivityServiceRemote;
-import org.fourgeeks.gha.ejb.gmh.MaintenancePlanService;
-import org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote;
-import org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolService;
-import org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote;
-import org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistService;
-import org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistServiceLocal;
-import org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistServiceRemote;
 import org.fourgeeks.gha.ejb.gom.CCDIService;
 import org.fourgeeks.gha.ejb.gom.CCDIServiceLocal;
 import org.fourgeeks.gha.ejb.gom.CCDIServiceRemote;
@@ -158,21 +133,25 @@ import org.fourgeeks.gha.ejb.mix.InstitutionService;
 import org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote;
 import org.fourgeeks.gha.ejb.mix.LegalEntityService;
 import org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote;
-import org.fourgeeks.gha.ejb.pdt.PDTMessageProducer;
-import org.fourgeeks.gha.ejb.pdt.PDTMessageProducerLocal;
+import org.fourgeeks.gha.ejb.msg.MessageService;
+import org.fourgeeks.gha.ejb.msg.MessageServiceLocal;
+import org.fourgeeks.gha.ejb.msg.MessageServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * @author naramirez
  */
-// @RunWith(Arquillian.class)
-public class TimerParamsServiceTest {
+@RunWith(Arquillian.class)
+public class ActivityTypeServiceTest {
 	/**
 	 * @return the deployment descriptor
 	 */
@@ -180,11 +159,27 @@ public class TimerParamsServiceTest {
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap
 				.create(WebArchive.class, "test.war")
-				.addClass(FunctionBpu.class)
 				.addClass(AppView.class)
+				.addClass(Concept.class)
+				.addClass(MessageService.class)
+				.addClass(MessageServiceLocal.class)
+				.addClass(MessageServiceRemote.class)
+				.addClass(CCDIValueTypeEnum.class)
+				.addClass(CCDIEndValueActionEnum.class)
+				.addClass(CCDICodeTypeEnum.class)
+				.addClass(CCDIStatusEnum.class)
+				.addClass(CCDIValueStatusEnum.class)
+				.addClass(CCDILevelValue.class)
+				.addClass(CCDILevelDefinition.class)
+				.addClass(CCDIDefinition.class)
+				.addClass(CCDIService.class)
+				.addClass(CCDIServiceLocal.class)
+				.addClass(CCDIServiceRemote.class)
 				.addClass(AbstractEntity.class)
 				.addClass(AbstractCodeEntity.class)
 				.addClass(App.class)
+				.addClass(ViewFunction.class)
+				.addClass(FunctionBpu.class)
 				.addClass(Bpi.class)
 				.addClass(BpiOriginEnum.class)
 				.addClass(BpiRiskEnum.class)
@@ -255,7 +250,7 @@ public class TimerParamsServiceTest {
 				.addClass(ActivityCategoryEnum.class)
 				.addClass(Manufacturer.class)
 				.addClass(ActivitySubCategoryEnum.class)
-				.addClass(Activity.class)
+				.addClass(MaintenanceActivity.class)
 				.addClass(RequiredResources.class)
 				.addClass(Module.class)
 				.addClass(Obu.class)
@@ -280,18 +275,8 @@ public class TimerParamsServiceTest {
 				.addClass(GHAMessageType.class)
 				.addClass(Activity.class)
 				.addClass(Bsp.class)
-				.addClass(SubProtocolAndChecklist.class)
-				.addClass(MaintenanceActivity.class)
-				.addClass(MaintenanceActivityService.class)
 				.addClass(MaintenanceActivityServiceRemote.class)
-				.addClass(SubProtocolAndCheklistService.class)
-				.addClass(SubProtocolAndCheklistServiceRemote.class)
-				.addClass(SubProtocolAndCheklistServiceLocal.class)
-				.addClass(EiaMaintenancePlanificationService.class)
-				.addClass(EiaMaintenancePlanificationServiceRemote.class)
-				.addClass(EiaMaintenancePlanificationServiceLocal.class)
-				.addClass(EiaMaintenanceService.class)
-				.addClass(EiaMaintenanceServiceRemote.class)
+				.addClass(MaintenanceActivityService.class)
 				.addClass(UILog.class)
 				.addClass(UILogService.class)
 				.addClass(UILogServiceLocal.class)
@@ -306,148 +291,101 @@ public class TimerParamsServiceTest {
 				.addClass(UserLogonStatusEnum.class)
 				.addClass(MaintenanceCancelationCause.class)
 				.addClass(MaintenancePlanificationState.class)
-				.addClass(EiaDamageReportService.class)
-				.addClass(EiaDamageReportServiceRemote.class)
-				.addClass(EiaTypeMaintenancePlanService.class)
-				.addClass(EiaTypeMaintenancePlanServiceRemote.class)
-				.addClass(MaintenancePlanService.class)
-				.addClass(MaintenancePlanServiceRemote.class)
-				.addClass(MaintenanceProtocolService.class)
-				.addClass(MaintenanceProtocolServiceRemote.class)
-				.addClass(MaintenancePlanStadisticData.class)
-				.addClass(MaintenanceProtocolStadisticData.class)
-				.addClass(BpuService.class)
-				.addClass(BpuServiceRemote.class)
-				.addClass(MaintenanceServiceOrder.class)
-				.addClass(ServiceOrderState.class)
-				.addClass(MaintenanceServiceOrderService.class)
-				.addClass(MaintenanceServiceOrderServiceLocal.class)
-				.addClass(CCDIDefinition.class)
-				.addClass(CCDILevelDefinition.class)
-				.addClass(CCDILevelValue.class)
-				.addClass(CCDIStatusEnum.class)
-				.addClass(CCDIValueStatusEnum.class)
-				.addClass(CCDIEndValueActionEnum.class)
-				.addClass(CCDIValueTypeEnum.class)
-				.addClass(CCDICodeTypeEnum.class)
-				.addClass(CCDIService.class)
-				.addClass(CCDIServiceLocal.class)
-				.addClass(CCDIServiceRemote.class)
-				.addClass(PDTMessageProducer.class)
-				.addClass(PDTMessageProducerLocal.class)
-				.addClass(Concept.class)
-				.addClass(TimerParams.class)
-				.addClass(TimerParamsService.class)
-				.addClass(TimerParamsServiceLocal.class)
+				.addClass(ActivityType.class)
+				.addClass(ActivityTypeService.class)
+				.addClass(ActivityTypeServiceRemote.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
-	@EJB(lookup = "java:global/test/TimerParamsService!org.fourgeeks.gha.ejb.TimerParamsServiceLocal")
-	TimerParamsServiceLocal service;
+	@EJB(lookup = "java:global/test/ActivityTypeService")
+	private ActivityTypeServiceRemote service;
 
-	/**
-	 */
+	/** */
 	@Before
 	public void set() {
+		try {
+			System.out.println("CREATING TEST DATA: ACTIVITY TYPE AND SUBTYPE");
 
+			final String activityTypeNames[] = { "Mantenimiento",
+					"Asistencial", "Logística", "Operaciones",
+					"Administrativa", "Del Sistema" };
+
+			for (String typeName : activityTypeNames) {
+				ActivityType type = new ActivityType();
+				type.setDescription(typeName);
+				service.save(type);
+			}
+
+			final String[] subTypesName = new String[] { "Medición",
+					"Limpieza", "Calibración", "Desarme", "Armado",
+					"Instalación", "Desinstalación", "Cambio de Repuesto",
+					"Cambio de Consumibles", "Aceptación Mantenimiento",
+					"Traslado" };
+
+			for (String subTypeName : subTypesName) {
+				final ActivityType subType = new ActivityType();
+				subType.setDescription(subTypeName);
+				subType.setParentActivityTypeId(1);
+				service.save(subType);
+			}
+
+		} catch (final Exception e1) {
+			System.out.println("Error Creating ActivityType test data: " + e1);
+		}
 	}
 
 	/** */
-	// @Test
+	@After
+	public void unset() {
+		try {
+			System.out.println("REMOVING TEST DATA: ACTIVITY TYPE AND SUBTYPE");
+
+			final List<ActivityType> resultList = service.getAll();
+			service.delete(resultList);
+
+		} catch (final Exception e1) {
+			System.out.println("Error Removing ActivityType test data: " + e1);
+		}
+	}
+
+	/** */
+	@Test
 	public void test() {
 		final String sep = "\n---------------------------------------\n";
 
-		System.out.println("\n TESTING TIMER PARAMS SERVICE \n");
+		System.out.println("TESTING ACTIVITY TYPE AND SUBTYPE SERVICE\n");
 
-		System.out.println(sep + "saveTest" + sep);
-		TimerParams entity = saveTest();
-
-		System.out.println(sep + "updateTest" + sep);
-		entity = updateTest(entity);
-
-		System.out.println(sep + "getAllTest" + sep);
-		getAllTest();
-
-		System.out.println(sep + "deleteTest" + sep);
-		deleteTest(entity);
-	}
-
-	/**
-	 */
-	@After
-	public void unset() {
+		System.out.println(sep + "getAllTypesTest" + sep);
+		getAllTypesTest();
+		System.out.println(sep + "getSubTypesTest" + sep);
+		getSubTypesTest();
 
 	}
 
-	private void deleteTest(TimerParams entity) {
-		int resultExpected = 0;
-
+	private void getAllTypesTest() {
+		final int expectedResult = 6;
 		try {
-			service.delete(entity.getCode());
-			List<TimerParams> result = service.getAll();
-
-			Assert.assertEquals(resultExpected, result.size());
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void getAllTest() {
-		int expectedResult = 1;
-		try {
-			List<TimerParams> result = service.getAll();
-
+			List<ActivityType> result = service.getAllTypes();
 			Assert.assertEquals(expectedResult, result.size());
 
-		} catch (GHAEJBException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	private TimerParams saveTest() {
+	private void getSubTypesTest() {
+		final int expectedResult = 11;
 		try {
+			ActivityType type = new ActivityType();
+			type.setId(1);
 
-			TimerParams entity = new TimerParams();
-			entity.setCode("prueba");
-			entity.setJndiProcessorName("java:global/test/Prueba");
-			entity.setSeconds(0);
-			entity.setMinutes(0);
-			entity.setHours(0);
-			entity.setDays(2);
-			entity.setYears(0);
+			List<ActivityType> result = service.getSubTypes(type);
+			Assert.assertEquals(expectedResult, result.size());
 
-			TimerParams result = service.save(entity);
-
-			Assert.assertNotNull(result);
-			return result;
-
-		} catch (GHAEJBException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return null;
-	}
-
-	private TimerParams updateTest(TimerParams entity) {
-		try {
-			Calendar calendar = Calendar.getInstance();
-			long lastTimeEffectuated = calendar.getTimeInMillis();
-			entity.setLastTimeEffectuated(lastTimeEffectuated);
-
-			TimerParams result = service.update(entity);
-
-			long valueExpected = lastTimeEffectuated;
-			long actualValue = result.getLastTimeEffectuated();
-			Assert.assertEquals(valueExpected, actualValue);
-
-			return result;
-
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-
-		return null;
 	}
 }

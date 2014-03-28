@@ -5,6 +5,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
+import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
@@ -15,8 +16,8 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenanc
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAPeriodOfTimeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATopForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATopForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.util.BooleanCallback;
@@ -26,8 +27,8 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * @author naramirez
  */
 public class MaintenancePlanTopForm extends
-GHATopForm<MaintenancePlanResultSet, MaintenancePlan> implements
-MaintenancePlanSelectionListener {
+		GHATopForm<MaintenancePlanResultSet, MaintenancePlan> implements
+		MaintenancePlanSelectionListener {
 
 	private GHATextItem nameItem, frequencyItem, descriptionItem;
 	private GHAPeriodOfTimeSelectItem periodOfTimeItem;
@@ -46,7 +47,7 @@ MaintenancePlanSelectionListener {
 		stateItem = new GHAMaintenancePlanStateSelectItem();
 		descriptionItem = new GHATextItem(GHAStrings.get("description"), false);
 		descriptionItem.setColSpan(2);
-		form = new GHADynamicForm(4,FormType.NORMAL_FORM);
+		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
 		nameItem.addKeyUpHandler(searchKeyUpHandler);
 		frequencyItem.addKeyUpHandler(searchKeyUpHandler);
 		periodOfTimeItem.addKeyUpHandler(searchKeyUpHandler);
@@ -104,23 +105,45 @@ MaintenancePlanSelectionListener {
 	protected void delete() {
 		GHAAlertManager.confirm("maintenance-plan-delete-confirm",
 				new BooleanCallback() {
-			@Override
-			public void execute(Boolean value) {
-				if (value) {
-					MaintenancePlanModel.delete(
-							selectedMaintenancePlan.getId(),
-							new GHAAsyncCallback<Void>() {
-								@Override
-								public void onSuccess(Void result) {
-									containerTab.search();
-									clear();
-									GHAAlertManager
-									.alert("maintenance-delete-success");
-								}
-							});
-				}
-			}
-		});
+					@Override
+					public void execute(Boolean value) {
+
+						if (value) {
+
+							MaintenancePlanModel
+									.findEiaByMaintenancePlan(
+											selectedMaintenancePlan,
+											new GHAAsyncCallback<List<EiaMaintenancePlanification>>() {
+
+												@Override
+												public void onSuccess(
+														List<EiaMaintenancePlanification> result) {
+
+													if (result.isEmpty()) {
+														MaintenancePlanModel
+																.delete(selectedMaintenancePlan
+																		.getId(),
+																		new GHAAsyncCallback<Void>() {
+																			@Override
+																			public void onSuccess(
+																					Void result) {
+																				containerTab
+																						.search();
+																				clear();
+																				GHAAlertManager
+																						.alert("maintenance-delete-success");
+																			}
+																		});
+													} else {
+														GHAAlertManager
+																.alert("maintenance-eia-exists");
+													}
+												}
+											});
+
+						}
+					}
+				});
 	}
 
 	@Override
@@ -158,11 +181,11 @@ MaintenancePlanSelectionListener {
 	public void search(MaintenancePlan maintenancePlan) {
 		MaintenancePlanModel.find(maintenancePlan,
 				new GHAAsyncCallback<List<MaintenancePlan>>() {
-			@Override
-			public void onSuccess(List<MaintenancePlan> result) {
-				resultSet.setRecords(result, true);
-			}
-		});
+					@Override
+					public void onSuccess(List<MaintenancePlan> result) {
+						resultSet.setRecords(result, true);
+					}
+				});
 	}
 
 	/*

@@ -15,14 +15,14 @@ import junit.framework.Assert;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
-import org.fourgeeks.gha.ejb.GhaServiceTest;
+import org.fourgeeks.gha.ejb.GHAArquillianBaseServiceTest;
 
 /**
  * @author vivi.torresg
  * 
  */
 // @RunWith(Arquillian.class)
-public class ExternarProviderServiceTest extends GhaServiceTest {
+public class ExternarProviderServiceTest extends GHAArquillianBaseServiceTest {
 	@PersistenceContext
 	EntityManager em;
 
@@ -44,7 +44,7 @@ public class ExternarProviderServiceTest extends GhaServiceTest {
 		em.joinTransaction();
 
 		ExternalProvider entity = new ExternalProvider();
-		entity.setInstitution(super.getInstitution(em));
+		// entity.setInstitution(super.getInstitution(em));
 		entity = service.save(entity);
 
 		Assert.assertNotNull(entity);

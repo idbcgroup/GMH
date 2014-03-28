@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
@@ -28,6 +29,9 @@ public class Activity extends AbstractEntity {
 	@NotNull(message = "activity-state-not-null")
 	@Column(nullable = false)
 	private ActivityState state;
+
+	@JoinColumn(name = "activitySubTypeFk")
+	private ActivityType subType;
 
 	@NotNull(message = "category-not-null")
 	@Column(nullable = false)

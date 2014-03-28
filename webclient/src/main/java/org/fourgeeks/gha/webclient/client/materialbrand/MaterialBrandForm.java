@@ -298,6 +298,8 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 		this.originalEntity = entity;
 		final Material material = entity.getMaterial();
 
+		categoryItem.setValue(material.getMaterialCategory().getCode());
+
 		codeItem.setValue(material.getCode());
 		externalCodeItem.setValue(material.getExternalCode());
 		nameItem.setValue(material.getName());

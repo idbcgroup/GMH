@@ -9,6 +9,7 @@ import junit.framework.Assert;
 import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.Activity;
+import org.fourgeeks.gha.domain.ActivityType;
 import org.fourgeeks.gha.domain.HasKey;
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.ActivityState;
@@ -92,6 +93,8 @@ import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
+import org.fourgeeks.gha.ejb.ActivityTypeService;
+import org.fourgeeks.gha.ejb.ActivityTypeServiceRemote;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 import org.fourgeeks.gha.ejb.ess.auth.SSOUserService;
@@ -135,6 +138,9 @@ public class UILogServiceTest {
 		return ShrinkWrap
 				.create(WebArchive.class, "test.war")
 				.addClass(AppView.class)
+				.addClass(ActivityType.class)
+				.addClass(ActivityTypeService.class)
+				.addClass(ActivityTypeServiceRemote.class)
 				.addClass(AbstractEntity.class)
 				.addClass(AbstractCodeEntity.class)
 				.addClass(Activity.class)
@@ -303,20 +309,50 @@ public class UILogServiceTest {
 		Assert.assertNotNull(uILogServiceLocal);
 		Assert.assertNotNull(ghaMessage);
 
+		List<UILog> all = null;
+		try {
+			all = uILogServiceRemote.getAll();
+		} catch (final Exception e) {
+			unset();
+			Assert.fail("failing retriving all ui logs" + e.getMessage());
+		}
+
+		try {
+			for (final UILog uiLog2 : all)
+				uILogServiceLocal.delete(uiLog2);
+		} catch (final Exception e) {
+			Assert.fail(e.getMessage());
+		}
+
 		try {
 			final UILog uiLog = new UILog();
 			uiLog.setBpu(bpu);
 			uiLog.setMessage(ghaMessage);
 			uILogServiceRemote.log(uiLog);
 		} catch (final GHAEJBException e1) {
+			unset();
+			Assert.fail("failing creating a uilog");
 		}
 
 		try {
-			final List<UILog> all = uILogServiceRemote.getAll();
-			Assert.assertEquals(1, all.size());
+			Thread.sleep(5000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		try {
+			all = uILogServiceRemote.getAll();
+		} catch (final Exception e) {
+			unset();
+			Assert.fail("failing retriving all ui logs" + e.getMessage());
+		}
+		Assert.assertEquals(1, all.size());
+
+		try {
 			for (final UILog uiLog2 : all)
 				uILogServiceLocal.delete(uiLog2);
-		} catch (final GHAEJBException e) {
+		} catch (final Exception e) {
 			Assert.fail(e.getMessage());
 		}
 
@@ -329,7 +365,8 @@ public class UILogServiceTest {
 	public void unset() {
 		try {
 			messageServiceLocal.delete(ghaMessage);
-		} catch (final GHAEJBException e) {
+		} catch (final Exception e) {
+			System.out.println(e.getMessage());
 		}
 		bpuHelper.removeBpu();
 	}

@@ -16,15 +16,14 @@ import junit.framework.Assert;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.ejb.GhaServiceTest;
-import org.fourgeeks.gha.ejb.ess.auth.SSOUserServiceRemote;
+import org.fourgeeks.gha.ejb.GHAArquillianBaseServiceTest;
 
 /**
  * @author vivi.torresg
  * 
  */
 // @RunWith(Arquillian.class)
-public class SSOUserServiceTest extends GhaServiceTest {
+public class SSOUserServiceTest extends GHAArquillianBaseServiceTest {
 	@PersistenceContext
 	EntityManager em;
 
@@ -49,7 +48,7 @@ public class SSOUserServiceTest extends GhaServiceTest {
 		entity.setUserName("vivivivi");
 		entity.setPassword("vivi12345");
 		entity.setUserLogonStatus(UserLogonStatusEnum.STAYIN);
-		entity.setBpu(super.getBpu(em));
+		// entity.setBpu(super.getBpu(em));
 		entity = service.save(entity);
 
 		Assert.assertNotNull(entity);

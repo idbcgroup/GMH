@@ -15,14 +15,14 @@ import junit.framework.Assert;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.Institution;
-import org.fourgeeks.gha.ejb.GhaServiceTest;
+import org.fourgeeks.gha.ejb.GHAArquillianBaseServiceTest;
 
 /**
  * @author vivi.torresg
  * 
  */
 // @RunWith(Arquillian.class)
-public class InstitutionServiceTest extends GhaServiceTest {
+public class InstitutionServiceTest extends GHAArquillianBaseServiceTest {
 	@PersistenceContext
 	EntityManager em;
 
@@ -45,7 +45,7 @@ public class InstitutionServiceTest extends GhaServiceTest {
 
 		Institution entity = new Institution();
 		entity.setName("Institution name test");
-		entity.setLegalEntity(super.getLegalEntity(em));
+		// entity.setLegalEntity(super.getLegalEntity(em));
 
 		entity = service.save(entity);
 

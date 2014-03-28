@@ -30,6 +30,7 @@ import org.fourgeeks.gha.domain.glm.Bsp;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "m_type", discriminatorType = DiscriminatorType.STRING)
+// @DiscriminatorValue("eiaMaintenance")
 public abstract class EiaMaintenance extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
@@ -63,93 +64,10 @@ public abstract class EiaMaintenance extends AbstractEntity {
 	}
 
 	/**
-	 * @return the provider
-	 */
-	public Bsp getProvider() {
-		return provider;
-	}
-
-	/**
-	 * @param provider
-	 *            the provider to set
-	 */
-	public void setProvider(Bsp provider) {
-		this.provider = provider;
-	}
-
-	/**
-	 * @return the requestNumber
-	 */
-	public String getRequestNumber() {
-		return requestNumber;
-	}
-
-	/**
-	 * @param requestNumber
-	 *            the requestNumber to set
-	 */
-	public void setRequestNumber(String requestNumber) {
-		this.requestNumber = requestNumber;
-	}
-
-	/**
-	 * @return the technician
-	 */
-	public Bpu getTechnician() {
-		return technician;
-	}
-
-	/**
-	 * @param technician
-	 *            the technician to set
-	 */
-	public void setTechnician(Bpu technician) {
-		this.technician = technician;
-	}
-
-	/**
-	 * @return the scheduledDate
-	 */
-	public Date getScheduledDate() {
-		return scheduledDate;
-	}
-
-	/**
-	 * @param scheduledDate
-	 *            the scheduledDate to set
-	 */
-	public void setScheduledDate(Date scheduledDate) {
-		this.scheduledDate = scheduledDate;
-	}
-
-	/**
-	 * @return the deliverDate
-	 */
-	public Date getDeliverDate() {
-		return deliverDate;
-	}
-
-	/**
-	 * @param deliverDate
-	 *            the deliverDate to set
-	 */
-	public void setDeliverDate(Date deliverDate) {
-		this.deliverDate = deliverDate;
-	}
-
-	/**
 	 * @return the acceptationDate
 	 */
 	public Date getAcceptationDate() {
 		return acceptationDate;
-	}
-
-	/**
-	 * @param acceptationDate
-	 *            the acceptationDate to set
-	 */
-	public void setAcceptationDate(Date acceptationDate) {
-		this.acceptationDate = acceptationDate;
 	}
 
 	/**
@@ -160,115 +78,10 @@ public abstract class EiaMaintenance extends AbstractEntity {
 	}
 
 	/**
-	 * @param beginningTimestamp
-	 *            the beginningTimestamp to set
-	 */
-	public void setBeginningTimestamp(Timestamp beginningTimestamp) {
-		this.beginningTimestamp = beginningTimestamp;
-	}
-
-	/**
-	 * @return the finishTimestamp
-	 */
-	public Timestamp getFinishTimestamp() {
-		return finishTimestamp;
-	}
-
-	/**
-	 * @param finishTimestamp
-	 *            the finishTimestamp to set
-	 */
-	public void setFinishTimestamp(Timestamp finishTimestamp) {
-		this.finishTimestamp = finishTimestamp;
-	}
-
-	/**
-	 * @return the effectiveTime
-	 */
-	public int getEffectiveTime() {
-		return effectiveTime;
-	}
-
-	/**
-	 * @param effectiveTime
-	 *            the effectiveTime to set
-	 */
-	public void setEffectiveTime(int effectiveTime) {
-		this.effectiveTime = effectiveTime;
-	}
-
-	/**
-	 * @return the effectivePoT
-	 */
-	public TimePeriodEnum getEffectivePoT() {
-		return effectivePoT;
-	}
-
-	/**
-	 * @param effectivePoT
-	 *            the effectivePoT to set
-	 */
-	public void setEffectivePoT(TimePeriodEnum effectivePoT) {
-		this.effectivePoT = effectivePoT;
-	}
-
-	/**
-	 * @return the initialEiaState
-	 */
-	public EiaStateEnum getInitialEiaState() {
-		return initialEiaState;
-	}
-
-	/**
-	 * @param initialEiaState
-	 *            the initialEiaState to set
-	 */
-	public void setInitialEiaState(EiaStateEnum initialEiaState) {
-		this.initialEiaState = initialEiaState;
-	}
-
-	/**
-	 * @return the finalEiaState
-	 */
-	public EiaStateEnum getFinalEiaState() {
-		return finalEiaState;
-	}
-
-	/**
-	 * @param finalEiaState
-	 *            the finalEiaState to set
-	 */
-	public void setFinalEiaState(EiaStateEnum finalEiaState) {
-		this.finalEiaState = finalEiaState;
-	}
-
-	/**
-	 * @return the status
-	 */
-	public EiaMaintenanceState getState() {
-		return state;
-	}
-
-	/**
-	 * @param state
-	 *            the status to set
-	 */
-	public void setState(EiaMaintenanceState state) {
-		this.state = state;
-	}
-
-	/**
-	 * @return
+	 * @return the cancellation cause
 	 */
 	public MaintenanceCancelationCause getCancelationCause() {
 		return cancelationCause;
-	}
-
-	/**
-	 * @param cancelationCause
-	 */
-	public void setCancelationCause(MaintenanceCancelationCause cancelationCause) {
-		this.cancelationCause = cancelationCause;
 	}
 
 	/**
@@ -279,10 +92,45 @@ public abstract class EiaMaintenance extends AbstractEntity {
 	}
 
 	/**
-	 * @param cancelationResponsable
+	 * @return the deliverDate
 	 */
-	public void setCancelationResponsable(Bpu cancelationResponsable) {
-		this.cancelationResponsable = cancelationResponsable;
+	public Date getDeliverDate() {
+		return deliverDate;
+	}
+
+	/**
+	 * @return the effectivePoT
+	 */
+	public TimePeriodEnum getEffectivePoT() {
+		return effectivePoT;
+	}
+
+	/**
+	 * @return the effectiveTime
+	 */
+	public int getEffectiveTime() {
+		return effectiveTime;
+	}
+
+	/**
+	 * @return the finalEiaState
+	 */
+	public EiaStateEnum getFinalEiaState() {
+		return finalEiaState;
+	}
+
+	/**
+	 * @return the finishTimestamp
+	 */
+	public Timestamp getFinishTimestamp() {
+		return finishTimestamp;
+	}
+
+	/**
+	 * @return the initialEiaState
+	 */
+	public EiaStateEnum getInitialEiaState() {
+		return initialEiaState;
 	}
 
 	/**
@@ -293,10 +141,165 @@ public abstract class EiaMaintenance extends AbstractEntity {
 	}
 
 	/**
+	 * @return the provider
+	 */
+	public Bsp getProvider() {
+		return provider;
+	}
+
+	/**
+	 * @return the requestNumber
+	 */
+	public String getRequestNumber() {
+		return requestNumber;
+	}
+
+	/**
+	 * @return the scheduledDate
+	 */
+	public Date getScheduledDate() {
+		return scheduledDate;
+	}
+
+	/**
+	 * @return the status
+	 */
+	public EiaMaintenanceState getState() {
+		return state;
+	}
+
+	/**
+	 * @return the technician
+	 */
+	public Bpu getTechnician() {
+		return technician;
+	}
+
+	/**
+	 * @param acceptationDate
+	 *            the acceptationDate to set
+	 */
+	public void setAcceptationDate(final Date acceptationDate) {
+		this.acceptationDate = acceptationDate;
+	}
+
+	/**
+	 * @param beginningTimestamp
+	 *            the beginningTimestamp to set
+	 */
+	public void setBeginningTimestamp(final Timestamp beginningTimestamp) {
+		this.beginningTimestamp = beginningTimestamp;
+	}
+
+	/**
+	 * @param cancelationCause
+	 */
+	public void setCancelationCause(
+			final MaintenanceCancelationCause cancelationCause) {
+		this.cancelationCause = cancelationCause;
+	}
+
+	/**
+	 * @param cancelationResponsable
+	 */
+	public void setCancelationResponsable(final Bpu cancelationResponsable) {
+		this.cancelationResponsable = cancelationResponsable;
+	}
+
+	/**
+	 * @param deliverDate
+	 *            the deliverDate to set
+	 */
+	public void setDeliverDate(final Date deliverDate) {
+		this.deliverDate = deliverDate;
+	}
+
+	/**
+	 * @param effectivePoT
+	 *            the effectivePoT to set
+	 */
+	public void setEffectivePoT(final TimePeriodEnum effectivePoT) {
+		this.effectivePoT = effectivePoT;
+	}
+
+	/**
+	 * @param effectiveTime
+	 *            the effectiveTime to set
+	 */
+	public void setEffectiveTime(final int effectiveTime) {
+		this.effectiveTime = effectiveTime;
+	}
+
+	/**
+	 * @param finalEiaState
+	 *            the finalEiaState to set
+	 */
+	public void setFinalEiaState(final EiaStateEnum finalEiaState) {
+		this.finalEiaState = finalEiaState;
+	}
+
+	/**
+	 * @param finishTimestamp
+	 *            the finishTimestamp to set
+	 */
+	public void setFinishTimestamp(final Timestamp finishTimestamp) {
+		this.finishTimestamp = finishTimestamp;
+	}
+
+	/**
+	 * @param initialEiaState
+	 *            the initialEiaState to set
+	 */
+	public void setInitialEiaState(final EiaStateEnum initialEiaState) {
+		this.initialEiaState = initialEiaState;
+	}
+
+	/**
 	 * @param nextMantenanceExecutionDate
 	 */
-	public void setNextMantenanceExecutionDate(Date nextMantenanceExecutionDate) {
+	public void setNextMantenanceExecutionDate(
+			final Date nextMantenanceExecutionDate) {
 		this.nextMantenanceExecutionDate = nextMantenanceExecutionDate;
+	}
+
+	/**
+	 * @param provider
+	 *            the provider to set
+	 */
+	public void setProvider(final Bsp provider) {
+		this.provider = provider;
+	}
+
+	/**
+	 * @param requestNumber
+	 *            the requestNumber to set
+	 */
+	public void setRequestNumber(final String requestNumber) {
+		this.requestNumber = requestNumber;
+	}
+
+	/**
+	 * @param scheduledDate
+	 *            the scheduledDate to set
+	 */
+	public void setScheduledDate(final Date scheduledDate) {
+		this.scheduledDate = scheduledDate;
+	}
+
+	/**
+	 * @param state
+	 *            the status to set
+	 */
+	public void setState(final EiaMaintenanceState state) {
+		this.state = state;
+	}
+
+	/**
+	 * @param technician
+	 *            the technician to set
+	 */
+	public void setTechnician(final Bpu technician) {
+		this.technician = technician;
 	}
 
 }

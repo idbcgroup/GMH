@@ -136,7 +136,7 @@ public class GwtHostingHttpServlet extends HttpServlet {
 		if (user == null || user.equals("")) {
 			GHAMessage ghaMessage = null;
 			try {
-				ghaMessage = messageService.find(null, "LOGIN003");
+				ghaMessage = messageService.findAndLog(null, "LOGIN003");
 				req.getSession().setAttribute("cause", ghaMessage.getMessageText());
 				doGet(req, resp);
 				return;
@@ -153,7 +153,7 @@ public class GwtHostingHttpServlet extends HttpServlet {
 		} catch (final GHAEJBException e1) {
 			GHAMessage ghaMessage = null;
 			try {
-				ghaMessage = messageService.find(null, "LOGIN005");
+				ghaMessage = messageService.findAndLog(null, "LOGIN005");
 				req.getSession().setAttribute("cause", ghaMessage.getMessageText());
 				doGet(req, resp);
 				return;
@@ -178,7 +178,7 @@ public class GwtHostingHttpServlet extends HttpServlet {
 		} catch (final ServletException e) {
 			GHAMessage ghaMessage = null;
 			try {
-				ghaMessage = messageService.find(null, "LOGIN002");
+				ghaMessage = messageService.findAndLog(null, "LOGIN002");
 			} catch (final GHAEJBException e1) {
 				e1.printStackTrace();
 			}

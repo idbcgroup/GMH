@@ -15,7 +15,7 @@ import junit.framework.Assert;
 
 import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.ejb.GhaServiceTest;
+import org.fourgeeks.gha.ejb.GHAArquillianBaseServiceTest;
 import org.fourgeeks.gha.ejb.ess.auth.RoleServiceRemote;
 
 /**
@@ -23,7 +23,7 @@ import org.fourgeeks.gha.ejb.ess.auth.RoleServiceRemote;
  * 
  */
 // @RunWith(Arquillian.class)
-public class RoleServiceTest extends GhaServiceTest {
+public class RoleServiceTest extends GHAArquillianBaseServiceTest {
 	@PersistenceContext
 	EntityManager em;
 
