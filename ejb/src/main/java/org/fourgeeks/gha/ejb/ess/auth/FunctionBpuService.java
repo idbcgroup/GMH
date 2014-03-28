@@ -1,6 +1,5 @@
 package org.fourgeeks.gha.ejb.ess.auth;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,7 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import org.fourgeeks.gha.domain.ess.auth.Function;
 import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
@@ -42,17 +40,17 @@ public class FunctionBpuService extends GHAEJBExceptionService implements
 	}
 
 	@Override
-	public List<Function> getFunctionByBpu(final Bpu bpu)
+	public List<FunctionBpu> getFunctionByBpu(final Bpu bpu)
 			throws GHAEJBException {
 		TypedQuery<FunctionBpu> query;
 		try {
 			query = em.createNamedQuery("FunctionBpu.findByBpu",
 					FunctionBpu.class).setParameter("bpu", bpu);
 			final List<FunctionBpu> resultList = query.getResultList();
-			final List<Function> returnList = new ArrayList<Function>();
-			for (FunctionBpu functionBpu : resultList)
-				returnList.add(functionBpu.getFunction());
-			return returnList;
+			// final List<Function> returnList = new ArrayList<Function>();
+			// for (FunctionBpu functionBpu : resultList)
+			// returnList.add(functionBpu.getFunction());
+			return resultList;
 		} catch (final Exception e) {
 			logger.log(Level.INFO, "error retriving bpufunction", e);
 			throw super.generateGHAEJBException(

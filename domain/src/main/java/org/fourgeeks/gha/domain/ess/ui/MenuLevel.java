@@ -16,7 +16,7 @@ import org.fourgeeks.gha.domain.AbstractCodeEntity;
  */
 @Entity
 @Table(schema = "ui")
-public class Menu extends AbstractCodeEntity {
+public class MenuLevel extends AbstractCodeEntity {
 
 	/**
 	 * 
@@ -25,14 +25,14 @@ public class Menu extends AbstractCodeEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "parentFk", nullable = true)
-	private Menu parentMenu;
+	private MenuLevel parentMenu;
 
 	private String text;
 
 	/**
 	 * Creates a empty menu
 	 */
-	public Menu() {
+	public MenuLevel() {
 		super();
 	}
 
@@ -43,7 +43,7 @@ public class Menu extends AbstractCodeEntity {
 	 * @param code
 	 * @param text
 	 */
-	public Menu(final String code, final String text, final Menu menu) {
+	public MenuLevel(final String code, final String text, final MenuLevel menu) {
 		this();
 		this.code = code;
 		this.text = text;
@@ -53,7 +53,7 @@ public class Menu extends AbstractCodeEntity {
 	/**
 	 * @return the parentMenu
 	 */
-	public Menu getParentMenu() {
+	public MenuLevel getParentMenu() {
 		return parentMenu;
 	}
 

@@ -2,7 +2,6 @@ package org.fourgeeks.gha.webclient.client.permissionbpu;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.auth.Function;
 import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
@@ -28,7 +27,8 @@ public interface GWTFunctionBpuService extends RemoteService {
 	 * @return THE LISTS OF Functions
 	 * @throws GHAEJBException
 	 */
-	public List<Function> getPermissionsByBpu(Bpu bpu) throws GHAEJBException;
+	public List<FunctionBpu> getPermissionsByBpu(Bpu bpu)
+			throws GHAEJBException;
 
 	/**
 	 * @param bpuFunction

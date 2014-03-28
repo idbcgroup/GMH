@@ -61,7 +61,7 @@ import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.ess.auth.SystemInstance;
 import org.fourgeeks.gha.domain.ess.ui.App;
 import org.fourgeeks.gha.domain.ess.ui.AppView;
-import org.fourgeeks.gha.domain.ess.ui.Menu;
+import org.fourgeeks.gha.domain.ess.ui.MenuLevel;
 import org.fourgeeks.gha.domain.ess.ui.Module;
 import org.fourgeeks.gha.domain.ess.ui.View;
 import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
@@ -404,7 +404,7 @@ public abstract class GHAArquillianBaseServiceTest {
 				.addClass(MaterialCategoryServiceRemote.class)
 				.addClass(MaintenanceProtocolServiceRemote.class)
 				.addClass(MaintenancePlanStadisticData.class)
-				.addClass(Menu.class)
+				.addClass(MenuLevel.class)
 				.addClass(MaintenanceProtocolStadisticData.class)
 				.addClass(TimerParams.class)
 				.addClass(TimerParamsService.class)

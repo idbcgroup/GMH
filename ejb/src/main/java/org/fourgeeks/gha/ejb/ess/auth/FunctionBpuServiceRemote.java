@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
-import org.fourgeeks.gha.domain.ess.auth.Function;
 import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
@@ -26,7 +25,7 @@ public interface FunctionBpuServiceRemote {
 	 * @return the functions as a list
 	 * @throws GHAEJBException
 	 */
-	public List<Function> getFunctionByBpu(Bpu bpu) throws GHAEJBException;
+	public List<FunctionBpu> getFunctionByBpu(Bpu bpu) throws GHAEJBException;
 
 	/**
 	 * @param bpuFunction

@@ -93,7 +93,7 @@ public class FunctionBpuServiceTest extends GHAArquillianBaseServiceTest {
 		}
 
 		try {
-			final List<Function> permissionByBpu = service
+			final List<FunctionBpu> permissionByBpu = service
 					.getFunctionByBpu(bpu);
 			Assert.assertTrue(permissionByBpu.size() > 0);
 		} catch (final GHAEJBException e) {

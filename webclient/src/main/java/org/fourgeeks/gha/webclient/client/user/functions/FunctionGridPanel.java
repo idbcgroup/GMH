@@ -1,9 +1,8 @@
-package org.fourgeeks.gha.webclient.client.user.permissions;
+package org.fourgeeks.gha.webclient.client.user.functions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.auth.Function;
 import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
@@ -28,7 +27,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
  * @author alacret
  * 
  */
-public class PermissionGridPanel extends GHAFormLayout implements
+public class FunctionGridPanel extends GHAFormLayout implements
 		ClosableListener, HideableListener {
 
 	private ViewFunctionGrid grid;
@@ -39,7 +38,7 @@ public class PermissionGridPanel extends GHAFormLayout implements
 
 	/**
 	 */
-	public PermissionGridPanel() {
+	public FunctionGridPanel() {
 		super();
 		final GHALabel title = new GHALabel(GHAStrings.get("permissions"));
 		addMember(title);
@@ -107,11 +106,11 @@ public class PermissionGridPanel extends GHAFormLayout implements
 			@Override
 			public void onSuccess(final List<ViewFunction> allPermissions) {
 				FunctionBpuModel.getPermissionsByBpu(ssoUser.getBpu(),
-						new GHAAsyncCallback<List<Function>>() {
+						new GHAAsyncCallback<List<FunctionBpu>>() {
 
 							@Override
 							public void onSuccess(
-									final List<Function> userPermissions) {
+									final List<FunctionBpu> userPermissions) {
 								// All
 								final List<ViewPermissionRecord> gridRecords = ViewPermissionUtil
 										.toGridRecords(allPermissions);
@@ -120,8 +119,9 @@ public class PermissionGridPanel extends GHAFormLayout implements
 								// User
 								final List<String> codes = new ArrayList<String>(
 										userPermissions.size());
-								for (final Function function : userPermissions)
-									codes.add(function.getCode());
+								for (final FunctionBpu functionbPU : userPermissions)
+									codes.add(functionbPU.getFunction()
+											.getCode());
 								if (!codes.isEmpty())
 									for (int i = 0; i < array.length; i++) {
 										final ViewPermissionRecord functionRecord = array[i];

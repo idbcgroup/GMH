@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.user.permissions;
+package org.fourgeeks.gha.webclient.client.user.functions;
 
 import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;

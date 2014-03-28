@@ -1,15 +1,13 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
-import org.fourgeeks.gha.domain.ess.auth.Function;
+import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.ess.ui.App;
 import org.fourgeeks.gha.domain.ess.ui.AppView;
-import org.fourgeeks.gha.domain.ess.ui.Menu;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.dropdownmenus.UserDropdownMenu;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
@@ -33,9 +31,9 @@ import com.smartgwt.client.widgets.layout.HLayout;
 public abstract class GHASessionData {
 
 	private static Bpu loggedUser;
-	private static TreeSet<String> viewTreeSet = new TreeSet<String>();
-	private static TreeSet<String> functionTreeSet = new TreeSet<String>();
-	private static Map<String, String> appMap = new HashMap<String, String>();
+	private static final TreeSet<String> viewTreeSet = new TreeSet<String>();
+	private static final TreeSet<String> functionTreeSet = new TreeSet<String>();
+	private static final Map<String, App> appMap = new HashMap<String, App>();
 
 	private static void buildUserBox() {
 		final UserDropdownMenu userMenu = new UserDropdownMenu(loggedUser);
@@ -101,7 +99,7 @@ public abstract class GHASessionData {
 	 * @return the permissionMap
 	 * @throws LoginNeededException
 	 */
-	public static Map<String, String> getAppsMapp() throws LoginNeededException {
+	public static Map<String, App> getAppsMapp() throws LoginNeededException {
 		if (appMap.isEmpty())
 			throw new LoginNeededException();
 		return appMap;
@@ -150,55 +148,23 @@ public abstract class GHASessionData {
 		return viewTreeSet.contains(code);
 	}
 
-	private static void printParents(final Menu menu) {
-		String text = menu.getText();
-		Window.alert(text);
-		if (menu.getParentMenu() != null)
-			printParents(menu.getParentMenu());
-	}
-
 	/**
 	 * @param loggedUser
 	 */
 	public static void setLoggedUser(final Bpu loggedUser) {
-		Window.alert("logged User");
 		GHASessionData.loggedUser = loggedUser;
-		final List<Function> functions = loggedUser.getFunctions();
-		for (final Function function : functions)
-			functionTreeSet.add(function.getCode());
+		final List<FunctionBpu> functions = loggedUser.getFunctions();
+		for (final FunctionBpu functionBpu : functions)
+			functionTreeSet.add(functionBpu.getFunction().getCode());
 
 		final List<AppView> appsViews = loggedUser.getAppsViews();
-		final List<App> apps = new ArrayList<App>();
 
 		for (final AppView appView : appsViews) {
 			viewTreeSet.add(appView.getView().getCode());
-			appMap.put(appView.getApp().getToken(), appView.getApp().getName());
-			apps.add(appView.getApp());
+			appMap.put(appView.getApp().getToken(), appView.getApp());
 		}
-		Window.alert("before user bos");
 		buildUserBox();
-		Window.alert("before user bos");
 		GHAPlaceSet.buildMenu();
-		Window.alert("before user bos");
-
-		// TEST
-		Window.alert("start testing" + apps.size());
-		StringBuilder sb = new StringBuilder();
-		for (App app : apps) {
-			sb.append(app.getName());
-			if (app.getMenu() != null) {
-				sb.append(app.getMenu().getText());
-				if (app.getMenu().getParentMenu() != null)
-					sb.append(app.getMenu().getParentMenu().getText());
-			}
-			sb.append(" \n");
-		}
-		Window.alert("stop testing");
-		Window.alert(sb.toString());
-		for (App app : apps) {
-			Menu menu = app.getMenu();
-			printParents(menu);
-		}
 	}
 
 	/**

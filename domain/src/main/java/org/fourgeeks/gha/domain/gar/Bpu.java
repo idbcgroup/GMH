@@ -16,7 +16,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.ess.auth.Function;
+import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.ess.ui.AppView;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
@@ -59,7 +59,7 @@ public class Bpu extends AbstractEntity {
 	private JobPosition jobPosition;
 
 	@Transient
-	private List<Function> functions;
+	private List<FunctionBpu> functions;
 
 	@Transient
 	private List<AppView> appsViews;
@@ -106,7 +106,7 @@ public class Bpu extends AbstractEntity {
 	/**
 	 * @return the permissions
 	 */
-	public List<Function> getFunctions() {
+	public List<FunctionBpu> getFunctions() {
 		return functions;
 	}
 
@@ -151,7 +151,7 @@ public class Bpu extends AbstractEntity {
 	 * @param functions
 	 *            the functions to set
 	 */
-	public void setFunctions(final List<Function> functions) {
+	public void setFunctions(final List<FunctionBpu> functions) {
 		this.functions = functions;
 	}
 

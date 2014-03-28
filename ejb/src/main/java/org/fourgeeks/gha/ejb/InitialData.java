@@ -56,7 +56,7 @@ import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.ess.ui.App;
 import org.fourgeeks.gha.domain.ess.ui.AppView;
-import org.fourgeeks.gha.domain.ess.ui.Menu;
+import org.fourgeeks.gha.domain.ess.ui.MenuLevel;
 import org.fourgeeks.gha.domain.ess.ui.Module;
 import org.fourgeeks.gha.domain.ess.ui.View;
 import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
@@ -229,7 +229,7 @@ public class InitialData {
 			String appToken = strings[2];
 			String menuCode = strings[3];
 			Module module = em.find(Module.class, moduleCode);
-			Menu menu = em.find(Menu.class, menuCode);
+			MenuLevel menu = em.find(MenuLevel.class, menuCode);
 			em.merge(new App(module, appCode, appCode, appToken, menu));
 			em.flush();
 		}
@@ -854,6 +854,7 @@ public class InitialData {
 	@PostConstruct
 	public void inicializar() {
 		modules();
+		menus();
 		apps();
 		views();
 
@@ -862,7 +863,6 @@ public class InitialData {
 		} catch (final IOException e) {
 			e.printStackTrace();
 		}
-		menus();
 		messageTypes();
 		messages();
 		uiStrings();
@@ -1224,6 +1224,7 @@ public class InitialData {
 	}
 
 	private void menus() {
+		logger.info("creating menus test data");
 		final InputStream resourceAsStream = InitialData.class
 				.getResourceAsStream("/menus.csv");
 
@@ -1271,9 +1272,10 @@ public class InitialData {
 			String text = strings[1];
 			String parentCode = strings[2];
 			if (parentCode.equals("null"))
-				em.merge(new Menu(code, text, null));
+				em.merge(new MenuLevel(code, text, null));
 			else
-				em.merge(new Menu(code, text, em.find(Menu.class, parentCode)));
+				em.merge(new MenuLevel(code, text, em.find(MenuLevel.class,
+						parentCode)));
 
 			em.flush();
 		}

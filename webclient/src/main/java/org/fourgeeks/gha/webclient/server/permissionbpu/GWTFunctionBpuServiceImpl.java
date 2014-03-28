@@ -5,7 +5,6 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
-import org.fourgeeks.gha.domain.ess.auth.Function;
 import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
@@ -36,7 +35,7 @@ public class GWTFunctionBpuServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public List<Function> getPermissionsByBpu(final Bpu bpu)
+	public List<FunctionBpu> getPermissionsByBpu(final Bpu bpu)
 			throws GHAEJBException {
 		return service.getFunctionByBpu(bpu);
 	}

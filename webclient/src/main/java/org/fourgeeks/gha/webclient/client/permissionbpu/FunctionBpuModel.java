@@ -2,7 +2,6 @@ package org.fourgeeks.gha.webclient.client.permissionbpu;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.auth.Function;
 import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -31,7 +30,7 @@ public class FunctionBpuModel {
 	 * @param callback
 	 */
 	public static void getPermissionsByBpu(final Bpu bpu,
-			final GHAAsyncCallback<List<Function>> callback) {
+			final GHAAsyncCallback<List<FunctionBpu>> callback) {
 		service.getPermissionsByBpu(bpu, callback);
 	}
 
