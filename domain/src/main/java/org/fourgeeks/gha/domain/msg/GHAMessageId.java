@@ -37,6 +37,19 @@ public class GHAMessageId implements Serializable {
 		this.language = language;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (o == null)
+			return false;
+
+		if (!(o instanceof GHAMessageId))
+			return false;
+
+		final GHAMessageId newO = (GHAMessageId) o;
+		return code.equals(newO.getCode())
+				&& language.equals(newO.getLanguage());
+	}
+
 	/**
 	 * @return the code
 	 */
@@ -49,19 +62,6 @@ public class GHAMessageId implements Serializable {
 	 */
 	public LanguageEnum getLanguage() {
 		return language;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (o == null)
-			return false;
-
-		if (!(o instanceof GHAMessageId))
-			return false;
-
-		GHAMessageId newO = (GHAMessageId) o;
-		return code.equals(newO.getCode())
-				&& language.equals(newO.getLanguage());
 	}
 
 	/*

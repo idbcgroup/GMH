@@ -32,7 +32,7 @@ public class GHAEJBException extends Exception implements Serializable {
 	 * @param message
 	 */
 	public GHAEJBException(GHAMessage message) {
-		super(message.getText());
+		super(message.getMessageText());
 		this.ghaMessage = message;
 	}
 

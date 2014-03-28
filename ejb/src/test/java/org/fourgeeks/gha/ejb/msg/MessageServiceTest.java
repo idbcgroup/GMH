@@ -285,10 +285,10 @@ public class MessageServiceTest {
 		GHAMessage ghaMessage2 = new GHAMessage(code2, LanguageEnum.ES);
 		GHAMessage ghaMessage3 = new GHAMessage(code3, LanguageEnum.ES);
 		GHAMessage ghaMessage4 = new GHAMessage(code4, LanguageEnum.ES);
-		ghaMessage1.setText("ghaMessage unit test");
-		ghaMessage2.setText("ghaMessage unit test");
-		ghaMessage3.setText("ghaMessage unit test");
-		ghaMessage4.setText("ghaMessage unit test");
+		ghaMessage1.setMessageText("ghaMessage unit test");
+		ghaMessage2.setMessageText("ghaMessage unit test");
+		ghaMessage3.setMessageText("ghaMessage unit test");
+		ghaMessage4.setMessageText("ghaMessage unit test");
 
 		try {
 			ghaMessage1 = messageServiceLocal.save(ghaMessage1);

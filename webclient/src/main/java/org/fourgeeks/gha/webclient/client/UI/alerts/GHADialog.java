@@ -156,7 +156,7 @@ Window.ScrollHandler {
 			setIsModal(true);
 			setShowModalMask(true);
 			setModalMaskOpacity(15);
-		} else if (!hasButtons && !dialogType.equals("PROCESSING")) {
+		} else if (!hasButtons && !dialogType.equals("VEM-ADVANCE")) {
 			if (isTimed) {
 				waiter.schedule(waitingTime);
 			}
@@ -260,7 +260,7 @@ Window.ScrollHandler {
 		if (time >= 0) {
 			waitingTime = time * secsToMills;
 		} else {
-			waitingTime = type.getTime() * secsToMills;
+			waitingTime = type.getTimeShowing() * secsToMills;
 		}
 	}
 

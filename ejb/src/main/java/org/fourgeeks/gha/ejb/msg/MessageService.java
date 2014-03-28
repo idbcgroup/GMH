@@ -106,7 +106,7 @@ public class MessageService extends GHAEJBExceptionService implements
 
 			// build a map with the keys found, map code, pos
 			for (int i = 0; i < resultList.size(); ++i) {
-				keysFound.put(resultList.get(i).getCode(), i);
+				keysFound.put(resultList.get(i).getMessageCode(), i);
 			}
 
 			// for each key to find
@@ -120,9 +120,9 @@ public class MessageService extends GHAEJBExceptionService implements
 							"message-find-fail", em).getGhaMessage();
 
 					// if it is not a generic message
-					if (next.getCode().equals("message-find-fail")) {
+					if (next.getMessageCode().equals("message-find-fail")) {
 						// add the key to the message
-						next.setText(next.getText() + " " + key);
+						next.setMessageText(next.getMessageText() + " " + key);
 					}
 					res.add(next);
 				}
@@ -157,7 +157,7 @@ public class MessageService extends GHAEJBExceptionService implements
 
 			// build a map with the keys found, map code, pos
 			for (int i = 0; i < resultList.size(); ++i) {
-				keysFound.put(resultList.get(i).getCode(), i);
+				keysFound.put(resultList.get(i).getMessageCode(), i);
 			}
 
 			// for each key to find
@@ -171,9 +171,9 @@ public class MessageService extends GHAEJBExceptionService implements
 							"message-find-fail", em).getGhaMessage();
 
 					// if it is not a generic message
-					if (next.getCode().equals("message-find-fail")) {
+					if (next.getMessageCode().equals("message-find-fail")) {
 						// add the key to the message
-						next.setText(next.getText() + " " + key);
+						next.setMessageText(next.getMessageText() + " " + key);
 					}
 					res.add(next);
 				}
@@ -194,8 +194,8 @@ public class MessageService extends GHAEJBExceptionService implements
 			em.flush();
 			return em
 					.find(GHAMessage.class,
-							new GHAMessageId(ghaMessage.getCode(), ghaMessage
-									.getLang()));
+							new GHAMessageId(ghaMessage.getMessageCode(), ghaMessage
+									.getLanguage()));
 		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: saving message", e);
 			throw super.generateGHAEJBException("message-save-fail", em);
@@ -207,12 +207,12 @@ public class MessageService extends GHAEJBExceptionService implements
 	public void delete(GHAMessage entity) throws GHAEJBException {
 		try {
 			final GHAMessage mesg = em.find(GHAMessage.class, new GHAMessageId(
-					entity.getCode(), entity.getLang()));
+					entity.getMessageCode(), entity.getLanguage()));
 			em.remove(mesg);
 		} catch (final Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: unable to delete =" + entity.getClass().getName()
-							+ " with id = " + entity.getCode(), e);
+							+ " with id = " + entity.getMessageCode(), e);
 			throw super.generateGHAEJBException("messague-delete-fail", em);
 		}
 	}

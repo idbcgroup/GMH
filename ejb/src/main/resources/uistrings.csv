@@ -276,7 +276,7 @@ ES,error,error
 ES,soft-error,Error Leve
 ES,hard-error,Error Grave
 ES,warning,Advertencia
-ES,failure,Operación Fallida
+ES,failure,Error en la Validación
 ES,success,Operación Éxitosa
 ES,processing,Operación en proceso
 ES,new-message-received,Nuevo Mensaje Recibido
