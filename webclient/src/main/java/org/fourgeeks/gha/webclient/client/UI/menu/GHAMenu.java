@@ -7,22 +7,56 @@ import java.util.Map.Entry;
 import org.fourgeeks.gha.domain.ess.ui.App;
 import org.fourgeeks.gha.domain.ess.ui.MenuLevel;
 import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.util.TreeNode;
 
+import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.ui.Widget;
+import com.smartgwt.client.core.Rectangle;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
 
 /**
  * @author alacret The Menu
  */
 public class GHAMenu {
 
-	private static GHAMenuBar verticalMenu = new GHAMenuBar();
+	private static GHAMenuBar firstMenuBar = new GHAMenuBar();
+	private static boolean isOpen = false;
+	private static int barsNumber = 1;
+	final private static int BAR_DISTANCE = 30;
+	private static final GHAImgButton menuButton = new GHAImgButton(
+			"../resources/icons/menu.png");
+	static {
+		menuButton.setSize("34px", "22px");
+		menuButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(final ClickEvent event) {
+				firstMenuBar.bringToFront();
+				if (!firstMenuBar.isVisible()) {
+					firstMenuBar.open();
+				} else {
+					firstMenuBar.hide();
+				}
+			}
+		});
+	}
 
 	/**
 	 * 
 	 */
 	public static void build() {
+		GHAUiHelper.addDocumentClickHandler(new EventListener() {
+
+			@Override
+			public void onBrowserEvent(final Event event) {
+				checkForHide(event);
+			}
+		});
+
 		Map<String, App> appMap;
 		try {
 			appMap = GHASessionData.getAppsMapp();
@@ -89,36 +123,41 @@ public class GHAMenu {
 			}
 		}
 
-		// Set<Entry<String, TreeNode<String, GHAMenuOption>>> entrySet = map
-		// .entrySet();
-		// StringBuilder sb = new StringBuilder();
-		// for (Entry<String, TreeNode<String, GHAMenuOption>> entry : entrySet)
-		// {
-		// sb.append(entry.getKey() + ": ");
-		// TreeNode<String, GHAMenuOption> value = entry.getValue();
-		// Set<TreeNode<String, GHAMenuOption>> childs = value.getChilds();
-		// for (TreeNode<String, GHAMenuOption> treeNode : childs)
-		// sb.append(treeNode.getCode() + ", ");
-		// sb.append("\n");
-		// }
-		//
-		// Window.alert(sb.toString());
-
 		for (Entry<String, TreeNode<String, GHAMenuOption>> entry : map
 				.entrySet()) {
 			TreeNode<String, GHAMenuOption> value = entry.getValue();
 			if (value.getParent() == null) {
-				verticalMenu.addOption(value.getObject());
+				firstMenuBar.addOption(value.getObject());
 			}
 		}
 
+	}
+
+	private static void checkForHide(final Event event) {
+		final int mouseX = event.getScreenX();
+		final int mouseY = event.getScreenY();
+		final Rectangle rect = firstMenuBar.getRect();
+		final int menuMinX = rect.getLeft();
+		final int menuMaxX = rect.getLeft() + rect.getWidth()
+				+ (BAR_DISTANCE * (barsNumber - 1));
+		final int menuMinY = rect.getTop();
+		final int menuMaxY = rect.getTop() + rect.getHeight();
+
+		if (!(mouseX >= menuMinX && mouseX <= menuMaxX && mouseY >= menuMinY && mouseY <= menuMaxY)) {
+			hide();
+		}
 	}
 
 	/**
 	 * @return the button that opens the menu
 	 */
 	public static Widget getMenuButton() {
-		return verticalMenu.getMenuButton();
+		return menuButton;
+	}
+
+	protected static void hide() {
+		menuButton.blur();
+
 	}
 
 	private GHAMenu() {
