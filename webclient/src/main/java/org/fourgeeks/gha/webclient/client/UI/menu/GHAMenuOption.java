@@ -17,11 +17,13 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * @author alacret Class for the representation of an Option in GHAMenu
  */
 public class GHAMenuOption extends HLayout {
+	private String text;
+
 	/**
 	 * 
 	 */
 	public GHAMenuOption() {
-		setWidth100();
+		setWidth(GHAMenu.BAR_WIDTH);
 		setHeight("30px");
 		setMembersMargin(7);
 		setDefaultLayoutAlign(VerticalAlignment.CENTER);
@@ -29,21 +31,6 @@ public class GHAMenuOption extends HLayout {
 		setVisible(false);
 		setStyleName("menu-option");
 		addMember(new LayoutSpacer());
-	}
-
-	/**
-	 * @param text
-	 * @param imgSrc
-	 */
-	public GHAMenuOption(final String text, final String imgSrc) {
-		this();
-		final GHAImg iconButton = new GHAImg(imgSrc);
-		addMember(iconButton);
-		final GHALabel titulo = new GHALabel(text);
-		titulo.setWidth100();
-		titulo.setHeight("25px");
-		titulo.setStyleName("menu-option-title button-pointer");
-
 		addMouseOverHandler(new MouseOverHandler() {
 
 			@Override
@@ -59,9 +46,29 @@ public class GHAMenuOption extends HLayout {
 				setBackgroundColor("#FFFFFF");
 			}
 		});
+	}
 
+	/**
+	 * @param text
+	 * @param imgSrc
+	 */
+	public GHAMenuOption(final String text, final String imgSrc) {
+		this();
+		this.text = text;
+		final GHAImg iconButton = new GHAImg(imgSrc);
+		addMember(iconButton);
+		final GHALabel titulo = new GHALabel(text);
+		titulo.setWidth100();
+		titulo.setHeight("25px");
+		titulo.setStyleName("menu-option-title button-pointer");
 		addMember(titulo);
 		addMember(new LayoutSpacer());
 	}
 
+	/**
+	 * @return the Text
+	 */
+	public String getText() {
+		return text;
+	}
 }

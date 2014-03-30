@@ -2,7 +2,7 @@ moduleCode,AppCode,AppToken,MenuCode
 GMH,eiatype,eiatype,LOGIST-SO
 GMH,eia,eia,LOGIST-SO
 MIX,user,user,SISTEM-US
-GMH,maintenance,mplan,LOGIST-PL
+GMH,mplan,mplan,LOGIST-PL
 GMH,activity,activity,PPRPLA-AC
 #GMH,emh,emh,ATEMED-HM
 GMH,res,res,ADMPAC-AP
