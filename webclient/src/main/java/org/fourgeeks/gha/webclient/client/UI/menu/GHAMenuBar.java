@@ -25,7 +25,6 @@ public class GHAMenuBar extends VLayout {
 	 * creates a menu bar
 	 */
 	public GHAMenuBar() {
-		// setHeight(GHAUiHelper.getTabHeight() + 15 + "px");
 		setHeight100();
 		setMinHeight(GHAUiHelper.MIN_HEIGHT - GHAUiHelper.HEADER_HEIGTH);
 		setLeft(0);
