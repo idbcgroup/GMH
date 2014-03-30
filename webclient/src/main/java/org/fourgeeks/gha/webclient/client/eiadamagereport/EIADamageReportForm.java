@@ -27,7 +27,6 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHATimeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitletextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABpuSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABspSelectItem;
@@ -75,7 +74,8 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	private GHADateItem realWarrantyBeginDate, intWarrantyBeginDate;
 	// datos del reporte
 	private GHADateItem damageDateItem;
-	private GHATimeItem damageTimeItem;
+	// private GHATimeItem damageTimeItem;
+	private GHATextItem damageTimeItem;
 	private GHATextAreaItem damageMotiveTextAreaItem;
 	private GHABpuSelectItem userWhoRegistedSelectItem,
 			userWhoReportedSelectItem;
@@ -103,15 +103,20 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		damageDateItem = new GHADateItem("Fecha del daño o falla",
 				changedHandler);
 
-		damageTimeItem = new GHATimeItem("Hora del daño o falla",
-				changedHandler);
-		// damageTimeItem.setKeyPressFilter("([01]?[0-9]|2[0-3]):[0-5][0-9]");
+		damageTimeItem = new GHATextItem("Hora del daño o falla", false,
+				changedHandler); // new GHATimeItem("Hora del daño o falla",
+		// changedHandler);
+		// damageTimeItem.setKeyPressFilter("[0-2][0-9]:[0-5][0-9]");
+		// damageTimeItem.setMask("");
+		// ("[0-2][0-9]:[0-5][0-9]");
 
 		RegExpValidator textValidator = new RegExpValidator();
 		textValidator.setErrorMessage("La fecha introducida es Erronea");
+		// textValidator.setExpression("([01]?[0-9]|2[0-3]):[0-5][0-9]");
 		textValidator.setExpression("([01]?[0-9]|2[0-3]):[0-5][0-9]");
 		damageTimeItem.setValidators(textValidator);
-		damageTimeItem.setValidateOnChange(true);
+		// damageTimeItem.setValidateOnChange(true);
+		damageTimeItem.setShowErrorIcon(true);
 
 		damageStatusSelectItem = new GHASelectItem("Estatus", true,
 				changedHandler);
@@ -308,7 +313,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		LogicalTime time = null;
 
 		if (damageTimeItem.validate()) {
-			time = damageTimeItem.getValueAsLogicalTime();
+			// time = damageTimeItem.getValueAsLogicalTime();
 		}
 
 		final LogicalDate date = damageDateItem.getValueAsLogicalDate();
