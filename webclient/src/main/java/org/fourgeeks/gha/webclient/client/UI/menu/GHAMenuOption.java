@@ -4,11 +4,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 
-import com.google.gwt.user.client.History;
 import com.smartgwt.client.types.Cursor;
 import com.smartgwt.client.types.VerticalAlignment;
-import com.smartgwt.client.widgets.events.ClickEvent;
-import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.events.MouseOutEvent;
 import com.smartgwt.client.widgets.events.MouseOutHandler;
 import com.smartgwt.client.widgets.events.MouseOverEvent;
@@ -17,13 +14,9 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 
 /**
- * @author alacret
- * 
+ * @author alacret Class for the representation of an Option in GHAMenu
  */
 public class GHAMenuOption extends HLayout {
-
-	// private final String token;
-
 	/**
 	 * 
 	 */
@@ -40,11 +33,9 @@ public class GHAMenuOption extends HLayout {
 
 	/**
 	 * @param text
-	 * @param token
 	 * @param imgSrc
 	 */
-	public GHAMenuOption(final String text, final String token,
-			final String imgSrc) {
+	public GHAMenuOption(final String text, final String imgSrc) {
 		this();
 		final GHAImg iconButton = new GHAImg(imgSrc);
 		addMember(iconButton);
@@ -52,15 +43,6 @@ public class GHAMenuOption extends HLayout {
 		titulo.setWidth100();
 		titulo.setHeight("25px");
 		titulo.setStyleName("menu-option-title button-pointer");
-
-		addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(final ClickEvent event) {
-				if (token != null)
-					History.newItem(token);
-			}
-		});
 
 		addMouseOverHandler(new MouseOverHandler() {
 
@@ -80,7 +62,6 @@ public class GHAMenuOption extends HLayout {
 
 		addMember(titulo);
 		addMember(new LayoutSpacer());
-
 	}
 
 }

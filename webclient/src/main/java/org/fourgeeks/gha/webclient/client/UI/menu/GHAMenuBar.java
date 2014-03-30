@@ -48,7 +48,6 @@ public class GHAMenuBar extends VLayout implements EventListener, ResizeHandler 
 			}
 		});
 		setHeight(GHAUiHelper.getTabHeight() + 15 + "px");
-		// setMembersMargin(10);
 		setLeft(0);
 		setTop(GHAUiHelper.HEADER_HEIGTH);
 		setVisible(false);
@@ -64,7 +63,7 @@ public class GHAMenuBar extends VLayout implements EventListener, ResizeHandler 
 		GHAImg menuImg = new GHAImg("../resources/icons/menu.png");
 		// menuImg.setSize("34px", "22px");
 		GHALabel title = new GHALabel(GHAStrings.get("menu"));
-		title.setWidth("150px");
+		title.setWidth100();
 		title.setHeight("25px");
 
 		option.addMember(title);
@@ -99,8 +98,8 @@ public class GHAMenuBar extends VLayout implements EventListener, ResizeHandler 
 
 	@Override
 	public void onBrowserEvent(final Event event) {
-		final int mouseX = event.getClientX();
-		final int mouseY = event.getClientY();
+		final int mouseX = event.getScreenX();
+		final int mouseY = event.getScreenY();
 		final Rectangle rect = getRect();
 		final int menuMinX = rect.getLeft();
 		final int menuMaxX = rect.getLeft() + rect.getWidth();
@@ -127,7 +126,7 @@ public class GHAMenuBar extends VLayout implements EventListener, ResizeHandler 
 
 			@Override
 			public void execute(final boolean earlyFinish) {
-				// GHAUiHelper.addDocumentMouseOverHandler(GHAMenuBar.this);
+				GHAUiHelper.addDocumentClickHandler(GHAMenuBar.this);
 			}
 		});
 	}

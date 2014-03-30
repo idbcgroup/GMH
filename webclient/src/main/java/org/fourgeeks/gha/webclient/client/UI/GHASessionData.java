@@ -67,16 +67,6 @@ public abstract class GHASessionData {
 					}
 				});
 
-		// GHAButton notifbut= new GHAButton("Show", new ClickHandler() {
-		//
-		// @Override
-		// public void onClick(ClickEvent event) {
-		// // TODO Auto-generated method stub
-		// GHANotification.modalNotification.show("Informeichon",
-		// "Informacion del error");
-		// }
-		// });
-
 		userInfo.addMembers(usernameLabel,
 		/* notificationsButton, */
 		userButton
