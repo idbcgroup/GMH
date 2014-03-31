@@ -36,7 +36,7 @@ public class EiaTypeMaintenancePlan extends AbstractEntity {
 	private EiaType eiaType;
 
 	@ManyToOne
-	@JoinColumn(name = "maintenancePlanFk")
+	@JoinColumn(name = "maintenancePlanFk", columnDefinition = "bigint REFERENCES maintenanceplan(id) ON UPDATE CASCADE ON DELETE CASCADE")
 	private MaintenancePlan maintenancePlan;
 
 	/**

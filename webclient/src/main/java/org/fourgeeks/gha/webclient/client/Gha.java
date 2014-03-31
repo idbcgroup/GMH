@@ -29,40 +29,34 @@ public class Gha implements EntryPoint {
 	public void onModuleLoad() {
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
 			@Override
-			public void onValueChange(ValueChangeEvent<String> event) {
+			public void onValueChange(final ValueChangeEvent<String> event) {
 				final String historyToken = event.getValue();
 				if (historyToken == null)
 					return;
 				GHAPlaceSet.showPlace(historyToken);
-				// GHAPlacesFactory.showPlace(historyToken);
 			}
 		});
 
 		final GWTLoginServiceAsync service = GWT.create(GWTLoginService.class);
 		service.getLoggedUser(new GHAAsyncCallback<Bpu>() {
 			@Override
-			public void onSuccess(Bpu result) {
-				// if (History.getToken().equals("")) {
-				// History.newItem("home");
-				// History.fireCurrentHistoryState();
-				// }
+			public void onSuccess(final Bpu result) {
 				GHASessionData.setLoggedUser(result);
 				if (!History.getToken().equals(""))
 					History.fireCurrentHistoryState();
-				// GHAPlacesFactory.showPlace(History.getToken());
 			}
 		});
 
 		resize();
-		
+
 		GHAUiHelper.addGHAResizeHandler(new ResizeHandler() {
 			@Override
-			public void onResize(ResizeEvent event) {
+			public void onResize(final ResizeEvent event) {
 				resize();
 			}
 		});
 	}
-	
+
 	private void resize() {
 		RootPanel.get("main-content").setHeight(
 				GHAUiHelper.getTabHeight() + "px");

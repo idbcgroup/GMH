@@ -36,14 +36,14 @@ public class GHAMessage implements Serializable {
 	private LanguageEnum language;
 
 	@ManyToOne
-	@JoinColumn(name = "typeFk", nullable = true, columnDefinition = "character varying(255) DEFAULT 'SAY'::character varying")
-	private GHAMessageType type;
+	@JoinColumn(name = "messageTypeFk", nullable = true, columnDefinition = "character varying(255) DEFAULT 'SAY'::character varying")
+	private GHAMessageType messageType;
 
-	private String text;
+	private String messageText;
 
-	private String indications;
+	private String messageIndications;
 
-	private int time;
+	private int timeShowing;
 
 	/**
 	 */
@@ -60,7 +60,7 @@ public class GHAMessage implements Serializable {
 		super();
 		this.language = language;
 		this.code = code;
-		this.text = text;
+		this.messageText = text;
 	}
 
 	/**
@@ -76,10 +76,10 @@ public class GHAMessage implements Serializable {
 		super();
 		this.code = code;
 		this.language = language;
-		this.type = type;
-		this.text = text;
-		this.indications = indications;
-		this.time = time;
+		this.messageType = type;
+		this.messageText = text;
+		this.messageIndications = indications;
+		this.timeShowing = time;
 	}
 
 	/**
@@ -102,77 +102,77 @@ public class GHAMessage implements Serializable {
 	/**
 	 * @return the code
 	 */
-	public String getCode() {
+	public String getMessageCode() {
 		return code;
+	}
+
+	/**
+	 * @return the indications
+	 */
+	public String getMessageIndications() {
+		return messageIndications;
 	}
 
 	/**
 	 * @return the lang
 	 */
-	public LanguageEnum getLang() {
+	public LanguageEnum getLanguage() {
 		return language;
 	}
 
 	/**
 	 * @return the text
 	 */
-	public String getText() {
-		return this.text;
+	public String getMessageText() {
+		return this.messageText;
 	}
 
 	/**
 	 * @return the type
 	 */
-	public GHAMessageType getType() {
-		return type;
+	public GHAMessageType getMessageType() {
+		return messageType;
+	}
+
+	/**
+	 * @return the time that the message will remain open.
+	 */
+	public int getTimeShowing() {
+		return timeShowing;
+	}
+
+	/**
+	 * @param indications
+	 */
+	public void setMessageIndications(String indications) {
+		this.messageIndications = indications;
 	}
 
 	/**
 	 * @param text
 	 *            the text to set
 	 */
-	public void setText(String text) {
-		this.text = text;
+	public void setMessageText(String text) {
+		this.messageText = text;
 	}
 
 	/**
 	 * @param type
 	 *            the type of message
 	 */
-	public void setType(GHAMessageType type) {
-		this.type = type;
-	}
-
-	/**
-	 * @return the indications
-	 */
-	public String getIndications() {
-		return indications;
-	}
-
-	/**
-	 * @param indications
-	 */
-	public void setIndications(String indications) {
-		this.indications = indications;
-	}
-
-	/**
-	 * @return the time that the message will remain open.
-	 */
-	public int getTime() {
-		return time;
+	public void setMessageType(GHAMessageType type) {
+		this.messageType = type;
 	}
 
 	/**
 	 * @param time
 	 */
-	public void setTime(int time) {
-		this.time = time;
+	public void setTimeShowing(int time) {
+		this.timeShowing = time;
 	}
 
 	@Override
 	public String toString() {
-		return this.getText()+"."+this.getIndications();
+		return this.getMessageText()+"."+this.getMessageIndications();
 	}
 }

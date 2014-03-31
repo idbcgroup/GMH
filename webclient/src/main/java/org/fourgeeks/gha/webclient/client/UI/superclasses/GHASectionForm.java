@@ -24,11 +24,71 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class GHASectionForm extends HLayout implements HideableListener,
-ClosableListener {
+		ClosableListener {
+
+	static class SectionFormSideOption extends HTML {
+		private Canvas section = null;
+		private boolean selectable = false;
+
+		public SectionFormSideOption(String name) {
+			super(name);
+			setStylePrimaryName("side-option-main");
+			setHeight("30px");
+		}
+
+		public SectionFormSideOption(String name, Canvas section) {
+			super(name);
+			this.section = section;
+			selectable = true;
+
+			setStylePrimaryName("side-option");
+			setHeight("15px");
+
+			addMouseOverHandler(new MouseOverHandler() {
+
+				@Override
+				public void onMouseOver(MouseOverEvent event) {
+					addStyleName("side-option-over");
+				}
+			});
+			addMouseOutHandler(new MouseOutHandler() {
+
+				@Override
+				public void onMouseOut(MouseOutEvent event) {
+					removeStyleName("side-option-over");
+				}
+			});
+		}
+
+		public void activate() {
+			if (selectable) {
+				addStyleName("side-option-selected");
+				section.setVisibility(Visibility.VISIBLE);
+				section.show();
+			}
+		}
+
+		public void deactivate() {
+			if (selectable) {
+				removeStyleName("side-option-selected");
+				section.setVisibility(Visibility.HIDDEN);
+				section.hide();
+			}
+		}
+
+		/**
+		 * @return the section
+		 */
+		public Canvas getSection() {
+			return section;
+		}
+
+	}
 
 	private VLayout sideOptions;
 	private VLayout mainSection;
 	private SectionFormSideOption selectedOption;
+
 	private List<SectionFormSideOption> optionLabelList;
 
 	{
@@ -42,7 +102,8 @@ ClosableListener {
 	}
 
 	/**
-	 * @param sideOptionsTitle TODO
+	 * @param sideOptionsTitle
+	 *            TODO
 	 * 
 	 */
 	public GHASectionForm(String sideOptionsTitle) {
@@ -51,7 +112,6 @@ ClosableListener {
 		setWidth100();
 		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		setMembersMargin(10);
-
 
 		sideOptions.addMember(new SectionFormSideOption(sideOptionsTitle));
 		addSectionSeparator();
@@ -75,7 +135,8 @@ ClosableListener {
 		mainSection.addMembers(section);
 		section.setVisibility(Visibility.HIDDEN);
 
-		final SectionFormSideOption option = new SectionFormSideOption(name, section);
+		final SectionFormSideOption option = new SectionFormSideOption(name,
+				section);
 		option.addClickHandler(new com.google.gwt.event.dom.client.ClickHandler() {
 			@Override
 			public void onClick(com.google.gwt.event.dom.client.ClickEvent event) {
@@ -102,7 +163,8 @@ ClosableListener {
 		mainSection.addMembers(section);
 		section.setVisibility(Visibility.HIDDEN);
 
-		final SectionFormSideOption option = new SectionFormSideOption(name, section);
+		final SectionFormSideOption option = new SectionFormSideOption(name,
+				section);
 		option.addClickHandler(new com.google.gwt.event.dom.client.ClickHandler() {
 
 			@Override
@@ -190,66 +252,8 @@ ClosableListener {
 
 	@Override
 	public void show() {
-		openSelectedSection();
+		// openSelectedSection();
+		openFirst();
 		super.show();
-	}
-
-	static class SectionFormSideOption extends HTML {
-		private Canvas section=null;
-		private boolean selectable=false;
-
-		public SectionFormSideOption(String name){
-			super(name);
-			setStylePrimaryName("side-option-main");
-			setHeight("30px");
-		}
-
-		public SectionFormSideOption(String name, Canvas section) {
-			super(name);
-			this.section = section;
-			selectable=true;
-
-			setStylePrimaryName("side-option");
-			setHeight("15px");
-
-			addMouseOverHandler(new MouseOverHandler() {
-
-				@Override
-				public void onMouseOver(MouseOverEvent event) {
-					addStyleName("side-option-over");
-				}
-			});
-			addMouseOutHandler(new MouseOutHandler() {
-
-				@Override
-				public void onMouseOut(MouseOutEvent event) {
-					removeStyleName("side-option-over");
-				}
-			});
-		}
-
-		public void activate() {
-			if(selectable){
-				addStyleName("side-option-selected");
-				section.setVisibility(Visibility.VISIBLE);
-				section.show();
-			}
-		}
-
-		public void deactivate() {
-			if(selectable){
-				removeStyleName("side-option-selected");
-				section.setVisibility(Visibility.HIDDEN);
-				section.hide();
-			}
-		}
-
-		/**
-		 * @return the section
-		 */
-		public Canvas getSection() {
-			return section;
-		}
-
 	}
 }

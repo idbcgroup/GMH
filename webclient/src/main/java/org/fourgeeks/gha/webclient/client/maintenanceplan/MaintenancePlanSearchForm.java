@@ -33,8 +33,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
-implements MaintenancePlanSelectionListener,
-MaintenancePlanSelectionProducer {
+		implements MaintenancePlanSelectionListener,
+		MaintenancePlanSelectionProducer {
 
 	private final GHADynamicForm form;
 	private GHATextItem nameItem, descriptionItem, frequencyItem;
@@ -61,13 +61,13 @@ MaintenancePlanSelectionProducer {
 		resultSet = new MaintenancePlanResultSet(
 				ResultSetContainerType.SEARCH_FORM);
 		resultSet
-		.addMaintenancePlanSelectionListener(new MaintenancePlanSelectionListener() {
+				.addMaintenancePlanSelectionListener(new MaintenancePlanSelectionListener() {
 
-			@Override
-			public void select(MaintenancePlan maintenancePlan) {
-				hide();
-			}
-		});
+					@Override
+					public void select(MaintenancePlan maintenancePlan) {
+						hide();
+					}
+				});
 	}
 
 	/**
@@ -91,16 +91,17 @@ MaintenancePlanSelectionProducer {
 
 		final VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHACleanButton(new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						clean();
-					}
-				}), new GHACancelButton(new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						hide();
-					}
-				}));
+			@Override
+			public void onClick(ClickEvent event) {
+				clean();
+			}
+		}), new GHACancelButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				clean();
+				hide();
+			}
+		}));
 
 		final HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
@@ -111,15 +112,15 @@ MaintenancePlanSelectionProducer {
 
 		addMembers(formLayout,
 				GHAUiHelper
-				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-						+ "px"), resultSet);
+						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+								+ "px"), resultSet);
 	}
 
 	@Override
 	public void addMaintenancePlanSelectionListener(
 			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
 		resultSet
-		.addMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
+				.addMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
 
 	}
 
@@ -154,7 +155,7 @@ MaintenancePlanSelectionProducer {
 	public void removeMaintenancePlanSelectionListener(
 			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
 		resultSet
-		.removeMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
+				.removeMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
 	}
 
 	@Override
@@ -176,22 +177,22 @@ MaintenancePlanSelectionProducer {
 	private void search(final MaintenancePlan maintenancePlan) {
 		MaintenancePlanModel.find(maintenancePlan,
 				new GHAAsyncCallback<List<MaintenancePlan>>() {
-			@Override
-			public void onSuccess(List<MaintenancePlan> result) {
-				List<MaintenancePlan> newList = null;
-				if (blackList != null) {
-					final List<AbstractEntity> tmpList = GHAUtil
-							.binarySearchFilterEntity(result, blackList);
-					final List<MaintenancePlan> newTmpList = new ArrayList<MaintenancePlan>();
-					for (final AbstractEntity entity : tmpList)
-						newTmpList.add((MaintenancePlan) entity);
-					newList = newTmpList;
-				} else
-					newList = result;
+					@Override
+					public void onSuccess(List<MaintenancePlan> result) {
+						List<MaintenancePlan> newList = null;
+						if (blackList != null) {
+							final List<AbstractEntity> tmpList = GHAUtil
+									.binarySearchFilterEntity(result, blackList);
+							final List<MaintenancePlan> newTmpList = new ArrayList<MaintenancePlan>();
+							for (final AbstractEntity entity : tmpList)
+								newTmpList.add((MaintenancePlan) entity);
+							newList = newTmpList;
+						} else
+							newList = result;
 
-				resultSet.setRecords(newList, false);
-			}
-		});
+						resultSet.setRecords(newList, false);
+					}
+				});
 	}
 
 	@Override

@@ -26,8 +26,8 @@ import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivit
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSearchForm;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolModel;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionProducer;
 
 import com.smartgwt.client.util.BooleanCallback;
@@ -373,15 +373,30 @@ public class MaintenanceProtocolGridPanel extends GHAFormLayout implements
 	 * @param planFrom
 	 *            the plan with the activities to copy
 	 */
-	private void save(MaintenancePlan planFrom) {
-		MaintenanceProtocolModel.copyActivities(planFrom, maintenancePlan,
-				new GHAAsyncCallback<Void>() {
+	private void save(final MaintenancePlan planFrom) {
+
+		MaintenanceProtocolModel.findByMaintenancePlan(planFrom,
+				new GHAAsyncCallback<List<MaintenanceProtocol>>() {
 					@Override
-					public void onSuccess(Void result) {
-						loadData();
-						notifyMaintenanceProtocols(null);
+					public void onSuccess(List<MaintenanceProtocol> result) {
+
+						if (!result.isEmpty()) {
+							MaintenanceProtocolModel.copyActivities(planFrom,
+									maintenancePlan,
+									new GHAAsyncCallback<Void>() {
+										@Override
+										public void onSuccess(Void result) {
+											loadData();
+											notifyMaintenanceProtocols(null);
+										}
+									});
+						} else {
+							GHAAlertManager
+									.alert("maintenance-plan-exists-activity");
+						}
 					}
 				});
+
 	}
 
 	/*

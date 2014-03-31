@@ -85,18 +85,18 @@ public class GHAAlertManager {
 				final StringBuilder builder = new StringBuilder();
 				GHAMessageType type = createMessageTypeByName("SAY");
 				for (final GHAMessage msg : result) {
-					builder.append(msg.getText()).append("<br>");
-					type = msg.getType();
+					builder.append(msg.getMessageText()).append("<br>");
+					type = msg.getMessageType();
 				}
 				if (canShowNewMessage()) {
 					messageDialog = getMessageWindow(
-							new GHAMessage(result.get(0).getLang(),
+							new GHAMessage(result.get(0).getLanguage(),
 									"multiple-message", builder.toString(), "",
 									type, -1), "");
 					messageDialog.show();
 				} else {
 					// Window.alert("Queuing a message: type:"+type.getCode()+" Text:"+builder.toString());
-					messageQueue.add(new GHAMessage(result.get(0).getLang(),
+					messageQueue.add(new GHAMessage(result.get(0).getLanguage(),
 							"waited-multiple-message-" + messageQueue.size(),
 							builder.toString(), "", type, -1));
 				}
@@ -167,8 +167,8 @@ public class GHAAlertManager {
 		final Button buttonNo = new Button(GHAStrings.get("no"));
 		final Button buttonCancel = new Button(GHAStrings.get("cancel"));
 
-		final GHADialog messageDialog = new GHAAskDialog(ghaMessage.getType(),
-				ghaMessage.getText(), ghaMessage.getTime(), buttonYes,
+		final GHADialog messageDialog = new GHAAskDialog(ghaMessage.getMessageType(),
+				ghaMessage.getMessageText(), ghaMessage.getTimeShowing(), buttonYes,
 				buttonNo, buttonCancel);
 
 		buttonYes.addClickHandler(new ClickHandler() {
@@ -226,8 +226,8 @@ public class GHAAlertManager {
 				final StringBuilder builder = new StringBuilder();
 				GHAMessageType type = createMessageTypeByName("SAY");
 				for (final GHAMessage msg : result) {
-					builder.append(msg.getText()).append("<br>");
-					type = msg.getType();
+					builder.append(msg.getMessageText()).append("<br>");
+					type = msg.getMessageType();
 				}
 				final GHADialog messageDialog = new GHAAskDialog(type, builder
 						.toString(), -1, buttonYes, buttonNo, buttonCancel);
@@ -282,7 +282,7 @@ public class GHAAlertManager {
 				final Button buttonNo = new Button(GHAStrings.get("no"));
 				final Button buttonCancel = new Button(GHAStrings.get("cancel"));
 				final GHADialog messageDialog = new GHAAskDialog(result
-						.getType(), result.getText(), result.getTime(),
+						.getMessageType(), result.getMessageText(), result.getTimeShowing(),
 						buttonYes, buttonNo, buttonCancel);
 				buttonYes.addClickHandler(new ClickHandler() {
 					@Override
@@ -332,7 +332,7 @@ public class GHAAlertManager {
 		final Button buttonCancel = new Button(GHAStrings.get("cancel"));
 
 		final GHADialog messageDialog = new GHAAskDialog(
-				createMessageTypeByName("ASKYESNO"), title, message, -1,
+				createMessageTypeByName("VEC-ACTION"), title, message, -1,
 				buttonYes, buttonNo, buttonCancel);
 		buttonYes.addClickHandler(new ClickHandler() {
 			@Override
@@ -377,8 +377,8 @@ public class GHAAlertManager {
 		final Button buttonYes = new Button(GHAStrings.get("yes"));
 		final Button buttonNo = new Button(GHAStrings.get("no"));
 		final GHADialog messageDialog = new GHAConfirmDialog(
-				ghaMessage.getType(), ghaMessage.getText(),
-				ghaMessage.getTime(), buttonYes, buttonNo);
+				ghaMessage.getMessageType(), ghaMessage.getMessageText(),
+				ghaMessage.getTimeShowing(), buttonYes, buttonNo);
 
 		buttonYes.addClickHandler(new ClickHandler() {
 			@Override
@@ -416,8 +416,8 @@ public class GHAAlertManager {
 				final StringBuilder builder = new StringBuilder();
 				GHAMessageType type = createMessageTypeByName("SAY");
 				for (final GHAMessage msg : result) {
-					builder.append(msg.getText()).append("<br>");
-					type = msg.getType();
+					builder.append(msg.getMessageText()).append("<br>");
+					type = msg.getMessageType();
 				}
 				final GHADialog messageDialog = new GHAConfirmDialog(type,
 						builder.toString(), -1, buttonYes, buttonNo);
@@ -454,7 +454,7 @@ public class GHAAlertManager {
 				final Button buttonYes = new Button(GHAStrings.get("yes"));
 				final Button buttonNo = new Button(GHAStrings.get("no"));
 				final GHADialog messageDialog = new GHAConfirmDialog(result
-						.getType(), result.getText(), result.getTime(),
+						.getMessageType(), result.getMessageText(), result.getTimeShowing(),
 						buttonYes, buttonNo);
 				buttonYes.addClickHandler(new ClickHandler() {
 					@Override
@@ -510,26 +510,26 @@ public class GHAAlertManager {
 		GHAMessageType messageType;
 		if (type.equals("SAY"))
 			messageType = new GHAMessageType("SAY", 4, false);
-		else if (type.equals("CONFIRMATION"))
-			messageType = new GHAMessageType("CONFIRMATION", 0, true);
-		else if (type.equals("ASKYESNO"))
-			messageType = new GHAMessageType("ASKYESNO", 0, true);
-		else if (type.equals("ERROR-HARD"))
-			messageType = new GHAMessageType("ERROR-HARD", 0, true);
-		else if (type.equals("ERROR-SOFT"))
-			messageType = new GHAMessageType("ERROR-SOFT", 0, false);
-		else if (type.equals("WARNING"))
-			messageType = new GHAMessageType("WARNING", 4, false);
-		else if (type.equals("INFORMATION"))
-			messageType = new GHAMessageType("INFORMATION", 4, false);
-		else if (type.equals("FAILURE"))
-			messageType = new GHAMessageType("FAILURE", 4, false);
-		else if (type.equals("SUCCESS"))
-			messageType = new GHAMessageType("SUCCESS", 4, false);
-		else if (type.equals("PROCESSING"))
-			messageType = new GHAMessageType("PROCESSING", 0, false);
-		else if (type.equals("NEW_MESSAGE"))
-			messageType = new GHAMessageType("NEW_MESSAGE", 0, false);
+		else if (type.equals("VEC-USER-DECISION"))
+			messageType = new GHAMessageType("VEC-USER-DECISION", 0, true);
+		else if (type.equals("VEC-ACTION"))
+			messageType = new GHAMessageType("VEC-ACTION", 0, true);
+		else if (type.equals("VEC-ERROR"))
+			messageType = new GHAMessageType("VEC-ERROR", 0, true);
+		else if (type.equals("VEC-MINOR-ERROR"))
+			messageType = new GHAMessageType("VEC-MINOR-ERROR", 0, false);
+		else if (type.equals("VEM-WARNING"))
+			messageType = new GHAMessageType("VEM-WARNING", 4, false);
+		else if (type.equals("VEM-INFORMATION"))
+			messageType = new GHAMessageType("VEM-INFORMATION", 4, false);
+		else if (type.equals("VEM-VALIDATION"))
+			messageType = new GHAMessageType("VEM-VALIDATION", 4, false);
+		else if (type.equals("VEM-RESULTS"))
+			messageType = new GHAMessageType("VEM-RESULTS", 4, false);
+		else if (type.equals("VEM-ADVANCE"))
+			messageType = new GHAMessageType("VEM-ADVANCE", 0, false);
+		else if (type.equals("VEM-NOTIFICATION"))
+			messageType = new GHAMessageType("VEM-NOTIFICATION", 0, false);
 		else
 			messageType = new GHAMessageType("SAY", 4, false);
 		return messageType;
@@ -552,111 +552,111 @@ public class GHAAlertManager {
 	private static GHADialog getMessageWindow(GHAMessage message, String title) {
 		GHADialog messageDialog;
 		if (title.equals("")) {
-			if (message.getType().getCode().equals("SAY"))
-				messageDialog = new GHASayDialog(message.getType(),
-						message.getText() + ". " + message.getIndications()
+			if (message.getMessageType().getCode().equals("SAY"))
+				messageDialog = new GHASayDialog(message.getMessageType(),
+						message.getMessageText() + ". " + message.getMessageIndications()
 						+ "<br>Código del Mensaje: "
-						+ message.getCode(), message.getTime());
-			else if (message.getType().getCode().equals("ERROR-HARD"))
-				messageDialog = new GHAHardErrorDialog(message.getType(),
-						message.getText() + ". " + message.getIndications()
+						+ message.getMessageCode(), message.getTimeShowing());
+			else if (message.getMessageType().getCode().equals("VEC-ERROR"))
+				messageDialog = new GHAHardErrorDialog(message.getMessageType(),
+						message.getMessageText() + ". " + message.getMessageIndications()
 						+ "<br>Código del Mensaje: "
-						+ message.getCode(), message.getTime());
-			else if (message.getType().getCode().equals("ERROR-SOFT"))
-				messageDialog = new GHASoftErrorDialog(message.getType(),
-						message.getText() + ". " + message.getIndications()
+						+ message.getMessageCode(), message.getTimeShowing());
+			else if (message.getMessageType().getCode().equals("VEC-MINOR-ERROR"))
+				messageDialog = new GHASoftErrorDialog(message.getMessageType(),
+						message.getMessageText() + ". " + message.getMessageIndications()
 						+ "<br>Código del Mensaje: "
-						+ message.getCode(), message.getTime());
-			else if (message.getType().getCode().equals("WARNING"))
-				messageDialog = new GHAWarningDialog(message.getType(),
-						message.getText() + ". " + message.getIndications()
+						+ message.getMessageCode(), message.getTimeShowing());
+			else if (message.getMessageType().getCode().equals("VEM-WARNING"))
+				messageDialog = new GHAWarningDialog(message.getMessageType(),
+						message.getMessageText() + ". " + message.getMessageIndications()
 						+ "<br>Código del Mensaje: "
-						+ message.getCode(), message.getTime());
-			else if (message.getType().getCode().equals("INFORMATION"))
-				messageDialog = new GHAInformationDialog(message.getType(),
-						message.getText() + ". " + message.getIndications()
+						+ message.getMessageCode(), message.getTimeShowing());
+			else if (message.getMessageType().getCode().equals("VEM-INFORMATION"))
+				messageDialog = new GHAInformationDialog(message.getMessageType(),
+						message.getMessageText() + ". " + message.getMessageIndications()
 						+ "<br>Código del Mensaje: "
-						+ message.getCode(), message.getTime());
-			else if (message.getType().getCode().equals("FAILURE"))
-				messageDialog = new GHAFailureDialog(message.getType(),
-						message.getText() + ". " + message.getIndications()
+						+ message.getMessageCode(), message.getTimeShowing());
+			else if (message.getMessageType().getCode().equals("VEM-VALIDATION"))
+				messageDialog = new GHAFailureDialog(message.getMessageType(),
+						message.getMessageText() + ". " + message.getMessageIndications()
 						+ "<br>Código del Mensaje: "
-						+ message.getCode(), message.getTime());
-			else if (message.getType().getCode().equals("SUCCESS"))
-				messageDialog = new GHASuccessDialog(message.getType(),
-						message.getText() + ". " + message.getIndications()
+						+ message.getMessageCode(), message.getTimeShowing());
+			else if (message.getMessageType().getCode().equals("VEM-RESULTS"))
+				messageDialog = new GHASuccessDialog(message.getMessageType(),
+						message.getMessageText() + ". " + message.getMessageIndications()
 						+ "<br>Código del Mensaje: "
-						+ message.getCode(), message.getTime());
-			else if (message.getType().getCode().equals("PROCESSING"))
-				messageDialog = new GHAProgressDialog(message.getType(),
-						message.getText() + ". " + message.getIndications()
+						+ message.getMessageCode(), message.getTimeShowing());
+			else if (message.getMessageType().getCode().equals("VEM-ADVANCE"))
+				messageDialog = new GHAProgressDialog(message.getMessageType(),
+						message.getMessageText() + ". " + message.getMessageIndications()
 						+ "<br>Código del Mensaje: "
-						+ message.getCode(), message.getTime());
-			else if (message.getType().getCode().equals("NEW_MESSAGE"))
-				messageDialog = new GHANewMessageDialog(message.getType(),
-						message.getText() + ". " + message.getIndications()
+						+ message.getMessageCode(), message.getTimeShowing());
+			else if (message.getMessageType().getCode().equals("VEM-NOTIFICATION"))
+				messageDialog = new GHANewMessageDialog(message.getMessageType(),
+						message.getMessageText() + ". " + message.getMessageIndications()
 						+ "<br>Código del Mensaje: "
-						+ message.getCode(), message.getTime());
+						+ message.getMessageCode(), message.getTimeShowing());
 			else
-				messageDialog = new GHASayDialog(message.getType(),
-						message.getText() + ". " + message.getIndications()
+				messageDialog = new GHASayDialog(message.getMessageType(),
+						message.getMessageText() + ". " + message.getMessageIndications()
 						+ "<br>Código del Mensaje: "
-						+ message.getCode(), message.getTime());
+						+ message.getMessageCode(), message.getTimeShowing());
 		} else {
-			if (message.getType().getCode().equals("SAY"))
-				messageDialog = new GHASayDialog(message.getType(), title,
-						message.getText() + ". " + message.getIndications()
+			if (message.getMessageType().getCode().equals("SAY"))
+				messageDialog = new GHASayDialog(message.getMessageType(), title,
+						message.getMessageText() + ". " + message.getMessageIndications()
 						+ "<br>Código del Mensaje: "
-						+ message.getCode(), message.getTime());
-			else if (message.getType().getCode().equals("ERROR-HARD"))
-				messageDialog = new GHAHardErrorDialog(message.getType(),
-						title, message.getText() + ". "
-								+ message.getIndications()
+						+ message.getMessageCode(), message.getTimeShowing());
+			else if (message.getMessageType().getCode().equals("VEC-ERROR"))
+				messageDialog = new GHAHardErrorDialog(message.getMessageType(),
+						title, message.getMessageText() + ". "
+								+ message.getMessageIndications()
 								+ "<br>Código del Mensaje: "
-								+ message.getCode(), message.getTime());
-			else if (message.getType().getCode().equals("ERROR-SOFT"))
-				messageDialog = new GHASoftErrorDialog(message.getType(),
-						title, message.getText() + ". "
-								+ message.getIndications()
+								+ message.getMessageCode(), message.getTimeShowing());
+			else if (message.getMessageType().getCode().equals("VEC-MINOR-ERROR"))
+				messageDialog = new GHASoftErrorDialog(message.getMessageType(),
+						title, message.getMessageText() + ". "
+								+ message.getMessageIndications()
 								+ "<br>Código del Mensaje: "
-								+ message.getCode(), message.getTime());
-			else if (message.getType().getCode().equals("WARNING"))
-				messageDialog = new GHAWarningDialog(message.getType(), title,
-						message.getText() + ". " + message.getIndications()
+								+ message.getMessageCode(), message.getTimeShowing());
+			else if (message.getMessageType().getCode().equals("VEM-WARNING"))
+				messageDialog = new GHAWarningDialog(message.getMessageType(), title,
+						message.getMessageText() + ". " + message.getMessageIndications()
 						+ "<br>Código del Mensaje: "
-						+ message.getCode(), message.getTime());
-			else if (message.getType().getCode().equals("INFORMATION"))
-				messageDialog = new GHAInformationDialog(message.getType(),
-						title, message.getText() + ". "
-								+ message.getIndications()
+						+ message.getMessageCode(), message.getTimeShowing());
+			else if (message.getMessageType().getCode().equals("VEM-INFORMATION"))
+				messageDialog = new GHAInformationDialog(message.getMessageType(),
+						title, message.getMessageText() + ". "
+								+ message.getMessageIndications()
 								+ "<br>Código del Mensaje: "
-								+ message.getCode(), message.getTime());
-			else if (message.getType().getCode().equals("FAILURE"))
-				messageDialog = new GHAFailureDialog(message.getType(), title,
-						message.getText() + ". " + message.getIndications()
+								+ message.getMessageCode(), message.getTimeShowing());
+			else if (message.getMessageType().getCode().equals("VEM-VALIDATION"))
+				messageDialog = new GHAFailureDialog(message.getMessageType(), title,
+						message.getMessageText() + ". " + message.getMessageIndications()
 						+ "<br>Código del Mensaje: "
-						+ message.getCode(), message.getTime());
-			else if (message.getType().getCode().equals("SUCCESS"))
-				messageDialog = new GHASuccessDialog(message.getType(), title,
-						message.getText() + ". " + message.getIndications()
+						+ message.getMessageCode(), message.getTimeShowing());
+			else if (message.getMessageType().getCode().equals("VEM-RESULTS"))
+				messageDialog = new GHASuccessDialog(message.getMessageType(), title,
+						message.getMessageText() + ". " + message.getMessageIndications()
 						+ "<br>Código del Mensaje: "
-						+ message.getCode(), message.getTime());
-			else if (message.getType().getCode().equals("PROCESSING"))
-				messageDialog = new GHAProgressDialog(message.getType(), title,
-						message.getText() + ". " + message.getIndications()
+						+ message.getMessageCode(), message.getTimeShowing());
+			else if (message.getMessageType().getCode().equals("VEM-ADVANCE"))
+				messageDialog = new GHAProgressDialog(message.getMessageType(), title,
+						message.getMessageText() + ". " + message.getMessageIndications()
 						+ "<br>Código del Mensaje: "
-						+ message.getCode(), message.getTime());
-			else if (message.getType().getCode().equals("NEW_MESSAGE"))
-				messageDialog = new GHANewMessageDialog(message.getType(),
-						title, message.getText() + ". "
-								+ message.getIndications()
+						+ message.getMessageCode(), message.getTimeShowing());
+			else if (message.getMessageType().getCode().equals("VEM-NOTIFICATION"))
+				messageDialog = new GHANewMessageDialog(message.getMessageType(),
+						title, message.getMessageText() + ". "
+								+ message.getMessageIndications()
 								+ "<br>Código del Mensaje: "
-								+ message.getCode(), message.getTime());
+								+ message.getMessageCode(), message.getTimeShowing());
 			else
-				messageDialog = new GHASayDialog(message.getType(), title,
-						message.getText() + ". " + message.getIndications()
+				messageDialog = new GHASayDialog(message.getMessageType(), title,
+						message.getMessageText() + ". " + message.getMessageIndications()
 						+ "<br>Código del Mensaje: "
-						+ message.getCode(), message.getTime());
+						+ message.getMessageCode(), message.getTimeShowing());
 		}
 		return messageDialog;
 	}
@@ -675,9 +675,9 @@ public class GHAAlertManager {
 		if (!messageQueue.isEmpty()) {
 			final GHAMessage message = messageQueue.poll();
 			// Window.alert("Dequeing a message: type:"+message.getType().getCode()+" Text:"+message.getText());
-			final GHAMessageType messageType = message.getType();
-			if (!messageType.getCode().equals("ASKYESNO")
-					&& !messageType.getCode().equals("CONFIRMATION"))
+			final GHAMessageType messageType = message.getMessageType();
+			if (!messageType.getCode().equals("VEC-ACTION")
+					&& !messageType.getCode().equals("VEC-USER-DECISION"))
 				alert(message);
 		}
 	}

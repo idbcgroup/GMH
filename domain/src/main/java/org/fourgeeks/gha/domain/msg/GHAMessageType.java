@@ -23,7 +23,7 @@ public class GHAMessageType extends AbstractCodeEntity {
 
 	private boolean isModal;
 
-	private int time;
+	private int timeShowing;
 
 	/**
 	 * 
@@ -39,14 +39,14 @@ public class GHAMessageType extends AbstractCodeEntity {
 		super();
 		this.code = type;
 		this.isModal = modal;
-		this.time = time;
+		this.timeShowing = time;
 	}
 
 	/**
 	 * @return the time of the this time of message
 	 */
-	public int getTime() {
-		return time;
+	public int getTimeShowing() {
+		return timeShowing;
 	}
 
 	/**
@@ -60,7 +60,7 @@ public class GHAMessageType extends AbstractCodeEntity {
 	 * @return true if the message is timed (closes automatically).
 	 */
 	public boolean isTimed() {
-		return time>0;
+		return timeShowing>0;
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class GHAMessageType extends AbstractCodeEntity {
 	/**
 	 * @param time
 	 */
-	public void setTime(int time) {
-		this.time = time;
+	public void setTimeShowing(int time) {
+		this.timeShowing = time;
 	}
 }
