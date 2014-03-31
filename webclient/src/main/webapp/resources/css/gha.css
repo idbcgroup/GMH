@@ -659,10 +659,13 @@ div#header-bar.header-bar div#user-info.user-info div#isc_HLayout_0_wrapper div#
 	overflow: overlay !important;	
 }
 
+.dialogMessageLabelStyle{
+	max-height: 48px !important;
+}
+
 .dialogMessageStyle{
 	color:black;
 	font-size: 11px;
-/* 	overflow: overlay !important;	 */
 }
 
 .windowHeaderText, .dialogHeaderText{
