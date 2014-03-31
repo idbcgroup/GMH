@@ -68,7 +68,7 @@ public class App extends AbstractCodeEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		App other = (App) obj;
+		final App other = (App) obj;
 		if (code == null) {
 			if (other.code != null)
 				return false;
