@@ -57,7 +57,7 @@ public class MessageServiceTest extends GHAArquillianBaseServiceTest {
 
 		final String code = "GHAMESSAGE-TESTCODE";
 		GHAMessage ghaMessage = new GHAMessage(code, LanguageEnum.ES);
-		ghaMessage.setText("ghaMessage unit test");
+		ghaMessage.setMessageText("ghaMessage unit test");
 
 		try {
 			ghaMessage = messageServiceLocal.save(ghaMessage);
@@ -78,13 +78,13 @@ public class MessageServiceTest extends GHAArquillianBaseServiceTest {
 
 		try {
 			Thread.sleep(5000);
-		} catch (InterruptedException e2) {
+		} catch (final InterruptedException e2) {
 			unset();
 			Assert.fail(e2.getMessage());
 		}
 
 		try {
-			List<UILog> uiLogList = uILogServiceRemote.getAll();
+			final List<UILog> uiLogList = uILogServiceRemote.getAll();
 			for (final UILog u : uiLogList) {
 				uILogServiceLocal.delete(u);
 			}

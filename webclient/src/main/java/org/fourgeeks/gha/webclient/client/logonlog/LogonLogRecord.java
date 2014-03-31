@@ -19,7 +19,7 @@ public class LogonLogRecord extends GHAGridRecord<LogonLog> {
 	public LogonLogRecord(LogonLog logonLog) {
 		this.logonLog = logonLog;
 		setAttribute("time", logonLog.getTimestamp());
-		setAttribute("msg", logonLog.getMessage().getText());
+		setAttribute("msg", logonLog.getMessage().getMessageText());
 		setAttribute("ipAdd", logonLog.getIpAdd());
 	}
 

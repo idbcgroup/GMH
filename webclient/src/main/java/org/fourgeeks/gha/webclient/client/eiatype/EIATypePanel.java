@@ -59,7 +59,7 @@ EiaTypeSelectionProducer {
 		// new ClickHandler() {
 		// @Override
 		// public void onClick(ClickEvent event) {
-		// GHAAlertManager.alert("ERROR-HARD","Información","Long message test: test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test ");
+		// GHAAlertManager.alert("VEC-ERROR","Información","Long message test: test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test ");
 		// }
 		// });
 
