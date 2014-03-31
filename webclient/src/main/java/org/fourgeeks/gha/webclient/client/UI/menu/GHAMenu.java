@@ -1,206 +1,240 @@
 package org.fourgeeks.gha.webclient.client.UI.menu;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
+import org.fourgeeks.gha.domain.ess.ui.App;
+import org.fourgeeks.gha.domain.ess.ui.MenuLevel;
+import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
+import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.util.TreeNode;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.ui.Widget;
 import com.smartgwt.client.core.Rectangle;
-import com.smartgwt.client.types.AnimationEffect;
-import com.smartgwt.client.types.Cursor;
-import com.smartgwt.client.types.VerticalAlignment;
-import com.smartgwt.client.widgets.AnimationCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
-import com.smartgwt.client.widgets.events.MouseOutEvent;
-import com.smartgwt.client.widgets.events.MouseOutHandler;
-import com.smartgwt.client.widgets.events.MouseOverEvent;
-import com.smartgwt.client.widgets.events.MouseOverHandler;
-import com.smartgwt.client.widgets.layout.HLayout;
-import com.smartgwt.client.widgets.layout.LayoutSpacer;
-import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author alacret The Menu
  */
 public class GHAMenu {
-
-	private GHAMenu() {
-		throw new UnsupportedOperationException(
-				"This class mus not be instantiaded");
-	}
-
+	private static List<GHAMenuBar> currentBars = new ArrayList<GHAMenuBar>();
+	private static Map<String, GHAMenuBar> allBars = new HashMap<String, GHAMenuBar>();
+	private static GHAMenuBar firstMenuBar = new GHAMenuBar();
+	final private static int BAR_DISTANCE = 22;
+	private static Map<String, TreeNode<String, GHAMenuOption>> map;
+	private static final GHAImgButton menuButton = new GHAImgButton(
+			"../resources/icons/menu.png");
 	/**
-	 * @author alacret
-	 * 
+	 * The width for the bar and the bar components
 	 */
-	public static class GHAMenuBar extends VLayout implements EventListener,
-	ResizeHandler {
-
-		private final GHAImgButton menuButton;
-		private final List<GHAMenuOption> options = new ArrayList<GHAMenu.GHAMenuOption>();
-
-		/**
-		 * 
-		 */
-		public GHAMenuBar(GHAImgButton button) {
-			menuButton = button;
-			setWidth("200px");
-			setHeight(GHAUiHelper.getTabHeight() + 15 + "px");
-			setMembersMargin(10);
-			setLeft(0);
-			setTop(GHAUiHelper.HEADER_HEIGTH);
-			setVisible(false);
-			setAnimateTime(GHAUiHelper.DEFAULT_ANIMATION_TIME);
-			setBackgroundColor("#FFFFFF");
-			setScrollbarSize(5);
-			setShadowDepth(6);
-			setShowShadow(true);
-		}
+	final public static int BAR_WIDTH = 220;
+	private static EventListener clickHandler = new EventListener() {
 
 		@Override
-		public void onBrowserEvent(Event event) {
+		public void onBrowserEvent(final Event event) {
 			final int mouseX = event.getClientX();
 			final int mouseY = event.getClientY();
-			final Rectangle rect = getRect();
+			final Rectangle rect = firstMenuBar.getRect();
 			final int menuMinX = rect.getLeft();
-			final int menuMaxX = rect.getLeft() + rect.getWidth();
+			final int menuMaxX = rect.getLeft() + rect.getWidth()
+					+ (BAR_DISTANCE * (currentBars.size() - 1));
 			final int menuMinY = rect.getTop();
 			final int menuMaxY = rect.getTop() + rect.getHeight();
 
 			if (!(mouseX >= menuMinX && mouseX <= menuMaxX
-					&& mouseY >= menuMinY && mouseY <= menuMaxY)) {
+					&& mouseY >= menuMinY && mouseY <= menuMaxY))
 				hide();
+		}
+	};
+	static {
+		currentBars.add(firstMenuBar);
+		menuButton.setSize("34px", "22px");
+		menuButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(final ClickEvent event) {
+				firstMenuBar.bringToFront();
+				firstMenuBar.open();
+				GHAUiHelper.addDocumentClickHandler(clickHandler);
 			}
-		}
+		});
+	}
 
-		@Override
-		public void onResize(ResizeEvent event) {
-			setHeight(GHAUiHelper.getTabHeight() + 15 + "px");
-		}
-
-		/**
-		 * @param option
-		 */
-		public void addOption(GHAMenuOption option) {
-			options.add(option);
-			option.setVisible(false);
-			addMember(option);
-		}
-
-		/**
-		 * 
-		 */
-		public void open() {
-			for (final GHAMenuOption option : options)
-				option.setVisible(true);
-			animateShow(AnimationEffect.FLY, new AnimationCallback() {
-
-				@Override
-				public void execute(boolean earlyFinish) {
-					GHAUiHelper.addDocumentMouseOverHandler(GHAMenuBar.this);
-				}
-			});
-		}
-
-		@Override
-		public void hide() {
-			animateHide(AnimationEffect.FLY);
-			GHAUiHelper.removeDocumentMouseOverHandler(this);
-			menuButton.blur();
-		}
-
-		/**
-		 * @param token
-		 * @return the ghamenuoption of this token or null if is not found
-		 */
-		public GHAMenuOption getByToken(String token) {
-			for (final GHAMenuOption option : options)
-				if (option.getToken().equals(token))
-					return option;
-			return null;
-		}
+	private static void arrangeBars() {
+		int size = currentBars.size();
+		for (int i = 0; i < size; i++)
+			currentBars.get(i).animateMove(((size - 1) - i) * BAR_DISTANCE,
+					null);
 	}
 
 	/**
-	 * @author alacret
 	 * 
 	 */
-	static public class GHAMenuOption extends HLayout {
-
-		private final String token;
-		private final GHAMenuBar parent;
-
-		/**
-		 * @param text
-		 * @param token
-		 * @param imgSrc
-		 * @param bar TODO
-		 */
-		public GHAMenuOption(final String text, final String token,
-				String imgSrc, GHAMenuBar bar) {
-			this.token = token;
-			parent=bar;
-			setWidth100();
-			setHeight("30px");
-			setMembersMargin(7);
-			setDefaultLayoutAlign(VerticalAlignment.CENTER);
-			setCursor(Cursor.HAND);
-			setVisible(false);
-			setStyleName("menu-option");
-			final GHAImg iconButton = new GHAImg(imgSrc);
-
-			addMembers(new LayoutSpacer(), iconButton);
-
-			final GHALabel titulo = new GHALabel(text);
-			titulo.setWidth("150px");
-			titulo.setHeight("25px");
-			titulo.setStyleName("menu-option-title button-pointer");
-
-			addClickHandler(new ClickHandler() {
-
-				@Override
-				public void onClick(ClickEvent event) {
-					History.newItem(token);
-					parent.hide();
-				}
-			});
-
-			addMouseOverHandler(new MouseOverHandler() {
-
-				@Override
-				public void onMouseOver(MouseOverEvent event) {
-					setBackgroundColor(GHAUiHelper.DEFAULT_PLACES_BAR_BACKGROUND_COLOR);
-				}
-			});
-
-			addMouseOutHandler(new MouseOutHandler() {
-
-				@Override
-				public void onMouseOut(MouseOutEvent event) {
-					setBackgroundColor("#FFFFFF");
-				}
-			});
-
-			addMember(titulo);
-			addMember(new LayoutSpacer());
-
+	public static void build() {
+		Map<String, App> appMap;
+		try {
+			appMap = GHASessionData.getAppsMapp();
+		} catch (LoginNeededException e) {
+			return;
 		}
 
-		/**
-		 * @return the token
-		 */
-		public String getToken() {
-			return token;
+		map = new HashMap<String, TreeNode<String, GHAMenuOption>>();
+
+		for (Entry<String, App> entry : appMap.entrySet()) {
+			App app = entry.getValue();
+			TreeNode<String, GHAMenuOption> appAsTreeNode = new TreeNode<String, GHAMenuOption>(
+					app.getCode(), new GHAMenuOption(GHAStrings.get(app
+							.getName()), "../resources/icons/menu/"
+							+ app.getCode() + ".png"));
+			// siempre meto la app
+			map.put(appAsTreeNode.getCode(), appAsTreeNode);
+			MenuLevel menuLevel = app.getMenuLevel();
+			// si el menu es nulo, salgo, no tengo nada mas que hacer
+			if (menuLevel == null)
+				continue;
+			TreeNode<String, GHAMenuOption> menuLevelAsTreeNode = new TreeNode<String, GHAMenuOption>(
+					menuLevel.getCode(), new GHAMenuOption(menuLevel.getText(),
+							"../resources/icons/menu/" + menuLevel.getCode()
+									+ ".png"));
+			TreeNode<String, GHAMenuOption> menuLevelAsTreeNodeInMap = map
+					.get(menuLevelAsTreeNode.getCode());
+			// Reviso si el menu ya esta dentro del mapa
+			if (menuLevelAsTreeNodeInMap == null)// No esta
+				map.put(menuLevelAsTreeNode.getCode(), menuLevelAsTreeNode);// Lo
+																			// meto
+			else
+				// Si esta
+				menuLevelAsTreeNode = menuLevelAsTreeNodeInMap;// lo igualo
+			// Seteo el menu como padre de la app
+			appAsTreeNode.setParent(menuLevelAsTreeNode);
+			// Agrego la app como hija del menu
+			menuLevelAsTreeNode.addChild(appAsTreeNode);
+			while (menuLevel.getParentMenu() != null) {// Si hay un menu padre
+				TreeNode<String, GHAMenuOption> parentMenuLevelAsTreeNode = new TreeNode<String, GHAMenuOption>(
+						menuLevel.getParentMenu().getCode(), new GHAMenuOption(
+								menuLevel.getParentMenu().getText(),
+								"../resources/icons/menu/"
+										+ menuLevel.getParentMenu().getCode()
+										+ ".png"));
+				TreeNode<String, GHAMenuOption> parentMenuLevelAsTreeNodeInMap = map
+						.get(parentMenuLevelAsTreeNode.getCode());
+				// Reviso si el menu ya esta dentro del papa
+				if (parentMenuLevelAsTreeNodeInMap == null) // No esta
+					map.put(parentMenuLevelAsTreeNode.getCode(),
+							parentMenuLevelAsTreeNode);
+				else
+					// Si esta
+					parentMenuLevelAsTreeNode = parentMenuLevelAsTreeNodeInMap; // lo
+																				// igualo
+				// seteo el menu de afuera como hijo
+				parentMenuLevelAsTreeNode.addChild(menuLevelAsTreeNode);
+				// seteo al node actual como padre del de afuera
+				menuLevelAsTreeNode.setParent(parentMenuLevelAsTreeNode);
+				//
+				// Digo que el menu de afuera es el de esta iteracion
+				menuLevelAsTreeNode = parentMenuLevelAsTreeNode;
+				// digo que el menu de esta iteracion es el de afuera
+				menuLevel = menuLevel.getParentMenu();
+			}
 		}
 
+		firstMenuBar.addTitle(GHAStrings.get("menu"),
+				"../resources/icons/menu.png", new ClickHandler() {
+
+					@Override
+					public void onClick(final ClickEvent event) {
+						hide();
+					}
+				});
+
+		for (Entry<String, TreeNode<String, GHAMenuOption>> entry : map
+				.entrySet()) {
+			final TreeNode<String, GHAMenuOption> value = entry.getValue();
+			if (value.getParent() == null)
+				firstMenuBar.addOption(createMenuOption(value));
+		}
+	}
+
+	private static GHAMenuOption createMenuOption(
+			final TreeNode<String, GHAMenuOption> value) {
+		GHAMenuOption menuOption = value.getObject();
+		menuOption.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(final ClickEvent event) {
+				if (value.getChilds().size() == 0)
+					History.newItem(value.getCode());
+				else {
+					TreeNode<String, GHAMenuOption> node = map.get(value
+							.getCode());
+
+					GHAMenuBar menuBar = getOrCreateMenuBar(node);
+					currentBars.add(menuBar);
+					arrangeBars();
+					menuBar.bringToFront();
+					menuBar.open();
+				}
+			}
+		});
+		return menuOption;
+	}
+
+	/**
+	 * @return the button that opens the menu
+	 */
+	public static Widget getMenuButton() {
+		return menuButton;
+	}
+
+	private static GHAMenuBar getOrCreateMenuBar(
+			final TreeNode<String, GHAMenuOption> node) {
+		GHAMenuBar savedMenuBar = allBars.get(node.getCode());
+		if (savedMenuBar != null)
+			return savedMenuBar;
+
+		final GHAMenuBar newMenuBar = new GHAMenuBar();
+		newMenuBar.addTitle(node.getObject().getText(),
+				"../resources/icons/menu/" + node.getCode() + ".png",
+				new ClickHandler() {
+
+					@Override
+					public void onClick(final ClickEvent event) {
+						newMenuBar.hide();
+						currentBars.remove(newMenuBar);
+						arrangeBars();
+					}
+				});
+		Set<TreeNode<String, GHAMenuOption>> childs = node.getChilds();
+		for (TreeNode<String, GHAMenuOption> treeNode : childs)
+			newMenuBar.addOption(createMenuOption(treeNode));
+
+		allBars.put(node.getCode(), newMenuBar);
+		return newMenuBar;
+	}
+
+	protected static void hide() {
+		GHAUiHelper.removeDocumentClickHandler(clickHandler);
+		menuButton.blur();
+		for (int i = currentBars.size() - 1; i >= 0; i--)
+			currentBars.get(i).moveTo(0, GHAUiHelper.HEADER_HEIGTH);
+		for (int i = currentBars.size() - 1; i >= 0; i--)
+			currentBars.get(i).hide();
+		currentBars.clear();
+		currentBars.add(firstMenuBar);
+	}
+
+	private GHAMenu() {
+		throw new UnsupportedOperationException(
+				"This class mus not be instantiaded");
 	}
 }

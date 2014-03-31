@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.user.permissions;
+package org.fourgeeks.gha.webclient.client.user.functions;
 
 import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
@@ -13,7 +13,7 @@ import org.fourgeeks.gha.webclient.client.user.UserSelectionListener;
 public class PermissionSubTab extends GHASubTab implements
 		UserSelectionListener {
 
-	private PermissionGridPanel gridPanel;
+	private FunctionGridPanel gridPanel;
 
 	/**
 	 * @param panel
@@ -23,7 +23,7 @@ public class PermissionSubTab extends GHASubTab implements
 		panel.addHideableListener(this);
 		panel.addClosableListener(this);
 		panel.addUserSelectionListener(this);
-		gridPanel = new PermissionGridPanel();
+		gridPanel = new FunctionGridPanel();
 		setPane(gridPanel);
 	}
 

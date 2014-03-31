@@ -24,7 +24,7 @@ public interface GWTFunctionBpuService extends RemoteService {
 
 	/**
 	 * @param bpu
-	 * @return THE LISTS OF PERMISSIONS
+	 * @return THE LISTS OF Functions
 	 * @throws GHAEJBException
 	 */
 	public List<FunctionBpu> getPermissionsByBpu(Bpu bpu)
