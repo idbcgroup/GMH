@@ -31,11 +31,15 @@
 	</parameter>
 	<parameter name="fechaHoraReporte" class="java.lang.String"/>
 	<parameter name="nombreOperador" class="java.lang.String"/>
-	<parameter name="eiaid" class="java.lang.Integer">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
-	<queryString>
-		<![CDATA[select eia.code, eiatype.name, brand.name as brand_name, model, manufacturer.name as manufacturer_name from eiaspare, eiatype, eia, brand, manufacturer where eiaspare.spareeiafk = $P{eiaid} and eiaspare.eiafk = eia.id and eia.eiatypefk = eiatype.code and brandfk = brand.id and manufacturerfk = manufacturer.id;]]>
+	<parameter name="key" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[select eia.code, eiatype.name, brand.name as brand_name, model, manufacturer.name as manufacturer_name
+from eiaspare, eiatype, eia, brand, manufacturer
+where eiaspare.spareeiafk = $P{key}
+and eiaspare.eiafk = eia.id
+and eia.eiatypefk = eiatype.code
+and brandfk = brand.id
+and manufacturerfk = manufacturer.id;]]>
 	</queryString>
 	<field name="code" class="java.lang.String"/>
 	<field name="name" class="java.lang.String"/>
@@ -46,9 +50,9 @@
 		<band splitType="Stretch"/>
 	</background>
 	<columnHeader>
-		<band height="40" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<staticText>
-				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="150" y="20" width="152" height="20" uuid="601c798b-027d-4a30-a9d3-cd0cde3e6ff2">
+				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="150" y="15" width="152" height="15" uuid="601c798b-027d-4a30-a9d3-cd0cde3e6ff2">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -66,7 +70,7 @@
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="" style="estiloTitulosColumHeader" mode="Opaque" x="0" y="20" width="150" height="20" uuid="60d3ab9a-7f4c-4310-8eda-e7562d9e840b">
+				<reportElement key="" style="estiloTitulosColumHeader" mode="Opaque" x="0" y="15" width="150" height="15" uuid="60d3ab9a-7f4c-4310-8eda-e7562d9e840b">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -82,10 +86,10 @@
 				<textElement>
 					<font pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Codigo]]></text>
+				<text><![CDATA[ID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="302" y="20" width="150" height="20" uuid="e80d169a-ab46-4628-8f1f-6f999fb112b8">
+				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="302" y="15" width="150" height="15" uuid="e80d169a-ab46-4628-8f1f-6f999fb112b8">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -103,7 +107,7 @@
 				<text><![CDATA[Marca]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="452" y="20" width="150" height="20" uuid="ee888fc6-4408-4ef8-9ce4-9017d19755f9">
+				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="452" y="15" width="150" height="15" uuid="ee888fc6-4408-4ef8-9ce4-9017d19755f9">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -121,7 +125,7 @@
 				<text><![CDATA[Modelo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="602" y="20" width="150" height="20" uuid="75ef3a9e-b8bf-40b5-84d9-7d20858a11b7">
+				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="602" y="15" width="150" height="15" uuid="75ef3a9e-b8bf-40b5-84d9-7d20858a11b7">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -139,7 +143,7 @@
 				<text><![CDATA[Fabricante]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="0" y="0" width="752" height="20" backcolor="#B6BDC3" uuid="a6337403-408d-4a90-8deb-09fe18ae26e0">
+				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="0" y="0" width="752" height="15" backcolor="#B6BDC3" uuid="a6337403-408d-4a90-8deb-09fe18ae26e0">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -160,9 +164,9 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
+		<band height="15" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="0" y="0" width="150" height="20" uuid="223d7c29-c14c-4be1-aa44-712b89400f80">
+				<reportElement style="estiloTitulosGroupHeader" mode="Transparent" x="0" y="0" width="150" height="15" uuid="223d7c29-c14c-4be1-aa44-712b89400f80">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitx" value="pixel"/>
@@ -174,14 +178,14 @@
 					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
 					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
-					<paragraph leftIndent="2"/>
+					<paragraph leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="150" y="0" width="152" height="20" uuid="3c1994ea-7207-44c1-84d3-07337ec3c7de">
+				<reportElement mode="Transparent" x="150" y="0" width="152" height="15" uuid="3c1994ea-7207-44c1-84d3-07337ec3c7de">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -198,7 +202,7 @@
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="302" y="0" width="150" height="20" uuid="3eb1344d-820a-4a8e-8dee-051a09240fc6">
+				<reportElement mode="Transparent" x="302" y="0" width="150" height="15" uuid="3eb1344d-820a-4a8e-8dee-051a09240fc6">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -215,7 +219,7 @@
 				<textFieldExpression><![CDATA[$F{brand_name}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="452" y="0" width="150" height="20" uuid="4b12d988-bb50-410c-83d9-63c53070ad82">
+				<reportElement mode="Transparent" x="452" y="0" width="150" height="15" uuid="4b12d988-bb50-410c-83d9-63c53070ad82">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -232,7 +236,7 @@
 				<textFieldExpression><![CDATA[$F{model}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="602" y="0" width="150" height="20" uuid="0a08c96c-e822-4ff5-8042-b2ba35ef8312">
+				<reportElement mode="Transparent" x="602" y="0" width="150" height="15" uuid="0a08c96c-e822-4ff5-8042-b2ba35ef8312">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
