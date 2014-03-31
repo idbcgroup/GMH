@@ -79,7 +79,7 @@ public enum GHACache {
 	/**
 	 * @param callback
 	 */
-	public void getBaseRoles(GHAAsyncCallback<List<Role>> callback) {
+	public void getBaseRoles(final GHAAsyncCallback<List<Role>> callback) {
 		// Avoiding synchronization problems
 		if (roles == null)
 			getBaseRolesFromServer(callback);
@@ -94,7 +94,7 @@ public enum GHACache {
 					// subclass
 
 					@Override
-					public void onSuccess(List<Role> result) {
+					public void onSuccess(final List<Role> result) {
 						roles = result;
 						// Avoiding synchronization problems
 						callback.onSuccess(result);
@@ -105,8 +105,8 @@ public enum GHACache {
 	/**
 	 * @param callback
 	 */
-	public void getBpis(GHAAsyncCallback<List<Bpi>> callback,
-			boolean forceFromServer) {
+	public void getBpis(final GHAAsyncCallback<List<Bpi>> callback,
+			final boolean forceFromServer) {
 		if (forceFromServer || bpis == null)
 			getBpisFromServer(callback);
 		else {
@@ -119,7 +119,7 @@ public enum GHACache {
 			// subclass
 
 			@Override
-			public void onSuccess(List<Bpi> result) {
+			public void onSuccess(final List<Bpi> result) {
 				bpis = result;
 				// Avoiding synchronization problems
 				callback.onSuccess(result);
@@ -130,8 +130,8 @@ public enum GHACache {
 	/**
 	 * @param callback
 	 */
-	public void getBpus(GHAAsyncCallback<List<Bpu>> callback,
-			boolean forceFromServer) {
+	public void getBpus(final GHAAsyncCallback<List<Bpu>> callback,
+			final boolean forceFromServer) {
 		if (forceFromServer || bpus == null)
 			getBpusFromServer(callback);
 		else {
@@ -142,7 +142,7 @@ public enum GHACache {
 	private void getBpusFromServer(final GHAAsyncCallback<List<Bpu>> callback) {
 		BpuModel.getAll(new GHAAsyncCallback<List<Bpu>>() {
 			@Override
-			public void onSuccess(List<Bpu> result) {
+			public void onSuccess(final List<Bpu> result) {
 				bpus = result;
 				// Avoiding synchronization problems
 				callback.onSuccess(result);
@@ -154,8 +154,8 @@ public enum GHACache {
 	 * @param callback
 	 * @param forceFromServer
 	 */
-	public void getBrands(GHAAsyncCallback<List<Brand>> callback,
-			boolean forceFromServer) {
+	public void getBrands(final GHAAsyncCallback<List<Brand>> callback,
+			final boolean forceFromServer) {
 		if (forceFromServer || brands == null)
 			getBrandsFromServer(callback);
 		else
@@ -168,14 +168,14 @@ public enum GHACache {
 																// subclass
 
 					@Override
-					public void onSuccess(List<Brand> result) {
+					public void onSuccess(final List<Brand> result) {
 						brands = result;
 						callback.onSuccess(result);
 					}
 				});
 	}
 
-	public void getBsps(GHAAsyncCallback<List<Bsp>> callback) {
+	public void getBsps(final GHAAsyncCallback<List<Bsp>> callback) {
 		// Avoiding synchronization problems
 		if (bsps == null)
 			getBspsServer(callback);
@@ -188,7 +188,7 @@ public enum GHACache {
 		BspModel.getAll(new GHAAsyncCallback<List<Bsp>>() {
 
 			@Override
-			public void onSuccess(List<Bsp> result) {
+			public void onSuccess(final List<Bsp> result) {
 				bsps = result;
 				callback.onSuccess(result);
 			}
@@ -199,7 +199,7 @@ public enum GHACache {
 	 * @param callback
 	 */
 	public void getBuildingLocations(
-			GHAAsyncCallback<List<BuildingLocation>> callback) {
+			final GHAAsyncCallback<List<BuildingLocation>> callback) {
 		// Avoiding synchronization problems
 		if (buildingLocations == null)
 			getBuildingLocationsFromServer(callback);
@@ -215,7 +215,7 @@ public enum GHACache {
 					// subclass
 
 					@Override
-					public void onSuccess(List<BuildingLocation> result) {
+					public void onSuccess(final List<BuildingLocation> result) {
 						buildingLocations = result;
 						// Avoiding synchronization problems
 						callback.onSuccess(result);
@@ -223,7 +223,7 @@ public enum GHACache {
 				});
 	}
 
-	public void getEias(GHAAsyncCallback<List<Eia>> callback) {
+	public void getEias(final GHAAsyncCallback<List<Eia>> callback) {
 		if (eias == null)
 			getEiasFromServer(callback);
 		else
@@ -234,15 +234,20 @@ public enum GHACache {
 		EIAModel.getAll(new GHAAsyncCallback<List<Eia>>() {
 
 			@Override
-			public void onSuccess(List<Eia> result) {
+			public void onSuccess(final List<Eia> result) {
 				eias = result;
 				callback.onSuccess(eias);
 			}
 		});
 	}
 
+	/**
+	 * get the list of eiatype categories
+	 * 
+	 * @param callback
+	 */
 	public void getEiaTypeCategories(
-			GHAAsyncCallback<List<EiaTypeCategory>> callback) {
+			final GHAAsyncCallback<List<EiaTypeCategory>> callback) {
 		if (eiaTypeCategories == null)
 			getEiaTypeCategoriesFromServer(callback);
 		else
@@ -255,7 +260,7 @@ public enum GHACache {
 				.getAll(new GHAAsyncCallback<List<EiaTypeCategory>>() {
 
 					@Override
-					public void onSuccess(List<EiaTypeCategory> result) {
+					public void onSuccess(final List<EiaTypeCategory> result) {
 						eiaTypeCategories = result;
 						callback.onSuccess(result);
 					}
@@ -266,8 +271,8 @@ public enum GHACache {
 	 * @param callback
 	 * @param forceFromServer
 	 */
-	public void getEiaTypes(GHAAsyncCallback<List<EiaType>> callback,
-			boolean forceFromServer) {
+	public void getEiaTypes(final GHAAsyncCallback<List<EiaType>> callback,
+			final boolean forceFromServer) {
 		if (forceFromServer || eiaTypes == null)
 			getEiaTypesFromServer(callback);
 		else
@@ -279,7 +284,7 @@ public enum GHACache {
 		EIATypeModel.getAll(new GHAAsyncCallback<List<EiaType>>() {
 
 			@Override
-			public void onSuccess(List<EiaType> result) {
+			public void onSuccess(final List<EiaType> result) {
 				eiaTypes = result;
 				callback.onSuccess(eiaTypes);
 			}
@@ -290,7 +295,7 @@ public enum GHACache {
 	 * @param callback
 	 */
 	public void getExternalProviders(
-			GHAAsyncCallback<List<ExternalProvider>> callback) {
+			final GHAAsyncCallback<List<ExternalProvider>> callback) {
 		// Avoiding synchronization problems
 		if (externalProviders == null)
 			getExternalProvidersFromServer(callback);
@@ -306,7 +311,7 @@ public enum GHACache {
 					// subclass
 
 					@Override
-					public void onSuccess(List<ExternalProvider> result) {
+					public void onSuccess(final List<ExternalProvider> result) {
 						externalProviders = result;
 						// Avoiding synchronization problems
 						callback.onSuccess(result);
@@ -314,7 +319,7 @@ public enum GHACache {
 				});
 	}
 
-	public void getFacilities(GHAAsyncCallback<List<Facility>> callback) {
+	public void getFacilities(final GHAAsyncCallback<List<Facility>> callback) {
 		if (facilities == null)
 			getFacilitiesFromServer(callback);
 		else
@@ -331,7 +336,7 @@ public enum GHACache {
 		FacilityModel.getAll(new GHAAsyncCallback<List<Facility>>() {
 
 			@Override
-			public void onSuccess(List<Facility> result) {
+			public void onSuccess(final List<Facility> result) {
 				facilities = result;
 				callback.onSuccess(result);
 			}
@@ -344,7 +349,7 @@ public enum GHACache {
 					// subclass
 
 					@Override
-					public void onSuccess(List<Manufacturer> result) {
+					public void onSuccess(final List<Manufacturer> result) {
 						manufacturers = result;
 						// Avoiding synchronization problems
 						callback.onSuccess(result);
@@ -356,8 +361,8 @@ public enum GHACache {
 	 * @param callback
 	 */
 	public void getManufacturesrs(
-			GHAAsyncCallback<List<Manufacturer>> callback,
-			boolean forceFromServer) {
+			final GHAAsyncCallback<List<Manufacturer>> callback,
+			final boolean forceFromServer) {
 		if (forceFromServer || manufacturers == null)
 			getManufacturersFromServer(callback);
 		else {
@@ -366,7 +371,7 @@ public enum GHACache {
 	}
 
 	public void getMaterialCategories(
-			GHAAsyncCallback<List<MaterialCategory>> callback) {
+			final GHAAsyncCallback<List<MaterialCategory>> callback) {
 		if (materialCategories == null)
 			getMaterialCategoriesFromServer(callback);
 		else
@@ -379,7 +384,7 @@ public enum GHACache {
 				.getAll(new GHAAsyncCallback<List<MaterialCategory>>() {
 
 					@Override
-					public void onSuccess(List<MaterialCategory> result) {
+					public void onSuccess(final List<MaterialCategory> result) {
 						materialCategories = result;
 						callback.onSuccess(result);
 					}
@@ -389,7 +394,7 @@ public enum GHACache {
 	/**
 	 * @param callback
 	 */
-	public void getObus(GHAAsyncCallback<List<Obu>> callback) {
+	public void getObus(final GHAAsyncCallback<List<Obu>> callback) {
 		// Avoiding synchronization problems
 		if (obus == null)
 			getObusFromServer(callback);
@@ -403,7 +408,7 @@ public enum GHACache {
 			// subclass
 
 			@Override
-			public void onSuccess(List<Obu> result) {
+			public void onSuccess(final List<Obu> result) {
 				obus = result;
 				// Avoiding synchronization problems
 				callback.onSuccess(result);
@@ -411,7 +416,8 @@ public enum GHACache {
 		});
 	}
 
-	public void getWorkingAreas(GHAAsyncCallback<List<WorkingArea>> callback) {
+	public void getWorkingAreas(
+			final GHAAsyncCallback<List<WorkingArea>> callback) {
 		if (workingAreas == null)
 			getWorkingAreasFromServer(callback);
 		else
@@ -424,7 +430,7 @@ public enum GHACache {
 		WorkingAreaModel.getAll(new GHAAsyncCallback<List<WorkingArea>>() {
 
 			@Override
-			public void onSuccess(List<WorkingArea> result) {
+			public void onSuccess(final List<WorkingArea> result) {
 				workingAreas = result;
 				callback.onSuccess(result);
 			}

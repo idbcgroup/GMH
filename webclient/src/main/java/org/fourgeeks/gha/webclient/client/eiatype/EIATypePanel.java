@@ -55,13 +55,17 @@ EiaTypeSelectionProducer {
 				add();
 			}
 		});
-		// header.addDebugOption("MIT:"+GHAAlertManager.getOpenMessagesCounter(),
-		// new ClickHandler() {
-		// @Override
-		// public void onClick(ClickEvent event) {
-		// GHAAlertManager.alert("ERROR-HARD","Información","Long message test: test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test ");
-		// }
-		// });
+		//		header.addDebugOption("MIT:"+GHAAlertManager.getOpenMessagesCounter(),
+		//				new ClickHandler() {
+		//			@Override
+		//			public void onClick(ClickEvent event) {
+		//				String messageText = "";
+		//				for (int i = 0; i < 86; i=i+2) {
+		//					messageText += "A ";
+		//				}
+		//				GHAAlertManager.alert("VEC-ERROR","Información","Long Message: test test test test test test test test test test test ");
+		//			}
+		//		});
 
 		resultSet = new EiaTypeResultSet(ResultSetContainerType.TAB);
 		resultSet.setVisible(false);

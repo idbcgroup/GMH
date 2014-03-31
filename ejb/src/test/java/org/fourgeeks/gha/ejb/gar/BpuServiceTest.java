@@ -36,6 +36,16 @@ public class BpuServiceTest extends GHAArquillianBaseServiceTest {
 	UserTransaction ux;
 
 	// @Test
+	/**
+	 * @throws NotSupportedException
+	 * @throws SystemException
+	 * @throws SecurityException
+	 * @throws IllegalStateException
+	 * @throws RollbackException
+	 * @throws HeuristicMixedException
+	 * @throws HeuristicRollbackException
+	 * @throws GHAEJBException
+	 */
 	public void test() throws NotSupportedException, SystemException,
 			SecurityException, IllegalStateException, RollbackException,
 			HeuristicMixedException, HeuristicRollbackException,

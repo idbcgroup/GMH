@@ -4,10 +4,6 @@ import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog;
 
-import com.smartgwt.client.widgets.Button;
-import com.smartgwt.client.widgets.events.ClickEvent;
-import com.smartgwt.client.widgets.events.ClickHandler;
-
 
 
 /**
@@ -15,15 +11,6 @@ import com.smartgwt.client.widgets.events.ClickHandler;
  *
  */
 public class GHASoftErrorDialog extends GHADialog {
-	static Button buttonOK = new Button(GHAStrings.get("accept"));
-	{
-		buttonOK.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				close();
-			}
-		});
-	}
 	/**
 	 * @param type
 	 * @param message

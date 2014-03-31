@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -15,6 +16,8 @@ import com.smartgwt.client.widgets.AnimationCallback;
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Dialog;
 import com.smartgwt.client.widgets.Label;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.events.CloseClickEvent;
 import com.smartgwt.client.widgets.events.CloseClickHandler;
 import com.smartgwt.client.widgets.events.MouseOutEvent;
@@ -62,6 +65,7 @@ Window.ScrollHandler {
 	};
 	protected final int DEFAULT_ANIMATION_TIME = 300;
 
+	protected static Button buttonOK = new Button(GHAStrings.get("accept"));
 	/**
 	 * public GHADialog() { } Creates a GHADialog without buttons, with the
 	 * specifying parameters.
@@ -91,6 +95,8 @@ Window.ScrollHandler {
 				close();
 			}
 		});
+
+
 	}
 
 	/**
@@ -99,17 +105,13 @@ Window.ScrollHandler {
 	 * @param type
 	 * @param canMinimize
 	 * @param time
-	 *            TODO
 	 * @param buttons
 	 */
 	public GHADialog(GHAMessageType type, boolean canMinimize, int time,
 			Button... buttons) {
 		super();
 		hasButtons = true;
-		// ---Buttons
-		if (hasButtons) {
-			setButtons(buttons);
-		}
+
 		initHandlers();
 		initHeaderControls(canMinimize);
 		initFooterControls();
@@ -124,6 +126,17 @@ Window.ScrollHandler {
 				close();
 			}
 		});
+
+		buttonOK.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				close();
+			}
+		});
+
+		// ---Buttons
+		setButtons(buttons);
+
 	}
 
 	/**
@@ -156,7 +169,7 @@ Window.ScrollHandler {
 			setIsModal(true);
 			setShowModalMask(true);
 			setModalMaskOpacity(15);
-		} else if (!hasButtons && !dialogType.equals("PROCESSING")) {
+		} else if (!hasButtons && !dialogType.equals("VEM-ADVANCE")) {
 			if (isTimed) {
 				waiter.schedule(waitingTime);
 			}
@@ -250,6 +263,10 @@ Window.ScrollHandler {
 		final Layout msgStack = new Layout();
 		msgStack.setStyleName("dialogMessageStack");
 		changeAutoChildDefaults("messageStack", msgStack);
+		final Label msgLabel = new Label();
+		msgLabel.setHeight(45);
+		msgLabel.setHeight(45);
+		changeAutoChildDefaults("messageLabel", msgLabel);
 	}
 
 	private void initTypeParameters(GHAMessageType type, int time) {
@@ -260,7 +277,7 @@ Window.ScrollHandler {
 		if (time >= 0) {
 			waitingTime = time * secsToMills;
 		} else {
-			waitingTime = type.getTime() * secsToMills;
+			waitingTime = type.getTimeShowing() * secsToMills;
 		}
 	}
 

@@ -77,7 +77,7 @@ public class Bpu extends AbstractEntity {
 	 * @param bpi
 	 * @param citizen
 	 */
-	public Bpu(Bpi bpi, Citizen citizen) {
+	public Bpu(final Bpi bpi, final Citizen citizen) {
 		this.bpi = bpi;
 		this.citizen = citizen;
 	}
@@ -121,6 +121,7 @@ public class Bpu extends AbstractEntity {
 	 * 
 	 * @return the Id from session
 	 */
+	@Deprecated
 	public String getSessionId() {
 		return sessionId;
 	}
@@ -128,21 +129,21 @@ public class Bpu extends AbstractEntity {
 	/**
 	 * @param appsViews
 	 */
-	public void setAppsViews(List<AppView> appsViews) {
+	public void setAppsViews(final List<AppView> appsViews) {
 		this.appsViews = appsViews;
 	}
 
 	/**
 	 * @param bpi
 	 */
-	public void setBpi(Bpi bpi) {
+	public void setBpi(final Bpi bpi) {
 		this.bpi = bpi;
 	}
 
 	/**
 	 * @param citizen
 	 */
-	public void setCitizen(Citizen citizen) {
+	public void setCitizen(final Citizen citizen) {
 		this.citizen = citizen;
 	}
 
@@ -150,14 +151,14 @@ public class Bpu extends AbstractEntity {
 	 * @param functions
 	 *            the functions to set
 	 */
-	public void setFunctions(List<FunctionBpu> functions) {
+	public void setFunctions(final List<FunctionBpu> functions) {
 		this.functions = functions;
 	}
 
 	/**
 	 * @param jobPosition
 	 */
-	public void setJobPosition(JobPosition jobPosition) {
+	public void setJobPosition(final JobPosition jobPosition) {
 		this.jobPosition = jobPosition;
 	}
 
@@ -166,7 +167,8 @@ public class Bpu extends AbstractEntity {
 	 * @param sessionId
 	 *            the Id from session
 	 */
-	public void setSessionId(String sessionId) {
+	@Deprecated
+	public void setSessionId(final String sessionId) {
 		this.sessionId = sessionId;
 	}
 
