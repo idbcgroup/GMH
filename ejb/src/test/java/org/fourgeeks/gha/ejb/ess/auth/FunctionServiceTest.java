@@ -1,5 +1,8 @@
 package org.fourgeeks.gha.ejb.ess.auth;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 
 import junit.framework.Assert;
@@ -17,6 +20,9 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Arquillian.class)
 public class FunctionServiceTest extends GHAArquillianBaseServiceTest {
+
+	private final static Logger logger = Logger
+			.getLogger(FunctionServiceTest.class.getName());
 
 	@EJB(lookup = "java:global/test/FunctionService")
 	FunctionServiceRemote functionService;
@@ -36,6 +42,7 @@ public class FunctionServiceTest extends GHAArquillianBaseServiceTest {
 		try {
 			newPermission = functionService.save(originalPermission);
 		} catch (final GHAEJBException e) {
+			logger.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			Assert.fail("error saving the function");
 		}
 
