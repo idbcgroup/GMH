@@ -20,8 +20,8 @@ public class FunctionBpuModel {
 	 * @param bpuFunction
 	 * @param callback
 	 */
-	public static void delete(FunctionBpu bpuFunction,
-			GHAAsyncCallback<Void> callback) {
+	public static void delete(final FunctionBpu bpuFunction,
+			final GHAAsyncCallback<Void> callback) {
 		service.delete(bpuFunction, callback);
 	}
 
@@ -29,8 +29,8 @@ public class FunctionBpuModel {
 	 * @param bpu
 	 * @param callback
 	 */
-	public static void getPermissionsByBpu(Bpu bpu,
-			GHAAsyncCallback<List<FunctionBpu>> callback) {
+	public static void getPermissionsByBpu(final Bpu bpu,
+			final GHAAsyncCallback<List<FunctionBpu>> callback) {
 		service.getPermissionsByBpu(bpu, callback);
 	}
 
@@ -38,8 +38,8 @@ public class FunctionBpuModel {
 	 * @param bpuFunction
 	 * @param callback
 	 */
-	public static void save(FunctionBpu bpuFunction,
-			GHAAsyncCallback<FunctionBpu> callback) {
+	public static void save(final FunctionBpu bpuFunction,
+			final GHAAsyncCallback<FunctionBpu> callback) {
 		service.save(bpuFunction, callback);
 	}
 

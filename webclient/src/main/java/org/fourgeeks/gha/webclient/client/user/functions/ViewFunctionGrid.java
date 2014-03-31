@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.user.permissions;
+package org.fourgeeks.gha.webclient.client.user.functions;
 
 import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
@@ -10,7 +10,7 @@ import com.smartgwt.client.types.ListGridFieldType;
  * @author alacret
  * 
  */
-public class ViewPermissionGrid extends GhaGrid<ViewFunction> {
+public class ViewFunctionGrid extends GhaGrid<ViewFunction> {
 
 	private GHAGridField activeField;
 
@@ -23,7 +23,7 @@ public class ViewPermissionGrid extends GhaGrid<ViewFunction> {
 	/**
 	 * 
 	 */
-	public ViewPermissionGrid() {
+	public ViewFunctionGrid() {
 		super();
 		setEmptyMessage("No existen datos que mostrar");
 		setFields(new GHAGridField("module", "Módulo"), new GHAGridField(

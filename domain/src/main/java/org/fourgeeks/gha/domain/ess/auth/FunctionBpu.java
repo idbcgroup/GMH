@@ -13,8 +13,7 @@ import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.gar.Bpu;
 
 /**
- * @author alacret
- * 
+ * @author alacret Entity that manages the relation between a Function and a BPU
  */
 @Entity
 @Table(schema = "auth", uniqueConstraints = @UniqueConstraint(columnNames = {
@@ -44,11 +43,9 @@ public class FunctionBpu extends AbstractCodeEntity {
 
 	/**
 	 * @param bpu
-	 * @param appForm
-	 * @param view
 	 * @param function
 	 */
-	public FunctionBpu(Bpu bpu, Function function) {
+	public FunctionBpu(final Bpu bpu, final Function function) {
 		super();
 		setCode(function.getCode() + bpu.getId());
 		this.bpu = bpu;

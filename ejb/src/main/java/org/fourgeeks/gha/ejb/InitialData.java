@@ -56,6 +56,7 @@ import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.ess.ui.App;
 import org.fourgeeks.gha.domain.ess.ui.AppView;
+import org.fourgeeks.gha.domain.ess.ui.MenuLevel;
 import org.fourgeeks.gha.domain.ess.ui.Module;
 import org.fourgeeks.gha.domain.ess.ui.View;
 import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
@@ -114,6 +115,138 @@ public class InitialData {
 
 	@EJB(lookup = "java:global/ear-1/ejb-1/CCDIService!org.fourgeeks.gha.ejb.gom.CCDIServiceRemote")
 	CCDIServiceRemote ccdiServiceRemote;
+
+	private void activityTypeAndSubTypeTestData() {
+		final String queryStr = "SELECT t FROM ActivityType t";
+		try {
+			List<?> resultList = em.createQuery(queryStr).getResultList();
+			if (resultList.isEmpty())
+				throw new Exception();
+
+		} catch (final Exception e) {
+			try {
+				logger.info("Creating test data: activity type and subtype");
+
+				final String activityTypeNames[] = { "Mantenimiento",
+						"Asistencial", "Logística", "Operaciones",
+						"Administrativa", "Del Sistema" };
+
+				HashMap<String, String[]> map = new HashMap<String, String[]>();
+
+				map.put("Mantenimiento", new String[] { "Medición", "Limpieza",
+						"Calibración", "Desarme", "Armado", "Instalación",
+						"Desinstalación", "Cambio de Repuesto",
+						"Cambio de Consumibles", "Aceptación Mantenimiento",
+						"Traslado" });
+
+				map.put("Asistencial", new String[] { "Asistencia Paciente",
+						"Bañado de paciente", "Consulta",
+						"Recepción de Paciente", "Acompañar al Paciente",
+						"Hacer procedimiento", "calificación del Paciente",
+						"Pruebas Diagnósticas", "Medicación",
+						"Estudios Diagnósticos", "Tratamientos",
+						"Procedimientos" });
+
+				map.put("Logística", new String[] { "Dar Cita",
+						"Despacho de Materiales", "Mantenimiento Habitación" });
+
+				map.put("Administrativa", new String[] { "Admisión Paciente",
+						"Egreso Paciente", "Facturación" });
+
+				for (String typeName : activityTypeNames) {
+					ActivityType type = new ActivityType();
+					type.setDescription(typeName);
+					em.persist(type);
+
+					String[] subtypeNames = map.get(typeName);
+					if (subtypeNames == null)
+						continue;
+
+					for (String subTypeName : subtypeNames) {
+						final ActivityType subType = new ActivityType();
+						subType.setDescription(subTypeName);
+						subType.setParentActivityTypeId(type.getId());
+						em.persist(subType);
+					}
+				}
+
+				em.flush();
+			} catch (final Exception e1) {
+				logger.log(Level.INFO,
+						"error Creating MaintenanceActivity test data", e1);
+			}
+		}
+	}
+
+	private void apps() {
+		logger.info("creating apps test data");
+		final InputStream resourceAsStream = InitialData.class
+				.getResourceAsStream("/apps.csv");
+
+		InputStreamReader reader = null;
+		try {
+			reader = new InputStreamReader(resourceAsStream, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			logger.log(Level.SEVERE,
+					"Error in modules(): incorrect file encoding", e);
+			try {
+				resourceAsStream.close();
+			} catch (IOException e1) {
+				logger.log(Level.SEVERE,
+						"Error in modules(): closing the stream", e1);
+			}
+			return;
+		}
+
+		CSVReader csvReader = new CSVReader(reader, ',', '\'', 1);
+
+		List<String[]> readAll;
+		try {
+			readAll = csvReader.readAll();
+		} catch (IOException e) {
+			logger.log(Level.SEVERE, "Error in modules(): io exception", e);
+			try {
+				csvReader.close();
+			} catch (IOException e1) {
+				logger.log(Level.SEVERE, "Error in modules(): io exception", e1);
+			}
+			try {
+				resourceAsStream.close();
+			} catch (IOException e1) {
+				logger.log(Level.SEVERE,
+						"Error in modules(): closing the stream", e1);
+			}
+			return;
+		}
+
+		for (final String[] strings : readAll) {
+			final String language = strings[0];
+			if (language.startsWith("#") || language.startsWith("//"))
+				continue;
+
+			String moduleCode = strings[0];
+			String appCode = strings[1];
+			String appToken = strings[2];
+			String menuCode = strings[3];
+			Module module = em.find(Module.class, moduleCode);
+			MenuLevel menu = em.find(MenuLevel.class, menuCode);
+			em.merge(new App(module, appCode, appCode, appToken, menu));
+			em.flush();
+		}
+
+		try {
+			csvReader.close();
+		} catch (IOException e1) {
+			logger.log(Level.SEVERE, "Error in modules(): io exception", e1);
+		}
+		try {
+			resourceAsStream.close();
+		} catch (IOException e1) {
+			logger.log(Level.SEVERE, "Error in modules(): closing the stream",
+					e1);
+		}
+
+	}
 
 	private void bpiTestData() {
 		final String query = "SELECT t from Bpi t WHERE t.id = 1 ";
@@ -281,7 +414,7 @@ public class InitialData {
 					final CCDIDefinition definition = em
 							.createNamedQuery("CCDIDefinition.findByCode",
 									CCDIDefinition.class)
-							.setParameter("code", strings[0]).getSingleResult();
+									.setParameter("code", strings[0]).getSingleResult();
 
 					final CCDILevelDefinition levelDefinition = new CCDILevelDefinition();
 					levelDefinition.setDefinition(definition);
@@ -289,8 +422,8 @@ public class InitialData {
 					levelDefinition.setName(strings[2]);
 					levelDefinition.setLength(Integer.parseInt(strings[3]));
 					levelDefinition
-							.setValueType(CCDIValueTypeEnum.values()[Integer
-									.parseInt(strings[4])]);
+					.setValueType(CCDIValueTypeEnum.values()[Integer
+					                                         .parseInt(strings[4])]);
 					levelDefinition.setInitialValue(Integer
 							.parseInt(strings[5]));
 					levelDefinition.setIncValue(Integer.parseInt(strings[6]));
@@ -356,9 +489,9 @@ public class InitialData {
 							.createNamedQuery(
 									"CCDILevelDefinition.findByLevel",
 									CCDILevelDefinition.class)
-							.setParameter("definition", definition)
-							.setParameter("level", Integer.parseInt(strings[1]))
-							.getSingleResult();
+									.setParameter("definition", definition)
+									.setParameter("level", Integer.parseInt(strings[1]))
+									.getSingleResult();
 
 					final CCDILevelValue levelValue = new CCDILevelValue();
 					levelValue.setLevelDefinition(levelDefinition);
@@ -371,7 +504,7 @@ public class InitialData {
 					levelValue.setNextValue(Integer.parseInt(strings[5]));
 					levelValue.setFixedValue(strings[6]);
 					levelValue.setStatus(CCDIValueStatusEnum.values()[Integer
-							.parseInt(strings[7])]);
+					                                                  .parseInt(strings[7])]);
 					levelValue.setNextElement(Integer.parseInt(strings[8]));
 
 					em.persist(levelValue);
@@ -429,13 +562,13 @@ public class InitialData {
 					definition.setLength(Integer.parseInt(strings[2]));
 					definition.setLevels(Integer.parseInt(strings[3]));
 					definition.setStatus(CCDIStatusEnum.values()[Integer
-							.parseInt(strings[4])]);
+					                                             .parseInt(strings[4])]);
 					definition.setConcept(em.find(Concept.class,
 							Long.parseLong(strings[5])));
 					definition.setType(CCDICodeTypeEnum.values()[Integer
-							.parseInt(strings[6])]);
+					                                             .parseInt(strings[6])]);
 					definition
-							.setVerification(Boolean.parseBoolean(strings[7]));
+					.setVerification(Boolean.parseBoolean(strings[7]));
 					definition.setVerificationMethod(strings[8]);
 
 					em.persist(definition);
@@ -548,7 +681,7 @@ public class InitialData {
 						.createNamedQuery(
 								"CCDILevelValue.findAllByDefinitionCode",
 								CCDILevelValue.class)
-						.setParameter("code", "Equipos").getResultList();
+								.setParameter("code", "Equipos").getResultList();
 				for (final CCDILevelValue ccdi : ccdiCategories) {
 					if (!ccdi.getLevelDefinition().getDefinition().getCode()
 							.equals("Equipos"))
@@ -574,7 +707,7 @@ public class InitialData {
 
 		final String query = "SELECT COUNT(t) from EiaType t";
 		try {
-			int count = ((Number) em.createQuery(query).getSingleResult())
+			final int count = ((Number) em.createQuery(query).getSingleResult())
 					.intValue();
 			if (count <= 0)
 				throw new NoResultException();
@@ -595,7 +728,7 @@ public class InitialData {
 							Long.parseLong(strings[0])));
 					eiaType.setName(strings[1]);
 					eiaType.setMobility(EiaMobilityEnum.values()[Integer
-							.parseInt(strings[2])]);
+					                                             .parseInt(strings[2])]);
 					eiaType.setEiaTypeCategory(em.find(EiaTypeCategory.class,
 							strings[3]));
 					eiaType.setCode(ccdiServiceRemote
@@ -603,7 +736,7 @@ public class InitialData {
 									.getCode()));
 
 					eiaType.setSubtype(EiaSubTypeEnum.values()[Integer
-							.parseInt(strings[4])]);
+					                                           .parseInt(strings[4])]);
 					eiaType.setModel(strings[5]);
 					em.persist(eiaType);
 					em.flush();
@@ -662,7 +795,7 @@ public class InitialData {
 		} catch (final NoResultException e) {
 			logger.info("Creating test data : facility");
 			final String facilityNames[] = { "Sala 1 Rayos X",
-					"Sala 1 Tomografia" };
+			"Sala 1 Tomografia" };
 			for (int i = 3, j = 0; i < 5; ++i, ++j) {
 				final Facility facility = new Facility();
 				facility.setName(facilityNames[j]);
@@ -675,13 +808,58 @@ public class InitialData {
 
 	}
 
+	private void functions() throws IOException {
+		logger.info("creating functions test data");
+		final InputStream resourceAsStream = InitialData.class
+				.getResourceAsStream("/codes.csv");
+		CSVReader csvReader = null;
+		try {
+			csvReader = new CSVReader(new InputStreamReader(resourceAsStream,
+					"UTF-8"), ',', '\'', 1);
+			final List<String[]> readAll = csvReader.readAll();
+			View view = null;
+			Function permission = null;
+			ViewFunction ViewPermission = null;
+
+			for (final String[] strings : readAll) {
+				if (strings[0].startsWith("#") || strings[0].startsWith("//"))
+					continue;
+				final String viewCode = strings[0];
+				view = em.find(View.class, viewCode);
+				final String permissionCode = strings[1];
+				final String functionDescription = strings[2];
+				permission = new Function(permissionCode, functionDescription);
+				em.merge(permission);
+				ViewPermission = new ViewFunction(view, permission);
+				em.merge(ViewPermission);
+				em.flush();
+			}
+			csvReader.close();
+		} catch (final UnsupportedEncodingException e3) {
+			csvReader.close();
+			logger.log(
+					Level.SEVERE,
+					"Error loading views and functions: incorrect file encoding",
+					e3);
+		} finally {
+			if (csvReader != null)
+				csvReader.close();
+		}
+		resourceAsStream.close();
+	}
+
 	/**
 	 * 
 	 */
 	@PostConstruct
 	public void inicializar() {
+		modules();
+		menus();
+		apps();
+		views();
+
 		try {
-			modules();
+			functions();
 		} catch (final IOException e) {
 			e.printStackTrace();
 		}
@@ -761,68 +939,6 @@ public class InitialData {
 		}
 	}
 
-	private void activityTypeAndSubTypeTestData() {
-		final String queryStr = "SELECT t FROM ActivityType t";
-		try {
-			List<?> resultList = em.createQuery(queryStr).getResultList();
-			if (resultList.isEmpty())
-				throw new Exception();
-
-		} catch (final Exception e) {
-			try {
-				logger.info("Creating test data: activity type and subtype");
-
-				final String activityTypeNames[] = { "Mantenimiento",
-						"Asistencial", "Logística", "Operaciones",
-						"Administrativa", "Del Sistema" };
-
-				HashMap<String, String[]> map = new HashMap<String, String[]>();
-
-				map.put("Mantenimiento", new String[] { "Medición", "Limpieza",
-						"Calibración", "Desarme", "Armado", "Instalación",
-						"Desinstalación", "Cambio de Repuesto",
-						"Cambio de Consumibles", "Aceptación Mantenimiento",
-						"Traslado" });
-
-				map.put("Asistencial", new String[] { "Asistencia Paciente",
-						"Bañado de paciente", "Consulta",
-						"Recepción de Paciente", "Acompañar al Paciente",
-						"Hacer procedimiento", "calificación del Paciente",
-						"Pruebas Diagnósticas", "Medicación",
-						"Estudios Diagnósticos", "Tratamientos",
-						"Procedimientos" });
-
-				map.put("Logística", new String[] { "Dar Cita",
-						"Despacho de Materiales", "Mantenimiento Habitación" });
-
-				map.put("Administrativa", new String[] { "Admisión Paciente",
-						"Egreso Paciente", "Facturación" });
-
-				for (String typeName : activityTypeNames) {
-					ActivityType type = new ActivityType();
-					type.setDescription(typeName);
-					em.persist(type);
-
-					String[] subtypeNames = map.get(typeName);
-					if (subtypeNames == null)
-						continue;
-
-					for (String subTypeName : subtypeNames) {
-						final ActivityType subType = new ActivityType();
-						subType.setDescription(subTypeName);
-						subType.setParentActivityTypeId(type.getId());
-						em.persist(subType);
-					}
-				}
-
-				em.flush();
-			} catch (final Exception e1) {
-				logger.log(Level.INFO,
-						"error Creating MaintenanceActivity test data", e1);
-			}
-		}
-	}
-
 	private void maintenanceActivityTestData() {
 		final String query = "SELECT t from MaintenanceActivity t WHERE t.id = 1";
 		try {
@@ -834,7 +950,7 @@ public class InitialData {
 				final String activityNames[] = { "Desconectar", "Abrir",
 						"Limpiar", "Cerrar", "Conectar", "Reemplazar",
 						"subprotocol_activity", "activity_1", "activity_2",
-						"activity_3" };
+				"activity_3" };
 
 				final String activityDesc[] = {
 						"Desconecte el equipo de la corriente eléctrica",
@@ -846,7 +962,7 @@ public class InitialData {
 						"actividad de subprotocolo para pruebas",
 						"actividad de prueba 1 para la actividad de subprotocolo",
 						"actividad de prueba 2 para la actividad de subprotocolo",
-						"actividad de prueba 2 para la actividad de subprotocolo" };
+				"actividad de prueba 2 para la actividad de subprotocolo" };
 
 				final int durations[] = { 1, 2, 2, 1, 4, 3, 5, 6, 8, 7 };
 
@@ -902,10 +1018,10 @@ public class InitialData {
 				logger.info("Creating test data: maintenance plan");
 				final String planName[] = {
 						"Plan de Mantenimiento Impresoras Tinta",
-						"Plan de Mantenimiento Impresoras Laser" };
+				"Plan de Mantenimiento Impresoras Laser" };
 				final String planDesc[] = {
 						"plan de mantenimiento impresoras de tinta",
-						"plan de mantenimiento impresoras laser" };
+				"plan de mantenimiento impresoras laser" };
 				final int planFrequency[] = { 1, 3 };
 				final TimePeriodEnum planTimePeriod[] = {
 						TimePeriodEnum.MONTHS, TimePeriodEnum.SEMESTERS };
@@ -1006,7 +1122,7 @@ public class InitialData {
 	private void materialCategoryTestData() {
 		final String query = "SELECT COUNT(t) from MaterialCategory t";
 		try {
-			int count = ((Number) em.createQuery(query).getSingleResult())
+			final int count = ((Number) em.createQuery(query).getSingleResult())
 					.intValue();
 			if (count <= 0)
 				throw new NoResultException();
@@ -1017,7 +1133,7 @@ public class InitialData {
 						.createNamedQuery(
 								"CCDILevelValue.findAllByDefinitionCode",
 								CCDILevelValue.class)
-						.setParameter("code", "Material").getResultList();
+								.setParameter("code", "Material").getResultList();
 				for (final CCDILevelValue ccdi : ccdiCategories) {
 					if (!ccdi.getLevelDefinition().getDefinition().getCode()
 							.equals("Material"))
@@ -1043,7 +1159,7 @@ public class InitialData {
 
 		final String query = "SELECT COUNT(t) from Material t";
 		try {
-			int count = ((Number) em.createQuery(query).getSingleResult())
+			final int count = ((Number) em.createQuery(query).getSingleResult())
 					.intValue();
 			if (count <= 0)
 				throw new NoResultException();
@@ -1061,7 +1177,7 @@ public class InitialData {
 						continue;
 					Material material = new Material();
 					material.setType(MaterialTypeEnum.values()[Integer
-							.parseInt(strings[0])]);
+					                                           .parseInt(strings[0])]);
 					material.setMaterialCategory(em.find(
 							MaterialCategory.class, strings[1]));
 					material.setDescription(strings[2]);
@@ -1077,7 +1193,7 @@ public class InitialData {
 					em.flush();
 					material = em.find(Material.class, material.getCode());
 
-					MaterialBrand materialBrand = new MaterialBrand();
+					final MaterialBrand materialBrand = new MaterialBrand();
 					materialBrand.setMaterial(material);
 					materialBrand.setBrand(em.find(Brand.class,
 							Long.parseLong(strings[7])));
@@ -1105,6 +1221,76 @@ public class InitialData {
 				logger.log(Level.SEVERE, "ERROR IN eiatype test data");
 			}
 		}
+	}
+
+	private void menus() {
+		logger.info("creating menus test data");
+		final InputStream resourceAsStream = InitialData.class
+				.getResourceAsStream("/menus.csv");
+
+		InputStreamReader reader = null;
+		try {
+			reader = new InputStreamReader(resourceAsStream, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			logger.log(Level.SEVERE,
+					"Error in modules(): incorrect file encoding", e);
+			try {
+				resourceAsStream.close();
+			} catch (IOException e1) {
+				logger.log(Level.SEVERE,
+						"Error in modules(): closing the stream", e1);
+			}
+			return;
+		}
+
+		CSVReader csvReader = new CSVReader(reader, ',', '\'', 1);
+
+		List<String[]> readAll;
+		try {
+			readAll = csvReader.readAll();
+		} catch (IOException e) {
+			logger.log(Level.SEVERE, "Error in modules(): io exception", e);
+			try {
+				csvReader.close();
+			} catch (IOException e1) {
+				logger.log(Level.SEVERE, "Error in modules(): io exception", e1);
+			}
+			try {
+				resourceAsStream.close();
+			} catch (IOException e1) {
+				logger.log(Level.SEVERE,
+						"Error in modules(): closing the stream", e1);
+			}
+			return;
+		}
+
+		for (final String[] strings : readAll) {
+			final String language = strings[0];
+			if (language.startsWith("#") || language.startsWith("//"))
+				continue;
+			String code = strings[0];
+			String text = strings[1];
+			String parentCode = strings[2];
+			if (parentCode.equals("null"))
+				em.merge(new MenuLevel(code, text, null));
+			else
+				em.merge(new MenuLevel(code, text, em.find(MenuLevel.class,
+						parentCode)));
+
+			em.flush();
+		}
+		try {
+			csvReader.close();
+		} catch (IOException e1) {
+			logger.log(Level.SEVERE, "Error in modules(): io exception", e1);
+		}
+		try {
+			resourceAsStream.close();
+		} catch (IOException e1) {
+			logger.log(Level.SEVERE, "Error in modules(): closing the stream",
+					e1);
+		}
+
 	}
 
 	private void messages() {
@@ -1195,16 +1381,16 @@ public class InitialData {
 			try {
 				logger.info("creating test data : message types");
 				em.persist(new GHAMessageType("SAY", 4, false));
-				em.persist(new GHAMessageType("CONFIRMATION", 0, true));
-				em.persist(new GHAMessageType("ASKYESNO", 0, true));
-				em.persist(new GHAMessageType("ERROR-HARD", 0, true));
-				em.persist(new GHAMessageType("ERROR-SOFT", 0, false));
-				em.persist(new GHAMessageType("WARNING", 4, false));
-				em.persist(new GHAMessageType("INFORMATION", 4, false));
-				em.persist(new GHAMessageType("FAILURE", 4, false));
-				em.persist(new GHAMessageType("SUCCESS", 4, false));
-				em.persist(new GHAMessageType("PROCESSING", 0, false));
-				em.persist(new GHAMessageType("NEW_MESSAGE", 0, false));
+				em.persist(new GHAMessageType("VEC-USER-DECISION", 0, true));
+				em.persist(new GHAMessageType("VEC-ACTION", 0, true));
+				em.persist(new GHAMessageType("VEC-ERROR", 0, true));
+				em.persist(new GHAMessageType("VEC-MINOR-ERROR", 0, false));
+				em.persist(new GHAMessageType("VEM-WARNING", 4, false));
+				em.persist(new GHAMessageType("VEM-INFORMATION", 4, false));
+				em.persist(new GHAMessageType("VEM-VALIDATION", 4, false));
+				em.persist(new GHAMessageType("VEM-RESULTS", 4, false));
+				em.persist(new GHAMessageType("VEM-ADVANCE", 0, false));
+				em.persist(new GHAMessageType("VEM-NOTIFICATION", 0, false));
 			} catch (final Exception e1) {
 				logger.log(Level.INFO,
 						"error creating test data: Message Types", e);
@@ -1212,58 +1398,70 @@ public class InitialData {
 		}
 	}
 
-	private void modules() throws IOException {
+	private void modules() {
+		logger.info("creating modules test data");
 		final InputStream resourceAsStream = InitialData.class
-				.getResourceAsStream("/codes.csv");
-		CSVReader csvReader = null;
-		try {
-			csvReader = new CSVReader(new InputStreamReader(resourceAsStream,
-					"UTF-8"), ',', '\'', 1);
-			final List<String[]> readAll = csvReader.readAll();
-			Module module = null;
-			App app = null;
-			View view = null;
-			AppView appView = null;
-			Function permission = null;
-			ViewFunction ViewPermission = null;
+				.getResourceAsStream("/modules.csv");
 
-			for (final String[] strings : readAll) {
-				if (strings[0].startsWith("#") || strings[0].startsWith("//"))
-					continue;
-				final String moduleCode = strings[0];
-				module = new Module(moduleCode, null);
-				em.merge(module);
-				final String appCode = strings[1];
-				final String appToken = strings[2];
-				final String name = appCode;
-				app = new App(module, name, appCode, appToken);
-				em.merge(app);
-				final String viewCode = strings[3];
-				final String viewDescription = strings[4];
-				view = new View(viewCode, null, viewDescription);
-				em.merge(view);
-				appView = new AppView(app, view);
-				em.merge(appView);
-				final String permissionCode = strings[5];
-				final String functionDescription = strings[6];
-				permission = new Function(permissionCode, null,
-						functionDescription);
-				em.merge(permission);
-				ViewPermission = new ViewFunction(view, permission);
-				em.merge(ViewPermission);
+		InputStreamReader reader = null;
+		try {
+			reader = new InputStreamReader(resourceAsStream, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			logger.log(Level.SEVERE,
+					"Error in modules(): incorrect file encoding", e);
+			try {
+				resourceAsStream.close();
+			} catch (IOException e1) {
+				logger.log(Level.SEVERE,
+						"Error in modules(): closing the stream", e1);
 			}
-			csvReader.close();
-		} catch (final UnsupportedEncodingException e3) {
-			csvReader.close();
-			logger.log(
-					Level.SEVERE,
-					"Error loading modules, screens, views and functions: incorrect file encoding",
-					e3);
-		} finally {
-			if (csvReader != null)
-				csvReader.close();
+			return;
 		}
-		resourceAsStream.close();
+
+		CSVReader csvReader = new CSVReader(reader, ',', '\'', 1);
+
+		List<String[]> readAll;
+		try {
+			readAll = csvReader.readAll();
+		} catch (IOException e) {
+			logger.log(Level.SEVERE, "Error in modules(): io exception", e);
+			try {
+				csvReader.close();
+			} catch (IOException e1) {
+				logger.log(Level.SEVERE, "Error in modules(): io exception", e1);
+			}
+			try {
+				resourceAsStream.close();
+			} catch (IOException e1) {
+				logger.log(Level.SEVERE,
+						"Error in modules(): closing the stream", e1);
+			}
+			return;
+		}
+
+		for (final String[] strings : readAll) {
+			final String language = strings[0];
+			if (language.startsWith("#") || language.startsWith("//"))
+				continue;
+			String code = strings[0];
+			String name = strings[1];
+			em.merge(new Module(code, name));
+		}
+
+		em.flush();
+
+		try {
+			csvReader.close();
+		} catch (IOException e1) {
+			logger.log(Level.SEVERE, "Error in modules(): io exception", e1);
+		}
+		try {
+			resourceAsStream.close();
+		} catch (IOException e1) {
+			logger.log(Level.SEVERE, "Error in modules(): closing the stream",
+					e1);
+		}
+
 	}
 
 	private void obuTestData() {
@@ -1621,6 +1819,82 @@ public class InitialData {
 			} catch (final IOException e) {
 				logger.log(Level.SEVERE, "ERROR in UisTrings", e);
 			}
+		}
+
+	}
+
+	private void views() {
+		logger.info("creating views test data");
+		final InputStream resourceAsStream = InitialData.class
+				.getResourceAsStream("/views.csv");
+
+		InputStreamReader reader = null;
+		try {
+			reader = new InputStreamReader(resourceAsStream, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			logger.log(Level.SEVERE,
+					"Error in modules(): incorrect file encoding", e);
+			try {
+				resourceAsStream.close();
+			} catch (IOException e1) {
+				logger.log(Level.SEVERE,
+						"Error in modules(): closing the stream", e1);
+			}
+			return;
+		}
+
+		CSVReader csvReader = new CSVReader(reader, ',', '\'', 1);
+
+		List<String[]> readAll;
+		try {
+			readAll = csvReader.readAll();
+		} catch (IOException e) {
+			logger.log(Level.SEVERE, "Error in modules(): io exception", e);
+			try {
+				csvReader.close();
+			} catch (IOException e1) {
+				logger.log(Level.SEVERE, "Error in modules(): io exception", e1);
+			}
+			try {
+				resourceAsStream.close();
+			} catch (IOException e1) {
+				logger.log(Level.SEVERE,
+						"Error in modules(): closing the stream", e1);
+			}
+			return;
+		}
+
+		App app;
+		View view;
+		AppView appView;
+		for (final String[] strings : readAll) {
+			final String language = strings[0];
+			if (language.startsWith("#") || language.startsWith("//"))
+				continue;
+
+			String appCode = strings[0];
+			String viewCode = strings[1];
+			String viewDescription = strings[2];
+
+			app = em.find(App.class, appCode);
+			view = new View(viewCode, viewDescription);
+			em.merge(view);
+			appView = new AppView(app, view);
+			em.merge(appView);
+
+			em.flush();
+		}
+
+		try {
+			csvReader.close();
+		} catch (IOException e1) {
+			logger.log(Level.SEVERE, "Error in modules(): io exception", e1);
+		}
+		try {
+			resourceAsStream.close();
+		} catch (IOException e1) {
+			logger.log(Level.SEVERE, "Error in modules(): closing the stream",
+					e1);
 		}
 
 	}
