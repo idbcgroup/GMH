@@ -35,15 +35,15 @@
 	<parameter name="nombreOperador" class="java.lang.String">
 		<defaultValueExpression><![CDATA["Rigoberto Sanchez"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="eiaid" class="java.lang.Integer"/>
+	<parameter name="key" class="java.lang.Integer"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["/home/eloy/workspace/gha/webclient/src/main/webapp/resources/reportes/editables/"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="eianame" class="java.lang.String"/>
+	<parameter name="name" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[select eia.code, eiatype.name, brand.name as brand_name, model, manufacturer.name as manufacturer_name
 from eiacomponent, eiatype, eia, brand, manufacturer
-where eiacomponent.parenteiafk = $P{eiaid}
+where eiacomponent.parenteiafk = $P{key}
 and eiacomponent.eiafk = eia.id
 and eia.eiatypefk = eiatype.code and brandfk = brand.id
 and manufacturerfk = manufacturer.id]]>
@@ -58,9 +58,12 @@ and manufacturerfk = manufacturer.id]]>
 			<band splitType="Stretch"/>
 		</groupHeader>
 		<groupFooter>
-			<band height="50">
+			<band height="15">
 				<subreport runToBottom="false">
-					<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="752" height="50" uuid="4563b771-e779-4394-baec-78cd33c0f278"/>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="752" height="15" uuid="4563b771-e779-4394-baec-78cd33c0f278">
+						<property name="local_mesure_unitheight" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
 					<subreportParameter name="logo">
 						<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
 					</subreportParameter>
@@ -71,7 +74,7 @@ and manufacturerfk = manufacturer.id]]>
 						<subreportParameterExpression><![CDATA[$P{nombreOperador}]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter name="eiaid">
-						<subreportParameterExpression><![CDATA[$P{eiaid}]]></subreportParameterExpression>
+						<subreportParameterExpression><![CDATA[$P{key}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "GMH.LCRU.01.SR.jasper"]]></subreportExpression>
@@ -123,7 +126,7 @@ and manufacturerfk = manufacturer.id]]>
 				<textFieldExpression><![CDATA[$P{fechaHoraReporte}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="0" y="4" width="752" height="20" forecolor="#808080" uuid="7c93d762-4aa3-40b0-b6ed-3d52ffbff679">
+				<reportElement mode="Transparent" x="0" y="4" width="752" height="20" forecolor="#000000" uuid="7c93d762-4aa3-40b0-b6ed-3d52ffbff679">
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -150,14 +153,14 @@ and manufacturerfk = manufacturer.id]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Calibri Light" size="13"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Componentes y Repuestos del equipo " + $P{eianame}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Componentes y Repuestos del equipo " + $P{name}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="40" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<staticText>
-				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="150" y="20" width="152" height="20" uuid="601c798b-027d-4a30-a9d3-cd0cde3e6ff2">
+				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="150" y="15" width="152" height="15" uuid="601c798b-027d-4a30-a9d3-cd0cde3e6ff2">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -175,7 +178,7 @@ and manufacturerfk = manufacturer.id]]>
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="" style="estiloTitulosColumHeader" mode="Opaque" x="0" y="20" width="150" height="20" uuid="60d3ab9a-7f4c-4310-8eda-e7562d9e840b">
+				<reportElement key="" style="estiloTitulosColumHeader" mode="Opaque" x="0" y="15" width="150" height="15" uuid="60d3ab9a-7f4c-4310-8eda-e7562d9e840b">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -191,10 +194,10 @@ and manufacturerfk = manufacturer.id]]>
 				<textElement>
 					<font pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Codigo]]></text>
+				<text><![CDATA[ID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="302" y="20" width="150" height="20" uuid="e80d169a-ab46-4628-8f1f-6f999fb112b8">
+				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="302" y="15" width="150" height="15" uuid="e80d169a-ab46-4628-8f1f-6f999fb112b8">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -212,7 +215,7 @@ and manufacturerfk = manufacturer.id]]>
 				<text><![CDATA[Marca]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="452" y="20" width="150" height="20" uuid="ee888fc6-4408-4ef8-9ce4-9017d19755f9">
+				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="452" y="15" width="150" height="15" uuid="ee888fc6-4408-4ef8-9ce4-9017d19755f9">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -230,7 +233,7 @@ and manufacturerfk = manufacturer.id]]>
 				<text><![CDATA[Modelo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="602" y="20" width="150" height="20" uuid="75ef3a9e-b8bf-40b5-84d9-7d20858a11b7">
+				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="602" y="15" width="150" height="15" uuid="75ef3a9e-b8bf-40b5-84d9-7d20858a11b7">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -248,7 +251,7 @@ and manufacturerfk = manufacturer.id]]>
 				<text><![CDATA[Fabricante]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="" style="estiloTitulosColumHeader" mode="Opaque" x="0" y="0" width="752" height="20" backcolor="#B6BDC3" uuid="ab3c0e14-738b-424d-a0c5-8482d4e5b25a">
+				<reportElement key="" style="estiloTitulosColumHeader" mode="Opaque" x="0" y="0" width="752" height="15" backcolor="#B6BDC3" uuid="ab3c0e14-738b-424d-a0c5-8482d4e5b25a">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -263,15 +266,16 @@ and manufacturerfk = manufacturer.id]]>
 				</box>
 				<textElement textAlignment="Left">
 					<font pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
+					<paragraph leftIndent="10"/>
 				</textElement>
 				<text><![CDATA[Componentes]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
+		<band height="15" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="0" y="0" width="150" height="20" uuid="223d7c29-c14c-4be1-aa44-712b89400f80">
+				<reportElement mode="Transparent" x="0" y="0" width="150" height="15" uuid="223d7c29-c14c-4be1-aa44-712b89400f80">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitx" value="pixel"/>
@@ -283,14 +287,14 @@ and manufacturerfk = manufacturer.id]]>
 					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
 					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
-					<paragraph leftIndent="2"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+					<paragraph leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="150" y="0" width="152" height="20" uuid="3c1994ea-7207-44c1-84d3-07337ec3c7de">
+				<reportElement mode="Transparent" x="150" y="0" width="152" height="15" uuid="3c1994ea-7207-44c1-84d3-07337ec3c7de">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -301,13 +305,13 @@ and manufacturerfk = manufacturer.id]]>
 					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="302" y="0" width="150" height="20" uuid="3eb1344d-820a-4a8e-8dee-051a09240fc6">
+				<reportElement mode="Transparent" x="302" y="0" width="150" height="15" uuid="3eb1344d-820a-4a8e-8dee-051a09240fc6">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -318,13 +322,13 @@ and manufacturerfk = manufacturer.id]]>
 					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{brand_name}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="452" y="0" width="150" height="20" uuid="4b12d988-bb50-410c-83d9-63c53070ad82">
+				<reportElement mode="Transparent" x="452" y="0" width="150" height="15" uuid="4b12d988-bb50-410c-83d9-63c53070ad82">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -335,13 +339,13 @@ and manufacturerfk = manufacturer.id]]>
 					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{model}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="602" y="0" width="150" height="20" uuid="0a08c96c-e822-4ff5-8042-b2ba35ef8312">
+				<reportElement mode="Transparent" x="602" y="0" width="150" height="15" uuid="0a08c96c-e822-4ff5-8042-b2ba35ef8312">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -352,7 +356,7 @@ and manufacturerfk = manufacturer.id]]>
 					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{manufacturer_name}]]></textFieldExpression>

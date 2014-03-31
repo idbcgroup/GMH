@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version last-->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EiaTypeMantReport" language="bsh" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="606d8e54-0a0a-4415-92bf-390680ff9945">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EiaTypeMaterialReport" language="bsh" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="606d8e54-0a0a-4415-92bf-390680ff9945">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="gha"/>
 	<property name="ireport.zoom" value="0.75"/>
 	<property name="ireport.x" value="0"/>
@@ -38,34 +38,34 @@
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["/home/eloy/workspace/gha/webclient/src/main/webapp/resources/reportes/editables/"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="eianame" class="java.lang.String"/>
-	<parameter name="eiaid" class="java.lang.Integer">
-		<defaultValueExpression><![CDATA[2]]></defaultValueExpression>
-	</parameter>
+	<parameter name="name" class="java.lang.String"/>
+	<parameter name="key" class="java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[select * from maintenanceplan, eiamaintenanceplanification, eiatypemaintenanceplan
-where eiafk = $P{eiaid}
-and eiatypemaintenanceplanfk = eiatypemaintenanceplan.id
-and maintenanceplan.id = maintenanceplanfk]]>
+		<![CDATA[select *, brand.name as brand_name
+	from eiatypematerialbrand, materialbrand, material, materialcategory, brand
+	where eiatypematerialbrand.eiatypefk = $P{key}
+	and materialfk = material.code
+	and materialbrandfk = materialbrand.id
+	and materialcategory.code = materialcategoryfk
+	and brandfk = brand.id]]>
 	</queryString>
 	<field name="id" class="java.lang.Long"/>
-	<field name="cancelationoption" class="java.lang.Integer"/>
 	<field name="description" class="java.lang.String"/>
-	<field name="frequency" class="java.lang.Integer"/>
 	<field name="name" class="java.lang.String"/>
-	<field name="pot" class="java.lang.Integer"/>
-	<field name="state" class="java.lang.Integer"/>
 	<field name="type" class="java.lang.Integer"/>
-	<field name="jobfk" class="java.lang.Long"/>
-	<field name="bspfk" class="java.lang.Long"/>
 	<field name="eiatypefk" class="java.lang.String"/>
-	<field name="maintenanceplanfk" class="java.lang.Long"/>
-	<field name="beginningdate" class="java.sql.Date"/>
-	<field name="planificationstate" class="java.lang.Integer"/>
-	<field name="eiafk" class="java.lang.Long"/>
-	<field name="jobresponsablefk" class="java.lang.Long"/>
-	<field name="maintenanceproviderfk" class="java.lang.Long"/>
-	<field name="eiatypemaintenanceplanfk" class="java.lang.Long"/>
+	<field name="amount" class="java.lang.Integer"/>
+	<field name="materialbrandfk" class="java.lang.Long"/>
+	<field name="materialcategoryfk" class="java.lang.String"/>
+	<field name="brandfk" class="java.lang.Long"/>
+	<field name="materialfk" class="java.lang.String"/>
+	<field name="code" class="java.lang.String"/>
+	<field name="serviceresourcecategoryfk" class="java.lang.Long"/>
+	<field name="barcode" class="java.lang.String"/>
+	<field name="externalcode" class="java.lang.String"/>
+	<field name="model" class="java.lang.String"/>
+	<field name="manufacturerfk" class="java.lang.Long"/>
+	<field name="brand_name" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -110,7 +110,7 @@ and maintenanceplan.id = maintenanceplanfk]]>
 				<textFieldExpression><![CDATA[$P{fechaHoraReporte}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="0" y="4" width="752" height="20" forecolor="#808080" uuid="7c93d762-4aa3-40b0-b6ed-3d52ffbff679">
+				<reportElement mode="Transparent" x="0" y="4" width="752" height="20" forecolor="#000000" uuid="7c93d762-4aa3-40b0-b6ed-3d52ffbff679">
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -119,7 +119,7 @@ and maintenanceplan.id = maintenanceplanfk]]>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Calibri" size="16" isBold="true" pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Reporte de Equipos]]></text>
+				<text><![CDATA[Reporte de Tipos de Equipo]]></text>
 			</staticText>
 			<line>
 				<reportElement positionType="FixRelativeToBottom" mode="Transparent" x="0" y="45" width="752" height="1" forecolor="#5B9BD5" backcolor="#5B9BD5" uuid="170da3b4-cd39-4638-8c33-c775a29ddea2">
@@ -137,14 +137,14 @@ and maintenanceplan.id = maintenanceplanfk]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Calibri Light" size="13"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Planes de mantenimiento definidos para el Equipo " + $P{eianame}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Materiales usados po el Tipo de Equipo " + $P{name}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="40" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<staticText>
-				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="150" y="20" width="152" height="20" uuid="601c798b-027d-4a30-a9d3-cd0cde3e6ff2">
+				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="150" y="15" width="152" height="15" uuid="601c798b-027d-4a30-a9d3-cd0cde3e6ff2">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -162,7 +162,7 @@ and maintenanceplan.id = maintenanceplanfk]]>
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="" style="estiloTitulosColumHeader" mode="Opaque" x="0" y="20" width="150" height="20" uuid="60d3ab9a-7f4c-4310-8eda-e7562d9e840b">
+				<reportElement key="" style="estiloTitulosColumHeader" mode="Opaque" x="0" y="15" width="150" height="15" uuid="60d3ab9a-7f4c-4310-8eda-e7562d9e840b">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -178,10 +178,10 @@ and maintenanceplan.id = maintenanceplanfk]]>
 				<textElement>
 					<font pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Nro]]></text>
+				<text><![CDATA[ID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="302" y="20" width="150" height="20" uuid="e80d169a-ab46-4628-8f1f-6f999fb112b8">
+				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="302" y="15" width="150" height="15" uuid="e80d169a-ab46-4628-8f1f-6f999fb112b8">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -196,10 +196,10 @@ and maintenanceplan.id = maintenanceplanfk]]>
 				<textElement>
 					<font size="11" isBold="true" pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Frecuencia]]></text>
+				<text><![CDATA[Marca]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="452" y="20" width="150" height="20" uuid="ee888fc6-4408-4ef8-9ce4-9017d19755f9">
+				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="452" y="15" width="150" height="15" uuid="ee888fc6-4408-4ef8-9ce4-9017d19755f9">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -214,10 +214,10 @@ and maintenanceplan.id = maintenanceplanfk]]>
 				<textElement>
 					<font size="11" isBold="true" pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Periodo de Tiempo]]></text>
+				<text><![CDATA[Tipo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="602" y="20" width="150" height="20" uuid="75ef3a9e-b8bf-40b5-84d9-7d20858a11b7">
+				<reportElement style="estiloTitulosColumHeader" mode="Opaque" x="602" y="15" width="150" height="15" uuid="75ef3a9e-b8bf-40b5-84d9-7d20858a11b7">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -232,10 +232,10 @@ and maintenanceplan.id = maintenanceplanfk]]>
 				<textElement>
 					<font size="11" isBold="true" pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Estado]]></text>
+				<text><![CDATA[Cantidad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="" style="estiloTitulosColumHeader" mode="Opaque" x="0" y="0" width="752" height="20" backcolor="#B6BDC3" uuid="ab3c0e14-738b-424d-a0c5-8482d4e5b25a">
+				<reportElement key="" style="estiloTitulosColumHeader" mode="Opaque" x="0" y="0" width="752" height="15" backcolor="#B6BDC3" uuid="ab3c0e14-738b-424d-a0c5-8482d4e5b25a">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -252,14 +252,14 @@ and maintenanceplan.id = maintenanceplanfk]]>
 					<font pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
 					<paragraph leftIndent="10"/>
 				</textElement>
-				<text><![CDATA[Planes de Mantenimiento]]></text>
+				<text><![CDATA[Materiales]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
+		<band height="15" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="0" y="0" width="150" height="20" uuid="223d7c29-c14c-4be1-aa44-712b89400f80">
+				<reportElement mode="Transparent" x="0" y="0" width="150" height="15" uuid="223d7c29-c14c-4be1-aa44-712b89400f80">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitx" value="pixel"/>
@@ -271,14 +271,14 @@ and maintenanceplan.id = maintenanceplanfk]]>
 					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
 					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
-					<paragraph leftIndent="2"/>
+					<paragraph leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="150" y="0" width="152" height="20" uuid="3c1994ea-7207-44c1-84d3-07337ec3c7de">
+				<reportElement mode="Transparent" x="150" y="0" width="152" height="15" uuid="3c1994ea-7207-44c1-84d3-07337ec3c7de">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -295,7 +295,7 @@ and maintenanceplan.id = maintenanceplanfk]]>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="302" y="0" width="150" height="20" uuid="3eb1344d-820a-4a8e-8dee-051a09240fc6">
+				<reportElement mode="Transparent" x="302" y="0" width="150" height="15" uuid="3eb1344d-820a-4a8e-8dee-051a09240fc6">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -309,10 +309,10 @@ and maintenanceplan.id = maintenanceplanfk]]>
 					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{frequency}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{brand_name}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="452" y="0" width="150" height="20" uuid="4b12d988-bb50-410c-83d9-63c53070ad82">
+				<reportElement mode="Transparent" x="452" y="0" width="150" height="15" uuid="4b12d988-bb50-410c-83d9-63c53070ad82">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -326,10 +326,10 @@ and maintenanceplan.id = maintenanceplanfk]]>
 					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{pot}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{type}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="602" y="0" width="150" height="20" uuid="0a08c96c-e822-4ff5-8042-b2ba35ef8312">
+				<reportElement mode="Transparent" x="602" y="0" width="150" height="15" uuid="0a08c96c-e822-4ff5-8042-b2ba35ef8312">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -343,7 +343,7 @@ and maintenanceplan.id = maintenanceplanfk]]>
 					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{state}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
