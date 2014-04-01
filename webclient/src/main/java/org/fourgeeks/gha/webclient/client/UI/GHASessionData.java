@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.TreeSet;
 
 import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
+import org.fourgeeks.gha.domain.ess.ui.App;
 import org.fourgeeks.gha.domain.ess.ui.AppView;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.dropdownmenus.UserDropdownMenu;
@@ -30,9 +31,9 @@ import com.smartgwt.client.widgets.layout.HLayout;
 public abstract class GHASessionData {
 
 	private static Bpu loggedUser;
-	private static TreeSet<String> viewTreeSet = new TreeSet<String>();
-	private static TreeSet<String> functionTreeSet = new TreeSet<String>();
-	private static Map<String, String> appMap = new HashMap<String, String>();
+	private static final TreeSet<String> viewTreeSet = new TreeSet<String>();
+	private static final TreeSet<String> functionTreeSet = new TreeSet<String>();
+	private static final Map<String, App> appMap = new HashMap<String, App>();
 
 	private static void buildUserBox() {
 		final UserDropdownMenu userMenu = new UserDropdownMenu(loggedUser);
@@ -58,23 +59,13 @@ public abstract class GHASessionData {
 		userButton
 				.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
 					@Override
-					public void onClick(ClickEvent event) {
+					public void onClick(final ClickEvent event) {
 						if (userMenu.isVisible())
 							userMenu.hide();
 						else
 							userMenu.show();
 					}
 				});
-
-		// GHAButton notifbut= new GHAButton("Show", new ClickHandler() {
-		//
-		// @Override
-		// public void onClick(ClickEvent event) {
-		// // TODO Auto-generated method stub
-		// GHANotification.modalNotification.show("Informeichon",
-		// "Informacion del error");
-		// }
-		// });
 
 		userInfo.addMembers(usernameLabel,
 		/* notificationsButton, */
@@ -85,7 +76,7 @@ public abstract class GHASessionData {
 		userInfo.addFocusChangedHandler(new FocusChangedHandler() {
 
 			@Override
-			public void onFocusChanged(FocusChangedEvent event) {
+			public void onFocusChanged(final FocusChangedEvent event) {
 				Window.alert(event.getHasFocus() + "");
 
 			}
@@ -98,7 +89,7 @@ public abstract class GHASessionData {
 	 * @return the permissionMap
 	 * @throws LoginNeededException
 	 */
-	public static Map<String, String> getAppsMapp() throws LoginNeededException {
+	public static Map<String, App> getAppsMapp() throws LoginNeededException {
 		if (appMap.isEmpty())
 			throw new LoginNeededException();
 		return appMap;
@@ -116,7 +107,7 @@ public abstract class GHASessionData {
 	 * @return if it has permission for this App
 	 * @throws LoginNeededException
 	 */
-	public static boolean hasAppPermission(String code)
+	public static boolean hasAppPermission(final String code)
 			throws LoginNeededException {
 		if (appMap.isEmpty())
 			throw new LoginNeededException();
@@ -128,7 +119,7 @@ public abstract class GHASessionData {
 	 * @return wheter this code is present on the permissions
 	 * @throws LoginNeededException
 	 */
-	public static boolean hasFunctionPermission(String code)
+	public static boolean hasFunctionPermission(final String code)
 			throws LoginNeededException {
 		if (functionTreeSet == null)
 			throw new LoginNeededException();
@@ -140,7 +131,7 @@ public abstract class GHASessionData {
 	 * @return wheter this code is present on the permissions
 	 * @throws LoginNeededException
 	 */
-	public static boolean hasViewPermission(String code)
+	public static boolean hasViewPermission(final String code)
 			throws LoginNeededException {
 		if (viewTreeSet == null)
 			throw new LoginNeededException();
@@ -150,19 +141,18 @@ public abstract class GHASessionData {
 	/**
 	 * @param loggedUser
 	 */
-	public static void setLoggedUser(Bpu loggedUser) {
+	public static void setLoggedUser(final Bpu loggedUser) {
 		GHASessionData.loggedUser = loggedUser;
 		final List<FunctionBpu> functions = loggedUser.getFunctions();
-		for (final FunctionBpu function : functions)
-			functionTreeSet.add(function.getFunction().getCode());
+		for (final FunctionBpu functionBpu : functions)
+			functionTreeSet.add(functionBpu.getFunction().getCode());
 
 		final List<AppView> appsViews = loggedUser.getAppsViews();
 
 		for (final AppView appView : appsViews) {
 			viewTreeSet.add(appView.getView().getCode());
-			appMap.put(appView.getApp().getToken(), appView.getApp().getName());
+			appMap.put(appView.getApp().getToken(), appView.getApp());
 		}
-
 		buildUserBox();
 		GHAPlaceSet.buildMenu();
 	}

@@ -65,7 +65,7 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 			throw e1;
 		}
 		bpu = ssoUser.getBpu();
-		bpu.setSessionId(session.getId());// TODO que es?
+		// bpu.setSessionId(session.getId());// TODO que es?
 		bpu.setFunctions(bpuFunctionService.getFunctionByBpu(bpu));
 		bpu.setAppsViews(appViewService.getAppViewsByBpu(bpu));
 		return bpu;

@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.user.permissions;
+package org.fourgeeks.gha.webclient.client.user.functions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,18 +27,18 @@ import com.smartgwt.client.widgets.layout.HLayout;
  * @author alacret
  * 
  */
-public class PermissionGridPanel extends GHAFormLayout implements
+public class FunctionGridPanel extends GHAFormLayout implements
 		ClosableListener, HideableListener {
 
-	private ViewPermissionGrid grid;
+	private ViewFunctionGrid grid;
 	private SSOUser ssoUser;
 	{
-		grid = new ViewPermissionGrid();
+		grid = new ViewFunctionGrid();
 	}
 
 	/**
 	 */
-	public PermissionGridPanel() {
+	public FunctionGridPanel() {
 		super();
 		final GHALabel title = new GHALabel(GHAStrings.get("permissions"));
 		addMember(title);
@@ -51,7 +51,7 @@ public class PermissionGridPanel extends GHAFormLayout implements
 		activeField.addCellSavedHandler(new CellSavedHandler() {
 
 			@Override
-			public void onCellSaved(CellSavedEvent event) {
+			public void onCellSaved(final CellSavedEvent event) {
 				final ViewFunction function = ((ViewPermissionRecord) event
 						.getRecord()).toEntity();
 				final boolean newValue = (Boolean) event.getNewValue();
@@ -62,18 +62,17 @@ public class PermissionGridPanel extends GHAFormLayout implements
 							new GHAAsyncCallback<FunctionBpu>() {
 
 								@Override
-								public void onSuccess(FunctionBpu arg0) {
+								public void onSuccess(final FunctionBpu arg0) {
 
 								}
 							});
 				else
-					FunctionBpuModel.delete(
-							new FunctionBpu(ssoUser.getBpu(), function
-									.getFunction()),
+					FunctionBpuModel.delete(new FunctionBpu(ssoUser.getBpu(),
+							function.getFunction()),
 							new GHAAsyncCallback<Void>() {
 
 								@Override
-								public void onSuccess(Void arg0) {
+								public void onSuccess(final Void arg0) {
 
 								}
 							});
@@ -83,12 +82,12 @@ public class PermissionGridPanel extends GHAFormLayout implements
 	}
 
 	@Override
-	public boolean canBeClosen(HideCloseAction hideAction) {
+	public boolean canBeClosen(final HideCloseAction hideAction) {
 		return true;
 	}
 
 	@Override
-	public boolean canBeHidden(HideCloseAction hideAction) {
+	public boolean canBeHidden(final HideCloseAction hideAction) {
 		return true;
 	}
 
@@ -102,47 +101,41 @@ public class PermissionGridPanel extends GHAFormLayout implements
 	 */
 	public void loadData(final SSOUser ssoUser) {
 		this.ssoUser = ssoUser;
-		ViewPermissionModel
-				.getAll(new GHAAsyncCallback<List<ViewFunction>>() {
+		ViewPermissionModel.getAll(new GHAAsyncCallback<List<ViewFunction>>() {
 
-					@Override
-					public void onSuccess(
-							final List<ViewFunction> allPermissions) {
-						FunctionBpuModel.getPermissionsByBpu(
-								ssoUser.getBpu(),
-								new GHAAsyncCallback<List<FunctionBpu>>() {
+			@Override
+			public void onSuccess(final List<ViewFunction> allPermissions) {
+				FunctionBpuModel.getPermissionsByBpu(ssoUser.getBpu(),
+						new GHAAsyncCallback<List<FunctionBpu>>() {
 
-									@Override
-									public void onSuccess(
-											List<FunctionBpu> userPermissions) {
-										// All
-										final List<ViewPermissionRecord> gridRecords = ViewPermissionUtil
-												.toGridRecords(allPermissions);
-										final ViewPermissionRecord[] array = gridRecords
-												.toArray(new ViewPermissionRecord[] {});
-										// User
-										final List<String> codes = new ArrayList<String>(
-												userPermissions.size());
-										for (final FunctionBpu bpuFunction : userPermissions)
-											codes.add(bpuFunction.getFunction()
-													.getCode());
-										if (!codes.isEmpty())
-											for (int i = 0; i < array.length; i++) {
-												final ViewPermissionRecord functionRecord = array[i];
-												final String code = functionRecord
-														.toEntity()
-														.getFunction()
-														.getCode();
-												functionRecord.setActive(codes
-														.contains(code));
-											}
-
-										grid.setData(array);
-
+							@Override
+							public void onSuccess(
+									final List<FunctionBpu> userPermissions) {
+								// All
+								final List<ViewPermissionRecord> gridRecords = ViewPermissionUtil
+										.toGridRecords(allPermissions);
+								final ViewPermissionRecord[] array = gridRecords
+										.toArray(new ViewPermissionRecord[] {});
+								// User
+								final List<String> codes = new ArrayList<String>(
+										userPermissions.size());
+								for (final FunctionBpu functionbPU : userPermissions)
+									codes.add(functionbPU.getFunction()
+											.getCode());
+								if (!codes.isEmpty())
+									for (int i = 0; i < array.length; i++) {
+										final ViewPermissionRecord functionRecord = array[i];
+										final String code = functionRecord
+												.toEntity().getFunction()
+												.getCode();
+										functionRecord.setActive(codes
+												.contains(code));
 									}
-								});
-					}
-				});
+								grid.setData(array);
+							}
+						});
+			}
+		});
 	}
 
 }

@@ -30,7 +30,7 @@ public class FunctionBpuService extends GHAEJBExceptionService implements
 	private EntityManager em;
 
 	@Override
-	public void delete(FunctionBpu functionBpu) throws GHAEJBException {
+	public void delete(final FunctionBpu functionBpu) throws GHAEJBException {
 		try {
 			em.remove(em.find(FunctionBpu.class, functionBpu.getCode()));
 		} catch (final Exception e) {
@@ -40,12 +40,16 @@ public class FunctionBpuService extends GHAEJBExceptionService implements
 	}
 
 	@Override
-	public List<FunctionBpu> getFunctionByBpu(Bpu bpu) throws GHAEJBException {
+	public List<FunctionBpu> getFunctionByBpu(final Bpu bpu)
+			throws GHAEJBException {
 		TypedQuery<FunctionBpu> query;
 		try {
 			query = em.createNamedQuery("FunctionBpu.findByBpu",
 					FunctionBpu.class).setParameter("bpu", bpu);
 			final List<FunctionBpu> resultList = query.getResultList();
+			// final List<Function> returnList = new ArrayList<Function>();
+			// for (FunctionBpu functionBpu : resultList)
+			// returnList.add(functionBpu.getFunction());
 			return resultList;
 		} catch (final Exception e) {
 			logger.log(Level.INFO, "error retriving bpufunction", e);
@@ -55,7 +59,8 @@ public class FunctionBpuService extends GHAEJBExceptionService implements
 	}
 
 	@Override
-	public FunctionBpu save(FunctionBpu functionBpu) throws GHAEJBException {
+	public FunctionBpu save(final FunctionBpu functionBpu)
+			throws GHAEJBException {
 		try {
 			em.persist(functionBpu);
 			em.flush();
