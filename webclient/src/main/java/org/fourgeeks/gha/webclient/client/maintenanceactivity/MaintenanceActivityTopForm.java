@@ -149,6 +149,7 @@ public class MaintenanceActivityTopForm extends
 									});
 
 						} else {
+
 							GHAErrorMessageProcessor
 									.alert("maintenance-activity-plan-associated");
 						}

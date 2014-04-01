@@ -33,7 +33,7 @@ public class GHADateItem extends DateItem {
 
 		setDisplayFormat(DateDisplayFormat.TOEUROPEANSHORTDATE);
 		setHoverWidth(100);
-
+		setUseMask(true);
 		// CustomValidator customValidator = getStandardValidator();
 		// setValidators(customValidator);
 		// setValidateOnChange(true);
@@ -104,6 +104,7 @@ public class GHADateItem extends DateItem {
 		this();
 		setTitle(title);
 		addChangedHandler(changedHandler);
+
 	}
 
 	public GHADateItem(String title, int width) {
