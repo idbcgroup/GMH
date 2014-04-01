@@ -507,7 +507,7 @@ ES,cancelation-option-not-null,Debe indicar la Opción de Cancelación ,VEM-VALI
 ES,activity-save-success,La actividad ha sido almacenada exitosamente,VEM-RESULTS
 ES,activity-update-success,La actividad ha sido actualizada exitosamente,VEM-RESULTS
 ES,form-errors,El formulario contiene errores,VEM-VALIDATION
-ES,eiatype-material-delete-confirm,�Desea que este tipo de equipo no utilice este material?,VEC-USER-DECISION
+ES,eiatype-material-delete-confirm,�Desea que este tipo de equipo no utilice este material?,VEC-USER-DECISION
 ES,eiatype-utility-service-delete-confirm,¿Desea eliminar la asociación entre este Servicio Utilitario y este Tipo de Equipo?,VEC-USER-DECISION
 ES,eiatype-delete-confirm,¿Desea eliminar el Tipo de Equipo seleccionado?,VEC-USER-DECISION
 ES,eiatypes-delete-confirm,¿Desea eliminar los Tipos de Equipo seleccionados?,VEC-USER-DECISION
@@ -578,3 +578,5 @@ ES,activityType-getAll-fail,Hubo un fallo al buscar todos los Tipos y Subtipos d
 ES,activityType-getAll-fail,Hubo un fallo al buscar todos los Tipos y Subtipos de Actividades,VEC-MINOR-ERROR
 ES,maintenance-eia-exists,El plan tiene asociado equipos no puede ser eliminado,VEM-WARNING
 ES,maintenance-plan-exists-activity,El Plan Seleccionado no tiene asociada actividades,VEM-WARNING
+ES,maintenance-activity-protocolo-associated,No puede Eliminar la Actividad tiene Asociada otras Actividades,VEM-WARNING
+ES,maintenance-activity-plan-associated,No puede Eliminar la Actividad tiene plan de mantenimiento asociado,VEM-WARNING
