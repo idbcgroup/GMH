@@ -139,6 +139,7 @@ public class GHADateItem extends DateItem {
 		} else {
 			setOriginalStyle();
 		}
+		setShowErrorIcon(false);
 	}
 
 }

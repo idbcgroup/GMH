@@ -576,7 +576,7 @@ ES,activityType-delete-fail,Error eliminando un tipo de actividad,VEC-MINOR-ERRO
 ES,activityTypes-delete-fail,Error eliminando los tipos de actividades,VEC-MINOR-ERROR
 ES,activityType-getAll-fail,Hubo un fallo al buscar todos los Tipos y Subtipos de Actividades,VEC-MINOR-ERROR
 ES,activityType-getAll-fail,Hubo un fallo al buscar todos los Tipos y Subtipos de Actividades,VEC-MINOR-ERROR
-ES,maintenance-eia-exists,El plan tiene asociado equipos no puede ser eliminado,VEM-WARNING
-ES,maintenance-plan-exists-activity,El Plan Seleccionado no tiene asociada actividades,VEM-WARNING
+ES,maintenance-eia-exists,El plan no puede ser eliminado porque está asociado a una planificación,VEM-WARNING
+ES,maintenance-plan-exists-activity,No tiene actividades asociadas,VEM-WARNING
 ES,maintenance-activity-protocolo-associated,No puede Eliminar la Actividad tiene Asociada otras Actividades,VEM-WARNING
 ES,maintenance-activity-plan-associated,No puede Eliminar la Actividad tiene plan de mantenimiento asociado,VEM-WARNING

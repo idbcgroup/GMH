@@ -194,6 +194,7 @@ public class EIAMaintenancePlanificationForm extends
 	private EiaMaintenancePlanification extract() {
 		// if (!hasUnCommittedChanges)
 		// return null;
+		List<String> violationsList = new ArrayList<String>();
 
 		final EiaMaintenancePlanification planification = new EiaMaintenancePlanification();
 		planification.setEia(selectedEia);
@@ -231,12 +232,15 @@ public class EIAMaintenancePlanificationForm extends
 		// VALIDANDO LOS DATOS
 		Set<ConstraintViolation<EiaMaintenancePlanification>> violations = null;
 		violations = validator.validate(planification);
+
 		if (form.validate() && violations.isEmpty())
 			return planification;
 		else {
-			final List<String> violationsList = new ArrayList<String>();
-			for (final ConstraintViolation<EiaMaintenancePlanification> violation : violations)
+
+			for (final ConstraintViolation<EiaMaintenancePlanification> violation : violations) {
 				violationsList.add(violation.getMessage());
+			}
+
 			// GHAAlertManager.alert(violationsList);
 			GHAErrorMessageProcessor.alert(violationsList.get(0));
 		}
