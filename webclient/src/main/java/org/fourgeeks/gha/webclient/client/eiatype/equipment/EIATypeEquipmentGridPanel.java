@@ -75,6 +75,8 @@ public class EIATypeEquipmentGridPanel extends GHAFormLayout implements
 
 					@Override
 					public void onClick(ClickEvent event) {
+						eiaAddForm
+								.select(EIATypeEquipmentGridPanel.this.eiaType);
 						eiaAddForm.open();
 					}
 				}), new GHADeleteButton(new ClickHandler() {
