@@ -132,7 +132,6 @@ Window.ScrollHandler {
 	 */
 	@Override
 	public void close() {
-		Window.alert("CLOSE: openMessageCounter:"+GHAErrorMessageProcessor.getOpenMessagesCounter()+"\nOpenedPosition:"+openedPosition);
 		if (openedPosition >= 0) {
 			GHAErrorMessageProcessor.removeOpenMessageFromCounter();
 			GHAErrorMessageProcessor.toggleMessagePosition(openedPosition);
@@ -346,7 +345,6 @@ Window.ScrollHandler {
 	@Override
 	public void show() {
 		openedPosition = GHAErrorMessageProcessor.getFreeMessagePosition();
-		Window.alert("SHOW: openMessageCounter:"+GHAErrorMessageProcessor.getOpenMessagesCounter()+"\nOpenedPosition:"+openedPosition);
 		if (openedPosition >= 0 || isModal) {
 			if (openedPosition >= 0) {
 				GHAErrorMessageProcessor.toggleMessagePosition(openedPosition);
