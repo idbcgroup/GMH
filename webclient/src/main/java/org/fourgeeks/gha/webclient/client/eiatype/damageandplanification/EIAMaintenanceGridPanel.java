@@ -8,7 +8,6 @@ import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAEditButton;
@@ -16,6 +15,7 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiamaintenance.EIAMaintenanceUpdateForm;
@@ -127,7 +127,7 @@ public class EIAMaintenanceGridPanel extends VLayout implements
 		GHAGridRecord<EiaMaintenance> selectedRecord = grid.getSelectedRecord();
 
 		if (selectedRecord == null)
-			GHAAlertManager.alert("record-not-selected");
+			GHAErrorMessageProcessor.alert("record-not-selected");
 		else {
 			EiaMaintenance entity = selectedRecord.toEntity();
 			updateForm.select(entity);
@@ -139,7 +139,7 @@ public class EIAMaintenanceGridPanel extends VLayout implements
 		GHAGridRecord<EiaMaintenance> selectedRecord = grid.getSelectedRecord();
 
 		if (selectedRecord == null)
-			GHAAlertManager.alert("record-not-selected");
+			GHAErrorMessageProcessor.alert("record-not-selected");
 		else {
 			EiaMaintenance entity = selectedRecord.toEntity();
 			displayForm.select(entity);

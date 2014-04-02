@@ -8,16 +8,15 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.util.BooleanCallback;
-import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -68,10 +67,10 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 		grid.setHeight(GHAUiHelper.getResultSetGridSize(containerType));
 
 		setHeight(GHAUiHelper.getResultSetHeight(containerType));
-		HLayout gridPanel = new HLayout();
+		final HLayout gridPanel = new HLayout();
 		VLayout sideBar;
 
-		GHACheckButton checkButton = new GHACheckButton(new ClickHandler() {
+		final GHACheckButton checkButton = new GHACheckButton(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -83,8 +82,8 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 		});
 
 		if (containerType == ResultSetContainerType.TAB) {
-			VLayout separator = GHAUiHelper.verticalGraySeparator("2px");
-			GHADeleteButton deleteButton = new GHADeleteButton(
+			final VLayout separator = GHAUiHelper.verticalGraySeparator("2px");
+			final GHADeleteButton deleteButton = new GHADeleteButton(
 					new ClickHandler() {
 						@Override
 						public void onClick(ClickEvent event) {
@@ -126,65 +125,64 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 	 */
 	private void delete() {
 		if (grid.getSelectedRecord() == null) {
-			GHAAlertManager.alert("record-not-selected");
+			GHAErrorMessageProcessor.alert("record-not-selected");
 			return;
 		}
 
 		if (grid.getSelectedRecords().length > 1) {
-			GHAAlertManager.confirm("eiatypes-delete-confirm",
+			GHAErrorMessageProcessor.confirm("eiatypes-delete-confirm",
 					new BooleanCallback() {
 
-						@Override
-						public void execute(Boolean value) {
-							if (value) {
-								List<EiaType> entities = grid
-										.getSelectedEntities();
-								EIATypeModel.delete(entities,
-										new GHAAsyncCallback<Void>() {
+				@Override
+				public void execute(Boolean value) {
+					if (value) {
+						final List<EiaType> entities = grid
+								.getSelectedEntities();
+						EIATypeModel.delete(entities,
+								new GHAAsyncCallback<Void>() {
 
-											@Override
-											public void onSuccess(Void result) {
-												grid.removeSelectedData();
-												refreshResultsSize(grid
-														.getRecords().length);
-												GHAAlertManager
-														.alert("eiatypes-delete-success");
-												SC.say("lets see smartgwt4.1 say");
-											}
-										});
+							@Override
+							public void onSuccess(Void result) {
+								grid.removeSelectedData();
+								refreshResultsSize(grid
+										.getRecords().length);
+								GHAErrorMessageProcessor
+								.alert("eiatypes-delete-success");
 							}
-						}
-					});
+						});
+					}
+				}
+			});
 		} else {
-			GHAAlertManager.confirm("eiatype-delete-confirm",
+			GHAErrorMessageProcessor.confirm("eiatype-delete-confirm",
 					new BooleanCallback() {
 
-						@Override
-						public void execute(Boolean value) {
-							if (value) {
-								List<EiaType> entities = grid
-										.getSelectedEntities();
-								EIATypeModel.delete(entities,
-										new GHAAsyncCallback<Void>() {
+				@Override
+				public void execute(Boolean value) {
+					if (value) {
+						final List<EiaType> entities = grid
+								.getSelectedEntities();
+						EIATypeModel.delete(entities,
+								new GHAAsyncCallback<Void>() {
 
-											@Override
-											public void onSuccess(Void result) {
-												grid.removeSelectedData();
-												refreshResultsSize(grid
-														.getRecords().length);
-												GHAAlertManager
-														.alert("eiatype-delete-success");
-											}
-										});
+							@Override
+							public void onSuccess(Void result) {
+								grid.removeSelectedData();
+								refreshResultsSize(grid
+										.getRecords().length);
+								GHAErrorMessageProcessor
+								.alert("eiatype-delete-success");
 							}
-						}
-					});
+						});
+					}
+				}
+			});
 		}
 	}
 
 	@Override
 	public void notifyEiaType(EiaType eiaType) {
-		for (EIATypeSelectionListener listener : listeners)
+		for (final EIATypeSelectionListener listener : listeners)
 			listener.select(eiaType);
 	}
 
@@ -192,9 +190,9 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 	 * notify selected eiaType from the grid
 	 */
 	private void notifySelectedEiaType() {
-		GHAGridRecord<EiaType> selectedRecord = grid.getSelectedRecord();
+		final GHAGridRecord<EiaType> selectedRecord = grid.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHAAlertManager.alert("record-not-selected");
+			GHAErrorMessageProcessor.alert("record-not-selected");
 			return;
 		}
 		notifyEiaType(selectedRecord.toEntity());
@@ -230,7 +228,7 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 			return;
 		}
 		showResultsSize(records, false);
-		ListGridRecord[] array = EIATypeUtil.toGridRecords(records).toArray(
+		final ListGridRecord[] array = EIATypeUtil.toGridRecords(records).toArray(
 				new EIATypeRecord[] {});
 		grid.setData(array);
 		if (!isVisible())

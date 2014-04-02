@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 
 import com.smartgwt.client.util.BooleanCallback;
 
@@ -44,7 +44,7 @@ public abstract class GHAUpdateForm<T> extends GHASlideInWindow {
 		//			public void onClick(ClickEvent event) {
 		//			}
 		//		}, null);
-		GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
+		GHAErrorMessageProcessor.confirm("unsaved-changes", new BooleanCallback() {
 
 			@Override
 			public void execute(Boolean value) {

@@ -36,7 +36,7 @@ public class GHAMessage implements Serializable {
 	private LanguageEnum language;
 
 	@ManyToOne
-	@JoinColumn(name = "messageTypeFk", nullable = true, columnDefinition = "character varying(255) DEFAULT 'SAY'::character varying")
+	@JoinColumn(name = "messageTypeFk", nullable = true, columnDefinition = "character varying(255) DEFAULT 'VEM-DEFAULT'::character varying")
 	private GHAMessageType messageType;
 
 	private String messageText;
@@ -100,6 +100,13 @@ public class GHAMessage implements Serializable {
 	}
 
 	/**
+	 * @return the lang
+	 */
+	public LanguageEnum getLanguage() {
+		return language;
+	}
+
+	/**
 	 * @return the code
 	 */
 	public String getMessageCode() {
@@ -111,13 +118,6 @@ public class GHAMessage implements Serializable {
 	 */
 	public String getMessageIndications() {
 		return messageIndications;
-	}
-
-	/**
-	 * @return the lang
-	 */
-	public LanguageEnum getLanguage() {
-		return language;
 	}
 
 	/**

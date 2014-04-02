@@ -20,7 +20,6 @@ import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
@@ -29,6 +28,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.dateitems.GHABirthDateIte
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAEmailTextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHANameTextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAUserNameTextItem;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
@@ -357,37 +357,37 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 
 			String message = "username-not-null";
 			if (violationsList.contains(message)) {
-				GHAAlertManager.alert(message);
+				GHAErrorMessageProcessor.alert(message);
 				return null;
 			}
 			message = "password-not-null";
 			if (violationsList.contains(message)) {
-				GHAAlertManager.alert(message);
+				GHAErrorMessageProcessor.alert(message);
 				return null;
 			}
 			message = "password-missmatch";
 			if (violationsList.contains(message)) {
-				GHAAlertManager.alert(message);
+				GHAErrorMessageProcessor.alert(message);
 				return null;
 			}
 			message = "id-type-not-null";
 			if (violationsList.contains(message)) {
-				GHAAlertManager.alert(message);
+				GHAErrorMessageProcessor.alert(message);
 				return null;
 			}
 			message = "id-number-not-null";
 			if (violationsList.contains(message)) {
-				GHAAlertManager.alert(message);
+				GHAErrorMessageProcessor.alert(message);
 				return null;
 			}
 			message = "gender-not-null";
 			if (violationsList.contains(message)) {
-				GHAAlertManager.alert(message);
+				GHAErrorMessageProcessor.alert(message);
 				return null;
 			}
 			message = "institution-not-null";
 			if (violationsList.contains(message)) {
-				GHAAlertManager.alert(message);
+				GHAErrorMessageProcessor.alert(message);
 				return null;
 			}
 

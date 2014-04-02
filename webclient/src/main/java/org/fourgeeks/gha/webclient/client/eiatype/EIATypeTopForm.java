@@ -8,11 +8,11 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABrandSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaTypeSubTypeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATopForm;
@@ -92,7 +92,7 @@ implements EIATypeSelectionListener {
 
 	@Override
 	protected void delete() {
-		GHAAlertManager.confirm("eiatype-delete-confirm",
+		GHAErrorMessageProcessor.confirm("eiatype-delete-confirm",
 				new BooleanCallback() {
 			@Override
 			public void execute(Boolean value) {
@@ -103,7 +103,7 @@ implements EIATypeSelectionListener {
 						public void onSuccess(Void result) {
 							containerTab.search();
 							clear();
-							GHAAlertManager
+							GHAErrorMessageProcessor
 							.alert("eiatype-delete-success");
 						}
 					});

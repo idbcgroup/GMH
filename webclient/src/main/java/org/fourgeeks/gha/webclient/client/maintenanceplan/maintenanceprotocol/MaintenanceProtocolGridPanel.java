@@ -12,13 +12,13 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACopyButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityModel;
@@ -208,7 +208,7 @@ public class MaintenanceProtocolGridPanel extends GHAFormLayout implements
 				.getSelectedEntities();
 
 		if (selectedEntities == null) {
-			GHAAlertManager.confirm("maintenance-protocol-delete-confirm",
+			GHAErrorMessageProcessor.confirm("maintenance-protocol-delete-confirm",
 					new BooleanCallback() {
 						@Override
 						public void execute(Boolean value) {
@@ -219,7 +219,7 @@ public class MaintenanceProtocolGridPanel extends GHAFormLayout implements
 					});
 		} else {
 			if (selectedEntities.size() == 1) {
-				GHAAlertManager.confirm("activity-delete-confirm",
+				GHAErrorMessageProcessor.confirm("activity-delete-confirm",
 						new BooleanCallback() {
 							@Override
 							public void execute(Boolean value) {
@@ -229,7 +229,7 @@ public class MaintenanceProtocolGridPanel extends GHAFormLayout implements
 							}
 						});
 			} else {
-				GHAAlertManager.confirm("activities-delete-confirm",
+				GHAErrorMessageProcessor.confirm("activities-delete-confirm",
 						new BooleanCallback() {
 							@Override
 							public void execute(Boolean value) {
@@ -252,7 +252,7 @@ public class MaintenanceProtocolGridPanel extends GHAFormLayout implements
 					public void onSuccess(Integer result) {
 						loadData();
 						notifyMaintenanceProtocols(null);
-						GHAAlertManager
+						GHAErrorMessageProcessor
 								.alert("delete-protocol-activities-success");
 					}
 				});
@@ -272,7 +272,7 @@ public class MaintenanceProtocolGridPanel extends GHAFormLayout implements
 					public void onSuccess(Void result) {
 						loadData();
 						notifyMaintenanceProtocols(null);
-						GHAAlertManager.alert("delete-activities-success");
+						GHAErrorMessageProcessor.alert("delete-activities-success");
 					}
 				});
 	}
@@ -391,7 +391,7 @@ public class MaintenanceProtocolGridPanel extends GHAFormLayout implements
 										}
 									});
 						} else {
-							GHAAlertManager
+							GHAErrorMessageProcessor
 									.alert("maintenance-plan-exists-activity");
 						}
 					}

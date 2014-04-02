@@ -13,7 +13,6 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABpiSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaStateSelectItem;
@@ -21,6 +20,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAFacilitySe
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAObuSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHARoleSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAWorkingAreaSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATopForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
@@ -138,7 +138,7 @@ EIASelectionListener {
 
 	@Override
 	protected void delete() {
-		GHAAlertManager.confirm("eia-delete-confirm", new BooleanCallback() {
+		GHAErrorMessageProcessor.confirm("eia-delete-confirm", new BooleanCallback() {
 			@Override
 			public void execute(Boolean value) {
 				if (value) {
@@ -148,7 +148,7 @@ EIASelectionListener {
 						public void onSuccess(Boolean result) {
 							containerTab.search();
 							clear();
-							GHAAlertManager
+							GHAErrorMessageProcessor
 							.alert("eia-delete-success");
 						}
 					});

@@ -78,6 +78,12 @@ public class EiaService extends GHAEJBExceptionService implements
 			predicate = cb.and(predicate,
 					cb.equal(root.<EiaType> get("eiaType"), p));
 		}
+		if (entity.getFixedAssetIdentifier() != null) {
+			final ParameterExpression<String> p = cb.parameter(String.class,
+					"fixedAssetId");
+			predicate = cb.and(predicate,
+					cb.equal(root.<String> get("fixedAssetIdentifier"), p));
+		}
 		if (entity.getObu() != null) {
 			final Obu obu = entity.getObu();
 			if (obu.getId() > 0) {
@@ -209,6 +215,10 @@ public class EiaService extends GHAEJBExceptionService implements
 				}
 				if (entity.getEiaType() != null) {
 					q.setParameter("eiaType", entity.getEiaType());
+				}
+				if (entity.getFixedAssetIdentifier() != null) {
+					q.setParameter("fixedAssetId",
+							entity.getFixedAssetIdentifier());
 				}
 				if (entity.getObu() != null) {
 					final Obu obu = entity.getObu();

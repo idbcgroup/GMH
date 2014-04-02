@@ -3,9 +3,9 @@ package org.fourgeeks.gha.webclient.client.maintenanceactivity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -71,7 +71,7 @@ public class MaintenanceActivityAddForm extends GHAAddForm<MaintenanceActivity>
 		form.save(new GHAAsyncCallback<MaintenanceActivity>() {
 			@Override
 			public void onSuccess(MaintenanceActivity result) {
-				GHAAlertManager.alert("activity-save-success");
+				GHAErrorMessageProcessor.alert("activity-save-success");
 				hide();
 			}
 		});

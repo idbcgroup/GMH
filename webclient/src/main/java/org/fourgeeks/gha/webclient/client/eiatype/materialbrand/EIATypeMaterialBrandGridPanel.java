@@ -10,13 +10,13 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeMaterialBrand;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
@@ -144,12 +144,12 @@ public class EIATypeMaterialBrandGridPanel extends GHAFormLayout implements
 	 */
 	private void delete() {
 		if (grid.getSelectedRecord() == null) {
-			GHAAlertManager.alert("record-not-selected");
+			GHAErrorMessageProcessor.alert("record-not-selected");
 			return;
 		}
 
 		if (grid.getSelectedRecords().length > 1) {
-			GHAAlertManager.confirm("eiatype-materials-delete-confirm",
+			GHAErrorMessageProcessor.confirm("eiatype-materials-delete-confirm",
 					new BooleanCallback() {
 
 						@Override
@@ -162,7 +162,7 @@ public class EIATypeMaterialBrandGridPanel extends GHAFormLayout implements
 
 											@Override
 											public void onSuccess(Void result) {
-												GHAAlertManager
+												GHAErrorMessageProcessor
 														.alert("eiatype-materials-delete-success");
 												loadData();
 											}
@@ -171,7 +171,7 @@ public class EIATypeMaterialBrandGridPanel extends GHAFormLayout implements
 						}
 					});
 		} else {
-			GHAAlertManager.confirm("eiatype-material-delete-confirm",
+			GHAErrorMessageProcessor.confirm("eiatype-material-delete-confirm",
 					new BooleanCallback() {
 
 						@Override
@@ -185,7 +185,7 @@ public class EIATypeMaterialBrandGridPanel extends GHAFormLayout implements
 
 											@Override
 											public void onSuccess(Void result) {
-												GHAAlertManager
+												GHAErrorMessageProcessor
 														.alert("eiatype-material-delete-success");
 												loadData();
 											}

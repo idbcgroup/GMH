@@ -3,13 +3,13 @@ package org.fourgeeks.gha.webclient.client.eiatype.information;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAUndoButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceSet;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EiaTypeForm;
@@ -92,7 +92,7 @@ ClosableListener {
 			//
 			//						}
 			//					}, null);
-			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
+			GHAErrorMessageProcessor.confirm("unsaved-changes", new BooleanCallback() {
 
 				@Override
 				public void execute(Boolean value) {
@@ -135,7 +135,7 @@ ClosableListener {
 			//
 			//				}
 			//			}, null);
-			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
+			GHAErrorMessageProcessor.confirm("unsaved-changes", new BooleanCallback() {
 
 				@Override
 				public void execute(Boolean value) {
@@ -171,7 +171,7 @@ ClosableListener {
 
 			@Override
 			public void onSuccess(EiaType result) {
-				GHAAlertManager.alert("eiatype-save-success");
+				GHAErrorMessageProcessor.alert("eiatype-save-success");
 			}
 		});
 	}

@@ -14,7 +14,6 @@ import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
@@ -22,6 +21,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.dateitems.GHABirthDateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAEmailTextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHANameTextItem;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
@@ -264,7 +264,7 @@ public class CitizenForm extends GHAForm<Citizen> implements
 		if (form.validate() && violationsList.isEmpty())
 			return citizen;
 
-		GHAAlertManager.alert(violationsList.get(0));
+		GHAErrorMessageProcessor.alert(violationsList.get(0));
 
 		return null;
 	}

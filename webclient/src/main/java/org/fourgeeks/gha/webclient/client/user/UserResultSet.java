@@ -8,12 +8,12 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -131,12 +131,12 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 
 	protected void delete() {
 		if (grid.getSelectedRecord() == null) {
-			GHAAlertManager.alert("record-not-selected");
+			GHAErrorMessageProcessor.alert("record-not-selected");
 			return;
 		}
 
 		if (grid.getSelectedRecords().length > 1) {
-			GHAAlertManager.confirm("ssoUser-delete-confirm",
+			GHAErrorMessageProcessor.confirm("ssoUser-delete-confirm",
 					new BooleanCallback() {
 
 						@Override
@@ -159,7 +159,7 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 						}
 					});
 		} else {
-			GHAAlertManager.confirm("user-delete-confirm",
+			GHAErrorMessageProcessor.confirm("user-delete-confirm",
 					new BooleanCallback() {
 
 						@Override
@@ -190,7 +190,7 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 	private void notifySelectedUser() {
 		final GHAGridRecord<SSOUser> selectedRecord = grid.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHAAlertManager.alert("record-not-selected");
+			GHAErrorMessageProcessor.alert("record-not-selected");
 			return;
 		}
 		notifyUser(selectedRecord.toEntity());
