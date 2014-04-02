@@ -140,7 +140,8 @@ public class EIATypeMaintenanceGridPanel extends GHAFormLayout implements
 			return;
 		}
 
-		GHAErrorMessageProcessor.confirm("eiatype-maintenance-plan-delete-confirm",
+		GHAErrorMessageProcessor.confirm(
+				"eiatype-maintenance-plan-delete-confirm",
 				new BooleanCallback() {
 
 					@Override
@@ -163,7 +164,8 @@ public class EIATypeMaintenanceGridPanel extends GHAFormLayout implements
 															public void onSuccess(
 																	Void result) {
 																grid.removeSelectedData();
-																GHAErrorMessageProcessor.alert("maintenance-delete-success");
+																GHAErrorMessageProcessor
+																		.alert("maintenance-delete-success");
 															}
 														});
 
@@ -173,16 +175,7 @@ public class EIATypeMaintenanceGridPanel extends GHAFormLayout implements
 											}
 										}
 									});
-							// EiaTypeMaintenancePlanModel.delete(entity.getId(),
-							// new GHAAsyncCallback<Void>() {
-							//
-							// @Override
-							// public void onSuccess(Void result) {
-							// grid.removeSelectedData();
-							// GHAAlertManager
-							// .alert("maintenance-delete-success");
-							// }
-							// });
+
 						}
 
 					}
