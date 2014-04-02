@@ -9,13 +9,13 @@ import org.fourgeeks.gha.domain.gmh.RequiredResources;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
@@ -210,10 +210,10 @@ public class MaintenanceActivityMaterialGridPanel extends GHAFormLayout
 			selectedEntities.add(rr);
 		}
 		if (selectedEntities.size() == 0) {
-			GHAAlertManager.alert("record-not-selected");
+			GHAErrorMessageProcessor.alert("record-not-selected");
 		} else {
-			if (selectedEntities.size() == 1)
-				GHAAlertManager.confirm("resource-delete-confirm",
+			if(selectedEntities.size() == 1)
+				GHAErrorMessageProcessor.confirm("resource-delete-confirm",
 						new BooleanCallback() {
 							@Override
 							public void execute(Boolean value) {
@@ -223,7 +223,7 @@ public class MaintenanceActivityMaterialGridPanel extends GHAFormLayout
 							}
 						});
 			else
-				GHAAlertManager.confirm("resources-delete-confirm",
+				GHAErrorMessageProcessor.confirm("resources-delete-confirm",
 						new BooleanCallback() {
 							@Override
 							public void execute(Boolean value) {
@@ -238,11 +238,11 @@ public class MaintenanceActivityMaterialGridPanel extends GHAFormLayout
 	private void deleteSelectedEntities(List<RequiredResources> selectedEntities) {
 		RequiredResourcesModel.delete(selectedEntities,
 				new GHAAsyncCallback<Void>() {
-					@Override
-					public void onSuccess(Void result) {
-						loadData();
-						GHAAlertManager.alert("delete-resources-success");
-					}
-				});
+			@Override
+			public void onSuccess(Void result) {
+				loadData();
+				GHAErrorMessageProcessor.alert("delete-resources-success");
+			}
+		});
 	}
 }

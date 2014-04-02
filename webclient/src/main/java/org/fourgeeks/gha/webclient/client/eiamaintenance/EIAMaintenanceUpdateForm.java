@@ -5,9 +5,9 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAUpdateForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
@@ -170,7 +170,7 @@ public class EIAMaintenanceUpdateForm extends GHAUpdateForm<EiaMaintenance>
 		form.update(new GHAAsyncCallback<EiaMaintenance>() {
 			@Override
 			public void onSuccess(EiaMaintenance result) {
-				GHAAlertManager.alert("eia-maintenance-details-update-success");
+				GHAErrorMessageProcessor.alert("eia-maintenance-details-update-success");
 				hide();
 			}
 		});

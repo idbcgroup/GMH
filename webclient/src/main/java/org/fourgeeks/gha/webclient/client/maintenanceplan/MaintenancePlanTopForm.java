@@ -9,12 +9,12 @@ import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanStateSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAPeriodOfTimeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATopForm;
@@ -103,7 +103,7 @@ public class MaintenancePlanTopForm extends
 
 	@Override
 	protected void delete() {
-		GHAAlertManager.confirm("maintenance-plan-delete-confirm",
+		GHAErrorMessageProcessor.confirm("maintenance-plan-delete-confirm",
 				new BooleanCallback() {
 					@Override
 					public void execute(Boolean value) {
@@ -130,12 +130,12 @@ public class MaintenancePlanTopForm extends
 																				containerTab
 																						.search();
 																				clear();
-																				GHAAlertManager
+																				GHAErrorMessageProcessor
 																						.alert("maintenance-delete-success");
 																			}
 																		});
 													} else {
-														GHAAlertManager
+														GHAErrorMessageProcessor
 																.alert("maintenance-eia-exists");
 													}
 												}

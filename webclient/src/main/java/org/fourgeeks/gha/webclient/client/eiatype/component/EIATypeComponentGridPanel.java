@@ -8,12 +8,12 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
@@ -184,12 +184,12 @@ public class EIATypeComponentGridPanel extends GHAFormLayout implements
 		// }
 		// });
 		if (grid.getSelectedRecord() == null) {
-			GHAAlertManager.alert("record-not-selected");
+			GHAErrorMessageProcessor.alert("record-not-selected");
 			return;
 		}
 
 		if (grid.getSelectedRecords().length > 1) {
-			GHAAlertManager.confirm("eiatype-components-delete-confirm",
+			GHAErrorMessageProcessor.confirm("eiatype-components-delete-confirm",
 					new BooleanCallback() {
 
 						@Override
@@ -202,7 +202,7 @@ public class EIATypeComponentGridPanel extends GHAFormLayout implements
 
 											@Override
 											public void onSuccess(Void result) {
-												GHAAlertManager
+												GHAErrorMessageProcessor
 														.alert("eiatype-components-delete-success");
 												loadData();
 											}
@@ -211,7 +211,7 @@ public class EIATypeComponentGridPanel extends GHAFormLayout implements
 						}
 					});
 		} else {
-			GHAAlertManager.confirm("eiatype-component-delete-confirm",
+			GHAErrorMessageProcessor.confirm("eiatype-component-delete-confirm",
 					new BooleanCallback() {
 
 						@Override
@@ -224,7 +224,7 @@ public class EIATypeComponentGridPanel extends GHAFormLayout implements
 
 											@Override
 											public void onSuccess(Void result) {
-												GHAAlertManager
+												GHAErrorMessageProcessor
 														.alert("eiatype-component-delete-success");
 												loadData();
 											}

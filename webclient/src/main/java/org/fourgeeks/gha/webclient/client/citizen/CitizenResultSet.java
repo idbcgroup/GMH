@@ -8,12 +8,12 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -111,12 +111,12 @@ public class CitizenResultSet extends GHAResultSet<Citizen> implements
 
 	protected void delete() {
 		if (grid.getSelectedRecord() == null) {
-			GHAAlertManager.alert("record-not-selected");
+			GHAErrorMessageProcessor.alert("record-not-selected");
 			return;
 		}
 
 		if (grid.getSelectedRecords().length > 1) {
-			GHAAlertManager.confirm("citizens-delete-confirm",
+			GHAErrorMessageProcessor.confirm("citizens-delete-confirm",
 					new BooleanCallback() {
 
 						@Override
@@ -139,7 +139,7 @@ public class CitizenResultSet extends GHAResultSet<Citizen> implements
 						}
 					});
 		} else {
-			GHAAlertManager.confirm("citizen-delete-confirm",
+			GHAErrorMessageProcessor.confirm("citizen-delete-confirm",
 					new BooleanCallback() {
 
 						@Override
@@ -171,7 +171,7 @@ public class CitizenResultSet extends GHAResultSet<Citizen> implements
 		final GHAGridRecord<Citizen> selectedRecord = grid.getSelectedRecord();
 
 		if (selectedRecord == null) {
-			GHAAlertManager.alert("record-not-selected");
+			GHAErrorMessageProcessor.alert("record-not-selected");
 			return;
 		}
 		notifyCitizen(selectedRecord.toEntity());

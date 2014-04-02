@@ -1,12 +1,10 @@
-package org.fourgeeks.gha.webclient.client.UI.alerts.modal;
+package org.fourgeeks.gha.webclient.client.UI.pmewindows.modal;
 
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHADialog;
 
 import com.smartgwt.client.widgets.Button;
-import com.smartgwt.client.widgets.events.ClickEvent;
-import com.smartgwt.client.widgets.events.ClickHandler;
 
 
 
@@ -14,23 +12,16 @@ import com.smartgwt.client.widgets.events.ClickHandler;
  * @author jfuentes
  *
  */
-public class GHASoftErrorDialog extends GHADialog {
-	static Button buttonOK = new Button(GHAStrings.get("accept"));
-	{
-		buttonOK.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				close();
-			}
-		});
-	}
+public class GHAMinorErrorDialog extends GHADialog {
+	protected static Button buttonOK = new Button(GHAStrings.get("accept"));
 	/**
 	 * @param type
 	 * @param message
 	 * @param time
 	 */
-	public GHASoftErrorDialog(GHAMessageType type, String message, int time) {
-		super(type,false,time, buttonOK);
+	public GHAMinorErrorDialog(GHAMessageType type, String message, int time) {
+		super(type,time,buttonOK);
+		buttonOK.addClickHandler(closeClickHandler);
 		setMessage(message);
 		initTypeView();
 	}
@@ -41,7 +32,7 @@ public class GHASoftErrorDialog extends GHADialog {
 	 * @param message
 	 * @param time
 	 */
-	public GHASoftErrorDialog(GHAMessageType type,String title, String message, int time){
+	public GHAMinorErrorDialog(GHAMessageType type,String title, String message, int time){
 		this(type,message,time);
 		setTitle(title);
 	}

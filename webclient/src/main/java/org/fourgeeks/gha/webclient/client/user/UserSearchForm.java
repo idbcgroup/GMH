@@ -5,10 +5,10 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
 import com.smartgwt.client.types.VerticalAlignment;
@@ -160,7 +160,7 @@ UserSelectionProducer, UserSelectionListener {
 	private void selectUser() {
 		final GHAGridRecord<SSOUser> selectedRecord = grid.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHAAlertManager.alert("record-not-selected");
+			GHAErrorMessageProcessor.alert("record-not-selected");
 			return;
 		}
 		notifyUser(((UserRecord) selectedRecord).toEntity());

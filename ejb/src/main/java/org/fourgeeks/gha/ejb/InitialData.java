@@ -119,7 +119,7 @@ public class InitialData {
 	private void activityTypeAndSubTypeTestData() {
 		final String queryStr = "SELECT t FROM ActivityType t";
 		try {
-			List<?> resultList = em.createQuery(queryStr).getResultList();
+			final List<?> resultList = em.createQuery(queryStr).getResultList();
 			if (resultList.isEmpty())
 				throw new Exception();
 
@@ -131,13 +131,13 @@ public class InitialData {
 						"Asistencial", "Logística", "Operaciones",
 						"Administrativa", "Del Sistema" };
 
-				HashMap<String, String[]> map = new HashMap<String, String[]>();
+				final HashMap<String, String[]> map = new HashMap<String, String[]>();
 
 				map.put("Mantenimiento", new String[] { "Medición", "Limpieza",
 						"Calibración", "Desarme", "Armado", "Instalación",
 						"Desinstalación", "Cambio de Repuesto",
 						"Cambio de Consumibles", "Aceptación Mantenimiento",
-						"Traslado" });
+				"Traslado" });
 
 				map.put("Asistencial", new String[] { "Asistencia Paciente",
 						"Bañado de paciente", "Consulta",
@@ -145,7 +145,7 @@ public class InitialData {
 						"Hacer procedimiento", "calificación del Paciente",
 						"Pruebas Diagnósticas", "Medicación",
 						"Estudios Diagnósticos", "Tratamientos",
-						"Procedimientos" });
+				"Procedimientos" });
 
 				map.put("Logística", new String[] { "Dar Cita",
 						"Despacho de Materiales", "Mantenimiento Habitación" });
@@ -153,16 +153,16 @@ public class InitialData {
 				map.put("Administrativa", new String[] { "Admisión Paciente",
 						"Egreso Paciente", "Facturación" });
 
-				for (String typeName : activityTypeNames) {
-					ActivityType type = new ActivityType();
+				for (final String typeName : activityTypeNames) {
+					final ActivityType type = new ActivityType();
 					type.setDescription(typeName);
 					em.persist(type);
 
-					String[] subtypeNames = map.get(typeName);
+					final String[] subtypeNames = map.get(typeName);
 					if (subtypeNames == null)
 						continue;
 
-					for (String subTypeName : subtypeNames) {
+					for (final String subTypeName : subtypeNames) {
 						final ActivityType subType = new ActivityType();
 						subType.setDescription(subTypeName);
 						subType.setParentActivityTypeId(type.getId());
@@ -186,33 +186,33 @@ public class InitialData {
 		InputStreamReader reader = null;
 		try {
 			reader = new InputStreamReader(resourceAsStream, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
+		} catch (final UnsupportedEncodingException e) {
 			logger.log(Level.SEVERE,
 					"Error in modules(): incorrect file encoding", e);
 			try {
 				resourceAsStream.close();
-			} catch (IOException e1) {
+			} catch (final IOException e1) {
 				logger.log(Level.SEVERE,
 						"Error in modules(): closing the stream", e1);
 			}
 			return;
 		}
 
-		CSVReader csvReader = new CSVReader(reader, ',', '\'', 1);
+		final CSVReader csvReader = new CSVReader(reader, ',', '\'', 1);
 
 		List<String[]> readAll;
 		try {
 			readAll = csvReader.readAll();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			logger.log(Level.SEVERE, "Error in modules(): io exception", e);
 			try {
 				csvReader.close();
-			} catch (IOException e1) {
+			} catch (final IOException e1) {
 				logger.log(Level.SEVERE, "Error in modules(): io exception", e1);
 			}
 			try {
 				resourceAsStream.close();
-			} catch (IOException e1) {
+			} catch (final IOException e1) {
 				logger.log(Level.SEVERE,
 						"Error in modules(): closing the stream", e1);
 			}
@@ -224,24 +224,24 @@ public class InitialData {
 			if (language.startsWith("#") || language.startsWith("//"))
 				continue;
 
-			String moduleCode = strings[0];
-			String appCode = strings[1];
-			String appToken = strings[2];
-			String menuCode = strings[3];
-			Module module = em.find(Module.class, moduleCode);
-			MenuLevel menu = em.find(MenuLevel.class, menuCode);
+			final String moduleCode = strings[0];
+			final String appCode = strings[1];
+			final String appToken = strings[2];
+			final String menuCode = strings[3];
+			final Module module = em.find(Module.class, moduleCode);
+			final MenuLevel menu = em.find(MenuLevel.class, menuCode);
 			em.merge(new App(module, appCode, appCode, appToken, menu));
 			em.flush();
 		}
 
 		try {
 			csvReader.close();
-		} catch (IOException e1) {
+		} catch (final IOException e1) {
 			logger.log(Level.SEVERE, "Error in modules(): io exception", e1);
 		}
 		try {
 			resourceAsStream.close();
-		} catch (IOException e1) {
+		} catch (final IOException e1) {
 			logger.log(Level.SEVERE, "Error in modules(): closing the stream",
 					e1);
 		}
@@ -1231,33 +1231,33 @@ public class InitialData {
 		InputStreamReader reader = null;
 		try {
 			reader = new InputStreamReader(resourceAsStream, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
+		} catch (final UnsupportedEncodingException e) {
 			logger.log(Level.SEVERE,
 					"Error in modules(): incorrect file encoding", e);
 			try {
 				resourceAsStream.close();
-			} catch (IOException e1) {
+			} catch (final IOException e1) {
 				logger.log(Level.SEVERE,
 						"Error in modules(): closing the stream", e1);
 			}
 			return;
 		}
 
-		CSVReader csvReader = new CSVReader(reader, ',', '\'', 1);
+		final CSVReader csvReader = new CSVReader(reader, ',', '\'', 1);
 
 		List<String[]> readAll;
 		try {
 			readAll = csvReader.readAll();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			logger.log(Level.SEVERE, "Error in modules(): io exception", e);
 			try {
 				csvReader.close();
-			} catch (IOException e1) {
+			} catch (final IOException e1) {
 				logger.log(Level.SEVERE, "Error in modules(): io exception", e1);
 			}
 			try {
 				resourceAsStream.close();
-			} catch (IOException e1) {
+			} catch (final IOException e1) {
 				logger.log(Level.SEVERE,
 						"Error in modules(): closing the stream", e1);
 			}
@@ -1268,9 +1268,9 @@ public class InitialData {
 			final String language = strings[0];
 			if (language.startsWith("#") || language.startsWith("//"))
 				continue;
-			String code = strings[0];
-			String text = strings[1];
-			String parentCode = strings[2];
+			final String code = strings[0];
+			final String text = strings[1];
+			final String parentCode = strings[2];
 			if (parentCode.equals("null"))
 				em.merge(new MenuLevel(code, text, null));
 			else
@@ -1281,12 +1281,12 @@ public class InitialData {
 		}
 		try {
 			csvReader.close();
-		} catch (IOException e1) {
+		} catch (final IOException e1) {
 			logger.log(Level.SEVERE, "Error in modules(): io exception", e1);
 		}
 		try {
 			resourceAsStream.close();
-		} catch (IOException e1) {
+		} catch (final IOException e1) {
 			logger.log(Level.SEVERE, "Error in modules(): closing the stream",
 					e1);
 		}
@@ -1323,11 +1323,11 @@ public class InitialData {
 				lang = LanguageEnum.valueOf(language);
 
 				text = strings[2];
-				type = "SAY";
+				type = "VEM-DEFAULT";
 				try {
 					type = String.valueOf(strings[3]);
 				} catch (final Exception e) {
-					logger.info("no type info available in this line... Setting 'SAY' by default");
+					logger.info("no type info available in this line... Setting 'VEM-DEFAULT' by default");
 				}
 
 				try {
@@ -1374,13 +1374,13 @@ public class InitialData {
 	}
 
 	private void messageTypes() {
-		final String query = "SELECT t from GHAMessageType t WHERE t.code= 'SAY'";
+		final String query = "SELECT t from GHAMessageType t WHERE t.code= 'VEM-DEFAULT'";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test data : message types");
-				em.persist(new GHAMessageType("SAY", 4, false));
+				em.persist(new GHAMessageType("VEM-DEFAULT", 4, false));
 				em.persist(new GHAMessageType("VEC-USER-DECISION", 0, true));
 				em.persist(new GHAMessageType("VEC-ACTION", 0, true));
 				em.persist(new GHAMessageType("VEC-ERROR", 0, true));
@@ -1406,33 +1406,33 @@ public class InitialData {
 		InputStreamReader reader = null;
 		try {
 			reader = new InputStreamReader(resourceAsStream, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
+		} catch (final UnsupportedEncodingException e) {
 			logger.log(Level.SEVERE,
 					"Error in modules(): incorrect file encoding", e);
 			try {
 				resourceAsStream.close();
-			} catch (IOException e1) {
+			} catch (final IOException e1) {
 				logger.log(Level.SEVERE,
 						"Error in modules(): closing the stream", e1);
 			}
 			return;
 		}
 
-		CSVReader csvReader = new CSVReader(reader, ',', '\'', 1);
+		final CSVReader csvReader = new CSVReader(reader, ',', '\'', 1);
 
 		List<String[]> readAll;
 		try {
 			readAll = csvReader.readAll();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			logger.log(Level.SEVERE, "Error in modules(): io exception", e);
 			try {
 				csvReader.close();
-			} catch (IOException e1) {
+			} catch (final IOException e1) {
 				logger.log(Level.SEVERE, "Error in modules(): io exception", e1);
 			}
 			try {
 				resourceAsStream.close();
-			} catch (IOException e1) {
+			} catch (final IOException e1) {
 				logger.log(Level.SEVERE,
 						"Error in modules(): closing the stream", e1);
 			}
@@ -1443,8 +1443,8 @@ public class InitialData {
 			final String language = strings[0];
 			if (language.startsWith("#") || language.startsWith("//"))
 				continue;
-			String code = strings[0];
-			String name = strings[1];
+			final String code = strings[0];
+			final String name = strings[1];
 			em.merge(new Module(code, name));
 		}
 
@@ -1452,12 +1452,12 @@ public class InitialData {
 
 		try {
 			csvReader.close();
-		} catch (IOException e1) {
+		} catch (final IOException e1) {
 			logger.log(Level.SEVERE, "Error in modules(): io exception", e1);
 		}
 		try {
 			resourceAsStream.close();
-		} catch (IOException e1) {
+		} catch (final IOException e1) {
 			logger.log(Level.SEVERE, "Error in modules(): closing the stream",
 					e1);
 		}
@@ -1831,33 +1831,33 @@ public class InitialData {
 		InputStreamReader reader = null;
 		try {
 			reader = new InputStreamReader(resourceAsStream, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
+		} catch (final UnsupportedEncodingException e) {
 			logger.log(Level.SEVERE,
 					"Error in modules(): incorrect file encoding", e);
 			try {
 				resourceAsStream.close();
-			} catch (IOException e1) {
+			} catch (final IOException e1) {
 				logger.log(Level.SEVERE,
 						"Error in modules(): closing the stream", e1);
 			}
 			return;
 		}
 
-		CSVReader csvReader = new CSVReader(reader, ',', '\'', 1);
+		final CSVReader csvReader = new CSVReader(reader, ',', '\'', 1);
 
 		List<String[]> readAll;
 		try {
 			readAll = csvReader.readAll();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			logger.log(Level.SEVERE, "Error in modules(): io exception", e);
 			try {
 				csvReader.close();
-			} catch (IOException e1) {
+			} catch (final IOException e1) {
 				logger.log(Level.SEVERE, "Error in modules(): io exception", e1);
 			}
 			try {
 				resourceAsStream.close();
-			} catch (IOException e1) {
+			} catch (final IOException e1) {
 				logger.log(Level.SEVERE,
 						"Error in modules(): closing the stream", e1);
 			}
@@ -1872,9 +1872,9 @@ public class InitialData {
 			if (language.startsWith("#") || language.startsWith("//"))
 				continue;
 
-			String appCode = strings[0];
-			String viewCode = strings[1];
-			String viewDescription = strings[2];
+			final String appCode = strings[0];
+			final String viewCode = strings[1];
+			final String viewDescription = strings[2];
 
 			app = em.find(App.class, appCode);
 			view = new View(viewCode, viewDescription);
@@ -1887,12 +1887,12 @@ public class InitialData {
 
 		try {
 			csvReader.close();
-		} catch (IOException e1) {
+		} catch (final IOException e1) {
 			logger.log(Level.SEVERE, "Error in modules(): io exception", e1);
 		}
 		try {
 			resourceAsStream.close();
-		} catch (IOException e1) {
+		} catch (final IOException e1) {
 			logger.log(Level.SEVERE, "Error in modules(): closing the stream",
 					e1);
 		}

@@ -15,7 +15,6 @@ import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
@@ -26,6 +25,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAAgeTextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAEmailTextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHANameTextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAlertLabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
@@ -213,7 +213,7 @@ CitizenSelectionProducer {
 		if (form.validate() && violationsList.isEmpty())
 			return citizen;
 
-		GHAAlertManager.alert(violationsList.get(0));
+		GHAErrorMessageProcessor.alert(violationsList.get(0));
 
 		return null;
 	}

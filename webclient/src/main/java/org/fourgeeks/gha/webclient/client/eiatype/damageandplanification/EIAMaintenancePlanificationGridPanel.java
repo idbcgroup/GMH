@@ -9,12 +9,12 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.EIAMaintenancePlanificationAddForm;
@@ -129,7 +129,7 @@ public class EIAMaintenancePlanificationGridPanel extends VLayout implements
 						if (!result.isEmpty())
 							searchForm.open();
 						else
-							GHAAlertManager
+							GHAErrorMessageProcessor
 									.alert("no-eiatype-maintenance-plans");
 					}
 				});

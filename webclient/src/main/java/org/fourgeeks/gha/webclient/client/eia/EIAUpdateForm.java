@@ -4,9 +4,10 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAUpdateForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
@@ -22,7 +23,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIAUpdateForm extends GHAUpdateForm<Eia> implements
-EIATypeSelectionListener, EiaSelectionProducer, EIASelectionListener {
+		EIATypeSelectionListener, EiaSelectionProducer, EIASelectionListener {
 
 	/**
 	 * @param eiaType
@@ -50,13 +51,13 @@ EIATypeSelectionListener, EiaSelectionProducer, EIASelectionListener {
 	public void addEiaSelectionListener(
 			EIASelectionListener eiaSelectionListener) {
 		((EiaSelectionProducer) form)
-		.addEiaSelectionListener(eiaSelectionListener);
+				.addEiaSelectionListener(eiaSelectionListener);
 	}
 
 	@Override
 	public boolean canBeClosen(HideCloseAction hideAction) { // TODO
 		if (form.hasUnCommittedChanges()) {
-			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
+			GHAErrorMessageProcessor.confirm("unsaved-changes", new BooleanCallback() {
 
 				@Override
 				public void execute(Boolean value) {
@@ -73,7 +74,7 @@ EIATypeSelectionListener, EiaSelectionProducer, EIASelectionListener {
 	@Override
 	public boolean canBeHidden(HideCloseAction hideAction) { // TODO
 		if (form.hasUnCommittedChanges()) {
-			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
+			GHAErrorMessageProcessor.confirm("unsaved-changes", new BooleanCallback() {
 
 				@Override
 				public void execute(Boolean value) {
@@ -90,7 +91,7 @@ EIATypeSelectionListener, EiaSelectionProducer, EIASelectionListener {
 	@Override
 	public void hide() {
 		if (form.hasUnCommittedChanges()) {
-			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
+			GHAErrorMessageProcessor.confirm("unsaved-changes", new BooleanCallback() {
 
 				@Override
 				public void execute(Boolean value) {
@@ -121,14 +122,13 @@ EIATypeSelectionListener, EiaSelectionProducer, EIASelectionListener {
 					public void onClick(ClickEvent event) {
 						update();
 					}
-				}), new GHAImgButton("../resources/icons/cancel.png",
-						new ClickHandler() {
+				}), new GHACloseButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						hide();
-					}
-				}));
+			@Override
+			public void onClick(ClickEvent event) {
+				cancel();
+			}
+		}));
 
 		HLayout mainLayout = new HLayout();
 		mainLayout.addMember(form);
@@ -167,7 +167,7 @@ EIATypeSelectionListener, EiaSelectionProducer, EIASelectionListener {
 	public void removeEiaSelectionListener(
 			EIASelectionListener eiaSelectionListener) {
 		((EiaSelectionProducer) form)
-		.removeEiaSelectionListener(eiaSelectionListener);
+				.removeEiaSelectionListener(eiaSelectionListener);
 	}
 
 	/*
@@ -209,7 +209,7 @@ EIATypeSelectionListener, EiaSelectionProducer, EIASelectionListener {
 			@Override
 			public void onSuccess(Eia result) {
 				hide();
-				GHAAlertManager.alert("eiatype-save-success");
+				GHAErrorMessageProcessor.alert("eiatype-save-success");
 			}
 		});
 	}

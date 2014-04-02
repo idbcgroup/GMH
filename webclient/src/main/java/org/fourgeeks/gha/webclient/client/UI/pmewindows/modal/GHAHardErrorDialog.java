@@ -1,12 +1,10 @@
-package org.fourgeeks.gha.webclient.client.UI.alerts.modal;
+package org.fourgeeks.gha.webclient.client.UI.pmewindows.modal;
 
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHADialog;
 
 import com.smartgwt.client.widgets.Button;
-import com.smartgwt.client.widgets.events.ClickEvent;
-import com.smartgwt.client.widgets.events.ClickHandler;
 
 
 
@@ -15,15 +13,9 @@ import com.smartgwt.client.widgets.events.ClickHandler;
  *
  */
 public class GHAHardErrorDialog extends GHADialog {
+
 	static Button buttonOK = new Button(GHAStrings.get("accept"));
-	{
-		buttonOK.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				close();
-			}
-		});
-	}
+
 	/**
 	 * @param type
 	 * @param message
@@ -31,7 +23,8 @@ public class GHAHardErrorDialog extends GHADialog {
 	 */
 
 	public GHAHardErrorDialog(GHAMessageType type, String message, int time) {
-		super(type,false,time, buttonOK);
+		super(type,time,buttonOK);
+		buttonOK.addClickHandler(closeClickHandler);
 		setMessage(message);
 		initTypeView();
 	}

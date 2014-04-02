@@ -25,7 +25,6 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
@@ -38,6 +37,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenanc
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanStateSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAPeriodOfTimeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
@@ -271,33 +271,33 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 			}
 			String mensaje = "name-not-null";
 			if (violationsList.contains(mensaje)) {
-				GHAAlertManager.alert(mensaje);
+				GHAErrorMessageProcessor.alert(mensaje);
 				return null;
 			}
 
 			mensaje = "frecuency-not-null";
 			if (violationsList.contains(mensaje)) {
-				GHAAlertManager.alert(mensaje);
+				GHAErrorMessageProcessor.alert(mensaje);
 				return null;
 			}
 			mensaje = "time-period-not-null";
 			if (violationsList.contains(mensaje)) {
-				GHAAlertManager.alert(mensaje);
+				GHAErrorMessageProcessor.alert(mensaje);
 				return null;
 			}
 			mensaje = "type-plan-not-null";
 			if (violationsList.contains(mensaje)) {
-				GHAAlertManager.alert(mensaje);
+				GHAErrorMessageProcessor.alert(mensaje);
 				return null;
 			}
 			mensaje = "state-not-null";
 			if (violationsList.contains(mensaje)) {
-				GHAAlertManager.alert(mensaje);
+				GHAErrorMessageProcessor.alert(mensaje);
 				return null;
 			}
 			mensaje = "cancelation-option-not-null";
 			if (violationsList.contains(mensaje)) {
-				GHAAlertManager.alert(mensaje);
+				GHAErrorMessageProcessor.alert(mensaje);
 				return null;
 			}
 			/*
@@ -313,7 +313,7 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 			 * 
 			 * @NotNull(message = "cancelation-option-not-null")
 			 */// GHAAlertManager.alert(violationsList);
-			GHAAlertManager.alert(violationsList.get(0));
+			GHAErrorMessageProcessor.alert(violationsList.get(0));
 		}
 		return null;
 	}

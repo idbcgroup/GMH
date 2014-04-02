@@ -8,12 +8,12 @@ import org.fourgeeks.gha.domain.gmh.EiaComponent;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
@@ -131,13 +131,13 @@ ClosableListener, HideableListener, EIASelectionListener {
 
 	private void delete() {
 		if (grid.getSelectedRecord() == null) {
-			GHAAlertManager.alert("record-not-selected");
+			GHAErrorMessageProcessor.alert("record-not-selected");
 			return;
 		}
 
 
 		if(grid.getSelectedRecords().length > 1){
-			GHAAlertManager.confirm("eiaComponents-delete-confirm",
+			GHAErrorMessageProcessor.confirm("eiaComponents-delete-confirm",
 					new BooleanCallback() {
 				@Override
 				public void execute(Boolean value) {
@@ -156,7 +156,7 @@ ClosableListener, HideableListener, EIASelectionListener {
 				}
 			});
 		}else{
-			GHAAlertManager.confirm("eiaComponent-delete-confirm",
+			GHAErrorMessageProcessor.confirm("eiaComponent-delete-confirm",
 					new BooleanCallback() {
 				@Override
 				public void execute(Boolean value) {

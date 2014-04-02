@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.UI.alerts;
+package org.fourgeeks.gha.webclient.client.UI.pmewindows;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,8 +15,8 @@ import com.smartgwt.client.widgets.AnimationCallback;
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Dialog;
 import com.smartgwt.client.widgets.Label;
-import com.smartgwt.client.widgets.events.CloseClickEvent;
-import com.smartgwt.client.widgets.events.CloseClickHandler;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.events.MouseOutEvent;
 import com.smartgwt.client.widgets.events.MouseOutHandler;
 import com.smartgwt.client.widgets.events.MouseOverEvent;
@@ -25,118 +25,119 @@ import com.smartgwt.client.widgets.layout.Layout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 
 /**
- * @author jfuentes
+ * GHADialog: Superclase que hace Ventanas emergentes GHA.
+ * Se crean dependiendo del tipo y de otros parametros.
+ * Estos mensajes son siempre leidos de la base de datos. Nunca creados por los usuarios.
  * 
+ * @author jfuentes.
  */
 public abstract class GHADialog extends Dialog implements ResizeHandler,
 Window.ScrollHandler {
-	/**
-	 * @author jfuentes
-	 * 
-	 */
 
-	// Internal Measures
+	//---------------- Medidas Internas----------------------
+	//NOTA: las vntanas se autoajustan al contenido, asi se intente lo contrario.
+	/* Ancho estandar de la ventana*/
 	private static final int DEFAULT_NOTIFICATION_WIDTH = 280;
+	/* Alto estandar de las ventanas sin botones.*/
 	private static final int DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT = 140;
+	/* Ancho estandar de la ventana con botones.*/
 	private static final int DEFAULT_NOTIFICATION_BUTTONS_HEIGHT = 160;
-
+	/* Alto estandar del header de la ventana*/
 	private final int HEADER_HEIGHT = 25;
+	/* Ancho estandar del footer de la ventana*/
 	private final int FOOTER_HEIGHT = 15;
+	/* Espacio entre las ventanas y el lado derecho de la pantalla*/
 	private final int RIGHT_MARGIN = 30;
+	/* Espacio entre las ventanas y el lado derecho de la pantalla*/
 	private final int BORDER_SEPARATION = 8;
+	/* Tiempo que tardan las ventanas en mostrarse y ocultarse*/
+	protected final int DEFAULT_ANIMATION_TIME = 300;
 
-	protected boolean hasButtons;
+	//----------------Variables Internas-----------------------
+	/* Variable para la altura actual de la ventana */
 	protected int dialogHeight;
+	/* Variable para el Tipo de ventana */
 	protected String dialogType;
-	protected boolean isModal;
-	protected boolean isTimed;
-	protected int waitingTime = -1;
-
+	/* Variable para La posicion en la lista de mensajes de esta ventana */
 	protected int openedPosition = -1;
-
+	/* Variable para el tiempo que dura la ventana abierta */
+	protected int waitingTime = -1;
+	/* Timer cierra la ventana despues de -waitingTime- Segundos. */
 	private final Timer waiter = new Timer() {
 		@Override
 		public void run() {
 			close();
 		}
 	};
-	protected final int DEFAULT_ANIMATION_TIME = 300;
+
+	/* Tiene botones? */
+	protected boolean hasButtons;
+	/* Tiene botones? */
+	protected boolean isModal;
+	/* Se oculta automaticamente? */
+	protected boolean isTimed;
+
+	/* Handler para el cerrado de la ventana */
+	protected ClickHandler closeClickHandler = new ClickHandler() {
+		@Override
+		public void onClick(ClickEvent event) {
+			close();
+		}
+	};
 
 	/**
-	 * public GHADialog() { } Creates a GHADialog without buttons, with the
-	 * specifying parameters.
+	 * Crea una Ventana Emergente sin botones con los parametros especificados.
 	 * 
-	 * @param type
-	 * @param canMinimize
-	 * @param time
-	 *            TODO
+	 * @param type : el tipo de ventana a utilizar
+	 * @param timeShowing : el tiempo que dura mostrandose
 	 */
-	public GHADialog(GHAMessageType type, boolean canMinimize, int time) {
+	public GHADialog(GHAMessageType type, int timeShowing) {
 		super();
 
 		hasButtons = false;
 
 		initHandlers();
-		initHeaderControls(canMinimize);
+		initHeaderControls();
 		initFooterControls();
 		initialize();
 		setOriginalStyle();
-		initByType(type, time);
+		initByType(type, timeShowing);
 
-
-		// ---Handlers
-		addCloseClickHandler(new CloseClickHandler() {
-			@Override
-			public void onCloseClick(CloseClickEvent event) {
-				close();
-			}
-		});
 	}
 
 	/**
 	 * Creates a GHADialog with buttons, with the specifying parameters.
 	 * 
 	 * @param type
-	 * @param canMinimize
-	 * @param time
-	 *            TODO
+	 * @param timeShowing
 	 * @param buttons
 	 */
-	public GHADialog(GHAMessageType type, boolean canMinimize, int time,
-			Button... buttons) {
+	public GHADialog(GHAMessageType type, int timeShowing, Button... buttons) {
 		super();
 		hasButtons = true;
-		// ---Buttons
-		if (hasButtons) {
-			setButtons(buttons);
-		}
+
 		initHandlers();
-		initHeaderControls(canMinimize);
+		initHeaderControls();
 		initFooterControls();
 		initialize();
 		setOriginalStyle();
-		initByType(type, time);
+		initByType(type, timeShowing);
 
-		// ---Handlers
-		addCloseClickHandler(new CloseClickHandler() {
-			@Override
-			public void onCloseClick(CloseClickEvent event) {
-				close();
-			}
-		});
+		// ---Buttons
+		setButtons(buttons);
 	}
 
 	/**
-	 * Closes and destroy the window
+	 * Cierra y destruye la ventana.
 	 */
 	@Override
 	public void close() {
+		Window.alert("CLOSE: openMessageCounter:"+GHAErrorMessageProcessor.getOpenMessagesCounter()+"\nOpenedPosition:"+openedPosition);
 		if (openedPosition >= 0) {
-			GHAAlertManager.removeOpenMessageFromCounter();
-			GHAAlertManager.toggleMessagePosition(openedPosition);
-			GHAAlertManager.messageClosedActions();
+			GHAErrorMessageProcessor.removeOpenMessageFromCounter();
+			GHAErrorMessageProcessor.toggleMessagePosition(openedPosition);
+			GHAErrorMessageProcessor.messageClosedActions();
 		}
-
 		animateRect(null, Window.getScrollTop() + Window.getClientHeight(),
 				null, null, new AnimationCallback() {
 			@Override
@@ -145,10 +146,11 @@ Window.ScrollHandler {
 				destroy();
 			}
 		}, DEFAULT_ANIMATION_TIME);
+
 	}
 
 	/**
-	 * 
+	 *  Metodo que configura las opciones de tiempo y modalidad de la ventana.
 	 */
 	protected void confModalTimingSettings() {
 		// ---Modal & Timing Conf.
@@ -176,19 +178,23 @@ Window.ScrollHandler {
 	}
 
 	/**
-	 * @return The Dialog Type.
+	 * Devuelve el tipo de ventana a mostrar.
+	 * @return El tipo de ventana
 	 */
 	public String getDialogType() {
 		return dialogType;
 	}
 
+	/**
+	 * Funcion que hace uso de los metodos de configuracion de acuerdo al tipo de ventana.
+	 */
 	private void initByType(GHAMessageType type, int time) {
 		initTypeParameters(type, time);
 		confModalTimingSettings();
 	}
 
 	/**
-	 * 
+	 * 	Funcion que inicializa los controles del footer.
 	 */
 	private void initFooterControls() {
 		// ---Foooter controls
@@ -208,32 +214,34 @@ Window.ScrollHandler {
 		setFooterHeight(FOOTER_HEIGHT);
 	}
 
+	/**
+	 * 	Funcion que inicializa los handlers de la ventana.
+	 */
 	private void initHandlers() {
 		GHAUiHelper.addGHAResizeHandler(this);
 		GHAUiHelper.addWindowScrollHandler(this);
 	}
 
 	/**
-	 * @param canMinimize
+	 * 	Funcion que inicializa los controles del header.
 	 */
-	private void initHeaderControls(boolean canMinimize) {
+	private void initHeaderControls() {
 		// ---Header Controls
 		setShowHeaderIcon(true);
 		setHeaderIcon("../resources/icons/favicon.ico");
-		setShowMinimizeButton(canMinimize);
-		setShowCloseButton(false);
+		setShowMinimizeButton(false);
 		setShowMaximizeButton(false);
+		setShowCloseButton(false);
 	}
 
 	/**
-	 * Set the necessary parameters for the dialog to work
+	 * 	Funcion que inicializa los Parametros básicos de la vista de la ventana.
 	 */
 	private void initialize() {
-		// ---Init
+		// ---Parámetros basicos------------------
 		setAutoSize(false);
 		setAutoCenter(false);
 		setWidth(DEFAULT_NOTIFICATION_WIDTH);
-		final Layout bodyAC = new Layout();
 
 		if (hasButtons)
 			dialogHeight = DEFAULT_NOTIFICATION_BUTTONS_HEIGHT;
@@ -242,16 +250,23 @@ Window.ScrollHandler {
 
 		setHeight(dialogHeight);
 		setMaxHeight(dialogHeight);
+		//----Body Autochild---------------------
+		final Layout bodyAC = new Layout();
 		bodyAC.setHeight(dialogHeight - (HEADER_HEIGHT + FOOTER_HEIGHT  + BORDER_SEPARATION));
 
 		// bodyAC.setAlign(VerticalAlignment.CENTER);
 		// bodyAC.setAlign(Alignment.CENTER);
 		changeAutoChildDefaults("body", bodyAC);
+		//----Message Stack Autochild-----------
 		final Layout msgStack = new Layout();
 		msgStack.setStyleName("dialogMessageStack");
 		changeAutoChildDefaults("messageStack", msgStack);
+		//-------------------------------------
 	}
 
+	/**
+	 * 	Funcion que inicializa los parametros del tipo de ventana.
+	 */
 	private void initTypeParameters(GHAMessageType type, int time) {
 		final int secsToMills = 1000;
 		dialogType = type.getCode();
@@ -264,6 +279,9 @@ Window.ScrollHandler {
 		}
 	}
 
+	/**
+	 * 	Funcion que inicializa la vista del tipo de ventana.
+	 */
 	protected abstract void initTypeView();
 
 	@Override
@@ -281,6 +299,9 @@ Window.ScrollHandler {
 				Window.getClientWidth(), Window.getClientHeight());
 	}
 
+	/**
+	 * 	Funcion que cambia de tamaño la ventana. depende de si la ventana tiene botones o no.
+	 */
 	private void resize(int top, int left, int width, int height) {
 		if (isVisible()) {
 			final int windowWidth = width;
@@ -310,7 +331,7 @@ Window.ScrollHandler {
 	}
 
 	/**
-	 * 
+	 * 	Funcion que inicializa el estilo de cada una de las partes de la ventana.
 	 */
 	private void setOriginalStyle() {
 		setHeaderStyle("dialogHeaderStyle");
@@ -320,56 +341,16 @@ Window.ScrollHandler {
 	}
 
 	/**
-	 * 
+	 * 	Funcion que muestra la ventana.
 	 */
-	// public void openWindow() {
-	//
-	// openedPosition = GHAAlertManager.getFreeMessagePosition();
-	// if (openedPosition >= 0 || isModal) {
-	// if(openedPosition >= 0){
-	// GHAAlertManager.toggleMessagePosition(openedPosition);
-	// GHAAlertManager.addNewMessageToCounter();
-	// }
-	//
-	// show();
-	// // set the height to the available message text space
-	// getMessageStack().setHeight(40);
-	//
-	// final int windowWidth = Window.getClientWidth();
-	// final int windowHeight = Window.getClientHeight();
-	// int multp=0;
-	// if(openedPosition<0){
-	// setLeft(Window.getScrollLeft()+(windowWidth - (getWidth() +
-	// RIGHT_MARGIN)*2));
-	//
-	// multp = DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION;
-	// if (hasButtons)
-	// multp = DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION;
-	// }else{
-	// setLeft(Window.getScrollLeft()+(windowWidth - (getWidth() +
-	// RIGHT_MARGIN)));
-	//
-	// multp = (openedPosition + 1)*(DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT +
-	// BORDER_SEPARATION);
-	// if (hasButtons)
-	// multp = (openedPosition + 1)*(DEFAULT_NOTIFICATION_BUTTONS_HEIGHT +
-	// BORDER_SEPARATION);
-	// }
-	// setTop(Window.getScrollTop()+Window.getClientHeight());
-	//
-	// animateRect(null,Window.getScrollTop()+(windowHeight- multp),null, null);
-	// } else {
-	// Window.alert("Error. no hay posiciones libres para mostrar alertas");
-	// }
-	// }
-
 	@Override
 	public void show() {
-		openedPosition = GHAAlertManager.getFreeMessagePosition();
+		openedPosition = GHAErrorMessageProcessor.getFreeMessagePosition();
+		Window.alert("SHOW: openMessageCounter:"+GHAErrorMessageProcessor.getOpenMessagesCounter()+"\nOpenedPosition:"+openedPosition);
 		if (openedPosition >= 0 || isModal) {
 			if (openedPosition >= 0) {
-				GHAAlertManager.toggleMessagePosition(openedPosition);
-				GHAAlertManager.addNewMessageToCounter();
+				GHAErrorMessageProcessor.toggleMessagePosition(openedPosition);
+				GHAErrorMessageProcessor.addNewMessageToCounter();
 			}
 
 			super.show();
@@ -394,8 +375,6 @@ Window.ScrollHandler {
 
 			animateRect(null, Window.getScrollTop() + (windowHeight - multp),
 					null, null);
-		} else {
-			// Window.alert("Error. no hay posiciones libres para mostrar alertas");
 		}
 	}
 }
