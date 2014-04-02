@@ -8,13 +8,13 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAEditButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eia.EIAAddForm;
@@ -91,7 +91,7 @@ public class EIATypeEquipmentGridPanel extends GHAFormLayout implements
 				final Eia selectedRecord = grid.getSelectedEntity();
 
 				if (selectedRecord == null) {
-					GHAAlertManager.alert("record-not-selected");
+					GHAErrorMessageProcessor.alert("record-not-selected");
 					return;
 				}
 
@@ -127,12 +127,12 @@ public class EIATypeEquipmentGridPanel extends GHAFormLayout implements
 
 	private void delete() {
 		if (grid.getSelectedRecord() == null) {
-			GHAAlertManager.alert("record-not-selected");
+			GHAErrorMessageProcessor.alert("record-not-selected");
 			return;
 		}
 
 		if (grid.getSelectedRecords().length > 1) {
-			GHAAlertManager.confirm("eias-delete-confirm",
+			GHAErrorMessageProcessor.confirm("eias-delete-confirm",
 					new BooleanCallback() {
 
 						@Override
@@ -144,7 +144,7 @@ public class EIATypeEquipmentGridPanel extends GHAFormLayout implements
 
 											@Override
 											public void onSuccess(Void result) {
-												GHAAlertManager
+												GHAErrorMessageProcessor
 														.alert("eias-delete-success");
 												loadData(EIATypeEquipmentGridPanel.this.eiaType);
 											}
@@ -153,7 +153,7 @@ public class EIATypeEquipmentGridPanel extends GHAFormLayout implements
 						}
 					});
 		} else {
-			GHAAlertManager.confirm("eia-delete-confirm",
+			GHAErrorMessageProcessor.confirm("eia-delete-confirm",
 					new BooleanCallback() {
 
 						@Override
@@ -165,7 +165,7 @@ public class EIATypeEquipmentGridPanel extends GHAFormLayout implements
 
 											@Override
 											public void onSuccess(Boolean result) {
-												GHAAlertManager
+												GHAErrorMessageProcessor
 														.alert("eia-delete-success");
 												loadData(EIATypeEquipmentGridPanel.this.eiaType);
 											}

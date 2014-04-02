@@ -21,7 +21,6 @@ import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACheckboxItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
@@ -32,6 +31,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivitySt
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivitySubCategorySelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHACurrencyTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAPeriodOfTimeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
@@ -321,37 +321,37 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 			}
 			String mensaje = "name-activity-not-null";
 			if (violationsList.contains(mensaje)) {
-				GHAAlertManager.alert(mensaje);
+				GHAErrorMessageProcessor.alert(mensaje);
 				return null;
 			}
 			mensaje = "category-not-null";
 			if (violationsList.contains(mensaje)) {
-				GHAAlertManager.alert(mensaje);
+				GHAErrorMessageProcessor.alert(mensaje);
 				return null;
 			}
 			mensaje = "sub-category-not-null";
 			if (violationsList.contains(mensaje)) {
-				GHAAlertManager.alert(mensaje);
+				GHAErrorMessageProcessor.alert(mensaje);
 				return null;
 			}
 			mensaje = "estimated-duration-time-not-null";
 			if (violationsList.contains(mensaje)) {
-				GHAAlertManager.alert(mensaje);
+				GHAErrorMessageProcessor.alert(mensaje);
 				return null;
 			}
 			mensaje = "time-period-not-null";
 			if (violationsList.contains(mensaje)) {
-				GHAAlertManager.alert(mensaje);
+				GHAErrorMessageProcessor.alert(mensaje);
 				return null;
 			}
 			mensaje = "estimated-cost-not-null";
 			if (violationsList.contains(mensaje)) {
-				GHAAlertManager.alert(mensaje);
+				GHAErrorMessageProcessor.alert(mensaje);
 				return null;
 			}
 			mensaje = "currency-not-null";
 			if (violationsList.contains(mensaje)) {
-				GHAAlertManager.alert(mensaje);
+				GHAErrorMessageProcessor.alert(mensaje);
 				return null;
 			}
 

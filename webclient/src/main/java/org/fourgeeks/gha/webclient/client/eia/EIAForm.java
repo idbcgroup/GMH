@@ -27,7 +27,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
@@ -35,6 +34,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitletextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABspSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAPeriodOfTimeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
@@ -784,31 +784,31 @@ EiaSelectionProducer {
 			}
 
 			if (violationsList.contains("type-not-null")) {
-				GHAAlertManager.alert("type-not-null");
+				GHAErrorMessageProcessor.alert("type-not-null");
 				return null;
 			}
 			if (violationsList.contains("serial-not-null")) {
-				GHAAlertManager.alert("serial-not-null");
+				GHAErrorMessageProcessor.alert("serial-not-null");
 				return null;
 			}
 			if (violationsList.contains("asset-id-not-null")) {
-				GHAAlertManager.alert("asset-id-not-null");
+				GHAErrorMessageProcessor.alert("asset-id-not-null");
 				return null;
 			}
 			if (violationsList.contains("obu-not-null")) {
-				GHAAlertManager.alert("obu-not-null");
+				GHAErrorMessageProcessor.alert("obu-not-null");
 				return null;
 			}
 			if (violationsList.contains("base-role-not-null")) {
-				GHAAlertManager.alert("base-role-not-null");
+				GHAErrorMessageProcessor.alert("base-role-not-null");
 				return null;
 			}
 			if (violationsList.contains("external-provider-not-null")) {
-				GHAAlertManager.alert("external-provider-not-null");
+				GHAErrorMessageProcessor.alert("external-provider-not-null");
 				return null;
 			}
 			if (violationsList.contains("maintenance-provider-not-null")) {
-				GHAAlertManager.alert("maintenance-provider-not-null");
+				GHAErrorMessageProcessor.alert("maintenance-provider-not-null");
 				return null;
 			}
 
@@ -1164,7 +1164,7 @@ EiaSelectionProducer {
 				if (selectDateItem.getValueAsString().equalsIgnoreCase(
 						"PURCHASE")) {
 					if (purchaseDateItem.getValue() == null) {
-						GHAAlertManager
+						GHAErrorMessageProcessor
 						.alert("VEM-WARNING", "Advertencia",
 								"Debe Ingresar o Seleccionar una Fecha de Compra");
 
@@ -1175,7 +1175,7 @@ EiaSelectionProducer {
 				} else if (selectDateItem.getValueAsString().equalsIgnoreCase(
 						"RECEPTION")) {
 					if (receptionDateItem.getValue() == null) {
-						GHAAlertManager
+						GHAErrorMessageProcessor
 						.alert("VEM-WARNING", "Advertencia",
 								"Debe Ingresar o Seleccionar una Fecha de Recepción");
 
@@ -1186,7 +1186,7 @@ EiaSelectionProducer {
 				} else if (selectDateItem.getValueAsString().equalsIgnoreCase(
 						"INSTALATION")) {
 					if (installationDateItem.getValue() == null) {
-						GHAAlertManager
+						GHAErrorMessageProcessor
 						.alert("VEM-WARNING", "Advertencia",
 								"Debe Ingresar o Seleccionar una Fecha de Instalación");
 
@@ -1198,7 +1198,7 @@ EiaSelectionProducer {
 						"ACCEPTATION")) {
 
 					if (acceptationDateItem.getValue() == null) {
-						GHAAlertManager
+						GHAErrorMessageProcessor
 						.alert("VEM-WARNING", "Advertencia",
 								"Debe Ingresar o Seleccionar una Fecha de Aceptación");
 

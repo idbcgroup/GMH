@@ -16,7 +16,6 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
@@ -25,6 +24,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAJobSelectI
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanStateSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanificationStateSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
@@ -238,7 +238,7 @@ public class EIAMaintenancePlanificationForm extends
 			for (final ConstraintViolation<EiaMaintenancePlanification> violation : violations)
 				violationsList.add(violation.getMessage());
 			// GHAAlertManager.alert(violationsList);
-			GHAAlertManager.alert(violationsList.get(0));
+			GHAErrorMessageProcessor.alert(violationsList.get(0));
 		}
 		return null;
 	}
@@ -288,7 +288,7 @@ public class EIAMaintenancePlanificationForm extends
 												}
 											});
 						} else {
-							GHAAlertManager
+							GHAErrorMessageProcessor
 									.alert("exist-maintenance-planification");
 						}
 					}

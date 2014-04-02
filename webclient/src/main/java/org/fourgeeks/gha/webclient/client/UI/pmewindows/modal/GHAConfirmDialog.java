@@ -1,8 +1,8 @@
-package org.fourgeeks.gha.webclient.client.UI.alerts.modal;
+package org.fourgeeks.gha.webclient.client.UI.pmewindows.modal;
 
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHADialog;
 
 import com.smartgwt.client.widgets.Button;
 
@@ -20,7 +20,7 @@ public class GHAConfirmDialog extends GHADialog {
 	 * @param buttons
 	 */
 	public GHAConfirmDialog(GHAMessageType type, String message, int time, Button... buttons) {
-		super(type,false,time, buttons);
+		super(type,time,buttons);
 		setMessage(message);
 		initTypeView();
 	}

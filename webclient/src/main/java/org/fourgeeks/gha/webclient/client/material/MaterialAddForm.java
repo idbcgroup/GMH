@@ -3,10 +3,10 @@ package org.fourgeeks.gha.webclient.client.material;
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
 
 import com.smartgwt.client.util.BooleanCallback;
@@ -69,7 +69,7 @@ public class MaterialAddForm extends GHAAddForm<Material> implements
 	@Override
 	public boolean canBeClosen(HideCloseAction hideAction) {// TODO
 		if (form.hasUnCommittedChanges()) {
-			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
+			GHAErrorMessageProcessor.confirm("unsaved-changes", new BooleanCallback() {
 
 				@Override
 				public void execute(Boolean value) {
@@ -86,7 +86,7 @@ public class MaterialAddForm extends GHAAddForm<Material> implements
 	@Override
 	public boolean canBeHidden(HideCloseAction hideAction) {// TODO
 		if (form.hasUnCommittedChanges()) {
-			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
+			GHAErrorMessageProcessor.confirm("unsaved-changes", new BooleanCallback() {
 
 				@Override
 				public void execute(Boolean value) {
@@ -103,7 +103,7 @@ public class MaterialAddForm extends GHAAddForm<Material> implements
 	@Override
 	public void hide() {
 		if (form.hasUnCommittedChanges()) {
-			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
+			GHAErrorMessageProcessor.confirm("unsaved-changes", new BooleanCallback() {
 
 				@Override
 				public void execute(Boolean value) {
@@ -159,7 +159,7 @@ public class MaterialAddForm extends GHAAddForm<Material> implements
 
 			@Override
 			public void onSuccess(Material arg0) {
-				GHAAlertManager.alert("material-save-success");
+				GHAErrorMessageProcessor.alert("material-save-success");
 				form.cancel();
 				hide();
 			}

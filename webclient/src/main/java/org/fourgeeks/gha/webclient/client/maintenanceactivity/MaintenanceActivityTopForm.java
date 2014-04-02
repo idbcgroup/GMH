@@ -8,11 +8,11 @@ import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivityCategorySelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivitySubCategorySelectItem;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATopForm;
@@ -95,7 +95,7 @@ public class MaintenanceActivityTopForm extends
 
 	@Override
 	protected void delete() {
-		GHAAlertManager.confirm("maintenance-activity-delete-confirm",
+		GHAErrorMessageProcessor.confirm("maintenance-activity-delete-confirm",
 				new BooleanCallback() {
 					@Override
 					public void execute(Boolean value) {
@@ -107,7 +107,7 @@ public class MaintenanceActivityTopForm extends
 										public void onSuccess(Void result) {
 											containerTab.search();
 											clear();
-											GHAAlertManager
+											GHAErrorMessageProcessor
 													.alert("maintenance-activity-delete-success");
 										}
 									});

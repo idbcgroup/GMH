@@ -7,10 +7,10 @@ import org.fourgeeks.gha.domain.glm.MaterialBrand;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
 
 import com.smartgwt.client.widgets.AnimationCallback;
@@ -141,7 +141,7 @@ public class MaterialBrandAddForm extends GHAAddForm<MaterialBrand> implements
 
 			@Override
 			public void onSuccess(MaterialBrand entity) {
-				GHAAlertManager.alert("materialbrand-save-success");
+				GHAErrorMessageProcessor.alert("materialbrand-save-success");
 				hide();
 			}
 		});

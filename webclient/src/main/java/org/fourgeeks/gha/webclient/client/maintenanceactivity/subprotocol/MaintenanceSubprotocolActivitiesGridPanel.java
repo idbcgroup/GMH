@@ -9,13 +9,13 @@ import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySearchForm;
@@ -157,10 +157,10 @@ MaintenanceActivitySelectionListener {
 		final List<SubProtocolAndChecklist> selectedEntities = grid
 				.getSelectedEntities();
 		if (selectedEntities == null) {
-			GHAAlertManager.alert("record-not-selected");
+			GHAErrorMessageProcessor.alert("record-not-selected");
 		} else {
 			if(selectedEntities.size() == 1)
-				GHAAlertManager.confirm("activity-delete-confirm",
+				GHAErrorMessageProcessor.confirm("activity-delete-confirm",
 						new BooleanCallback() {
 					@Override
 					public void execute(Boolean value) {
@@ -170,7 +170,7 @@ MaintenanceActivitySelectionListener {
 					}
 				});
 			else
-				GHAAlertManager.confirm("activities-delete-confirm",
+				GHAErrorMessageProcessor.confirm("activities-delete-confirm",
 						new BooleanCallback() {
 					@Override
 					public void execute(Boolean value) {
@@ -189,7 +189,7 @@ MaintenanceActivitySelectionListener {
 			@Override
 			public void onSuccess(Void result) {
 				loadData();
-				GHAAlertManager.alert("delete-activities-success");
+				GHAErrorMessageProcessor.alert("delete-activities-success");
 			}
 		});
 	}

@@ -12,11 +12,11 @@ import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHACodeTextItem;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
 
 import com.google.gwt.validation.client.impl.Validation;
@@ -127,7 +127,7 @@ public class MaterialCategoryForm extends GHAFormLayout implements
 				violationsList.add(it.next().getMessage());
 			}
 			// GHAAlertManager.alert(violationsList);
-			GHAAlertManager.alert(violationsList.get(0));
+			GHAErrorMessageProcessor.alert(violationsList.get(0));
 		}
 		return null;
 	}
