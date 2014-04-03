@@ -44,11 +44,20 @@ public class MaterialCategoryServiceTest extends GHAArquillianBaseServiceTest {
 		category2.setName("test-2");
 		category2.setCode("T010102");
 
+		MaterialCategory test1 = null;
 		try {
-			MaterialCategory test1 = service.save(category1);
-			Assert.assertNotNull(test1);
-			Assert.assertEquals(category1.getName(), test1.getName());
-			Assert.assertEquals(category1.getCode(), test1.getCode());
+			test1 = service.save(category1);
+		} catch (GHAEJBException e) {
+			System.out.println("Error saving materialcategories");
+			Assert.fail(e.getCause().getMessage());
+			unset();
+		}
+
+		Assert.assertNotNull(test1);
+		Assert.assertEquals(category1.getName(), test1.getName());
+		Assert.assertEquals(category1.getCode(), test1.getCode());
+
+		try {
 			MaterialCategory test2 = service.save(category2);
 			Assert.assertNotNull(test2);
 			Assert.assertEquals(category2.getName(), test2.getName());
