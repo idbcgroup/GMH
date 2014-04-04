@@ -124,7 +124,7 @@ ES,facility,Instalación
 ES,obu,Departamento Responsable
 ES,role,Rol Responsable
 ES,search-component-eia,Búsqueda de componentes para equipos
-ES,search-component-eiatype,Búsqueda de componentes para tipos de equipo
+ES,search-component-eiatype,Búsqueda de tipos de equipo
 ES,search-material,Búsqueda de materiales para tipos de equipo
 ES,record-not-selected,Debe seleccionar un registro
 ES,search-utility-material,Búsqueda de materiales utilitarios para tipos de equipo

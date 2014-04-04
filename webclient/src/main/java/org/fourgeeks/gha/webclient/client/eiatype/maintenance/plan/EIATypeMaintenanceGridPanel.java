@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
@@ -19,6 +20,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanAddForm;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanModel;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSearchForm;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiaTypeMaintenancePlanGrid;
@@ -137,20 +139,43 @@ public class EIATypeMaintenanceGridPanel extends GHAFormLayout implements
 			GHAErrorMessageProcessor.alert("record-not-selected");
 			return;
 		}
-		GHAErrorMessageProcessor.confirm("eiatype-maintenance-plan-delete-confirm",
+
+		GHAErrorMessageProcessor.confirm(
+				"eiatype-maintenance-plan-delete-confirm",
 				new BooleanCallback() {
 
 					@Override
 					public void execute(Boolean value) {
 						if (value) {
-							EiaTypeMaintenancePlanModel.delete(entity.getId(),
-									new GHAAsyncCallback<Void>() {
+							MaintenancePlanModel.findEiaByMaintenancePlan(
+									entity.getMaintenancePlan(),
+									new GHAAsyncCallback<List<EiaMaintenancePlanification>>() {
 
 										@Override
-										public void onSuccess(Void result) {
-											grid.removeSelectedData();
+										public void onSuccess(
+												List<EiaMaintenancePlanification> result) {
+
+											if (result.isEmpty()) {
+												EiaTypeMaintenancePlanModel.delete(
+														entity.getId(),
+														new GHAAsyncCallback<Void>() {
+
+															@Override
+															public void onSuccess(
+																	Void result) {
+																grid.removeSelectedData();
+																GHAErrorMessageProcessor
+																		.alert("maintenance-delete-success");
+															}
+														});
+
+											} else {
+												GHAErrorMessageProcessor
+														.alert("maintenance-eia-exists");
+											}
 										}
 									});
+
 						}
 
 					}

@@ -9,6 +9,7 @@ import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
@@ -93,6 +94,21 @@ public class GWTMaintenanceProtocolsServiceImpl extends RemoteServiceServlet
 			throws GHAEJBException {
 		final List<MaintenanceProtocol> protocol = service
 				.findByMaintenancePlan(plan);
+		return protocol;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocols.
+	 * GWTMaintenanceProtocolsService
+	 * #findByMantenanceActivity(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	 */
+	@Override
+	public List<MaintenanceProtocol> findByMantenanceActivity(
+			MaintenanceActivity act) throws GHAEJBException {
+		final List<MaintenanceProtocol> protocol = service
+				.findByMantenanceActivity(act);
 		return protocol;
 	}
 

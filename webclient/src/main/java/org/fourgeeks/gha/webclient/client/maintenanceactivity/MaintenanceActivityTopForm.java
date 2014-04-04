@@ -6,6 +6,8 @@ import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
+import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
@@ -16,6 +18,8 @@ import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATopForm;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.SubprotocolAndChecklistModel;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolModel;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.util.BooleanCallback;
@@ -95,25 +99,64 @@ public class MaintenanceActivityTopForm extends
 
 	@Override
 	protected void delete() {
-		GHAErrorMessageProcessor.confirm("maintenance-activity-delete-confirm",
-				new BooleanCallback() {
+
+		MaintenanceProtocolModel.findByMantenanceActivity(selectedActivity,
+				new GHAAsyncCallback<List<MaintenanceProtocol>>() {
 					@Override
-					public void execute(Boolean value) {
-						if (value) {
-							MaintenanceActivityModel.delete(
-									selectedActivity.getId(),
-									new GHAAsyncCallback<Void>() {
+					public void onSuccess(List<MaintenanceProtocol> result) {
+
+						if (result.isEmpty()) {
+							SubprotocolAndChecklistModel.findByParentActivity(
+									selectedActivity.getActivity(),
+									new GHAAsyncCallback<List<SubProtocolAndChecklist>>() {
 										@Override
-										public void onSuccess(Void result) {
-											containerTab.search();
-											clear();
-											GHAErrorMessageProcessor
-													.alert("maintenance-activity-delete-success");
+										public void onSuccess(
+												List<SubProtocolAndChecklist> result) {
+
+											if (result.isEmpty()) {
+
+												GHAErrorMessageProcessor
+														.confirm(
+																"maintenance-activity-delete-confirm",
+																new BooleanCallback() {
+																	@Override
+																	public void execute(
+																			Boolean value) {
+																		if (value) {
+																			MaintenanceActivityModel
+																					.delete(selectedActivity
+																							.getId(),
+																							new GHAAsyncCallback<Void>() {
+																								@Override
+																								public void onSuccess(
+																										Void result) {
+																									containerTab
+																											.search();
+																									clear();
+																									GHAErrorMessageProcessor
+																											.alert("maintenance-activity-delete-success");
+																								}
+																							});
+																		}
+																	}
+																});
+											} else {
+												GHAErrorMessageProcessor
+														.alert("maintenance-activity-protocolo-associated");
+											}
+
 										}
 									});
+
+						} else {
+
+							GHAErrorMessageProcessor
+									.alert("maintenance-activity-plan-associated");
 						}
+
 					}
 				});
+
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceprotocol;
 
 import java.util.List;
 
+import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
@@ -82,6 +83,18 @@ public class MaintenanceProtocolModel {
 	public static void findByMaintenancePlan(MaintenancePlan plan,
 			GHAAsyncCallback<List<MaintenanceProtocol>> callback) {
 		service.findByMaintenancePlan(plan, callback);
+	}
+
+	/**
+	 * @param mantenanceactivity
+	 * @param callback
+	 *            the response callback with a list of
+	 *            {@link MaintenanceProtocol} with the (MaintenanceActivity,
+	 *            MaintenancePlan) pair
+	 */
+	public static void findByMantenanceActivity(MaintenanceActivity act,
+			GHAAsyncCallback<List<MaintenanceProtocol>> callback) {
+		service.findByMantenanceActivity(act, callback);
 	}
 
 	/**

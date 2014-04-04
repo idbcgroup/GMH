@@ -95,12 +95,19 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 				changedHandler);
 		beginningTimeItem = new GHATimeItem("Hora de inicio del mant.",
 				changedHandler);
+
+		beginningTimeItem.setValidateTimer();
+
 		finishDateItem = new GHADateItem("Fecha de finalización del mant.",
 				changedHandler);
 		finishTimeItem = new GHATimeItem("Hora de finalización del mant.",
 				changedHandler);
+		finishTimeItem.setValidateTimer();
+
 		effectiveTimeTextItem = new GHATextItem("Tiempo efectivo empleado",
 				false, changedHandler);
+		effectiveTimeTextItem.setKeyPressFilter("^[0-9]+$");
+
 		effectivePoTSelectItem = new GHAPeriodOfTimeSelectItem(false,
 				changedHandler);
 		initialEiaStateSelectItem = new GHAEiaStateSelectItem(
@@ -112,6 +119,8 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 		failureDescriptionTextAreaItem.setColSpan(2);
 		estimatedMaintenanceTimeTextItem = new GHATextItem(
 				"Tiempo estimado sin el equipo", false, changedHandler);
+		estimatedMaintenanceTimeTextItem.setKeyPressFilter("^[0-9]+$");
+
 		estimatedMaintenancePoTSelectedItem = new GHAPeriodOfTimeSelectItem(
 				false, changedHandler);
 		deliverDateItem = new GHADateItem("Fecha de entrega", changedHandler);
@@ -252,6 +261,11 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 		maintenacePlanSelectItem.clearValue();
 		durationPlanTextItem.clearValue();
 		durationPlanPoTSelectItem.clearValue();
+
+		// formularios
+		basicInfoForm.clearErrors(true);
+		timesAndDatesForm.clearErrors(true);
+		maintenanceTypeForm.clearErrors(true);
 	}
 
 	@Override
@@ -265,6 +279,9 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 	 */
 	private EiaMaintenance extract() {
 		if (!hasUnCommittedChanges)
+			return null;
+
+		if (!timesAndDatesForm.validate())
 			return null;
 
 		final EiaMaintenance entity = selectedMaintenance;
