@@ -112,6 +112,8 @@ public class EIATypeComponentGridPanel extends GHAFormLayout implements
 
 							@Override
 							public void onSuccess(EiaTypeComponent result) {
+								GHAErrorMessageProcessor
+										.alert("eiatype-component-save-success");
 								loadData();
 							}
 						});
@@ -159,38 +161,14 @@ public class EIATypeComponentGridPanel extends GHAFormLayout implements
 	}
 
 	private void delete() {
-		// final EiaTypeComponent eiaTypeComponent = grid.getSelectedEntity();
-		//
-		// if (eiaTypeComponent == null) {
-		// GHAAlertManager.alert("record-not-selected");
-		// return;
-		// }
-		//
-		// GHAAlertManager.confirm("eiatype-component-delete-confirm",
-		// new BooleanCallback() {
-		//
-		// @Override
-		// public void execute(Boolean value) {
-		// if (value)
-		// EIATypeComponentModel.delete(
-		// eiaTypeComponent.getId(),
-		// new GHAAsyncCallback<Void>() {
-		//
-		// @Override
-		// public void onSuccess(Void result) {
-		// loadData();
-		// }
-		// });
-		// }
-		// });
 		if (grid.getSelectedRecord() == null) {
 			GHAErrorMessageProcessor.alert("record-not-selected");
 			return;
 		}
 
 		if (grid.getSelectedRecords().length > 1) {
-			GHAErrorMessageProcessor.confirm("eiatype-components-delete-confirm",
-					new BooleanCallback() {
+			GHAErrorMessageProcessor.confirm(
+					"eiatype-components-delete-confirm", new BooleanCallback() {
 
 						@Override
 						public void execute(Boolean value) {
@@ -211,8 +189,8 @@ public class EIATypeComponentGridPanel extends GHAFormLayout implements
 						}
 					});
 		} else {
-			GHAErrorMessageProcessor.confirm("eiatype-component-delete-confirm",
-					new BooleanCallback() {
+			GHAErrorMessageProcessor.confirm(
+					"eiatype-component-delete-confirm", new BooleanCallback() {
 
 						@Override
 						public void execute(Boolean value) {
