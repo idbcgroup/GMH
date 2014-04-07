@@ -102,6 +102,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 				"Datos del Reporte de Equipo Dañado:", 3);
 		damageDateItem = new GHADateItem("Fecha del daño o falla",
 				changedHandler);
+		damageDateItem.setValidators(damageDateItem.getValidator());
 
 		damageTimeItem = new GHATextItem("Hora del daño o falla", false,
 				changedHandler); // new GHATimeItem("Hora del daño o falla",
@@ -265,6 +266,8 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		userWhoReportedSelectItem.clearValue();
 		userWhoRegistedSelectItem.clearValue();
 		damageMotiveTextAreaItem.clearValue();
+
+		reportForm.clearErrors(true);
 	}
 
 	@Override
@@ -273,8 +276,8 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	}
 
 	private EiaDamageReport extract() {
-		if (!hasUnCommittedChanges)
-			return null;
+		// if (!hasUnCommittedChanges)
+		// return null;
 
 		final EiaDamageReport eiaDamageReport = new EiaDamageReport();
 

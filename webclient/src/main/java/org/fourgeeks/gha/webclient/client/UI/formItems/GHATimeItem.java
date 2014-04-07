@@ -8,6 +8,7 @@ import com.smartgwt.client.util.LogicalTime;
 import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.form.fields.TimeItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
+import com.smartgwt.client.widgets.form.validator.RegExpValidator;
 
 public class GHATimeItem extends TimeItem {
 
@@ -60,5 +61,15 @@ public class GHATimeItem extends TimeItem {
 			return DateUtil.getLogicalTimeOnly(value);
 
 		return null;
+	}
+
+	public void setValidateTimer() {
+
+		RegExpValidator textValidator = new RegExpValidator();
+		textValidator.setErrorMessage("El Tiempo Introducido es Erroneo");
+		textValidator.setExpression("([01]?[0-9]|2[0-3]):[0-5][0-9]");
+		setValidators(textValidator);
+		setShowErrorIcon(true);
+		setValidateOnChange(true);
 	}
 }

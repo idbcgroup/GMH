@@ -224,6 +224,30 @@ public class MaintenanceProtocolService extends GHAEJBExceptionService
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolsServiceRemote#
+	 * findByMantenanceActivity(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	 */
+	@Override
+	public List<MaintenanceProtocol> findByMantenanceActivity(
+			MaintenanceActivity act) throws GHAEJBException {
+		try {
+			final TypedQuery<MaintenanceProtocol> query = em.createNamedQuery(
+					"MaintenanceProtocol.findByMantenanceActivity",
+					MaintenanceProtocol.class);
+
+			return query.setParameter("maintenanceActivity", act)
+					.getResultList();
+
+		} catch (Exception e) {
+			logger.log(Level.INFO, "Error: finding by mantenanceActivity", e);
+			throw super.generateGHAEJBException(
+					"maintenanceProtocol-findByMaintenancePlan-fail", em);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see
 	 * org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolsServiceRemote#getStadisticInfo
 	 * (org.fourgeeks.gha.domain.gmh.MaintenancePlan)

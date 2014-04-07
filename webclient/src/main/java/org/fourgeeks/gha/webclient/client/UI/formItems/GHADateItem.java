@@ -13,6 +13,7 @@ import com.smartgwt.client.util.LogicalDate;
 import com.smartgwt.client.widgets.form.fields.DateItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.form.validator.CustomValidator;
+import com.smartgwt.client.widgets.form.validator.DateRangeValidator;
 
 /**
  * @author alacret TODO
@@ -33,7 +34,7 @@ public class GHADateItem extends DateItem {
 
 		setDisplayFormat(DateDisplayFormat.TOEUROPEANSHORTDATE);
 		setHoverWidth(100);
-
+		setUseMask(true);
 		// CustomValidator customValidator = getStandardValidator();
 		// setValidators(customValidator);
 		// setValidateOnChange(true);
@@ -104,6 +105,7 @@ public class GHADateItem extends DateItem {
 		this();
 		setTitle(title);
 		addChangedHandler(changedHandler);
+
 	}
 
 	public GHADateItem(String title, int width) {
@@ -138,6 +140,19 @@ public class GHADateItem extends DateItem {
 		} else {
 			setOriginalStyle();
 		}
+		setShowErrorIcon(false);
+	}
+
+	public DateRangeValidator getValidator() {
+		final DateRangeValidator drv = new DateRangeValidator();
+		drv.setMin(new java.util.Date(0));
+		final long currentTimeMillis = System.currentTimeMillis();
+		final Date endDate = new Date(currentTimeMillis);
+		drv.setMax(endDate);
+		drv.setErrorMessage(GHAStrings.get("date-must-be-lower-than-today"));
+		drv.setValidateOnChange(true);
+
+		return drv;
 	}
 
 }

@@ -14,7 +14,6 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAHeaderOption;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader;
-import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.tabs.TabStatus;
 
 import com.smartgwt.client.types.Visibility;
@@ -56,17 +55,17 @@ EiaTypeSelectionProducer {
 				add();
 			}
 		});
-		header.addDebugOption("MIT:"+GHAErrorMessageProcessor.getOpenMessagesCounter(),
-				new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				String messageText = "";
-				for (int i = 0; i < 86; i=i+2) {
-					messageText += "A ";
-				}
-				GHAErrorMessageProcessor.alert("VEC-ERROR","Información","Long Message: test test test test test test test test test test test ");
-			}
-		});
+		//		header.addDebugOption("MIT:"+GHAErrorMessageProcessor.getOpenMessagesCounter(),
+		//				new ClickHandler() {
+		//			@Override
+		//			public void onClick(ClickEvent event) {
+		//				String messageText = "";
+		//				for (int i = 0; i < 86; i=i+2) {
+		//					messageText += "A ";
+		//				}
+		//				GHAErrorMessageProcessor.alert("VEC-ERROR","Información","Long Message: test test test test test test test test test test test ");
+		//			}
+		//		});
 
 		resultSet = new EiaTypeResultSet(ResultSetContainerType.TAB);
 		resultSet.setVisible(false);

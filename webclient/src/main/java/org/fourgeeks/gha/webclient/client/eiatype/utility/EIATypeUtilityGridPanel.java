@@ -93,7 +93,29 @@ public class EIATypeUtilityGridPanel extends GHAFormLayout implements
 		searchForm = new UtilitySearchForm(
 				GHAStrings.get("search-utility-material"));
 		searchForm
-				.addMaterialBrandSelectionListener(materialBrandSelectionListener);
+				.addMaterialBrandSelectionListener(new MaterialBrandSelectionListener() {
+
+					@Override
+					public void select(MaterialBrand materialBrand) {
+						EIATypeUtilityGridPanel.this.searchForm.clean();
+
+						final EiaTypeMaterialBrand entity = new EiaTypeMaterialBrand();
+						entity.setEiaType(EIATypeUtilityGridPanel.this.eiaType);
+						entity.setMaterialBrand(materialBrand);
+
+						EIATypeMaterialBrandModel.save(entity,
+								new GHAAsyncCallback<EiaTypeMaterialBrand>() {
+
+									@Override
+									public void onSuccess(
+											EiaTypeMaterialBrand arg0) {
+										GHAErrorMessageProcessor
+												.alert("eiatype-utility-save-success");
+										loadData();
+									}
+								});
+					}
+				});
 
 	}
 
@@ -155,8 +177,8 @@ public class EIATypeUtilityGridPanel extends GHAFormLayout implements
 		}
 
 		if (grid.getSelectedRecords().length > 1) {
-			GHAErrorMessageProcessor.confirm("eiatype-utilities-delete-confirm",
-					new BooleanCallback() {
+			GHAErrorMessageProcessor.confirm(
+					"eiatype-utilities-delete-confirm", new BooleanCallback() {
 
 						@Override
 						public void execute(Boolean value) {
