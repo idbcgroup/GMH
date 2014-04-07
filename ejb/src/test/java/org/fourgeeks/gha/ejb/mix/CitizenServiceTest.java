@@ -166,6 +166,7 @@ public class CitizenServiceTest {
 				.addClass(ActivityTypeService.class)
 				.addClass(ActivityTypeServiceRemote.class)
 				.addClass(CCDICodeTypeEnum.class)
+				.addClass(CitizenServiceRemote.class)
 				.addClass(CCDIEndValueActionEnum.class)
 				.addClass(FunctionBpu.class)
 				.addClass(App.class)
