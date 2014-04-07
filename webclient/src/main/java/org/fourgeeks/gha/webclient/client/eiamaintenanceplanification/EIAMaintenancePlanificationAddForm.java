@@ -91,6 +91,7 @@ public class EIAMaintenancePlanificationAddForm extends
 		form.save(new GHAAsyncCallback<EiaMaintenancePlanification>() {
 			@Override
 			public void onSuccess(EiaMaintenancePlanification result) {
+				form.clear();
 				GHAErrorMessageProcessor
 						.alert("eiaMaintenancePlanification-save-success");
 				hide();

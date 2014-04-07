@@ -73,20 +73,18 @@ public class MaintenanceProtocolService extends GHAEJBExceptionService
 					.binarySearchFilterEntity(activitiesFrom, activitiesTo);
 
 			// obtengo el ultimo ordinal del protocolo del plan
-			TypedQuery<Integer> queryOrd = em.createNamedQuery(
-					"MaintenanceProtocol.getLastOrdinal", Integer.class);
+			TypedQuery<Long> queryOrd = em.createNamedQuery(
+					"MaintenanceProtocol.getLastOrdinal", Long.class);
 
-			List<Integer> ordinalList = queryOrd.setParameter("plan", planTo)
-					.getResultList();
-
-			int ordinal = ordinalList.isEmpty() ? 0 : ordinalList.get(0);
+			long ordinal = queryOrd.setParameter("plan", planTo)
+					.getSingleResult();
 
 			// agrego las actividades al plan deseado
 			for (AbstractEntity entity : entitiesToCopy) {
 				ordinal++;
 				MaintenanceActivity activity = (MaintenanceActivity) entity;
 				MaintenanceProtocol protocol = new MaintenanceProtocol(planTo,
-						activity, ordinal);
+						activity, (int) ordinal);
 				em.persist(protocol);
 			}
 
