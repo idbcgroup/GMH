@@ -97,11 +97,15 @@ public abstract class GHAForm<T> extends GHAVerticalLayout implements
 	 * undo the changes to the entity
 	 */
 	public void undo() {
-		if (originalEntity == null)
-			clear();
-		else
-			this.set(originalEntity);
+		clear();
 		hasUnCommittedChanges = false;
+		if (this.originalEntity != null)
+			this.set(originalEntity);
+		// if (originalEntity == null)
+		// clear();
+		// else
+		// this.set(originalEntity);
+		// hasUnCommittedChanges = false;
 	}
 
 	/**

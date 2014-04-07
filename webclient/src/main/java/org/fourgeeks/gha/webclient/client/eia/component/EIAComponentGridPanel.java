@@ -14,8 +14,8 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIaComponentsSearchForm;
 
@@ -33,7 +33,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIAComponentGridPanel extends GHAFormLayout implements
-ClosableListener, HideableListener, EIASelectionListener {
+		ClosableListener, HideableListener, EIASelectionListener {
 
 	private EIAComponentGrid grid;
 	private Eia eia;
@@ -51,10 +51,10 @@ ClosableListener, HideableListener, EIASelectionListener {
 				EIAComponentModel.update(eiaComponent,
 						new GHAAsyncCallback<EiaComponent>() {
 
-					@Override
-					public void onSuccess(EiaComponent result) {
-					}
-				});
+							@Override
+							public void onSuccess(EiaComponent result) {
+							}
+						});
 
 			}
 		});
@@ -75,11 +75,13 @@ ClosableListener, HideableListener, EIASelectionListener {
 				EIAComponentModel.save(eiaComponent,
 						new GHAAsyncCallback<EiaComponent>() {
 
-					@Override
-					public void onSuccess(EiaComponent result) {
-						loadData();
-					}
-				});
+							@Override
+							public void onSuccess(EiaComponent result) {
+								GHAErrorMessageProcessor
+										.alert("eiacomponent-save-success");
+								loadData();
+							}
+						});
 
 			}
 		});
@@ -98,13 +100,13 @@ ClosableListener, HideableListener, EIASelectionListener {
 					}
 				}), new GHADeleteButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						delete();
+			@Override
+			public void onClick(ClickEvent event) {
+				delete();
 
-					}
+			}
 
-				}));
+		}));
 
 		HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(grid, sideButtons);
@@ -135,45 +137,48 @@ ClosableListener, HideableListener, EIASelectionListener {
 			return;
 		}
 
-
-		if(grid.getSelectedRecords().length > 1){
+		if (grid.getSelectedRecords().length > 1) {
 			GHAErrorMessageProcessor.confirm("eiaComponents-delete-confirm",
 					new BooleanCallback() {
-				@Override
-				public void execute(Boolean value) {
-					if (value) {
-						List<EiaComponent> entities = grid
-								.getSelectedEntities();
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								List<EiaComponent> entities = grid
+										.getSelectedEntities();
 
-						EIAComponentModel.delete(entities,
-								new GHAAsyncCallback<Void>() {
-							@Override
-							public void onSuccess(Void result) {
-								grid.removeSelectedData();
+								EIAComponentModel.delete(entities,
+										new GHAAsyncCallback<Void>() {
+											@Override
+											public void onSuccess(Void result) {
+												GHAErrorMessageProcessor
+														.alert("eiacomponents-delete-success");
+												loadData();
+											}
+										});
 							}
-						});
-					}
-				}
-			});
-		}else{
+						}
+					});
+		} else {
 			GHAErrorMessageProcessor.confirm("eiaComponent-delete-confirm",
 					new BooleanCallback() {
-				@Override
-				public void execute(Boolean value) {
-					if (value) {
-						List<EiaComponent> entities = grid
-								.getSelectedEntities();
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								List<EiaComponent> entities = grid
+										.getSelectedEntities();
 
-						EIAComponentModel.delete(entities,
-								new GHAAsyncCallback<Void>() {
-							@Override
-							public void onSuccess(Void result) {
-								grid.removeSelectedData();
+								EIAComponentModel.delete(entities,
+										new GHAAsyncCallback<Void>() {
+											@Override
+											public void onSuccess(Void result) {
+												GHAErrorMessageProcessor
+														.alert("eiacomponent-delete-success");
+												loadData();
+											}
+										});
 							}
-						});
-					}
-				}
-			});
+						}
+					});
 		}
 	}
 
@@ -187,15 +192,15 @@ ClosableListener, HideableListener, EIASelectionListener {
 		EIAComponentModel.findByEiaId(eia,
 				new GHAAsyncCallback<List<EiaComponent>>() {
 
-			@Override
-			public void onSuccess(List<EiaComponent> eiaComponents) {
-				ListGridRecord[] array = EIAComponentUtil
-						.toGridRecords(eiaComponents).toArray(
-								new EIAComponentRecord[] {});
-				grid.setData(array);
-			}
+					@Override
+					public void onSuccess(List<EiaComponent> eiaComponents) {
+						ListGridRecord[] array = EIAComponentUtil
+								.toGridRecords(eiaComponents).toArray(
+										new EIAComponentRecord[] {});
+						grid.setData(array);
+					}
 
-		});
+				});
 
 	}
 
@@ -206,7 +211,7 @@ ClosableListener, HideableListener, EIASelectionListener {
 
 		for (int i = 0; i < records.length; ++i)
 			blackList
-			.add(((EIAComponentRecord) records[i]).toEntity().getEia());
+					.add(((EIAComponentRecord) records[i]).toEntity().getEia());
 
 		searchForm.filterBy(blackList);
 		searchForm.open();
