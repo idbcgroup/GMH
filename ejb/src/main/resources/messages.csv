@@ -580,3 +580,4 @@ ES,maintenance-eia-exists,El plan no puede ser eliminado porque está asociado a
 ES,maintenance-plan-exists-activity,No tiene actividades asociadas,VEM-WARNING
 ES,maintenance-activity-protocolo-associated,No puede Eliminar la Actividad tiene Asociada otras Actividades,VEM-WARNING
 ES,maintenance-activity-plan-associated,No puede Eliminar la Actividad tiene plan de mantenimiento asociado,VEM-WARNING
+ES,both-plans-have-the-same-maintenance-activities,Ambos Planes poseen las mismas actividades,VEM-WARNING

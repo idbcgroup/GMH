@@ -40,9 +40,9 @@ public class GWTMaintenanceProtocolsServiceImpl extends RemoteServiceServlet
 	 * org.fourgeeks.gha.domain.gmh.MaintenancePlan)
 	 */
 	@Override
-	public void copyActivities(MaintenancePlan planFrom, MaintenancePlan planTo)
-			throws GHAEJBException {
-		service.copyActivities(planFrom, planTo);
+	public Boolean copyActivities(MaintenancePlan planFrom,
+			MaintenancePlan planTo) throws GHAEJBException {
+		return service.copyActivities(planFrom, planTo);
 	}
 
 	/*

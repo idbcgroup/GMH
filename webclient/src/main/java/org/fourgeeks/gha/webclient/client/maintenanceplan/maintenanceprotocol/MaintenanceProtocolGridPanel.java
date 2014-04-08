@@ -208,7 +208,8 @@ public class MaintenanceProtocolGridPanel extends GHAFormLayout implements
 				.getSelectedEntities();
 
 		if (selectedEntities == null) {
-			GHAErrorMessageProcessor.confirm("maintenance-protocol-delete-confirm",
+			GHAErrorMessageProcessor.confirm(
+					"maintenance-protocol-delete-confirm",
 					new BooleanCallback() {
 						@Override
 						public void execute(Boolean value) {
@@ -272,7 +273,8 @@ public class MaintenanceProtocolGridPanel extends GHAFormLayout implements
 					public void onSuccess(Void result) {
 						loadData();
 						notifyMaintenanceProtocols(null);
-						GHAErrorMessageProcessor.alert("delete-activities-success");
+						GHAErrorMessageProcessor
+								.alert("delete-activities-success");
 					}
 				});
 	}
@@ -383,9 +385,14 @@ public class MaintenanceProtocolGridPanel extends GHAFormLayout implements
 						if (!result.isEmpty()) {
 							MaintenanceProtocolModel.copyActivities(planFrom,
 									maintenancePlan,
-									new GHAAsyncCallback<Void>() {
+									new GHAAsyncCallback<Boolean>() {
 										@Override
-										public void onSuccess(Void result) {
+										public void onSuccess(Boolean result) {
+
+											if (result == false) {
+												GHAErrorMessageProcessor
+														.alert("both-plans-have-the-same-maintenance-activities");
+											}
 											loadData();
 											notifyMaintenanceProtocols(null);
 										}
