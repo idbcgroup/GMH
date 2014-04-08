@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eiamaintenanceplanification;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -32,6 +33,7 @@ import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -72,8 +74,10 @@ public class EIAMaintenancePlanificationForm extends
 		planSelectItem.setColSpan(2);
 		beginningDateDateItem = new GHADateItem("Fecha de inicio",
 				changedHandler);
-
 		beginningDateDateItem.setRequired(true);
+		beginningDateDateItem.setValidators(beginningDateDateItem
+				.getValidatorDateMax());
+		beginningDateDateItem.setShowErrorIcon(true);
 		// selectDateItem.setDefaultValue(VAL_SOME_EIATYPES);
 
 		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
@@ -262,15 +266,12 @@ public class EIAMaintenancePlanificationForm extends
 		selectedEia = eia;
 		planSelectItem.fillByEiaType(selectedEiaType);
 
-		// selectDateItem.clearValue();
-		//
-		// beginningDateDateItem.setValue(eia.getInstallationDate());
+		Date dia_actual = new Date();
+		DateTimeFormat dtf = DateTimeFormat.getFormat("dd/MM/yyyy");
+		beginningDateDateItem.setValue(dtf.format(dia_actual));
 
 		planificationStateSelectItem
 				.setValue(MaintenancePlanificationState.ACTIVE);
-
-		// if (beginningDateDateItem.getValue() != null)
-		// selectDateItem.setValue("FIE");
 
 		if (eia.getMaintenanceProvider() != null) {
 			providerSelectItem.setValue(eia.getMaintenanceProvider().getId());
