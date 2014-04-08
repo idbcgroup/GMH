@@ -43,7 +43,7 @@ public class GHAMenuOption extends HLayout {
 
 			@Override
 			public void onMouseOut(final MouseOutEvent event) {
-				setBackgroundColor("#FFFFFF");
+				setBackgroundColor(GHAUiHelper.DEFAULT_MENU_BAR_BACKGROUND_COLOR);
 			}
 		});
 	}
@@ -62,7 +62,6 @@ public class GHAMenuOption extends HLayout {
 		titulo.setHeight("25px");
 		titulo.setStyleName("menu-option-title button-pointer");
 		addMember(titulo);
-		addMember(new LayoutSpacer());
 	}
 
 	/**
