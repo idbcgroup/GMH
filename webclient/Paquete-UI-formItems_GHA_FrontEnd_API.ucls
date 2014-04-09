@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.5" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem" 
+    project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems/GHATextAreaItem.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="737" y="182"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems.GHAPickTreeItem" 
+    project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems/GHAPickTreeItem.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="151" width="244" x="616" y="264"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems/GHASpacerItem.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="97" width="241" x="618" y="428"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems/GHATextItem.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="149" y="371"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems.GHACheckboxItem" 
+    project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems/GHACheckboxItem.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="445" y="579"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems.GHARadioGroupItem" 
+    project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems/GHARadioGroupItem.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="115" width="242" x="617" y="540"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems.GHAComboboxItem" 
+    project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems/GHAComboboxItem.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="205" width="272" x="893" y="116"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems/GHASelectItem.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="447" y="299"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <package id="9" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="165" y="-89"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <class id="10" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems.GHATitletextItem" 
+    project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems/GHATitletextItem.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1303" y="173"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems.GHATimeItem" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems/GHATimeItem.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1305" y="335"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems/GHADateItem.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="277" width="272" x="893" y="343"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems.GHASubmitItem" 
+    project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems/GHASubmitItem.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1303" y="535"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="com.smartgwt.client.widgets.form.fields.TextAreaItem" project="webclient" 
+    file="/home/nelson/workspace/workspaceGHA/gha/lib/smartgwt.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="737" y="43"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="com.smartgwt.client.widgets.form.fields.SelectItem" project="webclient" 
+    file="/home/nelson/workspace/workspaceGHA/gha/lib/smartgwt.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="444" y="43"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="com.smartgwt.client.widgets.form.fields.CheckboxItem" project="webclient" 
+    file="/home/nelson/workspace/workspaceGHA/gha/lib/smartgwt.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="445" y="720"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="com.smartgwt.client.widgets.form.fields.TextItem" project="webclient" 
+    file="/home/nelson/workspace/workspaceGHA/gha/lib/smartgwt.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="150" y="43"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="com.smartgwt.client.widgets.form.fields.ComboBoxItem" project="webclient" 
+    file="/home/nelson/workspace/workspaceGHA/gha/lib/smartgwt.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1026" y="43"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="com.smartgwt.client.widgets.form.fields.StaticTextItem" project="webclient" 
+    file="/home/nelson/workspace/workspaceGHA/gha/lib/smartgwt.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1302" y="43"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="com.smartgwt.client.widgets.form.fields.DateItem" project="webclient" 
+    file="/home/nelson/workspace/workspaceGHA/gha/lib/smartgwt.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1027" y="720"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="com.smartgwt.client.widgets.form.fields.RadioGroupItem" project="webclient" 
+    file="/home/nelson/workspace/workspaceGHA/gha/lib/smartgwt.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="736" y="720"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="com.smartgwt.client.widgets.form.fields.SubmitItem" project="webclient" 
+    file="/home/nelson/workspace/workspaceGHA/gha/lib/smartgwt.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1306" y="720"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="com.smartgwt.client.widgets.form.fields.SpacerItem" project="webclient" 
+    file="/home/nelson/workspace/workspaceGHA/gha/lib/smartgwt.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="736" y="799"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="com.smartgwt.client.widgets.form.fields.IPickTreeItem" project="webclient" 
+    file="/home/nelson/workspace/workspaceGHA/gha/lib/smartgwt.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="446" y="797"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="com.smartgwt.client.widgets.form.fields.TimeItem" project="webclient" 
+    file="/home/nelson/workspace/workspaceGHA/gha/lib/smartgwt.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1302" y="-25"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <generalization id="26">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="18"/>  
+  </generalization>  
+  <generalization id="27">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="19"/>  
+  </generalization>  
+  <generalization id="28">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <generalization id="29">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="21"/>  
+  </generalization>  
+  <generalization id="30">    
+    <bendpoint x="1026" y="-11"/>    
+    <bendpoint x="595" y="-11"/>    
+    <bendpoint x="152" y="-11"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="17"/>  
+  </generalization>  
+  <generalization id="31">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="22"/>  
+  </generalization>  
+  <generalization id="32">    
+    <bendpoint x="1301" y="-62"/>    
+    <bendpoint x="1110" y="-62"/>    
+    <bendpoint x="1110" y="-25"/>    
+    <bendpoint x="749" y="-25"/>    
+    <bendpoint x="450" y="-25"/>    
+    <bendpoint x="151" y="-25"/>    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="17"/>  
+  </generalization>  
+  <generalization id="33">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="17"/>  
+  </generalization>  
+  <generalization id="34">    
+    <bendpoint x="872" y="478"/>    
+    <bendpoint x="870" y="800"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <generalization id="35">    
+    <bendpoint x="1184" y="339"/>    
+    <bendpoint x="1184" y="-26"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="25"/>  
+  </generalization>  
+  <generalization id="36">    
+    <bendpoint x="1027" y="637"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="20"/>  
+  </generalization>  
+  <generalization id="37">    
+    <bendpoint x="595" y="339"/>    
+    <bendpoint x="595" y="796"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="24"/>  
+  </generalization>  
+  <generalization id="38">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <generalization id="39">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="15"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="false" package="false" protected="false" private="false" static="false"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
