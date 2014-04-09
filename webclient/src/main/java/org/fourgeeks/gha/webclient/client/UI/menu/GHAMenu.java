@@ -13,7 +13,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.util.TreeNode;
 
 import com.google.gwt.user.client.Event;

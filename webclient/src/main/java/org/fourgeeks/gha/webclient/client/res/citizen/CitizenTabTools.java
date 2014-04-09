@@ -1,9 +1,9 @@
 package org.fourgeeks.gha.webclient.client.res.citizen;
 
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHACleanButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHACloseButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;

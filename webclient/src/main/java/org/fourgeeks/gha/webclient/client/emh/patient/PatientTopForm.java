@@ -2,11 +2,10 @@ package org.fourgeeks.gha.webclient.client.emh.patient;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAHeaderOption;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAlertLabel;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATextLabelMediumSize;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATitleLabelMediumSize;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHAAlertLabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATextLabel;
 
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -17,59 +16,78 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class PatientTopForm extends HLayout {
+	private static class SmallBox extends HLayout {
+
+		public SmallBox() {
+			setWidth100();
+			setMembersMargin(5);
+			addStyleName("margin-items");
+		}
+
+		public SmallBox(int width) {
+			this();
+			setWidth(width);
+		}
+
+		public SmallBox(String width) {
+			this();
+			setWidth(width);
+		}
+
+	}
 	// labels
-	private final GHATitleLabelMediumSize documentTypeTitleLabel = new GHATitleLabelMediumSize(
-			"Cédula:");// TODO document type value
-	private final GHATitleLabelMediumSize dobTitleLabel = new GHATitleLabelMediumSize(
-			GHAStrings.get("birth") + ": ");
-	private final GHATitleLabelMediumSize ageTitleLabel = new GHATitleLabelMediumSize(
-			GHAStrings.get("age") + ": ");
-	private final GHATitleLabelMediumSize bpiTitleLabel = new GHATitleLabelMediumSize(
-			GHAStrings.get("bpi") + ": ");
-	private final GHATitleLabelMediumSize bTypeTitleLabel = new GHATitleLabelMediumSize(
-			GHAStrings.get("btype") + ": ");
-	private final GHATitleLabelMediumSize weightTitleLabel = new GHATitleLabelMediumSize(
-			GHAStrings.get("weight") + ": ");
-	private final GHATitleLabelMediumSize heightTitleLabel = new GHATitleLabelMediumSize(
-			GHAStrings.get("height") + ": ");
-	private final GHATitleLabelMediumSize bsaTitleLabel = new GHATitleLabelMediumSize(
-			GHAStrings.get("bsa") + ": ");
-	private final GHATitleLabelMediumSize bmiTitleLabel = new GHATitleLabelMediumSize(
-			GHAStrings.get("bmi") + ": ");
-	private final GHATitleLabelMediumSize mainDiagnosisTitleLabel = new GHATitleLabelMediumSize(
-			GHAStrings.get("main-diagnosis") + ": ");
+	private final GHATextLabel documentTypeTitleLabel = new GHATextLabel(
+			"Cédula:").smallTitle();// TODO document type value
+	private final GHATextLabel dobTitleLabel = new GHATextLabel(
+			GHAStrings.get("birth") + ": ").smallTitle();
+	private final GHATextLabel ageTitleLabel = new GHATextLabel(
+			GHAStrings.get("age") + ": ").smallTitle();
+	private final GHATextLabel bpiTitleLabel = new GHATextLabel(
+			GHAStrings.get("bpi") + ": ").smallTitle();
+	private final GHATextLabel bTypeTitleLabel = new GHATextLabel(
+			GHAStrings.get("btype") + ": ").smallTitle();
+	private final GHATextLabel weightTitleLabel = new GHATextLabel(
+			GHAStrings.get("weight") + ": ").smallTitle();
+	private final GHATextLabel heightTitleLabel = new GHATextLabel(
+			GHAStrings.get("height") + ": ").smallTitle();
+	private final GHATextLabel bsaTitleLabel = new GHATextLabel(
+			GHAStrings.get("bsa") + ": ").smallTitle();
+	private final GHATextLabel bmiTitleLabel = new GHATextLabel(
+			GHAStrings.get("bmi") + ": ").smallTitle();
+	private final GHATextLabel mainDiagnosisTitleLabel = new GHATextLabel(
+			GHAStrings.get("main-diagnosis") + ": ").smallTitle();
 	//	{
 	//		mainDiagnosisTitleLabel.setWidth(GHAUiHelper.DEFAULT_ITEM_WIDTH);
 	//	}
 	// text for the values
-	private final GHATextLabelMediumSize documentNumberText = new GHATextLabelMediumSize(
-			"V-18064066");
-	private final GHATextLabelMediumSize firstNameText = new GHATextLabelMediumSize(
-			"Angel").bold();
-	private final GHATextLabelMediumSize secondNameText = new GHATextLabelMediumSize(
-			"Ernesto").bold();
-	private final GHATextLabelMediumSize firstLastNameText = new GHATextLabelMediumSize(
-			"Lacret").bold();
-	private final GHATextLabelMediumSize secondLastNameText = new GHATextLabelMediumSize(
-			"Silva").bold();
-	private final GHATextLabelMediumSize dobText = new GHATextLabelMediumSize(
-			"25/05/1987");
-	private final GHATextLabelMediumSize ageText = new GHATextLabelMediumSize(
-			"26 años 7 meses");
-	private final GHATextLabelMediumSize bpiText = new GHATextLabelMediumSize(
-			"Hospital HOCS");
-	private final GHATextLabelMediumSize bTypeText = new GHATextLabelMediumSize(
-			"A+");
-	private final GHATextLabelMediumSize weightTypeText = new GHATextLabelMediumSize(
-			"90kgs");
-	private final GHATextLabelMediumSize heightTypeText = new GHATextLabelMediumSize(
-			"1,65mts");
-	private final GHATextLabelMediumSize bsaTypeText = new GHATextLabelMediumSize(
-			"25,2 Kg/m2");
-	private final GHATextLabelMediumSize bmiTypeText = new GHATextLabelMediumSize(
-			"22 m2");
-	private final GHATextLabelMediumSize mainDiagnosisText = new GHATextLabelMediumSize(
-			"Trastorno de menisco debido a desgarro");
+	private final GHATextLabel documentNumberText = new GHATextLabel(
+			"V-18064066").small();
+	private final GHATextLabel firstNameText = new GHATextLabel(
+			"Angel").bold().small();
+	private final GHATextLabel secondNameText = new GHATextLabel(
+			"Ernesto").bold().small();
+	private final GHATextLabel firstLastNameText = new GHATextLabel(
+			"Lacret").bold().small();
+	private final GHATextLabel secondLastNameText = new GHATextLabel(
+			"Silva").bold().small();
+	private final GHATextLabel dobText = new GHATextLabel(
+			"25/05/1987").small();
+	private final GHATextLabel ageText = new GHATextLabel(
+			"26 años 7 meses").small();
+	private final GHATextLabel bpiText = new GHATextLabel(
+			"Hospital HOCS").small();
+	private final GHATextLabel bTypeText = new GHATextLabel(
+			"A+").small();
+	private final GHATextLabel weightTypeText = new GHATextLabel(
+			"90kgs").small();
+	private final GHATextLabel heightTypeText = new GHATextLabel(
+			"1,65mts").small();
+	private final GHATextLabel bsaTypeText = new GHATextLabel(
+			"25,2 Kg/m2").small();
+	private final GHATextLabel bmiTypeText = new GHATextLabel(
+			"22 m2").small();
+	private final GHATextLabel mainDiagnosisText = new GHATextLabel(
+			"Trastorno de menisco debido a desgarro").small();
 	//	{
 	//		mainDiagnosisText.setAutoFit(false);
 	//		mainDiagnosisText.setWidth(300);
@@ -124,13 +142,13 @@ public class PatientTopForm extends HLayout {
 			GHAUiHelper.DEFAULT_HEADER_OPTION_WIDTH, true,
 			"../resources/img/agregarButton.png",
 			"../resources/img/agregarButtonOver.png");
+
 	{
 
 		centerLayout.setPadding(5);
 		centerLayout.setWidth(200);
 		centerLayout.addMember(addOption);
 	}
-
 	// layout for the photo
 	private final HLayout rightSideLayout = new HLayout();
 	private final GHAImg photoImg = new GHAImg("../resources/img/photo.jpg",
@@ -145,6 +163,7 @@ public class PatientTopForm extends HLayout {
 				new GHAAlertLabel("Cardiopata", "red"), new GHAAlertLabel(
 						"Diabetes", "green"));
 	}
+
 	{
 		firstHorizontalLayout.addMembers(documentTypeBox, nameBox, dobBox,
 				bpiBox);
@@ -163,26 +182,6 @@ public class PatientTopForm extends HLayout {
 		addMember(leftSideLayout);
 		addMember(centerLayout);
 		addMember(rightSideLayout);
-	}
-
-	private static class SmallBox extends HLayout {
-
-		public SmallBox() {
-			setWidth100();
-			setMembersMargin(5);
-			addStyleName("margin-items");
-		}
-
-		public SmallBox(int width) {
-			this();
-			setWidth(width);
-		}
-
-		public SmallBox(String width) {
-			this();
-			setWidth(width);
-		}
-
 	}
 
 }

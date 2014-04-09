@@ -30,29 +30,29 @@ public class MaintenanceProtocolStadisticDataLabel extends GHALabel {
 	 * @param data
 	 */
 	public void setStadisticInfo(MaintenanceProtocolStadisticData data) {
-		long numActiv = data.getNumberActivities();
-		long numSubProtoc = data.getNumberSubProtocols();
-		long numSubProtocActiv = data.getNumberSubProtocolsActivities();
-		long time = data.getEstimatedDuration();
-		TimePeriodEnum pot = data.getPot();
-		BigDecimal cost = data.getEstimatedCost();
-		CurrencyTypeEnum currency = data.getCurrency();
+		final long numActiv = data.getNumberActivities();
+		final long numSubProtoc = data.getNumberSubProtocols();
+		final long numSubProtocActiv = data.getNumberSubProtocolsActivities();
+		final long time = data.getEstimatedDuration();
+		final TimePeriodEnum pot = data.getPot();
+		final BigDecimal cost = data.getEstimatedCost();
+		final CurrencyTypeEnum currency = data.getCurrency();
 
-		String totalsStr = GHAStrings.get("totals");
-		String activitiesStr = GHAStrings.get("activities");
-		String subprotocolsStr = GHAStrings.get("subprotocols");
-		String totalTimeStr = GHAStrings.get("total-time");
-		String totalCostStr = GHAStrings.get("total-cost");
+		final String totalsStr = GHAStrings.get("totals");
+		final String activitiesStr = GHAStrings.get("activities");
+		final String subprotocolsStr = GHAStrings.get("subprotocols");
+		final String totalTimeStr = GHAStrings.get("total-time");
+		final String totalCostStr = GHAStrings.get("total-cost");
 
-		String totalsString = totalsStr + ": " + numActiv + " " + activitiesStr
+		final String totalsString = totalsStr + ": " + numActiv + " " + activitiesStr
 				+ " - " + numSubProtoc + "(" + numSubProtocActiv + ") "
 				+ subprotocolsStr;
 
-		String timeAndCostStirng = totalTimeStr + ": " + time + " "
+		final String timeAndCostStirng = totalTimeStr + ": " + time + " "
 				+ GHAStrings.get(pot.name().toLowerCase()) + " - "
 				+ totalCostStr + ": " + cost + " " + currency;
 
-		StringBuilder builder = new StringBuilder();
+		final StringBuilder builder = new StringBuilder();
 		builder.append(totalsString).append(" || ").append(timeAndCostStirng);
 
 		setContents(builder.toString());

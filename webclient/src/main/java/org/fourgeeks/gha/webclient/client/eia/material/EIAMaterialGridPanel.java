@@ -2,8 +2,8 @@ package org.fourgeeks.gha.webclient.client.eia.material;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 import org.fourgeeks.gha.webclient.client.materialcategory.MaterialCategorySearchForm;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -25,7 +25,7 @@ public class EIAMaterialGridPanel extends VLayout {
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 
-		GHALabel title = new GHALabel("Materiales");
+		GHATopTitleLabel title = new GHATopTitleLabel("Materiales");
 
 		// //////Botones laterales
 

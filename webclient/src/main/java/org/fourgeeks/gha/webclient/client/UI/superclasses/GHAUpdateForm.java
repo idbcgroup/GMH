@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
 import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 
 import com.smartgwt.client.util.BooleanCallback;
 
@@ -10,7 +11,7 @@ import com.smartgwt.client.util.BooleanCallback;
  * 
  */
 public abstract class GHAUpdateForm<T> extends GHASlideInWindow {
-	private final GHALabel titleLabel;
+	private final GHATopTitleLabel titleLabel;
 	protected GHAForm<T> form;
 
 	/**
@@ -18,7 +19,7 @@ public abstract class GHAUpdateForm<T> extends GHASlideInWindow {
 	 */
 	public GHAUpdateForm(String title) {
 		super();
-		titleLabel = new GHALabel(title);
+		titleLabel = new GHATopTitleLabel(title);
 		addMember(titleLabel);
 	}
 

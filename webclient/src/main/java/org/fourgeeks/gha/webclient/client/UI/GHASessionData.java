@@ -12,7 +12,7 @@ import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.dropdownmenus.UserDropdownMenu;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
 import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceSet;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -44,7 +44,7 @@ public abstract class GHASessionData {
 		userInfo.setHeight("50px");
 		userInfo.setDefaultLayoutAlign(Alignment.CENTER);
 
-		final GHALabel usernameLabel = new GHALabel(loggedUser.getCitizen()
+		final GHATopTitleLabel usernameLabel = new GHATopTitleLabel(loggedUser.getCitizen()
 				.getFirstName()
 				+ " "
 				+ loggedUser.getCitizen().getFirstLastName());

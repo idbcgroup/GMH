@@ -24,11 +24,11 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAGenderSele
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAAgeTextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAEmailTextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHANameTextItem;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAlertLabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHAAlertLabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.citizen.CitizenModel;
 import org.fourgeeks.gha.webclient.client.citizen.CitizenSelectionListener;

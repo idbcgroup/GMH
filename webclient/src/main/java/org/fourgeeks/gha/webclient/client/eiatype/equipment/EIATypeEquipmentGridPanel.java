@@ -8,15 +8,15 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAEditButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHADeleteButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHAEditButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 import org.fourgeeks.gha.webclient.client.eia.EIAAddForm;
 import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
@@ -65,7 +65,7 @@ public class EIATypeEquipmentGridPanel extends GHAFormLayout implements
 		eiaAddForm.addEiaSelectionListener(this);
 		eiaUpdateForm.addEiaSelectionListener(this);
 
-		final GHALabel title = new GHALabel(
+		final GHATopTitleLabel title = new GHATopTitleLabel(
 				"Equipos pertenecientes a este Tipo de Equipo");
 		addMember(title);
 

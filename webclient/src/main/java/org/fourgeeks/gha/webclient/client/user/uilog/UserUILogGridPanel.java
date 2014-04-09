@@ -4,8 +4,8 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 import org.fourgeeks.gha.webclient.client.user.loginlog.LogonLogGrid;
 
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -28,7 +28,7 @@ public class UserUILogGridPanel extends GHAFormLayout implements
 	 */
 	public UserUILogGridPanel(UserUILogSubTab eIATypeEquipmentSubTab) {
 		super();
-		GHALabel title = new GHALabel("Log de Mensajes UI");
+		GHATopTitleLabel title = new GHATopTitleLabel("Log de Mensajes UI");
 		addMember(title);
 
 		// //////Botones laterales

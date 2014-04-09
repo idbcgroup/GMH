@@ -1,8 +1,8 @@
 package org.fourgeeks.gha.webclient.client.UI.menu;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.GHAImg;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 
 import com.smartgwt.client.types.Cursor;
 import com.smartgwt.client.types.VerticalAlignment;
@@ -57,7 +57,7 @@ public class GHAMenuOption extends HLayout {
 		this.text = text;
 		final GHAImg iconButton = new GHAImg(imgSrc);
 		addMember(iconButton);
-		final GHALabel titulo = new GHALabel(text);
+		final GHATopTitleLabel titulo = new GHATopTitleLabel(text);
 		titulo.setWidth100();
 		titulo.setHeight("25px");
 		titulo.setStyleName("menu-option-title button-pointer");

@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.UI.icons;
+package org.fourgeeks.gha.webclient.client.UI.imageitems;
 
 import com.smartgwt.client.widgets.ImgButton;
 import com.smartgwt.client.widgets.events.ClickHandler;

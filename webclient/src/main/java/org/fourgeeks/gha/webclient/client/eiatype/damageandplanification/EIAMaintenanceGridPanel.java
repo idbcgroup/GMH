@@ -10,13 +10,13 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAEditButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHAEditButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiamaintenance.EIAMaintenanceUpdateForm;
 import org.fourgeeks.gha.webclient.client.eiamaintenance.EiaMaintenanceDisplayForm;
@@ -83,7 +83,7 @@ public class EIAMaintenanceGridPanel extends VLayout implements
 
 		String title = "Reporte de Mantenimiento Realizado, Cancelado o Diferido - Cronologia";
 		// TODO agregar el titulo al ustring.csv (pensar en una buena clave)
-		addMembers(new GHALabel(title), mainPanel);
+		addMembers(new GHATopTitleLabel(title), mainPanel);
 	}
 
 	@Override

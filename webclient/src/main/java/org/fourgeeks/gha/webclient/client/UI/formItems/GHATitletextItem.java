@@ -21,7 +21,7 @@ public class GHATitletextItem extends StaticTextItem {
 		setWidth("*");
 		setCellStyle("gha-form-cell");
 		setShowTitle(false);
-		setTextBoxStyle("title-label");
+		setTextBoxStyle("title-label-item");
 	}
 
 	/**
@@ -31,7 +31,7 @@ public class GHATitletextItem extends StaticTextItem {
 		this();
 		setDefaultValue(title);
 	}
-	
+
 	/**
 	 * @param title
 	 * @param colSpan

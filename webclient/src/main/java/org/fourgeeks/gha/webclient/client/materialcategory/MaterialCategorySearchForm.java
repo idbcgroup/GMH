@@ -11,9 +11,9 @@ import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHACodeTextItem;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHACancelButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHACleanButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
 import com.smartgwt.client.types.TitleOrientation;

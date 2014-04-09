@@ -1,12 +1,12 @@
-package org.fourgeeks.gha.webclient.client.UI.superclasses;
+package org.fourgeeks.gha.webclient.client.UI.superclasses.labels;
 
-import com.smartgwt.client.widgets.Label;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 
 /**
  * @author alacret
  * 
  */
-public class GHAAlertLabel extends Label {
+public class GHAAlertLabel extends GHALabel {
 	/**
 	 * @param title
 	 * @param backgroundColor
@@ -15,8 +15,8 @@ public class GHAAlertLabel extends Label {
 		super();
 		setBackgroundColor(backgroundColor);
 		setContents(title);
-		setHeight("15px");
+		setHeight(15);
 		setWidth100();
-		setStyleName("gha-alert-label");
+		setStyleName("alert-label");
 	}
 }

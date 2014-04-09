@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.GHAImg;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -61,7 +61,7 @@ public class GHAMenuBar extends VLayout implements ResizeHandler {
 		this.title = title;
 		final GHAMenuOption option = new GHAMenuOption();
 		final GHAImg menuImg = new GHAImg(imgSrc);
-		final GHALabel titleLabel = new GHALabel(title);
+		final GHATopTitleLabel titleLabel = new GHATopTitleLabel(title);
 		titleLabel.setWidth(GHAMenu.BAR_WIDTH);
 		titleLabel.setHeight(25);
 		if (clickHandler != null)

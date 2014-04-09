@@ -17,21 +17,21 @@ public class EiaCountLabel extends GHALabel {
 	 */
 	public EiaCountLabel() {
 		super("");
-		setStyleName("text-label-mini");
+		setStyleName("mini-text-label");
 	}
 
 	public void setEiaStateTotals(List<Eia> list) {
 		final int n = EiaStateEnum.values().length;
-		int count[] = new int[n];
+		final int count[] = new int[n];
 		for (int i = 0; i < n; ++i)
 			count[i] = 0;
 
-		for (Eia eia : list) {
+		for (final Eia eia : list) {
 			count[eia.getState().ordinal()]++;
 		}
 
 		// TODO: INTERNACIONALIZAR EL NAME DE CADA EIASTATEENUM
-		StringBuilder builder = new StringBuilder();
+		final StringBuilder builder = new StringBuilder();
 		builder.append(GHAStrings.get(EiaStateEnum.getUiKey(EiaStateEnum
 				.values()[0])) + ": " + Integer.toString(count[0]));
 

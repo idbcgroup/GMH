@@ -3,9 +3,9 @@ package org.fourgeeks.gha.webclient.client.UI;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -104,7 +104,7 @@ public abstract class GHAUiHelper {
 	/**
 	 * The default Section Form option width.
 	 */
-	public static final int SECTION_FORM_OPTION_WIDTH = 150;
+	public static final int SECTION_FORM_OPTION_WIDTH = 180;
 
 	/**
 	 * The minimum width of a GHADynamicForm that is on a normal panel (for
@@ -115,7 +115,7 @@ public abstract class GHAUiHelper {
 	 * The minimum width of a GHADynamicForm that is embedded on a
 	 * GHASectionForm.
 	 */
-	public static final int MIN_SECTIONFORM_FORM_WIDTH = 700;
+	public static final int MIN_SECTIONFORM_FORM_WIDTH = 670;
 	/**
 	 * The minimum width of a small-sized GHADynamicForm that is embedded on a
 	 * GHASectionForm.
@@ -580,7 +580,7 @@ public abstract class GHAUiHelper {
 		separator.setHeight(height);
 		separator.setStyleName("sides-padding");
 
-		final GHALabel title = new GHALabel(text);
+		final GHATopTitleLabel title = new GHATopTitleLabel(text);
 		title.setHeight(height);
 		title.setStyleName("separator-title-label");
 

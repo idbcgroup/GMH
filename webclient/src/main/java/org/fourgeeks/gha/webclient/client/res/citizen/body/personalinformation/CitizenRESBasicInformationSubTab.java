@@ -3,8 +3,8 @@ package org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.citizen.CitizenSelectionListener;
 import org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation.basicinformation.RESBasicInformationFormPanel;
@@ -43,7 +43,7 @@ CitizenSelectionListener {
 
 	private GHAFormLayout initSubtabPane() {
 
-		mainBody.addMember(new GHALabel(GHAStrings
+		mainBody.addMember(new GHATopTitleLabel(GHAStrings
 				.get("citizen-basic-information-title")));
 
 		mainBody.addMember(sectionForm);
