@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.5" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAUserNameTextItem" 
+    project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems/textitems/GHAUserNameTextItem.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="490" y="458"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHANameTextItem" 
+    project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems/textitems/GHANameTextItem.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="799" y="127"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="3" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems.textitems" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems/textitems" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="198" y="-35"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <class id="4" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAEmailTextItem" 
+    project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems/textitems/GHAEmailTextItem.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="785" y="349"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAAgeTextItem" 
+    project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems/textitems/GHAAgeTextItem.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="473" y="91"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHACodeTextItem" 
+    project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems/textitems/GHACodeTextItem.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="478" y="256"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems/GHATextItem.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="154" y="298"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <generalization id="8">    
+    <bendpoint x="786" y="580"/>    
+    <bendpoint x="135" y="579"/>    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <generalization id="9">    
+    <bendpoint x="306" y="258"/>    
+    <bendpoint x="307" y="16"/>    
+    <bendpoint x="162" y="16"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <generalization id="10">    
+    <bendpoint x="475" y="16"/>    
+    <bendpoint x="162" y="16"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <generalization id="11">    
+    <bendpoint x="490" y="580"/>    
+    <bendpoint x="135" y="579"/>    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <generalization id="12">    
+    <bendpoint x="800" y="16"/>    
+    <bendpoint x="162" y="16"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="false" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
