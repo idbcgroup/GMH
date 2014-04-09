@@ -149,8 +149,7 @@ public class EiaHelper {
 			ccdiLevelDefinition.setLength(2);
 			ccdiLevelDefinition.setValueType(CCDIValueTypeEnum.FIXED);
 			CCDILevelDefinition savedCCDILevelDefinition = ccdiServiceLocal
-					.createCCDILevelDefinition(savedCCDIDefinition,
-							ccdiLevelDefinition);
+					.createLevelDefinition(ccdiLevelDefinition);
 
 			CCDILevelDefinition ccdiLevelDefinition2 = new CCDILevelDefinition();
 			ccdiLevelDefinition2.setDefinition(savedCCDIDefinition);
@@ -158,8 +157,7 @@ public class EiaHelper {
 			ccdiLevelDefinition2.setLength(8);
 			ccdiLevelDefinition2.setValueType(CCDIValueTypeEnum.TEXT);
 			CCDILevelDefinition savedCCDILevelDefinition2 = ccdiServiceLocal
-					.createCCDILevelDefinition(savedCCDIDefinition,
-							ccdiLevelDefinition2);
+					.createLevelDefinition(ccdiLevelDefinition2);
 
 			// creating a ccdi level value
 			CCDILevelValue ccdiLevelValue = new CCDILevelValue(
@@ -167,17 +165,15 @@ public class EiaHelper {
 					"TESTLEVELVALUE", 1, "XX", CCDIValueStatusEnum.ACTIVE);
 			ccdiLevelValue.setNextElement(1);
 			CCDILevelValue savedCCDILevelValue = ccdiServiceLocal
-					.createCCDILevelValue(savedCCDILevelDefinition, null,
-							ccdiLevelValue);
+					.createLevelValue(ccdiLevelValue);
 
 			CCDILevelValue ccdiLevelValue2 = new CCDILevelValue(
-					savedCCDILevelDefinition2, ccdiLevelValue,
+					savedCCDILevelDefinition2, savedCCDILevelValue,
 					"TESTLEVELVALUE2", null, 1, null,
 					CCDIValueStatusEnum.ACTIVE);
 			ccdiLevelValue2.setNextElement(1);
 			CCDILevelValue savedCCDILevelValue2 = ccdiServiceLocal
-					.createCCDILevelValue(savedCCDILevelDefinition2,
-							savedCCDILevelValue, ccdiLevelValue2);
+					.createLevelValue(ccdiLevelValue2);
 
 			savedManufacturer = manufacturerServiceRemote
 					.save(new Manufacturer("TESTMAN"));

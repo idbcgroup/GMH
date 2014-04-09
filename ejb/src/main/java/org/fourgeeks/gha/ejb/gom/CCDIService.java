@@ -13,7 +13,6 @@ import org.fourgeeks.gha.domain.gom.CCDIDefinition;
 import org.fourgeeks.gha.domain.gom.CCDILevelDefinition;
 import org.fourgeeks.gha.domain.gom.CCDILevelValue;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
-import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author emiliot
@@ -38,33 +37,31 @@ public class CCDIService extends GHAEJBExceptionService implements
 			return result;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: creating CCDI Definition", e);
-			throw super.generateGHAEJBException("ccdi-create-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("ccdi-create-fail", em);
 		}
 	}
 
 	@Override
-	public CCDILevelDefinition createCCDILevelDefinition(
-			CCDIDefinition definition, CCDILevelDefinition levelDefinition)
-			throws GHAEJBException {
+	public CCDILevelDefinition createLevelDefinition(
+			CCDILevelDefinition levelDefinition) throws GHAEJBException {
 		try {
-			levelDefinition.setDefinition(definition);
-
 			em.persist(levelDefinition);
 			return em.find(CCDILevelDefinition.class, levelDefinition.getId());
 
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: creating CCDI Level Definition", e);
-			throw super.generateGHAEJBException("ccdi-level-create-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("ccdi-level-create-fail", em);
 		}
 	}
 
 	@Override
-	public CCDILevelValue createCCDILevelValue(
-			CCDILevelDefinition levelDefinition, CCDILevelValue parentValue,
-			CCDILevelValue levelValue) throws GHAEJBException {
+	public CCDILevelValue createLevelValue(CCDILevelValue levelValue)
+			throws GHAEJBException {
 		try {
+			final CCDILevelDefinition levelDefinition = levelValue
+					.getLevelDefinition();
+			final CCDILevelValue parentValue = levelValue.getParentValue();
+
 			if (levelDefinition.getLevel() >= levelDefinition.getDefinition()
 					.getLevels()) {
 				// ABORT CATEGORIES ARE NOT ALLOWED IN THIS LEVEL
@@ -94,7 +91,7 @@ public class CCDIService extends GHAEJBExceptionService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: create CCDI Level Value failed", e);
 			throw super.generateGHAEJBException("ccdi-level-value-create-fail",
-					RuntimeParameters.getLang(), em);
+					em);
 		}
 	}
 
@@ -110,8 +107,7 @@ public class CCDIService extends GHAEJBExceptionService implements
 
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: delete CCDIDefinition failed", e);
-			throw super.generateGHAEJBException("ccdi-delete-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("ccdi-delete-fail", em);
 		}
 
 	}
@@ -123,8 +119,7 @@ public class CCDIService extends GHAEJBExceptionService implements
 			return em.find(CCDIDefinition.class, code);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: delete CCDIDefinition failed", e);
-			throw super.generateGHAEJBException("ccdi-find-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("ccdi-find-fail", em);
 		}
 	}
 
@@ -141,8 +136,7 @@ public class CCDIService extends GHAEJBExceptionService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: delete CCDIDefinition failed", e);
 			throw super.generateGHAEJBException(
-					"ccdi-level-definition-find-fail",
-					RuntimeParameters.getLang(), em);
+					"ccdi-level-definition-find-fail", em);
 		}
 	}
 
@@ -197,19 +191,26 @@ public class CCDIService extends GHAEJBExceptionService implements
 					- levelValue.getCode().length()
 					- lastLevelDefinition.getLength();
 
-			StringBuilder builder = new StringBuilder(levelValue.getCode());
-			for (int i = 0; i < padding; ++i)
-				builder.append('X');
+			if (padding > 0) {
+				// The category holding the new element is not from the last
+				// level, throwing exception
+				throw new GHAEJBException();
+			}
 
+			StringBuilder builder = new StringBuilder(levelValue.getCode());
 			builder.append(formatCode(lastLevelDefinition.getLength(),
 					nextElement));
 			return builder.toString();
 
+		} catch (GHAEJBException e1) {
+			logger.log(Level.INFO,
+					"Error: adding element in an invalid category");
+			throw super.generateGHAEJBException(
+					"ccdi-invalid-category-for-element", em);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: adding element to ccdilevelvalue", e);
 			throw super.generateGHAEJBException(
-					"ccdi-level-value-next-element-fail",
-					RuntimeParameters.getLang(), em);
+					"ccdi-level-value-next-element-fail", em);
 		}
 	}
 }

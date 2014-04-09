@@ -88,27 +88,26 @@ public class CCDIServiceTest extends GHAArquillianBaseServiceTest {
 
 		try {
 			CCDILevelDefinition materiales2 = ccdiService
-					.createCCDILevelDefinition(material, materiales);
+					.createLevelDefinition(materiales);
 			Assert.assertNotNull(materiales2);
 			Assert.assertEquals("MATERIALES-test", materiales2.getName());
 
-			CCDILevelDefinition type2 = ccdiService.createCCDILevelDefinition(
-					material, type);
+			CCDILevelDefinition type2 = ccdiService.createLevelDefinition(type);
 			Assert.assertNotNull(type2);
 			Assert.assertEquals("TIPO-test", type2.getName());
 
 			CCDILevelDefinition family2 = ccdiService
-					.createCCDILevelDefinition(material, family);
+					.createLevelDefinition(family);
 			Assert.assertNotNull(family2);
 			Assert.assertEquals("FAMILIA-test", family2.getName());
 
 			CCDILevelDefinition subFamily2 = ccdiService
-					.createCCDILevelDefinition(material, subFamily);
+					.createLevelDefinition(subFamily);
 			Assert.assertNotNull(subFamily2);
 			Assert.assertEquals("SUB FAMILIA-test", subFamily2.getName());
 
 			CCDILevelDefinition element2 = ccdiService
-					.createCCDILevelDefinition(material, element);
+					.createLevelDefinition(element);
 			Assert.assertNotNull(element2);
 			Assert.assertEquals("ELEMENTOS-test", element2.getName());
 
@@ -151,31 +150,28 @@ public class CCDIServiceTest extends GHAArquillianBaseServiceTest {
 			Assert.fail(e1.getCause().getMessage());
 		}
 
-		CCDILevelValue materialValue = new CCDILevelValue(null, null,
+		CCDILevelValue materialValue = new CCDILevelValue(materiales, null,
 				"MATERIAL-test", null, 0, "T0", CCDIValueStatusEnum.ACTIVE);
 
 		try {
-			materialValue = ccdiService.createCCDILevelValue(materiales, null,
-					materialValue);
+			materialValue = ccdiService.createLevelValue(materialValue);
 			Assert.assertNotNull(materialValue);
 			Assert.assertEquals("T0", materialValue.getCode());
 		} catch (Exception e1) {
 			System.out.println("error creating ccdilevelValue in test\n");
 		}
 
-		CCDILevelValue suppliesValue = new CCDILevelValue(null, null,
+		CCDILevelValue suppliesValue = new CCDILevelValue(type, materialValue,
 				"SUMINISTROS", null, 1, "1", CCDIValueStatusEnum.ACTIVE);
-		CCDILevelValue pharmacsValue = new CCDILevelValue(null, null,
+		CCDILevelValue pharmacsValue = new CCDILevelValue(type, materialValue,
 				"FARMACOS", null, 1, "4", CCDIValueStatusEnum.ACTIVE);
 
 		try {
-			suppliesValue = ccdiService.createCCDILevelValue(type,
-					materialValue, suppliesValue);
+			suppliesValue = ccdiService.createLevelValue(suppliesValue);
 			Assert.assertNotNull(suppliesValue);
 			Assert.assertEquals("T01", suppliesValue.getCode());
 
-			pharmacsValue = ccdiService.createCCDILevelValue(type,
-					materialValue, pharmacsValue);
+			pharmacsValue = ccdiService.createLevelValue(pharmacsValue);
 			Assert.assertNotNull(pharmacsValue);
 			Assert.assertEquals("T04", pharmacsValue.getCode());
 		} catch (Exception e1) {
@@ -183,26 +179,23 @@ public class CCDIServiceTest extends GHAArquillianBaseServiceTest {
 			Assert.fail(e1.getCause().getMessage());
 		}
 
-		CCDILevelValue needlesValue = new CCDILevelValue(null, null, "AGUJAS",
-				null, 1, null, CCDIValueStatusEnum.ACTIVE);
-		CCDILevelValue syringeValue = new CCDILevelValue(null, null,
+		CCDILevelValue needlesValue = new CCDILevelValue(family, suppliesValue,
+				"AGUJAS", null, 1, null, CCDIValueStatusEnum.ACTIVE);
+		CCDILevelValue syringeValue = new CCDILevelValue(family, suppliesValue,
 				"INYECTADORAS", null, 1, null, CCDIValueStatusEnum.ACTIVE);
-		CCDILevelValue antiBiotics = new CCDILevelValue(null, null,
+		CCDILevelValue antiBiotics = new CCDILevelValue(family, pharmacsValue,
 				"ANTIBIOTICOS", null, 1, null, CCDIValueStatusEnum.ACTIVE);
 
 		try {
-			needlesValue = ccdiService.createCCDILevelValue(family,
-					suppliesValue, needlesValue);
+			needlesValue = ccdiService.createLevelValue(needlesValue);
 			Assert.assertNotNull(needlesValue);
 			Assert.assertEquals("T0101", needlesValue.getCode());
 
-			syringeValue = ccdiService.createCCDILevelValue(family,
-					suppliesValue, syringeValue);
+			syringeValue = ccdiService.createLevelValue(syringeValue);
 			Assert.assertNotNull(syringeValue);
 			Assert.assertEquals("T0102", syringeValue.getCode());
 
-			antiBiotics = ccdiService.createCCDILevelValue(family,
-					pharmacsValue, antiBiotics);
+			antiBiotics = ccdiService.createLevelValue(antiBiotics);
 			Assert.assertNotNull(antiBiotics);
 			Assert.assertEquals("T0401", antiBiotics.getCode());
 		} catch (Exception e1) {
@@ -210,33 +203,29 @@ public class CCDIServiceTest extends GHAArquillianBaseServiceTest {
 			Assert.fail(e1.getCause().getMessage());
 		}
 
-		CCDILevelValue hypodermic = new CCDILevelValue(null, null,
+		CCDILevelValue hypodermic = new CCDILevelValue(subFamily, needlesValue,
 				"HIPODERMICAS", null, 1, null, CCDIValueStatusEnum.ACTIVE);
-		CCDILevelValue puncture = new CCDILevelValue(null, null, "PUNCION",
-				null, 1, null, CCDIValueStatusEnum.ACTIVE);
-		CCDILevelValue insuline = new CCDILevelValue(null, null, "INSULINA",
-				null, 1, null, CCDIValueStatusEnum.ACTIVE);
-		CCDILevelValue penicilline = new CCDILevelValue(null, null,
+		CCDILevelValue puncture = new CCDILevelValue(subFamily, needlesValue,
+				"PUNCION", null, 1, null, CCDIValueStatusEnum.ACTIVE);
+		CCDILevelValue insuline = new CCDILevelValue(subFamily, syringeValue,
+				"INSULINA", null, 1, null, CCDIValueStatusEnum.ACTIVE);
+		CCDILevelValue penicilline = new CCDILevelValue(subFamily, antiBiotics,
 				"PENICILINA", null, 1, null, CCDIValueStatusEnum.ACTIVE);
 
 		try {
-			hypodermic = ccdiService.createCCDILevelValue(subFamily,
-					needlesValue, hypodermic);
+			hypodermic = ccdiService.createLevelValue(hypodermic);
 			Assert.assertNotNull(hypodermic);
 			Assert.assertEquals("T010101", hypodermic.getCode());
 
-			puncture = ccdiService.createCCDILevelValue(subFamily,
-					needlesValue, puncture);
+			puncture = ccdiService.createLevelValue(puncture);
 			Assert.assertNotNull(puncture);
 			Assert.assertEquals("T010102", puncture.getCode());
 
-			insuline = ccdiService.createCCDILevelValue(subFamily,
-					syringeValue, insuline);
+			insuline = ccdiService.createLevelValue(insuline);
 			Assert.assertNotNull(insuline);
 			Assert.assertEquals("T010201", insuline.getCode());
 
-			penicilline = ccdiService.createCCDILevelValue(subFamily,
-					antiBiotics, penicilline);
+			penicilline = ccdiService.createLevelValue(penicilline);
 			Assert.assertNotNull(penicilline);
 			Assert.assertEquals("T040101", penicilline.getCode());
 		} catch (Exception e1) {
@@ -261,14 +250,17 @@ public class CCDIServiceTest extends GHAArquillianBaseServiceTest {
 			Assert.assertNotNull(hypodermic4);
 			Assert.assertEquals("T0101010004", hypodermic4);
 
-			String farm01 = ccdiService.getNextElementCode(pharmacsValue
-					.getCode());
-			Assert.assertNotNull(farm01);
-			Assert.assertEquals("T04XXXX0001", farm01);
-
 		} catch (GHAEJBException e) {
 			System.out.println("error getting ccdilevelValue in test\n");
 			Assert.fail(e.getCause().getMessage());
+		}
+
+		try {
+			String farm01 = ccdiService.getNextElementCode(pharmacsValue
+					.getCode());
+			Assert.fail("No Exception thrown trying to create new element in an invalid category");
+		} catch (GHAEJBException ex) {
+			System.out.println("exception thrown good job!");
 		}
 
 	}

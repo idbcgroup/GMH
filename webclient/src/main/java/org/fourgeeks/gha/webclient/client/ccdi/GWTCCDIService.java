@@ -24,25 +24,20 @@ public interface GWTCCDIService extends RemoteService {
 			throws GHAEJBException;
 
 	/**
-	 * @param definition
 	 * @param levelDefinition
 	 * @return a new CCDI Level Definition
 	 * @throws GHAEJBException
 	 */
 	public CCDILevelDefinition createCCDILevelDefinition(
-			CCDIDefinition definition, CCDILevelDefinition levelDefinition)
-			throws GHAEJBException;
+			CCDILevelDefinition levelDefinition) throws GHAEJBException;
 
 	/**
-	 * @param levelDefinition
-	 * @param parentValue
 	 * @param levelValue
 	 * @return the new CCDILevelValue
 	 * @throws GHAEJBException
 	 */
-	public CCDILevelValue createCCDILevelValue(
-			CCDILevelDefinition levelDefinition, CCDILevelValue parentValue,
-			CCDILevelValue levelValue) throws GHAEJBException;
+	public CCDILevelValue createCCDILevelValue(CCDILevelValue levelValue)
+			throws GHAEJBException;
 
 	/**
 	 * This method delete a CCDI definition plus all definition levels and

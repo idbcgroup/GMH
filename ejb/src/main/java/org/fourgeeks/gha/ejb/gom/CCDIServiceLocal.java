@@ -25,31 +25,27 @@ public interface CCDIServiceLocal {
 			throws GHAEJBException;
 
 	/**
-	 * @param definition
 	 * @param levelDefinition
 	 * @return a new CCDI Level Definition
 	 * @throws GHAEJBException
 	 */
-	public CCDILevelDefinition createCCDILevelDefinition(
-			CCDIDefinition definition, CCDILevelDefinition levelDefinition)
-			throws GHAEJBException;
+	public CCDILevelDefinition createLevelDefinition(
+			CCDILevelDefinition levelDefinition) throws GHAEJBException;
 
 	/**
 	 * This method should be used to create the categories inside the ccdi tree.
-	 * If an attempt to create a category is made in the deepest level the
+	 * If an attempt to create a category is made at the deepest level the
 	 * method will throw an exception.
+	 * 
+	 * @param levelValue
 	 * 
 	 * @see CCDIServiceRemote#getNextElementCode(String)
 	 * 
-	 * @param levelDefinition
-	 * @param parentValue
-	 * @param levelValue
 	 * @return the new CCDILevelValue
 	 * @throws GHAEJBException
 	 */
-	public CCDILevelValue createCCDILevelValue(
-			CCDILevelDefinition levelDefinition, CCDILevelValue parentValue,
-			CCDILevelValue levelValue) throws GHAEJBException;
+	public CCDILevelValue createLevelValue(CCDILevelValue levelValue)
+			throws GHAEJBException;
 
 	/**
 	 * This method delete a CCDI definition plus all definition levels and
@@ -62,7 +58,7 @@ public interface CCDIServiceLocal {
 
 	/**
 	 * @param code
-	 * @return
+	 * @return the CCDI definition associtated with this code
 	 * @throws GHAEJBException
 	 */
 	public CCDIDefinition findCCDIDefinitionByCode(String code)
@@ -78,6 +74,11 @@ public interface CCDIServiceLocal {
 			CCDIDefinition definition, int level) throws GHAEJBException;
 
 	/**
+	 * This method returns the next identifier available for an item in a
+	 * category. Calling this method with a levelvalue higher in the category
+	 * hierarchy, rather than calling it with a category in the last category
+	 * level, will make the method throw an exception
+	 * 
 	 * @param code
 	 *            of the levelValue
 	 * @return the code to identify a new element associated with the category
