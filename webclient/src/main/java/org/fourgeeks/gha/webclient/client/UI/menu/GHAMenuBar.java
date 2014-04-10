@@ -10,6 +10,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabe
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.AnimationEffect;
+import com.smartgwt.client.types.Cursor;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -31,7 +32,7 @@ public class GHAMenuBar extends VLayout implements ResizeHandler {
 		setLeft(0);
 		setTop(GHAUiHelper.HEADER_HEIGTH);
 		setMinHeight(GHAUiHelper.MIN_HEIGHT - GHAUiHelper.HEADER_HEIGTH);
-		setHeight(GHAUiHelper.getTabHeight()+20);
+		setHeight(GHAUiHelper.getTabHeight() + 20);
 		setVisible(false);
 		setAnimateTime(GHAUiHelper.DEFAULT_ANIMATION_TIME);
 		setBackgroundColor(GHAUiHelper.DEFAULT_MENU_BAR_BACKGROUND_COLOR);
@@ -61,11 +62,14 @@ public class GHAMenuBar extends VLayout implements ResizeHandler {
 		this.title = title;
 		final GHAMenuOption option = new GHAMenuOption();
 		final GHAImg menuImg = new GHAImg(imgSrc);
+		menuImg.setCursor(Cursor.HAND);
 		final GHATopTitleLabel titleLabel = new GHATopTitleLabel(title);
 		titleLabel.setWidth(GHAMenu.BAR_WIDTH);
 		titleLabel.setHeight(25);
-		if (clickHandler != null)
+		if (clickHandler != null) {
 			titleLabel.addClickHandler(clickHandler);
+			menuImg.addClickHandler(clickHandler);
+		}
 		option.addMember(titleLabel);
 		option.addMember(new LayoutSpacer());
 		option.addMember(menuImg);
@@ -86,8 +90,8 @@ public class GHAMenuBar extends VLayout implements ResizeHandler {
 	}
 
 	@Override
-	public void onResize(ResizeEvent arg0) {
-		setHeight(GHAUiHelper.getTabHeight()+20);
+	public void onResize(final ResizeEvent arg0) {
+		setHeight(GHAUiHelper.getTabHeight() + 20);
 	}
 
 	/**

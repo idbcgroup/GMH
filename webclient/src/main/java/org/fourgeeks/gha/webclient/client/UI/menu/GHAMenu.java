@@ -172,10 +172,10 @@ public class GHAMenu {
 
 			@Override
 			public void onClick(final ClickEvent event) {
-				if (value.getChilds().size() == 0){
+				if (value.getChilds().size() == 0) {
 					History.newItem(value.getCode());
 					hide();
-				}else {
+				} else {
 					final TreeNode<String, GHAMenuOption> node = map.get(value
 							.getCode());
 
@@ -232,6 +232,9 @@ public class GHAMenu {
 			currentBars.get(i).hide();
 		currentBars.clear();
 		currentBars.add(firstMenuBar);
+		// Hard code
+		firstMenuBar.setLeft(0);
+		// end of hard coded
 	}
 
 	private GHAMenu() {
