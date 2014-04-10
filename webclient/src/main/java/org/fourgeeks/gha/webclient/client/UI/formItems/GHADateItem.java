@@ -155,4 +155,21 @@ public class GHADateItem extends DateItem {
 		return drv;
 	}
 
+	/**
+	 * Se utiliza para validar que la fecha introducida sea mayor o igual a la
+	 * actual
+	 * */
+	public DateRangeValidator getValidatorDateMax() {
+		final DateRangeValidator drv = new DateRangeValidator();
+		final long currentTimeMillis = System.currentTimeMillis();
+		drv.setMin(new Date(currentTimeMillis));
+		// final Date endDate = new Date(currentTimeMillis);
+		// drv.setMax(endDate);
+		drv.setErrorMessage(GHAStrings
+				.get("date-must-be-upper-or-equal-than-today"));
+		drv.setValidateOnChange(true);
+
+		return drv;
+	}
+
 }

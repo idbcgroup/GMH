@@ -146,9 +146,11 @@ public class AsociatedEiatypeGridPanel extends GHAFormLayout implements
 	}
 
 	private void deleteSelected() {
-		final EiaTypeMaintenancePlan entity = grid.getSelectedEntity();
+		// final EiaTypeMaintenancePlan entity = grid.getSelectedEntity();
+		final List<EiaTypeMaintenancePlan> selectedEntities = grid
+				.getSelectedEntities();
 
-		if (entity == null) {
+		if (selectedEntities == null) {
 			GHAErrorMessageProcessor.alert("record-not-selected");
 			return;
 		}
@@ -159,16 +161,40 @@ public class AsociatedEiatypeGridPanel extends GHAFormLayout implements
 
 					@Override
 					public void execute(Boolean value) {
-						if (value)
-							EiaTypeMaintenancePlanModel.delete(entity.getId(),
-									new GHAAsyncCallback<Void>() {
+						if (value) {
 
-										@Override
-										public void onSuccess(Void result) {
-											grid.removeSelectedData();
-										}
+							if (selectedEntities.size() == 1) {
+								EiaTypeMaintenancePlanModel.delete(
+										selectedEntities.get(0).getId(),
+										new GHAAsyncCallback<Void>() {
+											@Override
+											public void onSuccess(Void result) {
+												grid.removeSelectedData();
+												GHAErrorMessageProcessor
+														.alert("eiatype-delete-success");
+											}
 
-									});
+										});
+							} else {
+								if (selectedEntities.size() > 1) {
+									EiaTypeMaintenancePlanModel.delete(
+											selectedEntities,
+											new GHAAsyncCallback<Void>() {
+												@Override
+												public void onSuccess(
+														Void result) {
+													grid.removeSelectedData();
+													GHAErrorMessageProcessor
+															.alert("eiatypes-delete-success");
+												}
+
+											});
+								}
+
+							}
+
+						}
+
 					}
 				});
 
