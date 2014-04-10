@@ -93,4 +93,14 @@ public class RequiredResourcesModel {
 			GHAAsyncCallback<List<RequiredResources>> callback) {
 		service.findMaterialByActivity(activity, callback);
 	}
+
+	/**
+	 * 
+	 * @param entities
+	 * @param callback
+	 */
+	public static void save(List<RequiredResources> entities,
+			GHAAsyncCallback<List<RequiredResources>> callback) {
+		service.save(entities, callback);
+	}
 }

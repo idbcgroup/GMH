@@ -14,9 +14,9 @@ import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHACodeTextItem;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHACancelButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHACleanButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
@@ -34,7 +34,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaterialSearchForm extends GHASearchForm<Material> implements
-		MaterialSelectionListener, MaterialSelectionProducer {
+		MaterialSelectionListener, MaterialSelectionProducer,
+		MaterialListSelectionProducer {
 
 	private GHATextItem codeTextItem, nameTextItem, descriptionTextItem,
 			modelTextItem, extCodeTextItem;
@@ -60,6 +61,14 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 				hide();
 			}
 		});
+
+		resultSet
+				.addMaterialListSelectionListener(new MaterialListSelectionListener() {
+					@Override
+					public void select(List<Material> materials) {
+						hide();
+					}
+				});
 		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
 	}
 
@@ -195,5 +204,23 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 	@Override
 	public void select(Material material) {
 		search(material);
+	}
+
+	@Override
+	public void addMaterialListSelectionListener(
+			MaterialListSelectionListener materialListSelectionListener) {
+		resultSet
+				.addMaterialListSelectionListener(materialListSelectionListener);
+	}
+
+	@Override
+	public void removeMaterialListSelectionListener(
+			MaterialListSelectionListener materialListSelectionListener) {
+		resultSet
+				.removeMaterialListSelectionListener(materialListSelectionListener);
+	}
+
+	@Override
+	public void notifyMaterialList(List<Material> materials) {
 	}
 }

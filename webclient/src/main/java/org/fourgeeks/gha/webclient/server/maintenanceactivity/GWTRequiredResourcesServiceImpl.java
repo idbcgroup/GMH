@@ -117,4 +117,17 @@ public class GWTRequiredResourcesServiceImpl extends RemoteServiceServlet
 			throws GHAEJBException {
 		return service.update(requiredResources);
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.maintenanceactivity.serviceandresource
+	 * .GWTRequiredResourcesService#save(java.util.List)
+	 */
+	@Override
+	public List<RequiredResources> save(List<RequiredResources> entities)
+			throws GHAEJBException {
+		return service.save(entities);
+	}
 }

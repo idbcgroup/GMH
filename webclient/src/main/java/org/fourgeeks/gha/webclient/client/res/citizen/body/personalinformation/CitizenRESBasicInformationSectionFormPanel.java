@@ -8,8 +8,8 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 import org.fourgeeks.gha.webclient.client.citizen.CitizenSelectionListener;
 import org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation.basicinformation.RESBasicInformationFormPanel;
 
@@ -23,7 +23,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class CitizenRESBasicInformationSectionFormPanel extends GHAFormLayout
 		implements HideableListener, ClosableListener, CitizenSelectionListener {
 
-	private final GHALabel titleLabel;
+	private final GHATopTitleLabel titleLabel;
 
 	private GHASectionForm sectionForm;
 	private RESBasicInformationFormPanel basicInformationFormPanel;
@@ -46,7 +46,7 @@ public class CitizenRESBasicInformationSectionFormPanel extends GHAFormLayout
 		super();
 		setWidth100();
 
-		titleLabel = new GHALabel(
+		titleLabel = new GHATopTitleLabel(
 				GHAStrings.get("citizen-basic-information-title"));
 		addMember(titleLabel);
 

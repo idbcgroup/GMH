@@ -10,11 +10,11 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
 import org.fourgeeks.gha.webclient.client.eia.EIARecord;
@@ -86,7 +86,7 @@ public class EiaDamageReportGridPanel extends VLayout implements
 		HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(grid, sideButtons);
 
-		addMembers(new GHALabel(GHAStrings.get("eiaDamageReport")), mainPanel);
+		addMembers(new GHATopTitleLabel(GHAStrings.get("eiaDamageReport")), mainPanel);
 	}
 
 	@Override

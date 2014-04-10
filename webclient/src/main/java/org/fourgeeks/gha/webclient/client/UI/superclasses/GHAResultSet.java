@@ -8,6 +8,7 @@ import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseExcept
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.AnimationEffect;
@@ -19,7 +20,7 @@ import com.smartgwt.client.types.AnimationEffect;
  */
 public abstract class GHAResultSet<T> extends GHAFormLayout implements
 		ResizeHandler, HideableListener, ClosableListener {
-	protected GHALabel searchResultsLabel;
+	protected GHATopTitleLabel searchResultsLabel;
 
 	/**
 	 * @param label
@@ -29,7 +30,7 @@ public abstract class GHAResultSet<T> extends GHAFormLayout implements
 		super();
 		setStyleName("sides-padding");
 		GHAUiHelper.addGHAResizeHandler(this);
-		searchResultsLabel = new GHALabel(label);
+		searchResultsLabel = new GHATopTitleLabel(label);
 		addMember(searchResultsLabel);
 	}
 

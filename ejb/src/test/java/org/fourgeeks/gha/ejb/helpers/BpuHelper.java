@@ -60,7 +60,7 @@ public class BpuHelper {
 	 */
 	public Bpu createBpu() {
 		try {
-			legalEntity = legalEntityServiceRemote.save(new LegalEntity());
+			// legalEntity = legalEntityServiceRemote.save(new LegalEntity());
 			legalEntity2 = legalEntityServiceRemote.save(new LegalEntity());
 		} catch (final GHAEJBException e) {
 			removeBpu();
@@ -68,11 +68,12 @@ public class BpuHelper {
 		}
 		try {
 			final Citizen localCitizen = new Citizen();
-			localCitizen.setLegalEntity(legalEntity);
+			localCitizen.setLegalEntity(new LegalEntity());
 			localCitizen.setIdNumber("id-number-legal-entity" + Math.random());
 			localCitizen.setIdType(DocumentTypeEnum.LOCAL);
 			localCitizen.setGender(GenderTypeEnum.FEMALE);
 			citizen = citizenServiceRemote.save(localCitizen);
+			legalEntity = citizen.getLegalEntity();
 		} catch (final GHAEJBException e) {
 			removeBpu();
 			Assert.fail("failing creating the bpu: " + e.getMessage());

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.5" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <package id="1" language="java" name="org.fourgeeks.gha.webclient.client.UI.places" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/places" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="48" width="310" x="437" y="110"/>    
+    <display autosize="false" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="2" language="java" name="org.fourgeeks.gha.webclient.client.UI" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="48" width="346" x="51" y="428"/>    
+    <display autosize="false" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="3" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems.selectitems" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems/selectitems" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="971" y="211"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="4" language="java" name="org.fourgeeks.gha.webclient.client.UI.icons" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/icons" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="48" width="355" x="51" y="110"/>    
+    <display autosize="false" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="5" language="java" name="org.fourgeeks.gha.webclient.client.UI.tabs" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/tabs" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="48" width="307" x="437" y="270"/>    
+    <display autosize="false" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="6" language="java" name="org.fourgeeks.gha.webclient.client.UI.pmewindows" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/pmewindows" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="592" y="61"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="7" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="48" width="353" x="51" y="187"/>    
+    <display autosize="false" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="8" language="java" name="org.fourgeeks.gha.webclient.client.UI.grids" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/grids" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="48" width="306" x="437" y="428"/>    
+    <display autosize="false" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="9" language="java" name="org.fourgeeks.gha.webclient.client.UI.menu" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/menu" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="48" width="308" x="437" y="187"/>    
+    <display autosize="false" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="10" language="java" name="org.fourgeeks.gha.webclient.client.UI.interfaces" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/interfaces" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="48" width="349" x="51" y="348"/>    
+    <display autosize="false" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="11" language="java" name="org.fourgeeks.gha.webclient.client.UI.panels" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/panels" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="48" width="352" x="51" y="270"/>    
+    <display autosize="false" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="12" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems.textitems" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems/textitems" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="48" width="363" x="788" y="348"/>    
+    <display autosize="false" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="13" language="java" name="org.fourgeeks.gha.webclient.client.UI.dropdownmenus" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/dropdownmenus" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="48" width="363" x="788" y="270"/>    
+    <display autosize="false" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="14" language="java" name="org.fourgeeks.gha.webclient.client.UI.exceptions" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/exceptions" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="48" width="306" x="437" y="348"/>    
+    <display autosize="false" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="15" language="java" name="org.fourgeeks.gha.webclient.client.UI.formItems.dateitems" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/formItems/dateitems" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="229" y="61"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="16" language="java" name="org.fourgeeks.gha.webclient.client.UI.icons.buttons" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/icons/buttons" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="48" width="365" x="788" y="110"/>    
+    <display autosize="false" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="17" language="java" name="org.fourgeeks.gha.webclient.client.UI.superclasses" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/superclasses" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="48" width="363" x="788" y="37"/>    
+    <display autosize="false" stereotype="true" accessors="true"/>  
+  </package>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="false" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

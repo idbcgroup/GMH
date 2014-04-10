@@ -34,18 +34,14 @@ public class GWTCCDIServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public CCDILevelDefinition createCCDILevelDefinition(
-			CCDIDefinition definition, CCDILevelDefinition levelDefinition)
-			throws GHAEJBException {
-		return ccdiServiceRemote.createCCDILevelDefinition(definition,
-				levelDefinition);
+			CCDILevelDefinition levelDefinition) throws GHAEJBException {
+		return ccdiServiceRemote.createLevelDefinition(levelDefinition);
 	}
 
 	@Override
-	public CCDILevelValue createCCDILevelValue(
-			CCDILevelDefinition levelDefinition, CCDILevelValue parentValue,
-			CCDILevelValue levelValue) throws GHAEJBException {
-		return ccdiServiceRemote.createCCDILevelValue(levelDefinition,
-				parentValue, levelValue);
+	public CCDILevelValue createCCDILevelValue(CCDILevelValue levelValue)
+			throws GHAEJBException {
+		return ccdiServiceRemote.createLevelValue(levelValue);
 	}
 
 	@Override

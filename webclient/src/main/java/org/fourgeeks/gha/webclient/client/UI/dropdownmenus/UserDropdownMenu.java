@@ -3,11 +3,11 @@ package org.fourgeeks.gha.webclient.client.UI.dropdownmenus;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAButton;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginService;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginServiceAsync;
 
@@ -71,12 +71,12 @@ ResizeHandler, EventListener {
 				user.getCitizen().getFirstName() + " "
 						+ user.getCitizen().getFirstLastName());
 		// USER DATA
-		GHALabel mailText;
+		GHATopTitleLabel mailText;
 		if (user.getCitizen().getPrimaryEmail() != null) {
-			mailText = new GHALabel("<br>Correo electrónico:<br><br> "
+			mailText = new GHATopTitleLabel("<br>Correo electrónico:<br><br> "
 					+ user.getCitizen().getPrimaryEmail());
 		} else {
-			mailText = new GHALabel("<br>Correo electrónico:<br><br> No posee.");
+			mailText = new GHATopTitleLabel("<br>Correo electrónico:<br><br> No posee.");
 		}
 
 		VLayout userdataLayout = new VLayout();

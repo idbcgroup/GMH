@@ -242,7 +242,8 @@ public class EIAMaintenancePlanificationForm extends
 			}
 
 			// GHAAlertManager.alert(violationsList);
-			GHAErrorMessageProcessor.alert(violationsList.get(0));
+			GHAErrorMessageProcessor.alert(violationsList.get(violationsList
+					.size() - 1));
 		}
 		return null;
 	}

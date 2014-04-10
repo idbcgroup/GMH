@@ -4,12 +4,12 @@ import org.fourgeeks.gha.domain.enu.CredentialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACheckboxItem;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 import org.fourgeeks.gha.webclient.client.user.UserPanel;
 
 import com.smartgwt.client.types.TitleOrientation;
@@ -48,7 +48,7 @@ public class UserCredentialsFormPanel extends GHAFormLayout implements
 
 		tab.addClosableListener(this);
 
-		GHALabel title = new GHALabel("Credenciales del Usuario");
+		GHATopTitleLabel title = new GHATopTitleLabel("Credenciales del Usuario");
 		addMember(title);
 
 		DynamicForm form = new DynamicForm();

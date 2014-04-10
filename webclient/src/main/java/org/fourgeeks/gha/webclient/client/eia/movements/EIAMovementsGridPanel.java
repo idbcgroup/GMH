@@ -2,11 +2,11 @@ package org.fourgeeks.gha.webclient.client.eia.movements;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -25,7 +25,7 @@ EIATypeSelectionListener, ClosableListener, HideableListener {
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 
-		GHALabel title = new GHALabel("Movimientos");
+		GHATopTitleLabel title = new GHATopTitleLabel("Movimientos");
 
 		// //////Botones laterales
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(

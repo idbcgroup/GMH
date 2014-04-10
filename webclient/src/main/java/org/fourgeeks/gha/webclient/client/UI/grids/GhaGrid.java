@@ -27,7 +27,7 @@ public class GhaGrid<T> extends ListGrid implements ResizeHandler {
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
-		setHeight(GHAUiHelper.getSubtabGridSize(30));
+		setHeight(GHAUiHelper.getSubtabGridSize(30)-10);
 		setAlternateRecordStyles(false);
 		setMinFieldWidth(100);
 		setOverflow(Overflow.AUTO);
@@ -35,31 +35,22 @@ public class GhaGrid<T> extends ListGrid implements ResizeHandler {
 	}
 
 	/**
-	 * @param entities
-	 */
-	public void setData(GHAGridRecord<T>[] entities) {
-		super.setData(entities);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public GHAGridRecord<T> getSelectedRecord() {
-		final ListGridRecord selectedRecord = super.getSelectedRecord();
-		return (GHAGridRecord<T>) selectedRecord;
-	}
-
-	/**
-	 * @return the selected entity
+	 * @return the entities displayed in the grid
 	 */
 	@SuppressWarnings("unchecked")
-	public T getSelectedEntity() {
-		final GHAGridRecord<T> selectedRecord = (GHAGridRecord<T>) super
-				.getSelectedRecord();
+	public List<T> getEntities() {
+		final ListGridRecord[] records = super.getRecords();
 
-		if (selectedRecord == null) {
+		if (records == null)
 			return null;
+
+		final ArrayList<T> list = new ArrayList<T>();
+		for (final ListGridRecord record : records) {
+			final GHAGridRecord<T> ghaRecord = (GHAGridRecord<T>) record;
+			list.add(ghaRecord.toEntity());
 		}
-		return selectedRecord.toEntity();
+
+		return list;
 	}
 
 	/**
@@ -85,26 +76,35 @@ public class GhaGrid<T> extends ListGrid implements ResizeHandler {
 	}
 
 	/**
-	 * @return the entities displayed in the grid
+	 * @return the selected entity
 	 */
 	@SuppressWarnings("unchecked")
-	public List<T> getEntities() {
-		final ListGridRecord[] records = super.getRecords();
+	public T getSelectedEntity() {
+		final GHAGridRecord<T> selectedRecord = (GHAGridRecord<T>) super
+				.getSelectedRecord();
 
-		if (records == null)
+		if (selectedRecord == null) {
 			return null;
-
-		final ArrayList<T> list = new ArrayList<T>();
-		for (final ListGridRecord record : records) {
-			final GHAGridRecord<T> ghaRecord = (GHAGridRecord<T>) record;
-			list.add(ghaRecord.toEntity());
 		}
+		return selectedRecord.toEntity();
+	}
 
-		return list;
+	@SuppressWarnings("unchecked")
+	@Override
+	public GHAGridRecord<T> getSelectedRecord() {
+		final ListGridRecord selectedRecord = super.getSelectedRecord();
+		return (GHAGridRecord<T>) selectedRecord;
 	}
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getSubtabGridSize(30));
+		setHeight(GHAUiHelper.getSubtabGridSize(30)-10);
+	}
+
+	/**
+	 * @param entities
+	 */
+	public void setData(GHAGridRecord<T>[] entities) {
+		super.setData(entities);
 	}
 }

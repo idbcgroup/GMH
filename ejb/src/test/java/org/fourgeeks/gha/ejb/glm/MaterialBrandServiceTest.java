@@ -97,54 +97,54 @@ public class MaterialBrandServiceTest extends GHAArquillianBaseServiceTest {
 					"ELEMENTOS-test", 4, CCDIValueTypeEnum.VARIABLE, 1, 1, "",
 					CCDIEndValueActionEnum.RESTART);
 
-			materiales = ccdiService.createCCDILevelDefinition(material,
-					materiales);
-			type = ccdiService.createCCDILevelDefinition(material, type);
-			family = ccdiService.createCCDILevelDefinition(material, family);
-			subFamily = ccdiService.createCCDILevelDefinition(material,
-					subFamily);
-			element = ccdiService.createCCDILevelDefinition(material, element);
+			materiales = ccdiService.createLevelDefinition(materiales);
+			type = ccdiService.createLevelDefinition(type);
+			family = ccdiService.createLevelDefinition(family);
+			subFamily = ccdiService.createLevelDefinition(subFamily);
+			element = ccdiService.createLevelDefinition(element);
 
-			CCDILevelValue materialValue = new CCDILevelValue(null, null,
+			CCDILevelValue materialValue = new CCDILevelValue(materiales, null,
 					"MATERIAL-test", null, 0, "T0", CCDIValueStatusEnum.ACTIVE);
-			materialValue = ccdiService.createCCDILevelValue(materiales, null,
-					materialValue);
-			CCDILevelValue suppliesValue = new CCDILevelValue(null, null,
-					"SUMINISTROS", null, 1, "1", CCDIValueStatusEnum.ACTIVE);
-			CCDILevelValue pharmacsValue = new CCDILevelValue(null, null,
-					"FARMACOS", null, 1, "4", CCDIValueStatusEnum.ACTIVE);
-			suppliesValue = ccdiService.createCCDILevelValue(type,
-					materialValue, suppliesValue);
-			pharmacsValue = ccdiService.createCCDILevelValue(type,
-					materialValue, pharmacsValue);
-			CCDILevelValue needlesValue = new CCDILevelValue(null, null,
-					"AGUJAS", null, 1, null, CCDIValueStatusEnum.ACTIVE);
-			CCDILevelValue syringeValue = new CCDILevelValue(null, null,
-					"INYECTADORAS", null, 1, null, CCDIValueStatusEnum.ACTIVE);
-			CCDILevelValue antiBiotics = new CCDILevelValue(null, null,
-					"ANTIBIOTICOS", null, 1, null, CCDIValueStatusEnum.ACTIVE);
-			needlesValue = ccdiService.createCCDILevelValue(family,
-					suppliesValue, needlesValue);
-			syringeValue = ccdiService.createCCDILevelValue(family,
-					suppliesValue, syringeValue);
-			antiBiotics = ccdiService.createCCDILevelValue(family,
-					pharmacsValue, antiBiotics);
-			CCDILevelValue hypodermic = new CCDILevelValue(null, null,
-					"HIPODERMICAS", null, 1, null, CCDIValueStatusEnum.ACTIVE);
-			CCDILevelValue puncture = new CCDILevelValue(null, null, "PUNCION",
-					null, 1, null, CCDIValueStatusEnum.ACTIVE);
-			CCDILevelValue insuline = new CCDILevelValue(null, null,
-					"INSULINA", null, 1, null, CCDIValueStatusEnum.ACTIVE);
-			CCDILevelValue penicilline = new CCDILevelValue(null, null,
-					"PENICILINA", null, 1, null, CCDIValueStatusEnum.ACTIVE);
-			hypodermic = ccdiService.createCCDILevelValue(subFamily,
-					needlesValue, hypodermic);
-			puncture = ccdiService.createCCDILevelValue(subFamily,
-					needlesValue, puncture);
-			insuline = ccdiService.createCCDILevelValue(subFamily,
-					syringeValue, insuline);
-			penicilline = ccdiService.createCCDILevelValue(subFamily,
-					antiBiotics, penicilline);
+			materialValue = ccdiService.createLevelValue(materialValue);
+
+			CCDILevelValue suppliesValue = new CCDILevelValue(type,
+					materialValue, "SUMINISTROS", null, 1, "1",
+					CCDIValueStatusEnum.ACTIVE);
+			CCDILevelValue pharmacsValue = new CCDILevelValue(type,
+					materialValue, "FARMACOS", null, 1, "4",
+					CCDIValueStatusEnum.ACTIVE);
+			suppliesValue = ccdiService.createLevelValue(suppliesValue);
+			pharmacsValue = ccdiService.createLevelValue(pharmacsValue);
+
+			CCDILevelValue needlesValue = new CCDILevelValue(family,
+					suppliesValue, "AGUJAS", null, 1, null,
+					CCDIValueStatusEnum.ACTIVE);
+			CCDILevelValue syringeValue = new CCDILevelValue(family,
+					suppliesValue, "INYECTADORAS", null, 1, null,
+					CCDIValueStatusEnum.ACTIVE);
+			CCDILevelValue antiBiotics = new CCDILevelValue(family,
+					pharmacsValue, "ANTIBIOTICOS", null, 1, null,
+					CCDIValueStatusEnum.ACTIVE);
+			needlesValue = ccdiService.createLevelValue(needlesValue);
+			syringeValue = ccdiService.createLevelValue(syringeValue);
+			antiBiotics = ccdiService.createLevelValue(antiBiotics);
+
+			CCDILevelValue hypodermic = new CCDILevelValue(subFamily,
+					needlesValue, "HIPODERMICAS", null, 1, null,
+					CCDIValueStatusEnum.ACTIVE);
+			CCDILevelValue puncture = new CCDILevelValue(subFamily,
+					needlesValue, "PUNCION", null, 1, null,
+					CCDIValueStatusEnum.ACTIVE);
+			CCDILevelValue insuline = new CCDILevelValue(subFamily,
+					syringeValue, "INSULINA", null, 1, null,
+					CCDIValueStatusEnum.ACTIVE);
+			CCDILevelValue penicilline = new CCDILevelValue(subFamily,
+					pharmacsValue, "PENICILINA", null, 1, null,
+					CCDIValueStatusEnum.ACTIVE);
+			hypodermic = ccdiService.createLevelValue(hypodermic);
+			puncture = ccdiService.createLevelValue(puncture);
+			insuline = ccdiService.createLevelValue(insuline);
+			penicilline = ccdiService.createLevelValue(penicilline);
 
 			MaterialCategory category1 = new MaterialCategory();
 			category1.setName(hypodermic.getName());

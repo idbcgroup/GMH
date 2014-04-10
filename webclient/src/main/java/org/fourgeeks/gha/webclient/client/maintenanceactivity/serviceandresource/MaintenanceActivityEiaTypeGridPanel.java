@@ -10,16 +10,17 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHADeleteButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
+import org.fourgeeks.gha.webclient.client.eiatype.EiaTypeListSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
 
 import com.smartgwt.client.util.BooleanCallback;
@@ -37,8 +38,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaintenanceActivityEiaTypeGridPanel extends GHAFormLayout
-implements ClosableListener, HideableListener,
-MaintenanceActivitySelectionListener {
+		implements ClosableListener, HideableListener,
+		MaintenanceActivitySelectionListener {
 
 	private EIATypeSearchForm eiaTypeSearchForm;
 	private MaintenanceActivityServiceAndResourceGrid grid;
@@ -51,29 +52,37 @@ MaintenanceActivitySelectionListener {
 			public void onCellSaved(CellSavedEvent event) {
 				final MaintenanceActivityRequiredResourcesRecord rec = (MaintenanceActivityRequiredResourcesRecord) grid
 						.getRecord(event.getRowNum());
-				final RequiredResources requiredR = rec.toRequiredResourcesEntity();
-				final String valor = (String) grid.getEditedCell(event.getRowNum(),
-						event.getColNum());
-				requiredR.setQuantity(Integer.valueOf(valor));
+				final RequiredResources requiredR = rec
+						.toRequiredResourcesEntity();
+				requiredR.setQuantity((Integer) grid.getEditedCell(
+						event.getRowNum(), event.getColNum()));
 				RequiredResourcesModel.update(requiredR,
 						new GHAAsyncCallback<RequiredResources>() {
-					@Override
-					public void onSuccess(RequiredResources result) {
-						loadData();
-					}
-				});
+							@Override
+							public void onSuccess(RequiredResources result) {
+								loadData();
+							}
+						});
 			}
 		});
 
 		eiaTypeSearchForm = new EIATypeSearchForm(GHAStrings.get("eiatype"));
 		eiaTypeSearchForm
-		.addEiaTypeSelectionListener(new EIATypeSelectionListener() {
-			@Override
-			public void select(EiaType eiaType) {
-				save(eiaType);
-				eiaTypeSearchForm.clean();
-			}
-		});
+				.addEiaTypeSelectionListener(new EIATypeSelectionListener() {
+					@Override
+					public void select(EiaType eiaType) {
+						save(eiaType);
+						eiaTypeSearchForm.clean();
+					}
+				});
+		eiaTypeSearchForm
+				.addEiaTypeListSelectionListener(new EiaTypeListSelectionListener() {
+					@Override
+					public void select(List<EiaType> eiaTypes) {
+						save(eiaTypes);
+						eiaTypeSearchForm.clean();
+					}
+				});
 	}
 
 	/**
@@ -83,7 +92,7 @@ MaintenanceActivitySelectionListener {
 		super();
 		setWidth100();
 
-		addMember(new GHALabel(GHAStrings.get("required-eiatype")));
+		addMember(new GHATopTitleLabel(GHAStrings.get("required-eiatype")));
 
 		final GHANewButton addButton = new GHANewButton(new ClickHandler() {
 			@Override
@@ -91,14 +100,16 @@ MaintenanceActivitySelectionListener {
 				addResource();
 			}
 		});
-		final GHADeleteButton deleteButton = new GHADeleteButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				delete();
-			}
-		});
+		final GHADeleteButton deleteButton = new GHADeleteButton(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						delete();
+					}
+				});
 
-		final VLayout sideButtons = GHAUiHelper.createBar(addButton, deleteButton);
+		final VLayout sideButtons = GHAUiHelper.createBar(addButton,
+				deleteButton);
 
 		final VLayout gridLayout = new VLayout(10);
 		gridLayout.addMembers(grid);
@@ -163,11 +174,30 @@ MaintenanceActivitySelectionListener {
 
 		RequiredResourcesModel.save(entity,
 				new GHAAsyncCallback<RequiredResources>() {
-			@Override
-			public void onSuccess(final RequiredResources result) {
-				loadData();
-			}
-		});
+					@Override
+					public void onSuccess(final RequiredResources result) {
+						loadData();
+					}
+				});
+	}
+
+	private void save(List<EiaType> eiaTypes) {
+		final List<RequiredResources> entities = new ArrayList<RequiredResources>();
+		for (EiaType eiaType : eiaTypes) {
+			RequiredResources entity = new RequiredResources();
+			entity.setActivity(maintenanceActivity.getActivity());
+			entity.setResource(eiaType);
+
+			entities.add(entity);
+		}
+
+		RequiredResourcesModel.save(entities,
+				new GHAAsyncCallback<List<RequiredResources>>() {
+					@Override
+					public void onSuccess(final List<RequiredResources> result) {
+						loadData();
+					}
+				});
 	}
 
 	private void delete() {
@@ -184,23 +214,23 @@ MaintenanceActivitySelectionListener {
 			if(selectedEntities.size() == 1)
 				GHAErrorMessageProcessor.confirm("resource-delete-confirm",
 						new BooleanCallback() {
-					@Override
-					public void execute(Boolean value) {
-						if (value)
-							deleteSelectedEntities(selectedEntities);
-						grid.focus();
-					}
-				});
+							@Override
+							public void execute(Boolean value) {
+								if (value)
+									deleteSelectedEntities(selectedEntities);
+								grid.focus();
+							}
+						});
 			else
 				GHAErrorMessageProcessor.confirm("resources-delete-confirm",
 						new BooleanCallback() {
-					@Override
-					public void execute(Boolean value) {
-						if (value)
-							deleteSelectedEntities(selectedEntities);
-						grid.focus();
-					}
-				});
+							@Override
+							public void execute(Boolean value) {
+								if (value)
+									deleteSelectedEntities(selectedEntities);
+								grid.focus();
+							}
+						});
 		}
 	}
 

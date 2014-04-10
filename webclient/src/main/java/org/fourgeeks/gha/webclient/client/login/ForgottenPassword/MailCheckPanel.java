@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.login.ForgottenPassword;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASubmitItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -29,11 +29,11 @@ public class MailCheckPanel extends VLayout implements ResizeHandler{
 		setHeight(GHAUiHelper.getTabHeight());
 		setDefaultLayoutAlign(Alignment.CENTER);
 
-		final GHALabel title = new GHALabel("Recuperar Contraseña");
+		final GHATopTitleLabel title = new GHATopTitleLabel("Recuperar Contraseña");
 		title.setHeight(35);
 		title.setWidth(400);
 
-		final GHALabel instructions = new GHALabel("Si deseas restablecer la contraseña, ingresa la dirección de correo electrónico asociada a tu cuenta.");
+		final GHATopTitleLabel instructions = new GHATopTitleLabel("Si deseas restablecer la contraseña, ingresa la dirección de correo electrónico asociada a tu cuenta.");
 		instructions.setHeight(35);
 		instructions.setWidth(400);
 

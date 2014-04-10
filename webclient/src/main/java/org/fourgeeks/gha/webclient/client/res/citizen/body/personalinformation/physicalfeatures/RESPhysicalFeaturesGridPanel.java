@@ -2,8 +2,8 @@ package org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation.
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 
 import com.smartgwt.client.types.Overflow;
 
@@ -30,7 +30,7 @@ public class RESPhysicalFeaturesGridPanel extends GHAVerticalLayout {
 		setOverflow(Overflow.AUTO);
 		//		setBackgroundColor("red");
 
-		final GHALabel title = new GHALabel(GHAStrings.get("citizen-physical-features-title")).colored();
+		final GHATopTitleLabel title = new GHATopTitleLabel(GHAStrings.get("citizen-physical-features-title")).backgroundColored();
 		addMembers(title,featuresGrid);
 	}
 

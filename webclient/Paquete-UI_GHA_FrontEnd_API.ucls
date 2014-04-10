@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.5" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <package id="1" language="java" name="org.fourgeeks.gha.webclient.client.UI" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="164" y="-369"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <class id="2" language="java" name="org.fourgeeks.gha.webclient.client.UI.GHAUiHelper" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/GHAUiHelper.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="469" y="-54"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="org.fourgeeks.gha.webclient.client.UI.GhaValidatorFactory" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/GhaValidatorFactory.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="150" y="-270"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="org.fourgeeks.gha.webclient.client.UI.GHAUploadPhotographs" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/GHAUploadPhotographs.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="159" y="-66"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="org.fourgeeks.gha.webclient.client.UI.GHASessionData" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/GHASessionData.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="153" y="100"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="6" language="java" name="org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType" 
+    project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/ResultSetContainerType.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="736" y="44"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="7" language="java" name="org.fourgeeks.gha.webclient.client.UI.GHAStrings" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/GHAStrings.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="935" y="-121"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="8" language="java" name="org.fourgeeks.gha.webclient.client.UI.GhaValidatorFactory.GwtValidator" 
+    project="webclient" file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/GhaValidatorFactory.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="129" y="-168"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="9" language="java" name="org.fourgeeks.gha.webclient.client.UI.GHAUtil" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/GHAUtil.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="133" width="572" x="657" y="-318"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/GHAAsyncCallback.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="97" width="187" x="1041" y="-160"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="11" language="java" name="org.fourgeeks.gha.webclient.client.UI.GHACache" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/GHACache.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1043" y="179"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="12" language="java" name="org.fourgeeks.gha.webclient.client.UI.GHAUtil.Node" project="webclient" 
+    file="/webclient/src/main/java/org/fourgeeks/gha/webclient/client/UI/GHAUtil.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="739" y="-94"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <nesting id="13">    
+    <bendpoint x="637" y="-250"/>    
+    <bendpoint x="637" y="-177"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="12"/>  
+  </nesting>  
+  <nesting id="14">    
+    <bendpoint x="28" y="-272"/>    
+    <bendpoint x="28" y="-167"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="8"/>  
+  </nesting>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="false" static="true"/>    
+    <operations public="true" package="true" protected="true" private="false" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

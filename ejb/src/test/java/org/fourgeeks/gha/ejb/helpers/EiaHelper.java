@@ -48,21 +48,21 @@ import org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote;
  */
 public class EiaHelper {
 
-	private CCDIServiceLocal ccdiServiceLocal;
-	private ManufacturerServiceRemote manufacturerServiceRemote;
-	private EiaTypeCategoryServiceRemote eiaTypeCategoryServiceRemote;
-	private BrandServiceRemote brandServiceRemote;
-	private EiaTypeServiceRemote eiaTypeServiceRemote;
-	private RoleServiceRemote roleServiceRemote;
-	private LegalEntityServiceRemote legalEntityServiceRemote;
-	private BpiServiceRemote bpiServiceRemote;
-	private InstitutionServiceRemote institutionServiceRemote;
-	private ObuServiceRemote obuServiceRemote;
-	private BspServiceRemote bspServiceRemote;
-	private ExternalProviderServiceRemote externalProviderServiceRemote;
-	private FacilityServiceRemote facilityServiceRemote;
-	private BuildingLocationServiceRemote buildingLocationServiceRemote;
-	private EiaServiceRemote eiaServiceRemote;
+	private final CCDIServiceLocal ccdiServiceLocal;
+	private final ManufacturerServiceRemote manufacturerServiceRemote;
+	private final EiaTypeCategoryServiceRemote eiaTypeCategoryServiceRemote;
+	private final BrandServiceRemote brandServiceRemote;
+	private final EiaTypeServiceRemote eiaTypeServiceRemote;
+	private final RoleServiceRemote roleServiceRemote;
+	private final LegalEntityServiceRemote legalEntityServiceRemote;
+	private final BpiServiceRemote bpiServiceRemote;
+	private final InstitutionServiceRemote institutionServiceRemote;
+	private final ObuServiceRemote obuServiceRemote;
+	private final BspServiceRemote bspServiceRemote;
+	private final ExternalProviderServiceRemote externalProviderServiceRemote;
+	private final FacilityServiceRemote facilityServiceRemote;
+	private final BuildingLocationServiceRemote buildingLocationServiceRemote;
+	private final EiaServiceRemote eiaServiceRemote;
 
 	private Eia savedEia;
 	private ExternalProvider savedExternalProvider;
@@ -137,7 +137,7 @@ public class EiaHelper {
 		try {
 			// creating a ccdi definition
 			CCDIDefinition definition = new CCDIDefinition("CCDIDEFTEST");
-			definition.setLevels(1);
+			definition.setLevels(2);
 			definition.setLength(10);
 			savedCCDIDefinition = ccdiServiceLocal
 					.createCCDIDefinition(definition);
@@ -149,8 +149,15 @@ public class EiaHelper {
 			ccdiLevelDefinition.setLength(2);
 			ccdiLevelDefinition.setValueType(CCDIValueTypeEnum.FIXED);
 			CCDILevelDefinition savedCCDILevelDefinition = ccdiServiceLocal
-					.createCCDILevelDefinition(savedCCDIDefinition,
-							ccdiLevelDefinition);
+					.createLevelDefinition(ccdiLevelDefinition);
+
+			CCDILevelDefinition ccdiLevelDefinition2 = new CCDILevelDefinition();
+			ccdiLevelDefinition2.setDefinition(savedCCDIDefinition);
+			ccdiLevelDefinition2.setLevel(1);
+			ccdiLevelDefinition2.setLength(8);
+			ccdiLevelDefinition2.setValueType(CCDIValueTypeEnum.TEXT);
+			CCDILevelDefinition savedCCDILevelDefinition2 = ccdiServiceLocal
+					.createLevelDefinition(ccdiLevelDefinition2);
 
 			// creating a ccdi level value
 			CCDILevelValue ccdiLevelValue = new CCDILevelValue(
@@ -158,8 +165,15 @@ public class EiaHelper {
 					"TESTLEVELVALUE", 1, "XX", CCDIValueStatusEnum.ACTIVE);
 			ccdiLevelValue.setNextElement(1);
 			CCDILevelValue savedCCDILevelValue = ccdiServiceLocal
-					.createCCDILevelValue(savedCCDILevelDefinition, null,
-							ccdiLevelValue);
+					.createLevelValue(ccdiLevelValue);
+
+			CCDILevelValue ccdiLevelValue2 = new CCDILevelValue(
+					savedCCDILevelDefinition2, savedCCDILevelValue,
+					"TESTLEVELVALUE2", null, 1, null,
+					CCDIValueStatusEnum.ACTIVE);
+			ccdiLevelValue2.setNextElement(1);
+			CCDILevelValue savedCCDILevelValue2 = ccdiServiceLocal
+					.createLevelValue(ccdiLevelValue2);
 
 			savedManufacturer = manufacturerServiceRemote
 					.save(new Manufacturer("TESTMAN"));
@@ -171,8 +185,8 @@ public class EiaHelper {
 
 			// Creating an Eiatye CAtegory
 			final EiaTypeCategory category = new EiaTypeCategory();
-			category.setName("TESTLEVELVALUE");
-			category.setCode(savedCCDILevelValue.getCode());
+			category.setName(savedCCDILevelValue2.getName());
+			category.setCode(savedCCDILevelValue2.getCode());
 			savedEiatypeCategory = eiaTypeCategoryServiceRemote.save(category);
 
 			// CREating an eiatype

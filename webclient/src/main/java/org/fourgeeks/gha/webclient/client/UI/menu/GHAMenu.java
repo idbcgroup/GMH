@@ -13,7 +13,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.util.TreeNode;
 
 import com.google.gwt.user.client.Event;
@@ -38,7 +38,7 @@ public class GHAMenu {
 	/**
 	 * The width for the bar and the bar components
 	 */
-	final public static int BAR_WIDTH = 220;
+	final public static int BAR_WIDTH = 250;
 	private static EventListener clickHandler = new EventListener() {
 
 		@Override
@@ -71,7 +71,7 @@ public class GHAMenu {
 	}
 
 	private static void arrangeBars() {
-		int size = currentBars.size();
+		final int size = currentBars.size();
 		for (int i = 0; i < size; i++)
 			currentBars.get(i).animateMove(((size - 1) - i) * BAR_DISTANCE,
 					null);
@@ -84,18 +84,18 @@ public class GHAMenu {
 		Map<String, App> appMap;
 		try {
 			appMap = GHASessionData.getAppsMapp();
-		} catch (LoginNeededException e) {
+		} catch (final LoginNeededException e) {
 			return;
 		}
 
 		map = new HashMap<String, TreeNode<String, GHAMenuOption>>();
 
-		for (Entry<String, App> entry : appMap.entrySet()) {
-			App app = entry.getValue();
-			TreeNode<String, GHAMenuOption> appAsTreeNode = new TreeNode<String, GHAMenuOption>(
+		for (final Entry<String, App> entry : appMap.entrySet()) {
+			final App app = entry.getValue();
+			final TreeNode<String, GHAMenuOption> appAsTreeNode = new TreeNode<String, GHAMenuOption>(
 					app.getCode(), new GHAMenuOption(GHAStrings.get(app
 							.getName()), "../resources/icons/menu/"
-							+ app.getCode() + ".png"));
+									+ app.getCode() + ".png"));
 			// siempre meto la app
 			map.put(appAsTreeNode.getCode(), appAsTreeNode);
 			MenuLevel menuLevel = app.getMenuLevel();
@@ -105,13 +105,13 @@ public class GHAMenu {
 			TreeNode<String, GHAMenuOption> menuLevelAsTreeNode = new TreeNode<String, GHAMenuOption>(
 					menuLevel.getCode(), new GHAMenuOption(menuLevel.getText(),
 							"../resources/icons/menu/" + menuLevel.getCode()
-									+ ".png"));
-			TreeNode<String, GHAMenuOption> menuLevelAsTreeNodeInMap = map
+							+ ".png"));
+			final TreeNode<String, GHAMenuOption> menuLevelAsTreeNodeInMap = map
 					.get(menuLevelAsTreeNode.getCode());
 			// Reviso si el menu ya esta dentro del mapa
 			if (menuLevelAsTreeNodeInMap == null)// No esta
 				map.put(menuLevelAsTreeNode.getCode(), menuLevelAsTreeNode);// Lo
-																			// meto
+			// meto
 			else
 				// Si esta
 				menuLevelAsTreeNode = menuLevelAsTreeNodeInMap;// lo igualo
@@ -126,7 +126,7 @@ public class GHAMenu {
 								"../resources/icons/menu/"
 										+ menuLevel.getParentMenu().getCode()
 										+ ".png"));
-				TreeNode<String, GHAMenuOption> parentMenuLevelAsTreeNodeInMap = map
+				final TreeNode<String, GHAMenuOption> parentMenuLevelAsTreeNodeInMap = map
 						.get(parentMenuLevelAsTreeNode.getCode());
 				// Reviso si el menu ya esta dentro del papa
 				if (parentMenuLevelAsTreeNodeInMap == null) // No esta
@@ -135,7 +135,7 @@ public class GHAMenu {
 				else
 					// Si esta
 					parentMenuLevelAsTreeNode = parentMenuLevelAsTreeNodeInMap; // lo
-																				// igualo
+				// igualo
 				// seteo el menu de afuera como hijo
 				parentMenuLevelAsTreeNode.addChild(menuLevelAsTreeNode);
 				// seteo al node actual como padre del de afuera
@@ -151,13 +151,13 @@ public class GHAMenu {
 		firstMenuBar.addTitle(GHAStrings.get("menu"),
 				"../resources/icons/menu.png", new ClickHandler() {
 
-					@Override
-					public void onClick(final ClickEvent event) {
-						hide();
-					}
-				});
+			@Override
+			public void onClick(final ClickEvent event) {
+				hide();
+			}
+		});
 
-		for (Entry<String, TreeNode<String, GHAMenuOption>> entry : map
+		for (final Entry<String, TreeNode<String, GHAMenuOption>> entry : map
 				.entrySet()) {
 			final TreeNode<String, GHAMenuOption> value = entry.getValue();
 			if (value.getParent() == null)
@@ -167,18 +167,19 @@ public class GHAMenu {
 
 	private static GHAMenuOption createMenuOption(
 			final TreeNode<String, GHAMenuOption> value) {
-		GHAMenuOption menuOption = value.getObject();
+		final GHAMenuOption menuOption = value.getObject();
 		menuOption.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(final ClickEvent event) {
-				if (value.getChilds().size() == 0)
+				if (value.getChilds().size() == 0){
 					History.newItem(value.getCode());
-				else {
-					TreeNode<String, GHAMenuOption> node = map.get(value
+					hide();
+				}else {
+					final TreeNode<String, GHAMenuOption> node = map.get(value
 							.getCode());
 
-					GHAMenuBar menuBar = getOrCreateMenuBar(node);
+					final GHAMenuBar menuBar = getOrCreateMenuBar(node);
 					currentBars.add(menuBar);
 					arrangeBars();
 					menuBar.bringToFront();
@@ -198,7 +199,7 @@ public class GHAMenu {
 
 	private static GHAMenuBar getOrCreateMenuBar(
 			final TreeNode<String, GHAMenuOption> node) {
-		GHAMenuBar savedMenuBar = allBars.get(node.getCode());
+		final GHAMenuBar savedMenuBar = allBars.get(node.getCode());
 		if (savedMenuBar != null)
 			return savedMenuBar;
 
@@ -207,15 +208,15 @@ public class GHAMenu {
 				"../resources/icons/menu/" + node.getCode() + ".png",
 				new ClickHandler() {
 
-					@Override
-					public void onClick(final ClickEvent event) {
-						newMenuBar.hide();
-						currentBars.remove(newMenuBar);
-						arrangeBars();
-					}
-				});
-		Set<TreeNode<String, GHAMenuOption>> childs = node.getChilds();
-		for (TreeNode<String, GHAMenuOption> treeNode : childs)
+			@Override
+			public void onClick(final ClickEvent event) {
+				newMenuBar.hide();
+				currentBars.remove(newMenuBar);
+				arrangeBars();
+			}
+		});
+		final Set<TreeNode<String, GHAMenuOption>> childs = node.getChilds();
+		for (final TreeNode<String, GHAMenuOption> treeNode : childs)
 			newMenuBar.addOption(createMenuOption(treeNode));
 
 		allBars.put(node.getCode(), newMenuBar);

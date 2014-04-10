@@ -6,8 +6,8 @@ package org.fourgeeks.gha.webclient.client.citizen;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHACancelButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
 

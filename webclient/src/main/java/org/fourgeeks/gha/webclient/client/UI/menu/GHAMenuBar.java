@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.GHAImg;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
@@ -16,7 +18,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class GHAMenuBar extends VLayout {
+public class GHAMenuBar extends VLayout implements ResizeHandler {
 
 	private final List<GHAMenuOption> options = new ArrayList<GHAMenuOption>();
 	private String title;
@@ -25,13 +27,14 @@ public class GHAMenuBar extends VLayout {
 	 * creates a menu bar
 	 */
 	public GHAMenuBar() {
-		setHeight100();
-		setMinHeight(GHAUiHelper.MIN_HEIGHT - GHAUiHelper.HEADER_HEIGTH);
+		GHAUiHelper.addGHAResizeHandler(this);
 		setLeft(0);
 		setTop(GHAUiHelper.HEADER_HEIGTH);
+		setMinHeight(GHAUiHelper.MIN_HEIGHT - GHAUiHelper.HEADER_HEIGTH);
+		setHeight(GHAUiHelper.getTabHeight()+20);
 		setVisible(false);
 		setAnimateTime(GHAUiHelper.DEFAULT_ANIMATION_TIME);
-		setBackgroundColor("#FFFFFF");
+		setBackgroundColor(GHAUiHelper.DEFAULT_MENU_BAR_BACKGROUND_COLOR);
 		setScrollbarSize(5);
 		setShadowDepth(2);
 		setShowShadow(true);
@@ -56,9 +59,9 @@ public class GHAMenuBar extends VLayout {
 	public void addTitle(final String title, final String imgSrc,
 			final ClickHandler clickHandler) {
 		this.title = title;
-		GHAMenuOption option = new GHAMenuOption();
-		GHAImg menuImg = new GHAImg(imgSrc);
-		GHALabel titleLabel = new GHALabel(title);
+		final GHAMenuOption option = new GHAMenuOption();
+		final GHAImg menuImg = new GHAImg(imgSrc);
+		final GHATopTitleLabel titleLabel = new GHATopTitleLabel(title);
 		titleLabel.setWidth(GHAMenu.BAR_WIDTH);
 		titleLabel.setHeight(25);
 		if (clickHandler != null)
@@ -82,9 +85,14 @@ public class GHAMenuBar extends VLayout {
 		animateHide(AnimationEffect.FLY);
 	}
 
+	@Override
+	public void onResize(ResizeEvent arg0) {
+		setHeight(GHAUiHelper.getTabHeight()+20);
+	}
+
 	/**
-		 * 
-		 */
+	 * 
+	 */
 	public void open() {
 		for (final GHAMenuOption option : options)
 			option.setVisible(true);

@@ -13,7 +13,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 import org.fourgeeks.gha.webclient.client.permissionbpu.FunctionBpuModel;
 import org.fourgeeks.gha.webclient.client.viewpermission.ViewPermissionModel;
 import org.fourgeeks.gha.webclient.client.viewpermission.ViewPermissionRecord;
@@ -40,7 +40,7 @@ public class FunctionGridPanel extends GHAFormLayout implements
 	 */
 	public FunctionGridPanel() {
 		super();
-		final GHALabel title = new GHALabel(GHAStrings.get("permissions"));
+		final GHATopTitleLabel title = new GHATopTitleLabel(GHAStrings.get("permissions"));
 		addMember(title);
 
 		final HLayout mainLayout = new HLayout();

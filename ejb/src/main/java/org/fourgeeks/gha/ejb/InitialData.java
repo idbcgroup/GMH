@@ -133,11 +133,11 @@ public class InitialData {
 
 				final HashMap<String, String[]> map = new HashMap<String, String[]>();
 
-				map.put("Mantenimiento", new String[] { "Medición", "Limpieza",
-						"Calibración", "Desarme", "Armado", "Instalación",
-						"Desinstalación", "Cambio de Repuesto",
-						"Cambio de Consumibles", "Aceptación Mantenimiento",
-				"Traslado" });
+				map.put("Mantenimiento", new String[] { "Medición",
+						"Limpieza", "Calibración", "Desarme", "Armado",
+						"Instalación", "Desinstalación",
+						"Cambio de Repuesto", "Cambio de Consumibles",
+						"Aceptación Mantenimiento", "Traslado" });
 
 				map.put("Asistencial", new String[] { "Asistencia Paciente",
 						"Bañado de paciente", "Consulta",
@@ -145,7 +145,7 @@ public class InitialData {
 						"Hacer procedimiento", "calificación del Paciente",
 						"Pruebas Diagnósticas", "Medicación",
 						"Estudios Diagnósticos", "Tratamientos",
-				"Procedimientos" });
+						"Procedimientos" });
 
 				map.put("Logística", new String[] { "Dar Cita",
 						"Despacho de Materiales", "Mantenimiento Habitación" });
@@ -414,7 +414,7 @@ public class InitialData {
 					final CCDIDefinition definition = em
 							.createNamedQuery("CCDIDefinition.findByCode",
 									CCDIDefinition.class)
-									.setParameter("code", strings[0]).getSingleResult();
+							.setParameter("code", strings[0]).getSingleResult();
 
 					final CCDILevelDefinition levelDefinition = new CCDILevelDefinition();
 					levelDefinition.setDefinition(definition);
@@ -422,8 +422,8 @@ public class InitialData {
 					levelDefinition.setName(strings[2]);
 					levelDefinition.setLength(Integer.parseInt(strings[3]));
 					levelDefinition
-					.setValueType(CCDIValueTypeEnum.values()[Integer
-					                                         .parseInt(strings[4])]);
+							.setValueType(CCDIValueTypeEnum.values()[Integer
+									.parseInt(strings[4])]);
 					levelDefinition.setInitialValue(Integer
 							.parseInt(strings[5]));
 					levelDefinition.setIncValue(Integer.parseInt(strings[6]));
@@ -489,9 +489,9 @@ public class InitialData {
 							.createNamedQuery(
 									"CCDILevelDefinition.findByLevel",
 									CCDILevelDefinition.class)
-									.setParameter("definition", definition)
-									.setParameter("level", Integer.parseInt(strings[1]))
-									.getSingleResult();
+							.setParameter("definition", definition)
+							.setParameter("level", Integer.parseInt(strings[1]))
+							.getSingleResult();
 
 					final CCDILevelValue levelValue = new CCDILevelValue();
 					levelValue.setLevelDefinition(levelDefinition);
@@ -504,7 +504,7 @@ public class InitialData {
 					levelValue.setNextValue(Integer.parseInt(strings[5]));
 					levelValue.setFixedValue(strings[6]);
 					levelValue.setStatus(CCDIValueStatusEnum.values()[Integer
-					                                                  .parseInt(strings[7])]);
+							.parseInt(strings[7])]);
 					levelValue.setNextElement(Integer.parseInt(strings[8]));
 
 					em.persist(levelValue);
@@ -562,13 +562,13 @@ public class InitialData {
 					definition.setLength(Integer.parseInt(strings[2]));
 					definition.setLevels(Integer.parseInt(strings[3]));
 					definition.setStatus(CCDIStatusEnum.values()[Integer
-					                                             .parseInt(strings[4])]);
+							.parseInt(strings[4])]);
 					definition.setConcept(em.find(Concept.class,
 							Long.parseLong(strings[5])));
 					definition.setType(CCDICodeTypeEnum.values()[Integer
-					                                             .parseInt(strings[6])]);
+							.parseInt(strings[6])]);
 					definition
-					.setVerification(Boolean.parseBoolean(strings[7]));
+							.setVerification(Boolean.parseBoolean(strings[7]));
 					definition.setVerificationMethod(strings[8]);
 
 					em.persist(definition);
@@ -651,7 +651,7 @@ public class InitialData {
 
 				for (int i = 1; i < 4; ++i) {
 					final Eia eia = new Eia(bRole, em.find(EiaType.class,
-							"3XXXXX000" + Long.toString(i)), obu,
+							"387016000" + Long.toString(i)), obu,
 							EiaStateEnum.values()[i % 3], "GHAEQ-00" + i,
 							mProvider, "S9023423" + i);
 					eia.setCode("eia-00" + i);
@@ -681,7 +681,7 @@ public class InitialData {
 						.createNamedQuery(
 								"CCDILevelValue.findAllByDefinitionCode",
 								CCDILevelValue.class)
-								.setParameter("code", "Equipos").getResultList();
+						.setParameter("code", "Equipos").getResultList();
 				for (final CCDILevelValue ccdi : ccdiCategories) {
 					if (!ccdi.getLevelDefinition().getDefinition().getCode()
 							.equals("Equipos"))
@@ -728,7 +728,7 @@ public class InitialData {
 							Long.parseLong(strings[0])));
 					eiaType.setName(strings[1]);
 					eiaType.setMobility(EiaMobilityEnum.values()[Integer
-					                                             .parseInt(strings[2])]);
+							.parseInt(strings[2])]);
 					eiaType.setEiaTypeCategory(em.find(EiaTypeCategory.class,
 							strings[3]));
 					eiaType.setCode(ccdiServiceRemote
@@ -736,7 +736,7 @@ public class InitialData {
 									.getCode()));
 
 					eiaType.setSubtype(EiaSubTypeEnum.values()[Integer
-					                                           .parseInt(strings[4])]);
+							.parseInt(strings[4])]);
 					eiaType.setModel(strings[5]);
 					em.persist(eiaType);
 					em.flush();
@@ -795,7 +795,7 @@ public class InitialData {
 		} catch (final NoResultException e) {
 			logger.info("Creating test data : facility");
 			final String facilityNames[] = { "Sala 1 Rayos X",
-			"Sala 1 Tomografia" };
+					"Sala 1 Tomografia" };
 			for (int i = 3, j = 0; i < 5; ++i, ++j) {
 				final Facility facility = new Facility();
 				facility.setName(facilityNames[j]);
@@ -950,7 +950,7 @@ public class InitialData {
 				final String activityNames[] = { "Desconectar", "Abrir",
 						"Limpiar", "Cerrar", "Conectar", "Reemplazar",
 						"subprotocol_activity", "activity_1", "activity_2",
-				"activity_3" };
+						"activity_3" };
 
 				final String activityDesc[] = {
 						"Desconecte el equipo de la corriente eléctrica",
@@ -962,7 +962,7 @@ public class InitialData {
 						"actividad de subprotocolo para pruebas",
 						"actividad de prueba 1 para la actividad de subprotocolo",
 						"actividad de prueba 2 para la actividad de subprotocolo",
-				"actividad de prueba 2 para la actividad de subprotocolo" };
+						"actividad de prueba 2 para la actividad de subprotocolo" };
 
 				final int durations[] = { 1, 2, 2, 1, 4, 3, 5, 6, 8, 7 };
 
@@ -1018,10 +1018,10 @@ public class InitialData {
 				logger.info("Creating test data: maintenance plan");
 				final String planName[] = {
 						"Plan de Mantenimiento Impresoras Tinta",
-				"Plan de Mantenimiento Impresoras Laser" };
+						"Plan de Mantenimiento Impresoras Laser" };
 				final String planDesc[] = {
 						"plan de mantenimiento impresoras de tinta",
-				"plan de mantenimiento impresoras laser" };
+						"plan de mantenimiento impresoras laser" };
 				final int planFrequency[] = { 1, 3 };
 				final TimePeriodEnum planTimePeriod[] = {
 						TimePeriodEnum.MONTHS, TimePeriodEnum.SEMESTERS };
@@ -1133,7 +1133,7 @@ public class InitialData {
 						.createNamedQuery(
 								"CCDILevelValue.findAllByDefinitionCode",
 								CCDILevelValue.class)
-								.setParameter("code", "Material").getResultList();
+						.setParameter("code", "Material").getResultList();
 				for (final CCDILevelValue ccdi : ccdiCategories) {
 					if (!ccdi.getLevelDefinition().getDefinition().getCode()
 							.equals("Material"))
@@ -1177,7 +1177,7 @@ public class InitialData {
 						continue;
 					Material material = new Material();
 					material.setType(MaterialTypeEnum.values()[Integer
-					                                           .parseInt(strings[0])]);
+							.parseInt(strings[0])]);
 					material.setMaterialCategory(em.find(
 							MaterialCategory.class, strings[1]));
 					material.setDescription(strings[2]);

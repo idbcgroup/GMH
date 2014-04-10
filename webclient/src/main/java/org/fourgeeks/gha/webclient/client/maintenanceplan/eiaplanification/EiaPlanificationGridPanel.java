@@ -11,8 +11,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanModel;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
 
@@ -37,7 +37,7 @@ public class EiaPlanificationGridPanel extends GHAFormLayout implements
 	 */
 	public EiaPlanificationGridPanel() {
 		super();
-		GHALabel title = new GHALabel(GHAStrings.get("eia-on-maintenance-plan"));
+		GHATopTitleLabel title = new GHATopTitleLabel(GHAStrings.get("eia-on-maintenance-plan"));
 		addMember(title);
 
 		HLayout mainLayout = new HLayout();

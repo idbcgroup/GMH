@@ -2,7 +2,8 @@
 	padding: 0px;
 	margin: 0px;
 	font-size: 12px;
-	font-family: Helvetica !important;
+	color: black;
+	font-family: Arial, sans-serif; !important;
 }
 b {
 	font-weight: normal !important;
@@ -137,26 +138,6 @@ body {
 	width: 45px;
 }
 
-/*.tab-header{
-		background-color: #CECECE;
-	    border-left: 1px solid #CECECE;
-	    border-right: 1px solid #CECECE;
-	    border-top: 1px solid #CECECE;
-	    font-weight: bold;
-	    font-size: 12px;
-	    margin-left: 3px;
-	    text-transform: uppercase;
-	}
-	
-	.tab-header-selected{
-		background-color: #EAEAEA;
-    	font-weight: bolder;
-	}
-	
-	.tab-header-over{
-		background-color: #EAEAEA;
-		cursor: pointer;
-	}*/
 .place-header-title {
 	/*padding-left: 6px;*/
 	color: #666666;
@@ -198,12 +179,6 @@ body {
 	background-color: #ECECEC;
 	min-width: 1024px;
 /* 	margin-bottom: 2px; */
-}
-.gha-alert-label{
-	font-weight: bold;
-	text-align: center;
-	text-transform: capitalize;
-	margin:2px;	
 }
 .tab-header-title {
 	padding-left: 6px;
@@ -319,54 +294,54 @@ input[type="text"]:disabled,.inputDisabled {
 	color: #ababab;
 }
 
-/*
-.titletext{
-	color:white;	
-	font-weight: bold;
-	font-size: 12px;
-}
-*/
-.text-label {
-	color: black;
-	font-size: 12px;
-}
-.text-label-mini{
-	color:black;
-	font-size: 9px;
-}
 
-.gha-label {
+
+.gha-top-label {
 	font-weight: bold;
-	color: black;
 	font-size: 13px;
 	text-transform: capitalize;
 }
 
-.gha-medium-title-label {
+.text-label {
+	font-size: 12px;
+	text-transform: none;
+}
+
+.small-text-label{
+	font-size: 11px;
+}
+
+.mini-text-label{
+	font-size: 9px;
+}
+
+.title-label {
 	font-weight: bold;
 	color: #008EFE;
 	font-size: 12px;
 	text-transform: capitalize;
 }
 
-.gha-small-title-label {
+.small-title-label {
 	font-weight: bold;
 	color: #008EFE;
 	font-size: 11px;
 	text-transform: capitalize;
 }
 
-.gha-medium-text-label {
-	color: black;
-	font-size: 12px;
+.alert-label{
+	font-weight: bold;
+	text-align: center;
 	text-transform: capitalize;
+	margin:2px;	
 }
 
-.gha-small-text-label {
-	color: black;
-	font-size: 11px;
-	text-transform: capitalize;
+.title-label-item{
+	font-weight: bold;
+	font-size: 13px;
 }
+
+
 
 .iconTopPadding {
 	padding-top: 6px;
@@ -563,6 +538,9 @@ table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFile
 }
 .bold{
 	font-weight: bold;
+}
+.title-text{
+	
 }
 
 .side-option-main {
