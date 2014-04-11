@@ -369,3 +369,4 @@ ES,maintenance-name-tooltip,Nombre del Plan de Mantenimiento
 ES,asigned,asignado
 ES,other,Otro
 ES,menu,menú
+ES,date-must-be-upper-or-equal-than-today, La Fecha debe ser mayor o igual a la fecha de hoy

@@ -24,12 +24,12 @@ public class MaintenanceProtocolModel {
 	 *            the plan with the activities that are going to be copyed
 	 * @param planTo
 	 *            the plan who is going to recive the new activites
-	 * @param callback
+	 * @param ghaAsyncCallback
 	 *            the response callback
 	 */
 	public static void copyActivities(MaintenancePlan planFrom,
-			MaintenancePlan planTo, GHAAsyncCallback<Void> callback) {
-		service.copyActivities(planFrom, planTo, callback);
+			MaintenancePlan planTo, GHAAsyncCallback<Boolean> ghaAsyncCallback) {
+		service.copyActivities(planFrom, planTo, ghaAsyncCallback);
 	}
 
 	/**

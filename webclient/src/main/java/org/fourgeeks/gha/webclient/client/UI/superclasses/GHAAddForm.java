@@ -34,30 +34,31 @@ public abstract class GHAAddForm<T> extends GHASlideInWindow {
 			hide();
 			return;
 		}
-		//		GHAAlertManager.askYesNoCancel("unsaved-changes", new ClickHandler() {
+		// GHAAlertManager.askYesNoCancel("unsaved-changes", new ClickHandler()
+		// {
 		//
-		//			@Override
-		//			public void onClick(ClickEvent event) {
-		//				form.undo();
-		//				hide();
-		//			}
-		//		}, new ClickHandler() {
+		// @Override
+		// public void onClick(ClickEvent event) {
+		// form.undo();
+		// hide();
+		// }
+		// }, new ClickHandler() {
 		//
-		//			@Override
-		//			public void onClick(ClickEvent event) {
-		//			}
-		//		}, null);
-		GHAErrorMessageProcessor.confirm("unsaved-changes", new BooleanCallback() {
+		// @Override
+		// public void onClick(ClickEvent event) {
+		// }
+		// }, null);
+		GHAErrorMessageProcessor.confirm("unsaved-changes",
+				new BooleanCallback() {
 
-			@Override
-			public void execute(Boolean value) {
-				if(value)
-				{
-					form.undo();
-					hide();
-				}
-			}
-		});
+					@Override
+					public void execute(Boolean value) {
+						if (value) {
+							form.undo();
+							hide();
+						}
+					}
+				});
 
 	}
 

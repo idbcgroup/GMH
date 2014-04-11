@@ -24,10 +24,11 @@ public interface GWTMaintenanceProtocolService extends RemoteService {
 	 *            the plan with the activities that are going to be copyed
 	 * @param planTo
 	 *            the plan who is going to recive the new activites
+	 * @return
 	 * @throws GHAEJBException
 	 */
-	public void copyActivities(MaintenancePlan planFrom, MaintenancePlan planTo)
-			throws GHAEJBException;
+	public Boolean copyActivities(MaintenancePlan planFrom,
+			MaintenancePlan planTo) throws GHAEJBException;
 
 	/**
 	 * Delete a group of {@link MaintenanceProtocol} entities (This mean unlink
