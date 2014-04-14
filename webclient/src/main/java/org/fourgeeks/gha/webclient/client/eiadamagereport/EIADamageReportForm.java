@@ -119,7 +119,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		// damageTimeItem.setValidateOnChange(true);
 		damageTimeItem.setShowErrorIcon(true);
 
-		damageStatusSelectItem = new GHASelectItem("Estatus", true,
+		damageStatusSelectItem = new GHASelectItem("Estado", true,
 				changedHandler);
 		equipmentCondSelectItem = new GHASelectItem("Condición del equipo",
 				true, changedHandler);
@@ -339,7 +339,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 			// GHAAlertManager.alert(violationsList);
 
 			String validation_message[] = { "damageStatus-not-null",
-					"state-not-null", "userWhoReported-not-null",
+					"eia-condition-not-null", "userWhoReported-not-null",
 					"userWhoRegistered-not-null", "damagePriority-not-null" };
 
 			for (int i = 0; i < validation_message.length; i++) {
@@ -392,6 +392,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		equipmentCondSelectItem.setValueMap(EiaStateEnum.toValueMapCondEia());
 		damagePrioritySelectItem
 				.setValueMap(EiaDamagePriorityEnum.toValueMap());
+		damagePrioritySelectItem.setValue(EiaDamagePriorityEnum.NORMAL.name());
 	}
 
 	private void fillWarrantySelects() {
