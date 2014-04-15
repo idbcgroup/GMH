@@ -44,9 +44,12 @@ body {
 		margin-left: 10px;
 	}*/
 .logo {
-	width: 111px;
-	height: 60px;
-	background-image: url(../img/logo.png);
+	width: 120px;
+	height: 50px;
+	background-image: url(../img/logo.svg);
+	background-repeat: no-repeat;
+	background-size: contain;
+	margin: 5px 0 0 10px;
 	float: left;
 }
 

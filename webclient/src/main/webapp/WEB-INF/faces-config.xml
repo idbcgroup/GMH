@@ -5,5 +5,11 @@
     "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
 
 <faces-config>
+	<application>
+		<message-bundle>resources.application</message-bundle>
+		<locale-config>
+			<default-locale>en</default-locale>
+		</locale-config>
+	</application>
 
 </faces-config>
