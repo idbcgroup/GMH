@@ -19,8 +19,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.Activity;
-import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
-import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
+import org.fourgeeks.gha.domain.ActivityType;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
@@ -63,18 +62,17 @@ public class MaintenanceActivityService extends GHAEJBExceptionService
 			predicate = cb.and(predicate, cb.like(
 					cb.lower(activityJoin.<String> get("description")), p));
 		}
-		if (activity.getCategory() != null) {
-			ParameterExpression<ActivityCategoryEnum> p = cb.parameter(
-					ActivityCategoryEnum.class, "category");
-			predicate = cb.and(predicate, cb.equal(
-					activityJoin.<ActivityCategoryEnum> get("category"), p));
+		if (activity.getType() != null) {
+			ParameterExpression<ActivityType> p = cb.parameter(
+					ActivityType.class, "type");
+			predicate = cb.and(predicate,
+					cb.equal(activityJoin.<ActivityType> get("type"), p));
 		}
-		if (activity.getSubCategory() != null) {
-			ParameterExpression<ActivitySubCategoryEnum> p = cb.parameter(
-					ActivitySubCategoryEnum.class, "subCategory");
-			predicate = cb.and(predicate, cb.equal(
-					activityJoin.<ActivitySubCategoryEnum> get("subCategory"),
-					p));
+		if (activity.getSubType() != null) {
+			ParameterExpression<ActivityType> p = cb.parameter(
+					ActivityType.class, "subType");
+			predicate = cb.and(predicate,
+					cb.equal(activityJoin.<ActivityType> get("subType"), p));
 		}
 		if (activity.getIsSubProtocol() == true) {
 			ParameterExpression<Boolean> p = cb.parameter(Boolean.class,
@@ -162,11 +160,11 @@ public class MaintenanceActivityService extends GHAEJBExceptionService
 			if (activity.getDescription() != null)
 				q.setParameter("description", "%"
 						+ activity.getDescription().toLowerCase() + "%");
-			if (activity.getCategory() != null)
-				q.setParameter("category", activity.getCategory());
+			if (activity.getType() != null)
+				q.setParameter("type", activity.getType());
 
-			if (activity.getSubCategory() != null)
-				q.setParameter("subCategory", activity.getSubCategory());
+			if (activity.getSubType() != null)
+				q.setParameter("subType", activity.getSubType());
 
 			if (activity.getIsSubProtocol() == true) {
 				q.setParameter("isSubProtocol", activity.getIsSubProtocol());

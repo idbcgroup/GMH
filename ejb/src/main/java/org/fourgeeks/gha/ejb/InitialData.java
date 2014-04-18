@@ -28,9 +28,7 @@ import org.fourgeeks.gha.domain.TransactionParams;
 import org.fourgeeks.gha.domain.conf.Parameter;
 import org.fourgeeks.gha.domain.conf.ParameterGroup;
 import org.fourgeeks.gha.domain.conf.ParameterValue;
-import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.ActivityState;
-import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
 import org.fourgeeks.gha.domain.enu.CCDICodeTypeEnum;
 import org.fourgeeks.gha.domain.enu.CCDIEndValueActionEnum;
 import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
@@ -127,31 +125,30 @@ public class InitialData {
 			try {
 				logger.info("Creating test data: activity type and subtype");
 
-				final String activityTypeNames[] = { "Mantenimiento",
-						"Asistencial", "Logística", "Operaciones",
-						"Administrativa", "Del Sistema" };
+				final String activityTypeNames[] = { "maintenance",
+						"assistance", "logistic", "operations",
+						"administrative", "system" };
 
 				final HashMap<String, String[]> map = new HashMap<String, String[]>();
 
-				map.put("Mantenimiento", new String[] { "Medición",
-						"Limpieza", "Calibración", "Desarme", "Armado",
-						"Instalación", "Desinstalación",
-						"Cambio de Repuesto", "Cambio de Consumibles",
-						"Aceptación Mantenimiento", "Traslado" });
+				map.put("maintenance", new String[] { "medication", "cleaning",
+						"calibration", "dismantling", "assemble",
+						"installation", "deinstallation", "spare-change",
+						"consumables-change", "maintenance-acceptance",
+						"transfer" });
 
-				map.put("Asistencial", new String[] { "Asistencia Paciente",
-						"Bañado de paciente", "Consulta",
-						"Recepción de Paciente", "Acompañar al Paciente",
-						"Hacer procedimiento", "calificación del Paciente",
-						"Pruebas Diagnósticas", "Medicación",
-						"Estudios Diagnósticos", "Tratamientos",
-						"Procedimientos" });
+				map.put("assistance", new String[] { "patient-assistance",
+						"patient-showering", "consultation",
+						"patient-receiving", "accompany-the-patient",
+						"ask-procedure", "qualification-of-patient",
+						"diagnostic-tests", "medication", "diagnostic-studies",
+						"Tratamientos", "procedures" });
 
-				map.put("Logística", new String[] { "Dar Cita",
-						"Despacho de Materiales", "Mantenimiento Habitación" });
+				map.put("logistic", new String[] { "set-quote",
+						"materials-dispatch", "room-maintenance" });
 
-				map.put("Administrativa", new String[] { "Admisión Paciente",
-						"Egreso Paciente", "Facturación" });
+				map.put("administrative", new String[] { "patient-admission",
+						"patient-exit", "billing" });
 
 				for (final String typeName : activityTypeNames) {
 					final ActivityType type = new ActivityType();
@@ -979,13 +976,16 @@ public class InitialData {
 				final boolean isSubprotocol[] = { false, false, false, false,
 						false, false, true, false, false, false };
 
+				ActivityType type = new ActivityType(1);
+				ActivityType subType = new ActivityType(3);
+
 				for (int i = 0; i < 10; ++i) {
 					final Activity activity = new Activity();
 					activity.setName(activityNames[i]);
 					activity.setDescription(activityDesc[i]);
 					activity.setState(ActivityState.CREATED);
-					activity.setCategory(ActivityCategoryEnum.MAINTENANCE);
-					activity.setSubCategory(ActivitySubCategoryEnum.CALIBRATION);
+					activity.setType(type);
+					activity.setSubType(subType);
 					activity.setEstimatedDuration(new BigDecimal(durations[i]));
 					activity.setEstimatedDurationPoT(pots[i]);
 					activity.setEstimatedCost(new BigDecimal(cost[i]));

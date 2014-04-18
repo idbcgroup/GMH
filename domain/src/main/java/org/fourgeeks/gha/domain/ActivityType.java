@@ -31,6 +31,15 @@ public class ActivityType extends AbstractEntity implements Serializable {
 	}
 
 	/**
+	 * @param id
+	 */
+	public ActivityType(long id) {
+		super();
+		parentActivityTypeId = 0L;
+		this.id = id;
+	}
+
+	/**
 	 * @return the parentActivityType
 	 */
 	public long getParentActivityTypeId() {

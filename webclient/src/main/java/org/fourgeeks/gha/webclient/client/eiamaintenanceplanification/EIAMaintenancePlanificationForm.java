@@ -17,7 +17,6 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABspSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAJobSelectItem;
@@ -57,7 +56,6 @@ public class EIAMaintenancePlanificationForm extends
 	private GHAMaintenancePlanificationStateSelectItem planificationStateSelectItem;
 	private GHAMaintenancePlanSelectItem planSelectItem;
 	private EiaType selectedEiaType;
-	private GHASelectItem selectDateItem;
 
 	{
 		listeners = new ArrayList<MaintenancePlanificationSelectionListener>();
@@ -89,10 +87,8 @@ public class EIAMaintenancePlanificationForm extends
 				roleSelectItem.fill(providerSelectItem.getValueAsBsp());
 
 				if (providerSelectItem.getValueAsString() == null) {
-
 					roleSelectItem.clearValue();
 					roleSelectItem.setDisabled(true);
-
 				} else
 					roleSelectItem.setDisabled(false);
 			}

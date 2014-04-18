@@ -1,18 +1,23 @@
-package org.fourgeeks.gha.ejb;
+/**
+ * 
+ */
+package org.fourgeeks.gha.webclient.client.maintenanceactivity;
 
 import java.util.List;
-
-import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.ActivityType;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 
+import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+
 /**
- * @author naramirez
+ * @author emiliot
  * 
  */
-@Remote
-public interface ActivityTypeServiceRemote {
+
+@RemoteServiceRelativePath("activityTypeService")
+public interface GWTActivityTypeService extends RemoteService {
 	/**
 	 * 
 	 * @param id
@@ -51,7 +56,7 @@ public interface ActivityTypeServiceRemote {
 	/**
 	 * 
 	 * @param entity
-	 * @return ActivityType
+	 * @return the saved Activity Type or Subtype
 	 * @throws GHAEJBException
 	 */
 	public ActivityType save(ActivityType entity) throws GHAEJBException;

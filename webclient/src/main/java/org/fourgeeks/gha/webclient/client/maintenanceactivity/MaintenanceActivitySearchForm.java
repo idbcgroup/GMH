@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.Activity;
+import org.fourgeeks.gha.domain.ActivityType;
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
-import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -15,8 +15,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivityCategorySelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivitySubCategorySelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivitySubTypeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivityTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHASearchButton;
@@ -29,6 +29,8 @@ import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
+import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -38,12 +40,12 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaintenanceActivitySearchForm extends GHASearchForm<Activity>
-implements MaintenanceActivitySelectionListener,
-MaintenanceActivitySelectionProducer, MaintenancePlanSelectionListener {
+		implements MaintenanceActivitySelectionListener,
+		MaintenanceActivitySelectionProducer, MaintenancePlanSelectionListener {
 
 	private GHATextItem nameItem, descriptionItem;
-	private GHAActivityCategorySelectItem categorySelectItem;
-	private GHAActivitySubCategorySelectItem subTypeSelectItem;
+	private GHAActivityTypeSelectItem typeSelectItem;
+	private GHAActivitySubTypeSelectItem subTypeSelectItem;
 
 	private final GHADynamicForm form;
 	private final MaintenanceActivityResultSet resultSet;
@@ -55,19 +57,32 @@ MaintenanceActivitySelectionProducer, MaintenancePlanSelectionListener {
 		nameItem.setLength(100);
 		descriptionItem = new GHATextItem(GHAStrings.get("description"));
 		descriptionItem.setColSpan(3);
-		categorySelectItem = new GHAActivityCategorySelectItem();
-		subTypeSelectItem = new GHAActivitySubCategorySelectItem();
+		typeSelectItem = new GHAActivityTypeSelectItem();
+		subTypeSelectItem = new GHAActivitySubTypeSelectItem();
+
+		typeSelectItem.addChangedHandler(new ChangedHandler() {
+			@Override
+			public void onChanged(ChangedEvent event) {
+				subTypeSelectItem.clearValue();
+				subTypeSelectItem.fill(typeSelectItem.getValueAsActivityType());
+
+				if (typeSelectItem.getValue() == null)
+					subTypeSelectItem.setDisabled(true);
+				else
+					subTypeSelectItem.setDisabled(false);
+			}
+		});
 
 		resultSet = new MaintenanceActivityResultSet(
 				ResultSetContainerType.SEARCH_FORM);
 		resultSet
-		.addMaintenanceActivitySelectionListener(new MaintenanceActivitySelectionListener() {
-			@Override
-			public void select(MaintenanceActivity maintenanceActivity) {
-				blackList = null;
-				hide();
-			}
-		});
+				.addMaintenanceActivitySelectionListener(new MaintenanceActivitySelectionListener() {
+					@Override
+					public void select(MaintenanceActivity maintenanceActivity) {
+						blackList = null;
+						hide();
+					}
+				});
 	}
 
 	/**
@@ -79,7 +94,7 @@ MaintenanceActivitySelectionProducer, MaintenancePlanSelectionListener {
 	public MaintenanceActivitySearchForm(String title) {
 		super(title);
 
-		form.setItems(nameItem, categorySelectItem, subTypeSelectItem,
+		form.setItems(nameItem, typeSelectItem, subTypeSelectItem,
 				descriptionItem);
 
 		nameItem.addKeyUpHandler(searchKeyUpHandler);
@@ -87,17 +102,17 @@ MaintenanceActivitySelectionProducer, MaintenancePlanSelectionListener {
 
 		final VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHACleanButton(new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						clean();
-					}
-				}), new GHACancelButton(new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						clean();
-						hide();
-					}
-				}));
+			@Override
+			public void onClick(ClickEvent event) {
+				clean();
+			}
+		}), new GHACancelButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				clean();
+				hide();
+			}
+		}));
 
 		final HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
@@ -108,8 +123,8 @@ MaintenanceActivitySelectionProducer, MaintenancePlanSelectionListener {
 
 		addMembers(formLayout,
 				GHAUiHelper
-				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-						+ "px"), resultSet);
+						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+								+ "px"), resultSet);
 	}
 
 	/*
@@ -197,12 +212,14 @@ MaintenanceActivitySelectionProducer, MaintenancePlanSelectionListener {
 			activity.setName(nameItem.getValueAsString());
 		if (descriptionItem.getValue() != null)
 			activity.setDescription(descriptionItem.getValueAsString());
-		if (subTypeSelectItem.getValue() != null)
-			activity.setSubCategory(ActivitySubCategoryEnum
-					.valueOf(subTypeSelectItem.getValueAsString()));
-		if (categorySelectItem.getValue() != null)
-			activity.setCategory(ActivityCategoryEnum
-					.valueOf(categorySelectItem.getValueAsString()));
+		if (typeSelectItem.getValue() != null) {
+			Long value = Long.valueOf(typeSelectItem.getValueAsString());
+			activity.setType(new ActivityType(value));
+		}
+		if (subTypeSelectItem.getValue() != null) {
+			Long value = Long.valueOf(subTypeSelectItem.getValueAsString());
+			activity.setSubType(new ActivityType(value));
+		}
 
 		maintenanceActivity.setActivity(activity);
 		search(maintenanceActivity);
@@ -218,22 +235,22 @@ MaintenanceActivitySelectionProducer, MaintenancePlanSelectionListener {
 	private void search(final MaintenanceActivity maintenanceActivity) {
 		MaintenanceActivityModel.find(maintenanceActivity,
 				new GHAAsyncCallback<List<MaintenanceActivity>>() {
-			@Override
-			public void onSuccess(List<MaintenanceActivity> result) {
-				List<MaintenanceActivity> newList = null;
-				if (blackList != null) {
-					final List<AbstractEntity> tmpList = GHAUtil
-							.binarySearchFilterEntity(result, blackList);
-					final List<MaintenanceActivity> newTmpList = new ArrayList<MaintenanceActivity>();
-					for (final AbstractEntity entity : tmpList)
-						newTmpList.add((MaintenanceActivity) entity);
-					newList = newTmpList;
-				} else
-					newList = result;
+					@Override
+					public void onSuccess(List<MaintenanceActivity> result) {
+						List<MaintenanceActivity> newList = null;
+						if (blackList != null) {
+							final List<AbstractEntity> tmpList = GHAUtil
+									.binarySearchFilterEntity(result, blackList);
+							final List<MaintenanceActivity> newTmpList = new ArrayList<MaintenanceActivity>();
+							for (final AbstractEntity entity : tmpList)
+								newTmpList.add((MaintenanceActivity) entity);
+							newList = newTmpList;
+						} else
+							newList = result;
 
-				resultSet.setRecords(newList, false);
-			}
-		});
+						resultSet.setRecords(newList, false);
+					}
+				});
 	}
 
 	@Override
@@ -243,7 +260,7 @@ MaintenanceActivitySelectionProducer, MaintenancePlanSelectionListener {
 
 	@Override
 	public void select(MaintenancePlan maintenancePlan) {
-		categorySelectItem.setValue(ActivityCategoryEnum.MAINTENANCE);
-		categorySelectItem.setDisabled(true);
+		typeSelectItem.setValue(ActivityCategoryEnum.MAINTENANCE);
+		typeSelectItem.setDisabled(true);
 	}
 }

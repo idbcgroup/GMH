@@ -47,12 +47,7 @@ public class MaintenanceProtocolGrid extends GhaGrid<MaintenanceProtocol> {
 				"Descripción");
 
 		// campos ocultos
-		final GHAGridField materialsGridField = new GHAGridField("materials",
-				"Materiales", true);
-		final GHAGridField toolsGridField = new GHAGridField("tools",
-				"Herramientas", true);
-		final GHAGridField equipsGridField = new GHAGridField("equips",
-				"Equipos", true);
+
 		final GHAGridField timeGridField = new GHAGridField("time", "Duración",
 				true);
 		final GHAGridField periodOfTimeGridField = new GHAGridField("pot",
@@ -64,25 +59,17 @@ public class MaintenanceProtocolGrid extends GhaGrid<MaintenanceProtocol> {
 
 		isSubProtocolGridField.setType(ListGridFieldType.BOOLEAN);
 		isSubProtocolGridField.setCanEdit(false);
-		materialsGridField.setType(ListGridFieldType.BOOLEAN);
-		materialsGridField.setCanEdit(false);
-		toolsGridField.setType(ListGridFieldType.BOOLEAN);
-		toolsGridField.setCanEdit(false);
-		equipsGridField.setType(ListGridFieldType.BOOLEAN);
-		equipsGridField.setCanEdit(false);
 
 		setEmptyMessage("No existen actividades o sub-protocolos para mostrar");
 
 		setFields(ordinalGridField, typeGridField, codeGridField,
 				isSubProtocolGridField, nameGridField, descGridField,
-				materialsGridField, toolsGridField, equipsGridField,
 				timeGridField, periodOfTimeGridField, costGridField,
 				currencyGridField);
 
 		headerMenuItems = generateHeaderMenuItems(ordinalGridField,
 				typeGridField, codeGridField, isSubProtocolGridField,
-				nameGridField, descGridField, materialsGridField,
-				toolsGridField, equipsGridField, timeGridField,
+				nameGridField, descGridField, timeGridField,
 				periodOfTimeGridField, costGridField, currencyGridField);
 
 		setCanFocus(true);
