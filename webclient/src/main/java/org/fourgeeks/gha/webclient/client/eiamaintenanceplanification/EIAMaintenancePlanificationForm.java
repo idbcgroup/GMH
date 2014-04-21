@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationState;
+import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.gar.Job;
 import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.gmh.Eia;
@@ -16,13 +17,16 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABspSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAJobSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanStateSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanificationStateSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAPeriodOfTimeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
@@ -52,6 +56,8 @@ public class EIAMaintenancePlanificationForm extends
 	private GHABspSelectItem providerSelectItem;
 	private GHAJobSelectItem roleSelectItem;
 	private GHADateItem beginningDateDateItem;
+	private GHATextItem frequencyItem;
+	private GHAPeriodOfTimeSelectItem frequencyPoTSelectItem;
 	private GHAMaintenancePlanStateSelectItem planStateSelectItem;
 	private GHAMaintenancePlanificationStateSelectItem planificationStateSelectItem;
 	private GHAMaintenancePlanSelectItem planSelectItem;
@@ -76,6 +82,11 @@ public class EIAMaintenancePlanificationForm extends
 		beginningDateDateItem.setValidators(beginningDateDateItem
 				.getValidatorDateMax());
 		beginningDateDateItem.setShowErrorIcon(true);
+		frequencyItem = new GHATextItem(GHAStrings.get("frecuency"));
+		frequencyItem.setDisabled(true);
+		frequencyPoTSelectItem = new GHAPeriodOfTimeSelectItem();
+		frequencyPoTSelectItem.setValue((TimePeriodEnum) null);
+		frequencyPoTSelectItem.setDisabled(true);
 		// selectDateItem.setDefaultValue(VAL_SOME_EIATYPES);
 
 		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
@@ -102,6 +113,8 @@ public class EIAMaintenancePlanificationForm extends
 				final MaintenancePlan mPlan = planSelectItem
 						.getValueAsMaintenancePlan();
 				planStateSelectItem.setValue(mPlan.getState());
+				frequencyItem.setValue(mPlan.getFrequency());
+				frequencyPoTSelectItem.setValue(mPlan.getPot());
 			}
 		});
 
@@ -111,8 +124,9 @@ public class EIAMaintenancePlanificationForm extends
 	public EIAMaintenancePlanificationForm() {
 		final HLayout mainPanel = new HLayout();
 		form.setItems(beginningDateDateItem, new GHASpacerItem(2),
-				planSelectItem, new GHASpacerItem(2), providerSelectItem,
-				roleSelectItem, new GHASpacerItem(2),
+				planSelectItem, new GHASpacerItem(2), frequencyItem,
+				frequencyPoTSelectItem, new GHASpacerItem(2),
+				providerSelectItem, roleSelectItem, new GHASpacerItem(2),
 				planificationStateSelectItem, planStateSelectItem,
 				new GHASpacerItem(2));
 
