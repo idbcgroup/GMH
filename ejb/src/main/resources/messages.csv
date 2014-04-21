@@ -485,7 +485,7 @@ EN,systemInstance-save-fail,Failed to save SystemInstance,VEC-MINOR-ERROR
 EN,systemInstance-update-fail,Failed to update SystemInstance,VEC-MINOR-ERROR
 ES,message-find-fail,Búsqueda fallida del mensaje,VEC-MINOR-ERROR
 EN,message-find-fail,Failed to find Message,VEC-MINOR-ERROR
-ES,damageStatus-not-null,Debe indicar el Estado del daño o falla,VEM-VALIDATION
+ES,damageStatus-not-null,Debe indicar el Estatus del daño o falla,VEM-VALIDATION
 ES,damagePriority-not-null,Debe indicar la Prioridad del daño o falla,VEM-VALIDATION
 ES,userWhoReported-not-null,Debe indicar el Usuario que reportó el daño o falla,VEM-VALIDATION
 ES,userWhoRegistered-not-null,Debe indicar el Usuario que registró el daño o falla,VEM-VALIDATION
@@ -587,3 +587,4 @@ ES,eiacomponents-delete-success,Componentes eliminados satisfactoriamente del Eq
 ES,eiacomponent-save-success,Componente agregado satisfactoriamente al Equipo,VEM-RESULTS
 ES,ccdi-invalid-category-for-element,
 ES,both-plans-have-the-same-maintenance-activities,Ambos Planes poseen las mismas actividades,VEM-WARNING
+ES,eia-condition-not-null,Debe indicar la Condición del equipo,VEM-VALIDATION
