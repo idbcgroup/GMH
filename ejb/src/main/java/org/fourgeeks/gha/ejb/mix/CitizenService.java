@@ -21,6 +21,7 @@ import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.Citizen;
+import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 
 /**
@@ -106,10 +107,10 @@ public class CitizenService extends GHAEJBExceptionService implements
 		}
 
 		if (entity.getLegalEntity() != null) {
-			final ParameterExpression<GenderTypeEnum> p = cb.parameter(
-					GenderTypeEnum.class, "legalEntity");
+			final ParameterExpression<LegalEntity> p = cb.parameter(
+					LegalEntity.class, "legalEntity");
 			criteria = cb.and(criteria,
-					cb.equal(root.<GenderTypeEnum> get("legalEntity"), p));
+					cb.equal(root.<LegalEntity> get("legalEntity"), p));
 		}
 
 		return criteria;
@@ -199,7 +200,7 @@ public class CitizenService extends GHAEJBExceptionService implements
 				}
 
 				if (citizen.getNationality() != null) {
-					q.setParameter("nacionality", "%"
+					q.setParameter("nationality", "%"
 							+ citizen.getNationality().toLowerCase() + "%");
 				}
 

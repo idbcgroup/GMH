@@ -4,7 +4,7 @@
 package org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol;
 
 import org.fourgeeks.gha.domain.Activity;
-import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
+import org.fourgeeks.gha.domain.ActivityType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
@@ -33,8 +33,10 @@ public class MaintenanceActivitySubprotocolRecord extends
 	private void setSubProtocolAndChecklistAttributes() {
 		Activity activity = entity.getActivity();
 		setAttribute("ordinal", entity.getOrdinal());
-		ActivityCategoryEnum category = activity.getCategory();
-		setAttribute("type", GHAStrings.get(category.name().toLowerCase()));
+		ActivityType type = activity.getType();
+		if (type != null)
+			setAttribute("type",
+					GHAStrings.get(type.getDescription().toLowerCase()));
 		setAttribute("code", activity.getId());
 		setAttribute("name", activity.getName());
 		setAttribute("time", activity.getEstimatedDuration());

@@ -53,8 +53,8 @@ public class MaintenanceProtocolService extends GHAEJBExceptionService
 	 * org.fourgeeks.gha.domain.gmh.MaintenancePlan)
 	 */
 	@Override
-	public void copyActivities(MaintenancePlan planFrom, MaintenancePlan planTo)
-			throws GHAEJBException {
+	public Boolean copyActivities(MaintenancePlan planFrom,
+			MaintenancePlan planTo) throws GHAEJBException {
 		try {
 			// obtengo las listas de actividades de los planes
 			TypedQuery<MaintenanceActivity> queryAct = em.createNamedQuery(
@@ -71,26 +71,29 @@ public class MaintenanceProtocolService extends GHAEJBExceptionService
 			// concidencias
 			List<AbstractEntity> entitiesToCopy = GHAUtil
 					.binarySearchFilterEntity(activitiesFrom, activitiesTo);
+			//
+			if (entitiesToCopy.size() == 0) {
+				return false;
+			}
 
 			// obtengo el ultimo ordinal del protocolo del plan
-			TypedQuery<Integer> queryOrd = em.createNamedQuery(
-					"MaintenanceProtocol.getLastOrdinal", Integer.class);
+			TypedQuery<Long> queryOrd = em.createNamedQuery(
+					"MaintenanceProtocol.getLastOrdinal", Long.class);
 
-			List<Integer> ordinalList = queryOrd.setParameter("plan", planTo)
-					.getResultList();
-
-			int ordinal = ordinalList.isEmpty() ? 0 : ordinalList.get(0);
+			long ordinal = queryOrd.setParameter("plan", planTo)
+					.getSingleResult();
 
 			// agrego las actividades al plan deseado
 			for (AbstractEntity entity : entitiesToCopy) {
 				ordinal++;
 				MaintenanceActivity activity = (MaintenanceActivity) entity;
 				MaintenanceProtocol protocol = new MaintenanceProtocol(planTo,
-						activity, ordinal);
+						activity, (int) ordinal);
 				em.persist(protocol);
 			}
 
 			em.flush(); // sincronizo con la BD
+			return true;
 
 		} catch (Exception e) {
 			final String msgError = "Error: copying the activities of a MaintenancePlan to another MaintenancePlan";

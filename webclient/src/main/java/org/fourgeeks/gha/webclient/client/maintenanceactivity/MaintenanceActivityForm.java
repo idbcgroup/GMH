@@ -13,9 +13,8 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import org.fourgeeks.gha.domain.Activity;
-import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
+import org.fourgeeks.gha.domain.ActivityType;
 import org.fourgeeks.gha.domain.enu.ActivityState;
-import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
@@ -26,9 +25,9 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivityCategorySelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivityStateSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivitySubCategorySelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivitySubTypeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivityTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHACurrencyTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAPeriodOfTimeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
@@ -61,29 +60,17 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 	private GHATextAreaItem instructionsAndObsTextAreaItem,
 			descriptionTextItem;
 	private GHAActivityStateSelectItem stateSelectItem;
-	private GHAActivityCategorySelectItem categorySelectItem;
-	private GHAActivitySubCategorySelectItem subCategorySelectItem;
-	private GHACheckboxItem isSubProtocolCheckboxItem,
-			materialsRequierdCheckboxItem, toolsRequierdCheckboxItem,
-			equipsRequiredCheckboxItem;
+	private GHAActivityTypeSelectItem typeSelectItem;
+	private GHAActivitySubTypeSelectItem subTypeSelectItem;
+	private GHACheckboxItem isSubProtocolCheckboxItem;
 	private GHAPeriodOfTimeSelectItem estimatedTimePoTSelectItem;
 	private GHACurrencyTypeSelectItem estimatedCostCurrencySelectItem;
 	private GHADateItem lastEffectuatedDateItem;
 	private boolean isSubProtocol;
 
-	// TODO evaluar si este dato: private GHARoleSelectItem roleSelectItem;
-	// TODO evaluar si este dato: private GHAExternalProviderSelectItem
-	// providerSelectItem;
-
 	private Validator validator;
 
 	private GHADynamicForm form;
-
-	/**
-	 * this is used to keep the id of the persistent entity in order to update,
-	 * is only used with that purpose
-	 */
-	// private MaintenanceActivity updateActivity;
 
 	{
 		codeTextItem = new GHATextItem(GHAStrings.get("code"), false);
@@ -93,31 +80,41 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 
 		stateSelectItem = new GHAActivityStateSelectItem();
 		stateSelectItem.setDisabled(true);
-		categorySelectItem = new GHAActivityCategorySelectItem(true,
+		typeSelectItem = new GHAActivityTypeSelectItem(false, changedHandler);
+		subTypeSelectItem = new GHAActivitySubTypeSelectItem(false,
 				changedHandler);
-		subCategorySelectItem = new GHAActivitySubCategorySelectItem(true,
-				changedHandler);
+		typeSelectItem.addChangedHandler(new ChangedHandler() {
+			@Override
+			public void onChanged(ChangedEvent event) {
+				changedHandler.onChanged(event);
+				subTypeSelectItem.clearValue();
+				subTypeSelectItem.fill(typeSelectItem.getValueAsActivityType());
+
+				if (typeSelectItem.getValue() == null)
+					subTypeSelectItem.setDisabled(true);
+				else
+					subTypeSelectItem.setDisabled(false);
+			}
+		});
+
 		descriptionTextItem = new GHATextAreaItem(
 				GHAStrings.get("description"), changedHandler);
 		descriptionTextItem.setColSpan(4);
 		isSubProtocolCheckboxItem = new GHACheckboxItem(
 				GHAStrings.get("activity-is-subprotocol"), changedHandler);
-		materialsRequierdCheckboxItem = new GHACheckboxItem(
-				GHAStrings.get("require-materials"), changedHandler);
-		toolsRequierdCheckboxItem = new GHACheckboxItem(
-				GHAStrings.get("require-tools"), changedHandler);
-		equipsRequiredCheckboxItem = new GHACheckboxItem(
-				GHAStrings.get("require-equips"), changedHandler);
 		instructionsAndObsTextAreaItem = new GHATextAreaItem(
 				GHAStrings.get("activity-instructions-and-observations"),
 				changedHandler);
 		estimatedTimeTextItem = new GHATextItem(
-				GHAStrings.get("estimated-time"), true, changedHandler);
+				GHAStrings.get("activity-estimated-time"), false,
+				changedHandler);
 		estimatedTimeTextItem.setKeyPressFilter("^[0-9]+$");
 		estimatedTimePoTSelectItem = new GHAPeriodOfTimeSelectItem(false,
 				changedHandler);
+		estimatedTimePoTSelectItem.setDefaultValue(TimePeriodEnum.HOURS.name());
 		estimatedCostTextItem = new GHATextItem(
-				GHAStrings.get("estimated-cost"), true, changedHandler);
+				GHAStrings.get("activity-estimated-cost"), false,
+				changedHandler);
 		estimatedCostTextItem.setKeyPressFilter("^[0-9]+$");
 		estimatedCostCurrencySelectItem = new GHACurrencyTypeSelectItem(false,
 				changedHandler);
@@ -159,15 +156,18 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 		final HLayout mainPanel = new HLayout();
 
 		form.setItems(codeTextItem, nameTextItem, stateSelectItem,
-				new GHASpacerItem(), categorySelectItem, subCategorySelectItem,
-				new GHASpacerItem(2), descriptionTextItem,
-				isSubProtocolCheckboxItem, materialsRequierdCheckboxItem,
-				toolsRequierdCheckboxItem, equipsRequiredCheckboxItem,
-				estimatedTimeTextItem, estimatedTimePoTSelectItem,
-				estimatedCostTextItem, estimatedCostCurrencySelectItem,
+				new GHASpacerItem(), typeSelectItem, subTypeSelectItem,
+				isSubProtocolCheckboxItem, new GHASpacerItem(),
+				descriptionTextItem, estimatedTimeTextItem,
+				estimatedTimePoTSelectItem, estimatedCostTextItem,
+				estimatedCostCurrencySelectItem,
 				instructionsAndObsTextAreaItem, timesEffectuedTextItem,
 				eiasWhitThisActivityTextItem, lastEffectuatedDateItem,
 				lastEffectuedByTextItem);
+
+		ActivityType type = new ActivityType(1);
+		typeSelectItem.setValue(type.getId());
+		subTypeSelectItem.fill(type);
 
 		mainPanel.addMembers(form, new LayoutSpacer());
 		addMember(mainPanel);
@@ -200,13 +200,8 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 
 		nameTextItem.clearValue();
 		stateSelectItem.clearValue();
-		categorySelectItem.clearValue();
-		subCategorySelectItem.clearValue();
 		descriptionTextItem.clearValue();
 		isSubProtocolCheckboxItem.clearValue();
-		materialsRequierdCheckboxItem.clearValue();
-		toolsRequierdCheckboxItem.clearValue();
-		equipsRequiredCheckboxItem.clearValue();
 		instructionsAndObsTextAreaItem.clearValue();
 		estimatedTimeTextItem.clearValue();
 		estimatedTimePoTSelectItem.clearValue();
@@ -217,6 +212,11 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 		eiasWhitThisActivityTextItem.clearValue();
 		lastEffectuatedDateItem.clearValue();
 		lastEffectuedByTextItem.clearValue();
+
+		ActivityType type = new ActivityType(1);
+		typeSelectItem.setValue(type.getId());
+		subTypeSelectItem.fill(type);
+		subTypeSelectItem.clearValue();
 	}
 
 	@Override
@@ -259,14 +259,14 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 			activity.setDescription(descriptionTextItem.getValueAsString());
 		}
 
-		if (categorySelectItem.getValue() != null) {
-			activity.setCategory(ActivityCategoryEnum
-					.valueOf(categorySelectItem.getValueAsString()));
+		if (typeSelectItem.getValue() != null) {
+			long value = Long.valueOf(typeSelectItem.getValueAsString());
+			activity.setType(new ActivityType(value));
 		}
 
-		if (subCategorySelectItem.getValue() != null) {
-			activity.setSubCategory(ActivitySubCategoryEnum
-					.valueOf(subCategorySelectItem.getValueAsString()));
+		if (subTypeSelectItem.getValue() != null) {
+			long value = Long.valueOf(subTypeSelectItem.getValueAsString());
+			activity.setSubType(new ActivityType(value));
 		}
 
 		if (estimatedTimeTextItem.getValue() != null) {
@@ -296,15 +296,8 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 					.getValueAsString();
 			activity.setInstructionsAndObservations(value);
 		}
-		// TODO Agregar atributos para proveedor responsable
-		// TODO Agregar atributos para cargo responsable
+
 		activity.setIsSubProtocol(isSubProtocolCheckboxItem.getValueAsBoolean());
-		activity.setMaterialsRequired(materialsRequierdCheckboxItem
-				.getValueAsBoolean());
-		activity.setEquipsRequired(equipsRequiredCheckboxItem
-				.getValueAsBoolean());
-		activity.setIsToolsRequired(toolsRequierdCheckboxItem
-				.getValueAsBoolean());
 		entity.setActivity(activity);
 		final Set<ConstraintViolation<Activity>> violations = validator
 				.validate(activity);
@@ -317,7 +310,6 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 			for (final Iterator<ConstraintViolation<Activity>> it = violations
 					.iterator(); it.hasNext();) {
 				violationsList.add(it.next().getMessage());
-				// GHAAlertManager.alert(violationsList);
 			}
 			String mensaje = "name-activity-not-null";
 			if (violationsList.contains(mensaje)) {
@@ -405,14 +397,8 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 
 		nameTextItem.setValue(activity.getName());
 		stateSelectItem.setValue(activity.getState());
-		categorySelectItem.setValue(activity.getCategory());
-		subCategorySelectItem.setValue(activity.getSubCategory());
 		descriptionTextItem.setValue(activity.getDescription());
 		isSubProtocolCheckboxItem.setValue(activity.getIsSubProtocol());
-		materialsRequierdCheckboxItem.setValue(activity
-				.getIsMaterialsRequired());
-		toolsRequierdCheckboxItem.setValue(activity.getIsToolsRequired());
-		equipsRequiredCheckboxItem.setValue(activity.getIsEquipsRequired());
 		instructionsAndObsTextAreaItem.setValue(activity
 				.getInstructionsAndObservations());
 		estimatedTimeTextItem.setValue(activity.getEstimatedDuration());
@@ -420,10 +406,22 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 		estimatedCostTextItem.setValue(activity.getEstimatedCost());
 		estimatedCostCurrencySelectItem.setValue(activity
 				.getEstimatedCostCurrency().name());
-
 		isSubProtocol = entity.getActivity().getIsSubProtocol();
-		notifyMaintenanceActivitySubProtocolSubTabs();
 
+		ActivityType type = activity.getType();
+		if (type != null) {
+			typeSelectItem.setValue(type.getId());
+			subTypeSelectItem.fill(type);
+		} else
+			typeSelectItem.clearValue();
+
+		ActivityType subType = activity.getSubType();
+		if (subType != null)
+			subTypeSelectItem.setValue(subType.getId());
+		else
+			subTypeSelectItem.clearValue();
+
+		notifyMaintenanceActivitySubProtocolSubTabs();
 		showPlanStadisticsItems();
 	}
 
@@ -436,13 +434,10 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 
 	private void toogleForm(boolean activate) {
 		nameTextItem.setDisabled(!activate);
-		categorySelectItem.setDisabled(!activate);
-		subCategorySelectItem.setDisabled(!activate);
+		typeSelectItem.setDisabled(!activate);
+		subTypeSelectItem.setDisabled(!activate);
 		descriptionTextItem.setDisabled(!activate);
 		isSubProtocolCheckboxItem.setDisabled(!activate);
-		materialsRequierdCheckboxItem.setDisabled(!activate);
-		toolsRequierdCheckboxItem.setDisabled(!activate);
-		equipsRequiredCheckboxItem.setDisabled(!activate);
 		instructionsAndObsTextAreaItem.setDisabled(!activate);
 		estimatedTimeTextItem.setDisabled(!activate);
 		estimatedTimePoTSelectItem.setDisabled(!activate);

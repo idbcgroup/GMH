@@ -22,7 +22,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 		"maintenancePlanFk", "maintenanceActivityFk", "ordinal" }))
 @NamedQueries(value = {
 		@NamedQuery(name = "MaintenanceProtocol.findByMaintenancePlan", query = "SELECT e from MaintenanceProtocol e WHERE e.maintenancePlan = :plan ORDER BY e.ordinal"),
-		@NamedQuery(name = "MaintenanceProtocol.getLastOrdinal", query = "SELECT MAX(mp.ordinal) FROM MaintenanceProtocol mp WHERE mp.maintenancePlan = :plan"),
+		@NamedQuery(name = "MaintenanceProtocol.getLastOrdinal", query = "SELECT COUNT(mp) FROM MaintenanceProtocol mp WHERE mp.maintenancePlan = :plan"),
 		@NamedQuery(name = "MaintenanceProtocol.findByMantenanceActivity", query = "SELECT mp FROM MaintenanceProtocol mp WHERE mp.maintenanceActivity = :maintenanceActivity ") })
 public class MaintenanceProtocol extends AbstractEntity {
 

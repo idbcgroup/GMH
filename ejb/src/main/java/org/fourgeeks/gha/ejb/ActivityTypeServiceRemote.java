@@ -51,9 +51,8 @@ public interface ActivityTypeServiceRemote {
 	/**
 	 * 
 	 * @param entity
-	 * @return
+	 * @return ActivityType
 	 * @throws GHAEJBException
 	 */
 	public ActivityType save(ActivityType entity) throws GHAEJBException;
-
 }

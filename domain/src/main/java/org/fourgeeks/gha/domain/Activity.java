@@ -5,11 +5,10 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.ActivityState;
-import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 
@@ -30,31 +29,18 @@ public class Activity extends AbstractEntity {
 	@Column(nullable = false)
 	private ActivityState state;
 
+	@ManyToOne
+	@JoinColumn(name = "activityTypeFk")
+	private ActivityType type;
+
+	@ManyToOne
 	@JoinColumn(name = "activitySubTypeFk")
 	private ActivityType subType;
 
-	@NotNull(message = "category-not-null")
-	@Column(nullable = false)
-	private ActivityCategoryEnum category;
-
-	@NotNull(message = "sub-category-not-null")
-	@Column(nullable = false)
-	private ActivitySubCategoryEnum subCategory;
-
-	@NotNull(message = "estimated-duration-time-not-null")
-	@Column(nullable = false)
 	private BigDecimal estimatedDuration;
-
-	@NotNull(message = "time-period-not-null")
-	@Column(nullable = false)
 	private TimePeriodEnum estimatedDurationPoT;
 
-	@NotNull(message = "estimated-cost-not-null")
-	@Column(nullable = false)
 	private BigDecimal estimatedCost;
-
-	@NotNull(message = "currency-not-null")
-	@Column(nullable = false)
 	private CurrencyTypeEnum estimatedCostCurrency;
 
 	@Column(nullable = false)
@@ -63,21 +49,9 @@ public class Activity extends AbstractEntity {
 	private String description;
 	private String instructionsAndObservations;
 
-	private boolean materialsRequired;
-
-	private boolean toolsRequired;
-	private boolean equipsRequired;
-
 	/** */
 	public Activity() {
 		isSubProtocol = false;
-	}
-
-	/**
-	 * @return the type of the maintenance activity
-	 */
-	public ActivityCategoryEnum getCategory() {
-		return category;
 	}
 
 	/**
@@ -124,33 +98,10 @@ public class Activity extends AbstractEntity {
 	}
 
 	/**
-	 * @return true if Work Equips are required for this activity, false in
-	 *         other case
-	 */
-	public boolean getIsEquipsRequired() {
-		return equipsRequired;
-	}
-
-	/**
-	 * @return true if Materials are required for this activity, false in other
-	 *         case
-	 */
-	public boolean getIsMaterialsRequired() {
-		return materialsRequired;
-	}
-
-	/**
 	 * @return the isSubProtocol
 	 */
 	public boolean getIsSubProtocol() {
 		return isSubProtocol;
-	}
-
-	/**
-	 * @return the toolsRequired
-	 */
-	public boolean getIsToolsRequired() {
-		return toolsRequired;
 	}
 
 	/**
@@ -168,18 +119,17 @@ public class Activity extends AbstractEntity {
 	}
 
 	/**
-	 * @return the subcategory of the maintenance activity
+	 * @return the subType
 	 */
-	public ActivitySubCategoryEnum getSubCategory() {
-		return subCategory;
+	public ActivityType getSubType() {
+		return subType;
 	}
 
 	/**
-	 * @param category
-	 *            the category of the maintenance activity
+	 * @return the type
 	 */
-	public void setCategory(ActivityCategoryEnum category) {
-		this.category = category;
+	public ActivityType getType() {
+		return type;
 	}
 
 	/**
@@ -188,14 +138,6 @@ public class Activity extends AbstractEntity {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	/**
-	 * @param equipsRequired
-	 *            Are Work Equips required for this activity?
-	 */
-	public void setEquipsRequired(boolean equipsRequired) {
-		this.equipsRequired = equipsRequired;
 	}
 
 	/**
@@ -250,22 +192,6 @@ public class Activity extends AbstractEntity {
 	}
 
 	/**
-	 * @param toolsRequired
-	 *            Are Tools required for this activity?
-	 */
-	public void setIsToolsRequired(boolean toolsRequired) {
-		this.toolsRequired = toolsRequired;
-	}
-
-	/**
-	 * @param materialsRequired
-	 *            Are Materials required for this activity?
-	 */
-	public void setMaterialsRequired(boolean materialsRequired) {
-		this.materialsRequired = materialsRequired;
-	}
-
-	/**
 	 * 
 	 * @param name
 	 *            the name of the activity
@@ -283,10 +209,19 @@ public class Activity extends AbstractEntity {
 	}
 
 	/**
-	 * @param subCategory
-	 *            the subcategory of the maintenance activity
+	 * @param subType
+	 *            the subType to set
 	 */
-	public void setSubCategory(ActivitySubCategoryEnum subCategory) {
-		this.subCategory = subCategory;
+	public void setSubType(ActivityType subType) {
+		this.subType = subType;
 	}
+
+	/**
+	 * @param type
+	 *            the type to set
+	 */
+	public void setType(ActivityType type) {
+		this.type = type;
+	}
+
 }

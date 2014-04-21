@@ -9,14 +9,14 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHADeleteButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
@@ -71,7 +71,7 @@ public class AsociatedEiatypeGridPanel extends GHAFormLayout implements
 	 */
 	public AsociatedEiatypeGridPanel() {
 		super();
-		GHALabel title = new GHALabel(
+		GHATopTitleLabel title = new GHATopTitleLabel(
 				GHAStrings.get("eia-type-on-maintenance-plan"));
 		addMember(title);
 
@@ -146,9 +146,11 @@ public class AsociatedEiatypeGridPanel extends GHAFormLayout implements
 	}
 
 	private void deleteSelected() {
-		final EiaTypeMaintenancePlan entity = grid.getSelectedEntity();
+		// final EiaTypeMaintenancePlan entity = grid.getSelectedEntity();
+		final List<EiaTypeMaintenancePlan> selectedEntities = grid
+				.getSelectedEntities();
 
-		if (entity == null) {
+		if (selectedEntities == null) {
 			GHAErrorMessageProcessor.alert("record-not-selected");
 			return;
 		}
@@ -159,16 +161,40 @@ public class AsociatedEiatypeGridPanel extends GHAFormLayout implements
 
 					@Override
 					public void execute(Boolean value) {
-						if (value)
-							EiaTypeMaintenancePlanModel.delete(entity.getId(),
-									new GHAAsyncCallback<Void>() {
+						if (value) {
 
-										@Override
-										public void onSuccess(Void result) {
-											grid.removeSelectedData();
-										}
+							if (selectedEntities.size() == 1) {
+								EiaTypeMaintenancePlanModel.delete(
+										selectedEntities.get(0).getId(),
+										new GHAAsyncCallback<Void>() {
+											@Override
+											public void onSuccess(Void result) {
+												grid.removeSelectedData();
+												GHAErrorMessageProcessor
+														.alert("eiatype-delete-success");
+											}
 
-									});
+										});
+							} else {
+								if (selectedEntities.size() > 1) {
+									EiaTypeMaintenancePlanModel.delete(
+											selectedEntities,
+											new GHAAsyncCallback<Void>() {
+												@Override
+												public void onSuccess(
+														Void result) {
+													grid.removeSelectedData();
+													GHAErrorMessageProcessor
+															.alert("eiatypes-delete-success");
+												}
+
+											});
+								}
+
+							}
+
+						}
+
 					}
 				});
 

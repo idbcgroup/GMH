@@ -4,7 +4,7 @@
 package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol;
 
 import org.fourgeeks.gha.domain.Activity;
-import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
+import org.fourgeeks.gha.domain.ActivityType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
@@ -31,15 +31,14 @@ public class MaintenanceProtocolRecord extends
 		final Activity activity = mActivity.getActivity();
 
 		setAttribute("ordinal", entity.getOrdinal());
-		ActivityCategoryEnum type = activity.getCategory();
-		setAttribute("type", GHAStrings.get(type.name().toLowerCase()));
+		ActivityType type = activity.getType();
+		if (type != null)
+			setAttribute("type",
+					GHAStrings.get(type.getDescription().toLowerCase()));
 		setAttribute("code", activity.getId());
 		setAttribute("subprotocol", activity.getIsSubProtocol());
 		setAttribute("name", activity.getName());
 		setAttribute("desc", activity.getDescription());
-		setAttribute("materials", activity.getIsMaterialsRequired());
-		setAttribute("tools", activity.getIsToolsRequired());
-		setAttribute("equips", activity.getIsEquipsRequired());
 		setAttribute("time", activity.getEstimatedDuration());
 		TimePeriodEnum pot = activity.getEstimatedDurationPoT();
 		setAttribute("pot", GHAStrings.get(pot.name().toLowerCase()));

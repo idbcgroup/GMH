@@ -1,7 +1,5 @@
 package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-
 import com.smartgwt.client.widgets.Label;
 
 /**
@@ -11,17 +9,19 @@ import com.smartgwt.client.widgets.Label;
 public class GHALabel extends Label {
 
 	/**
+	 * 
+	 */
+	public GHALabel() {
+		super();
+		setHeight(20);
+		setWrap(false);
+	}
+	/**
 	 * @param title
 	 */
 	public GHALabel(String title) {
-		super();
+		this();
 		setContents(title);
-		setPadding(5);
-		setHeight(20);
-		setWrap(false);
-		setWidth100();
-		setMinWidth(GHAUiHelper.MIN_WIDTH);
-		setStyleName("gha-label");
 	}
 
 	/**
@@ -29,7 +29,7 @@ public class GHALabel extends Label {
 	 * 
 	 * @return the label with the style bold added
 	 */
-	public GHALabel colored() {
+	public GHALabel backgroundColored() {
 		setBackgroundColor("#D0D0E0");
 		return this;
 	}

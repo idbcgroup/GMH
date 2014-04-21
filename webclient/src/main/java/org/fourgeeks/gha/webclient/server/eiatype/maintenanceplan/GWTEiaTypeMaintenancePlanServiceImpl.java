@@ -83,4 +83,12 @@ public class GWTEiaTypeMaintenancePlanServiceImpl extends RemoteServiceServlet
 		return ejbService.findByMaintenancePlan(maintenancePlan);
 	}
 
+	@Override
+	public void delete(List<EiaTypeMaintenancePlan> eiatypemaintenanceplan)
+			throws GHAEJBException {
+		// TODO Auto-generated method stub
+		ejbService.delete(eiatypemaintenanceplan);
+
+	}
+
 }

@@ -337,7 +337,18 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 			for (final ConstraintViolation<EiaDamageReport> violation : violations)
 				violationsList.add(violation.getMessage());
 			// GHAAlertManager.alert(violationsList);
-			GHAErrorMessageProcessor.alert(violationsList.get(0));
+
+			String validation_message[] = { "damageStatus-not-null",
+					"state-not-null", "userWhoReported-not-null",
+					"userWhoRegistered-not-null", "damagePriority-not-null" };
+
+			for (int i = 0; i < validation_message.length; i++) {
+				if (violationsList.contains(validation_message[i])) {
+					GHAErrorMessageProcessor.alert(validation_message[i]);
+					return null;
+				}
+			}
+			// GHAErrorMessageProcessor.alert(violationsList.get(0));
 		}
 		return null;
 	}

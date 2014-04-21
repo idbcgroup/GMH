@@ -176,7 +176,7 @@ public class EiaMaintenanceServiceTest extends GHAArquillianBaseServiceTest {
 		try {
 			// creating a ccdi definition
 			CCDIDefinition definition = new CCDIDefinition("CCDIDEFTEST");
-			definition.setLevels(1);
+			definition.setLevels(2);
 			definition.setLength(10);
 			savedCCDIDefinition = ccdiServiceLocal
 					.createCCDIDefinition(definition);
@@ -188,8 +188,15 @@ public class EiaMaintenanceServiceTest extends GHAArquillianBaseServiceTest {
 			ccdiLevelDefinition.setLength(2);
 			ccdiLevelDefinition.setValueType(CCDIValueTypeEnum.FIXED);
 			CCDILevelDefinition savedCCDILevelDefinition = ccdiServiceLocal
-					.createCCDILevelDefinition(savedCCDIDefinition,
-							ccdiLevelDefinition);
+					.createLevelDefinition(ccdiLevelDefinition);
+
+			CCDILevelDefinition ccdiLevelDefinition2 = new CCDILevelDefinition();
+			ccdiLevelDefinition2.setDefinition(savedCCDIDefinition);
+			ccdiLevelDefinition2.setLevel(1);
+			ccdiLevelDefinition2.setLength(8);
+			ccdiLevelDefinition2.setValueType(CCDIValueTypeEnum.TEXT);
+			CCDILevelDefinition savedCCDILevelDefinition2 = ccdiServiceLocal
+					.createLevelDefinition(ccdiLevelDefinition2);
 
 			// creating a ccdi level value
 			CCDILevelValue ccdiLevelValue = new CCDILevelValue(
@@ -197,8 +204,15 @@ public class EiaMaintenanceServiceTest extends GHAArquillianBaseServiceTest {
 					"TESTLEVELVALUE", 1, "XX", CCDIValueStatusEnum.ACTIVE);
 			ccdiLevelValue.setNextElement(1);
 			CCDILevelValue savedCCDILevelValue = ccdiServiceLocal
-					.createCCDILevelValue(savedCCDILevelDefinition, null,
-							ccdiLevelValue);
+					.createLevelValue(ccdiLevelValue);
+
+			CCDILevelValue ccdiLevelValue2 = new CCDILevelValue(
+					savedCCDILevelDefinition2, savedCCDILevelValue,
+					"TESTLEVELVALUE2", null, 1, null,
+					CCDIValueStatusEnum.ACTIVE);
+			ccdiLevelValue2.setNextElement(1);
+			CCDILevelValue savedCCDILevelValue2 = ccdiServiceLocal
+					.createLevelValue(ccdiLevelValue2);
 
 			savedManufacturer = manufacturerServiceRemote
 					.save(new Manufacturer("TESTMAN"));
@@ -210,8 +224,8 @@ public class EiaMaintenanceServiceTest extends GHAArquillianBaseServiceTest {
 
 			// Creating an Eiatye CAtegory
 			final EiaTypeCategory category = new EiaTypeCategory();
-			category.setName("TESTLEVELVALUE");
-			category.setCode(savedCCDILevelValue.getCode());
+			category.setName(savedCCDILevelValue2.getName());
+			category.setCode(savedCCDILevelValue2.getCode());
 			savedEiatypeCategory = eiaTypeCategoryServiceRemote.save(category);
 
 			// CREating an eiatype

@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.eia.reports;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
@@ -40,8 +40,6 @@ ClosableListener, HideableListener {
 		super();
 		setWidth100();
 		setMinWidth(GHAUiHelper.MIN_WIDTH);
-		setBackgroundColor("#E0E0E0");
-		setStyleName("sides-padding padding-top");
 
 		// CREO LOS FORMULARIOS
 		edoUbicReportForm = new EIAReportEdoUbicForm();
@@ -57,7 +55,7 @@ ClosableListener, HideableListener {
 		sectionForm.addSection("Listado Tipos de Equipo",
 				listEiaTypesEiasReportForm);
 		sectionForm.addSection("Listado de Equipos", listEiasReportForm);
-		sectionForm.addSection("Tipos de Equipo y sus Comp.",
+		sectionForm.addSection("T. de Equipo y sus Comp.",
 				listEiaTypeCompsReportForm);
 		sectionForm.openFirst();
 

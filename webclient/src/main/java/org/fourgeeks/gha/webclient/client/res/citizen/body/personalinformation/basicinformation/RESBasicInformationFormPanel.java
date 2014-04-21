@@ -6,8 +6,8 @@ import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseExcept
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 import org.fourgeeks.gha.webclient.client.citizen.CitizenSelectionListener;
 import org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation.emergencynotifier.RESCitizenEmergencyNotifierGrid;
 import org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation.personalcontacts.RESCitizenPersonalContactsGrid;
@@ -39,16 +39,16 @@ CitizenSelectionListener, ClosableListener, HideableListener {
 		setLayoutBottomMargin(5);
 
 		//Citizen basic info part
-		final GHALabel citizenInfoTitle = new GHALabel(GHAStrings.get("citizen-basic-information-title")).colored();
+		final GHATopTitleLabel citizenInfoTitle = new GHATopTitleLabel(GHAStrings.get("citizen-basic-information-title")).backgroundColored();
 		citizenForm = new CitizenForm();
 		//Citizen basic info part
-		final GHALabel featuresTitle = new GHALabel(GHAStrings.get("citizen-physical-features-title")).colored();
+		final GHATopTitleLabel featuresTitle = new GHATopTitleLabel(GHAStrings.get("citizen-physical-features-title")).backgroundColored();
 		featuresGrid = new RESCitizenPhysicalFeaturesGrid();
 		//Personal Contacts part
-		final GHALabel contactsTitle = new GHALabel(GHAStrings.get("citizen-personal-contacts-title")).colored();
+		final GHATopTitleLabel contactsTitle = new GHATopTitleLabel(GHAStrings.get("citizen-personal-contacts-title")).backgroundColored();
 		contactsGrid = new RESCitizenPersonalContactsGrid();
 		//"Contacts for an emergency" part
-		final GHALabel emergencyTitle = new GHALabel(GHAStrings.get("citizen-emergency-notify-title")).colored();
+		final GHATopTitleLabel emergencyTitle = new GHATopTitleLabel(GHAStrings.get("citizen-emergency-notify-title")).backgroundColored();
 		emergencyGrid = new RESCitizenEmergencyNotifierGrid();
 
 		addMembers(citizenInfoTitle, citizenForm,

@@ -10,6 +10,7 @@ import junit.framework.Assert;
 import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.Activity;
+import org.fourgeeks.gha.domain.ActivityType;
 import org.fourgeeks.gha.domain.HasKey;
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.ActivityState;
@@ -95,6 +96,7 @@ import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
+import org.fourgeeks.gha.ejb.ActivityTypeServiceRemote;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 import org.fourgeeks.gha.ejb.ess.auth.RoleService;
@@ -254,15 +256,18 @@ public class MaintenanceActivityServiceTest {
 	}
 
 	@EJB(lookup = "java:global/test/MaintenanceActivityService")
-	private MaintenanceActivityServiceRemote service;
+	private MaintenanceActivityServiceRemote activityService;
+
+	@EJB(lookup = "java:global/test/ActivityTypeService")
+	private ActivityTypeServiceRemote activityTypeService;
 
 	private Activity activity;
 	private MaintenanceActivity maintenanceActivity;
 
 	private void deleteTest() {
 		try {
-			service.delete(maintenanceActivity.getId());
-			Assert.assertEquals(10, service.getAll().size());
+			activityService.delete(maintenanceActivity.getId());
+			Assert.assertEquals(10, activityService.getAll().size());
 		} catch (GHAEJBException e) {
 			e.printStackTrace();
 		}
@@ -270,7 +275,7 @@ public class MaintenanceActivityServiceTest {
 
 	private void findByIdTest() {
 		try {
-			MaintenanceActivity result = service.find(1);
+			MaintenanceActivity result = activityService.find(1);
 			Assert.assertNotNull(result);
 
 		} catch (Exception e) {
@@ -280,22 +285,25 @@ public class MaintenanceActivityServiceTest {
 
 	private void findByMaintenanceActivityTest() {
 		try {
+			ActivityType type = new ActivityType(1);
+			ActivityType subType = new ActivityType(3);
+
 			Activity activity = new Activity();
 			activity.setName("Desconectar");
 			activity.setDescription("Desconecte el equipo de la corriente eléctrica");
 			activity.setState(ActivityState.CREATED);
-			activity.setCategory(ActivityCategoryEnum.MAINTENANCE);
-			activity.setSubCategory(ActivitySubCategoryEnum.CALIBRATION);
+			activity.setType(type);
+			activity.setSubType(subType);
 			activity.setEstimatedDuration(new BigDecimal(1));
 			activity.setEstimatedDurationPoT(TimePeriodEnum.DAYS);
-			activity.setEstimatedCost(new BigDecimal(1300.42));// TODO
+			activity.setEstimatedCost(new BigDecimal(1300.42));
 			activity.setEstimatedCostCurrency(CurrencyTypeEnum.BS);
 			activity.setIsSubProtocol(false);
 
 			MaintenanceActivity maintenanceActivity = new MaintenanceActivity();
 			maintenanceActivity.setActivity(activity);
 
-			List<MaintenanceActivity> result = service
+			List<MaintenanceActivity> result = activityService
 					.find(maintenanceActivity);
 
 			Assert.assertEquals(1, result.size());
@@ -303,12 +311,11 @@ public class MaintenanceActivityServiceTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	private void getAllTest() {
 		try {
-			List<MaintenanceActivity> result = service.getAll();
+			List<MaintenanceActivity> result = activityService.getAll();
 			Assert.assertEquals(10, result.size());
 
 		} catch (Exception e) {
@@ -318,7 +325,7 @@ public class MaintenanceActivityServiceTest {
 
 	private void getAllTest2() {
 		try {
-			List<MaintenanceActivity> result = service.getAll(1, 4);
+			List<MaintenanceActivity> result = activityService.getAll(1, 4);
 			Assert.assertEquals(4, result.size());
 
 		} catch (Exception e) {
@@ -331,7 +338,7 @@ public class MaintenanceActivityServiceTest {
 		maintenanceActivity.setActivity(activity);
 
 		try {
-			maintenanceActivity = service.save(maintenanceActivity);
+			maintenanceActivity = activityService.save(maintenanceActivity);
 			Assert.assertNotNull(maintenanceActivity);
 		} catch (GHAEJBException e) {
 			e.printStackTrace();
@@ -341,17 +348,32 @@ public class MaintenanceActivityServiceTest {
 	/** */
 	@Before
 	public void set() {
-		activity = new Activity();
-		activity.setName("unit test activity");
-		activity.setDescription("activity for unit test");
-		activity.setState(ActivityState.CREATED);
-		activity.setCategory(ActivityCategoryEnum.MAINTENANCE);
-		activity.setSubCategory(ActivitySubCategoryEnum.CALIBRATION);
-		activity.setEstimatedDuration(new BigDecimal(1));
-		activity.setEstimatedDurationPoT(TimePeriodEnum.DAYS);
-		activity.setEstimatedCost(new BigDecimal(1));
-		activity.setEstimatedCostCurrency(CurrencyTypeEnum.BS);
-		activity.setIsSubProtocol(true);
+		try {
+			System.out.println("CREATING TEST DATA: MAINTENANCE ACTIVITY");
+
+			final ActivityType type = new ActivityType();
+			type.setDescription("unit test type");
+			activityTypeService.save(type);
+
+			final ActivityType subType = new ActivityType();
+			subType.setDescription("unit test subtype");
+			subType.setParentActivityTypeId(1);
+			activityTypeService.save(subType);
+
+			activity = new Activity();
+			activity.setName("unit test activity");
+			activity.setDescription("activity for unit test");
+			activity.setState(ActivityState.CREATED);
+			activity.setType(type);
+			activity.setSubType(subType);
+			activity.setEstimatedDuration(new BigDecimal(1));
+			activity.setEstimatedDurationPoT(TimePeriodEnum.DAYS);
+			activity.setEstimatedCost(new BigDecimal(1));
+			activity.setEstimatedCostCurrency(CurrencyTypeEnum.BS);
+			activity.setIsSubProtocol(true);
+		} catch (Exception e) {
+			System.out.println("Error Creating Activity test data: " + e);
+		}
 	}
 
 	/** */
@@ -381,7 +403,15 @@ public class MaintenanceActivityServiceTest {
 	/** */
 	@After
 	public void unset() {
+		try {
+			System.out.println("REMOVING TEST DATA: MAINTENANCE ACTIVITY");
 
+			final List<ActivityType> resultList = activityTypeService.getAll();
+			activityTypeService.delete(resultList);
+
+		} catch (Exception e) {
+			System.out.println("Error Removing ActivityType test data: " + e);
+		}
 	}
 
 	private void updateTest() {
@@ -389,7 +419,8 @@ public class MaintenanceActivityServiceTest {
 			Activity activityOriginal = maintenanceActivity.getActivity();
 			activityOriginal.setName("XXX");
 
-			MaintenanceActivity result = service.update(maintenanceActivity);
+			MaintenanceActivity result = activityService
+					.update(maintenanceActivity);
 			Activity activityResult = result.getActivity();
 
 			Assert.assertEquals(activityOriginal.getName(),

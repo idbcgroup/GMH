@@ -53,6 +53,23 @@ public class EiaTypeMaintenancePlanService extends GHAEJBExceptionService
 		}
 	}
 
+	public void delete(List<EiaTypeMaintenancePlan> eiatypemaintenanceplan)
+			throws GHAEJBException {
+		try {
+			for (EiaTypeMaintenancePlan entity : eiatypemaintenanceplan) {
+				EiaTypeMaintenancePlan entiti = em.find(
+						EiaTypeMaintenancePlan.class, entity.getId());
+				em.remove(entiti);
+			}
+			em.flush(); // sincronizo con la BD
+		} catch (Exception e) {
+			logger.log(Level.INFO,
+					"ERROR: unable to delete List<EiaTypeMaintenancePlan>", e);
+			throw super.generateGHAEJBException(
+					"eiaTypeMaintenancePlan-delete-fail", em);
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

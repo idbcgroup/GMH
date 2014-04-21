@@ -3,9 +3,9 @@ package org.fourgeeks.gha.webclient.client.UI;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -104,7 +104,7 @@ public abstract class GHAUiHelper {
 	/**
 	 * The default Section Form option width.
 	 */
-	public static final int SECTION_FORM_OPTION_WIDTH = 150;
+	public static final int SECTION_FORM_OPTION_WIDTH = 180;
 
 	/**
 	 * The minimum width of a GHADynamicForm that is on a normal panel (for
@@ -115,7 +115,7 @@ public abstract class GHAUiHelper {
 	 * The minimum width of a GHADynamicForm that is embedded on a
 	 * GHASectionForm.
 	 */
-	public static final int MIN_SECTIONFORM_FORM_WIDTH = 700;
+	public static final int MIN_SECTIONFORM_FORM_WIDTH = 670;
 	/**
 	 * The minimum width of a small-sized GHADynamicForm that is embedded on a
 	 * GHASectionForm.
@@ -141,10 +141,6 @@ public abstract class GHAUiHelper {
 	 */
 	public static final int V_SEPARATOR_HEIGHT = 10;
 	/**
-	 * The background color for the tabs and components.
-	 */
-	public static final String DEFAULT_BACKGROUND_COLOR = "#F4F4F4";
-	/**
 	 * The size of a form item if none is specify
 	 */
 	@Deprecated
@@ -163,9 +159,25 @@ public abstract class GHAUiHelper {
 	 */
 	public static final Integer CODE_ITEM_LENGTH = 20;
 	/**
+	 * The background color for the tabs and components.
+	 */
+	public static final String DEFAULT_BACKGROUND_COLOR = "#F4F4F4";
+	/**
 	 * 
 	 */
 	public static final String HIGHLIGHTED_BACKGROUND_COLOR = "#F4F4F4";
+	/**
+	 * 
+	 */
+	public static final String DEFAULT_PLACES_BAR_BACKGROUND_COLOR = "#E0E0E0";
+	/**
+	 * 
+	 */
+	public static final String DEFAULT_PANEL_BAR_BACKGROUND_COLOR = "#ECECEC";
+	/**
+	 * 
+	 */
+	public static final String DEFAULT_MENU_BAR_BACKGROUND_COLOR = "#FFFFFF";
 	/**
 	 * 
 	 */
@@ -187,14 +199,6 @@ public abstract class GHAUiHelper {
 	 */
 	public static final int DEFAULT_TAB_EYELASH_HEIGHT = 30;
 	/**
-	 * 
-	 */
-	public static final String DEFAULT_PLACES_BAR_BACKGROUND_COLOR = "#e0e0e0";
-	/**
-	 * 
-	 */
-	public static final String DEFAULT_PANEL_BAR_BACKGROUND_COLOR = "#ECECEC";
-	/**
 	 * Default widht for the header option
 	 */
 	public static final int DEFAULT_HEADER_OPTION_WIDTH = 90;
@@ -202,6 +206,10 @@ public abstract class GHAUiHelper {
 	 * 
 	 */
 	public static final int DEFAULT_TAB_SET_HEIGHT = 30;
+	/**
+	 * 
+	 */
+	public static int DEFAULT_TAB_HEADER_WIDTH = 250;
 	/**
 	 * the default height for the patient top component.
 	 */
@@ -231,11 +239,6 @@ public abstract class GHAUiHelper {
 	private static List<EventListener> clickHandlers = new ArrayList<EventListener>();
 
 	private static List<Window.ScrollHandler> scrollHandlers = new ArrayList<Window.ScrollHandler>();
-
-	/**
-	 * 
-	 */
-	public static int DEFAULT_TAB_HEADER_WIDTH = 250;
 
 	/**
 	 * Adds a click handler to the document click event
@@ -577,7 +580,7 @@ public abstract class GHAUiHelper {
 		separator.setHeight(height);
 		separator.setStyleName("sides-padding");
 
-		final GHALabel title = new GHALabel(text);
+		final GHATopTitleLabel title = new GHATopTitleLabel(text);
 		title.setHeight(height);
 		title.setStyleName("separator-title-label");
 

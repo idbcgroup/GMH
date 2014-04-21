@@ -12,15 +12,15 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHACopyButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHACopyButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHADeleteButton;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabel;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityModel;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySearchForm;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
@@ -87,7 +87,7 @@ public class MaintenanceProtocolGridPanel extends GHAFormLayout implements
 	public MaintenanceProtocolGridPanel() {
 		super();
 		String stringKey = "maintenance-plan-associated-protocol-activities";
-		addMember(new GHALabel(GHAStrings.get(stringKey)));
+		addMember(new GHATopTitleLabel(GHAStrings.get(stringKey)));
 
 		GHANewButton addButton = new GHANewButton(new ClickHandler() {
 			@Override
@@ -208,7 +208,8 @@ public class MaintenanceProtocolGridPanel extends GHAFormLayout implements
 				.getSelectedEntities();
 
 		if (selectedEntities == null) {
-			GHAErrorMessageProcessor.confirm("maintenance-protocol-delete-confirm",
+			GHAErrorMessageProcessor.confirm(
+					"maintenance-protocol-delete-confirm",
 					new BooleanCallback() {
 						@Override
 						public void execute(Boolean value) {
@@ -272,7 +273,8 @@ public class MaintenanceProtocolGridPanel extends GHAFormLayout implements
 					public void onSuccess(Void result) {
 						loadData();
 						notifyMaintenanceProtocols(null);
-						GHAErrorMessageProcessor.alert("delete-activities-success");
+						GHAErrorMessageProcessor
+								.alert("delete-activities-success");
 					}
 				});
 	}
@@ -383,9 +385,14 @@ public class MaintenanceProtocolGridPanel extends GHAFormLayout implements
 						if (!result.isEmpty()) {
 							MaintenanceProtocolModel.copyActivities(planFrom,
 									maintenancePlan,
-									new GHAAsyncCallback<Void>() {
+									new GHAAsyncCallback<Boolean>() {
 										@Override
-										public void onSuccess(Void result) {
+										public void onSuccess(Boolean result) {
+
+											if (result == false) {
+												GHAErrorMessageProcessor
+														.alert("both-plans-have-the-same-maintenance-activities");
+											}
 											loadData();
 											notifyMaintenanceProtocols(null);
 										}

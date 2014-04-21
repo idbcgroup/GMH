@@ -250,8 +250,8 @@ ES,require-materials,Requiere materiales
 ES,require-tools,Requiere herramientas
 ES,require-equips,Requiere equipos de trabajo, Calibración, etc
 ES,activity-instructions-and-observations,Instrucciones y observaciones para la realización de la actividad
-ES,estimated-time,Duración Estimada de Actividad
-ES,estimated-cost,Costo Estimado de Actividad
+ES,activity-estimated-time,Duración Estimada de Actividad
+ES,activity-estimated-cost,Costo Estimado de Actividad
 ES,last-effectuated-by,Ultimo efectuado por
 ES,protocol-activities,Actividades del protocolo
 ES,maintenance-plan-stadistics,Estadísticas del plan de mantenimiento 
@@ -369,3 +369,32 @@ ES,maintenance-name-tooltip,Nombre del Plan de Mantenimiento
 ES,asigned,asignado
 ES,other,Otro
 ES,menu,menú
+ES,date-must-be-upper-or-equal-than-today, La Fecha debe ser mayor o igual a la fecha de hoy
+ES,assistance,Asistencial
+ES,medication,Medición
+ES,cleaning,Limpieza
+ES,dismantling,Desarme
+ES,assemble,Armado
+ES,installation,Instalación
+ES,deinstallation,Desinstalación
+ES,spare-change,Cambio de repuestos
+ES,consumables-change,Cambio de consumibles
+ES,maintenance-acceptance,Aceptación de mantenimiento
+ES,transfer,Traslado
+ES,patient-assistance,Asistencia paciente
+ES,patient-showering,Bañado de paciente
+ES,consultation,Consulta
+ES,patient-receiving,Recepción de paciente
+ES,accompany-the-patient,Acompañar al paciente
+ES,ask-procedure,Hacer procedimiento
+ES,qualification-of-patient,Calificación del paciente
+ES,diagnostic-tests,Pruebas diagnósticas
+ES,diagnostic-studies,Estudios diagnósticos
+ES,treatments,Tratamientos
+ES,procedures,Procedimientos
+ES,set-quote,Dar cita
+ES,materials-dispatch,Despacho de materiales
+ES,room-maintenance,Mantenimiento de habitación
+ES,patient-admission,Admisión de paciente
+ES,billing,Facturación
+ES,patient-exit,Egreso Paciente

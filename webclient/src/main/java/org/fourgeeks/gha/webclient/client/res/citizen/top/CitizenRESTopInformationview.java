@@ -6,14 +6,13 @@ import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
+import org.fourgeeks.gha.webclient.client.UI.imageitems.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAlertLabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAHorizontalLayout;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATextLabelSmallSize;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATitleLabelSmallSize;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHAAlertLabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATextLabel;
 import org.fourgeeks.gha.webclient.client.citizen.CitizenSelectionListener;
 
 import com.google.gwt.user.datepicker.client.CalendarUtil;
@@ -45,55 +44,55 @@ CitizenSelectionListener {
 	}
 
 	// labels
-	private final GHATitleLabelSmallSize documentTypeTitleLabel = new GHATitleLabelSmallSize(
-			"Cédula:");// TODO document type value
-	private final GHATitleLabelSmallSize dobTitleLabel = new GHATitleLabelSmallSize(
-			GHAStrings.get("birth") + ":");
-	private final GHATitleLabelSmallSize ageTitleLabel = new GHATitleLabelSmallSize(
-			GHAStrings.get("age") + ":");
-	private final GHATitleLabelSmallSize bpiTitleLabel = new GHATitleLabelSmallSize(
-			GHAStrings.get("bpi") + ":");
-	private final GHATitleLabelSmallSize bTypeTitleLabel = new GHATitleLabelSmallSize(
-			GHAStrings.get("btype") + ":");
-	private final GHATitleLabelSmallSize weightTitleLabel = new GHATitleLabelSmallSize(
-			GHAStrings.get("weight") + ":");
-	private final GHATitleLabelSmallSize heightTitleLabel = new GHATitleLabelSmallSize(
-			GHAStrings.get("height") + ":");
-	private final GHATitleLabelSmallSize bsaTitleLabel = new GHATitleLabelSmallSize(
-			GHAStrings.get("bsa") + ":");
-	private final GHATitleLabelSmallSize bmiTitleLabel = new GHATitleLabelSmallSize(
-			GHAStrings.get("bmi") + ":");
-	private final GHATitleLabelSmallSize mainDiagnosisTitleLabel = new GHATitleLabelSmallSize(
-			GHAStrings.get("main-diagnosis") + ":");
+	private final GHATextLabel documentTypeTitleLabel = new GHATextLabel(
+			"Cédula:").smallTitle();// TODO document type value
+	private final GHATextLabel dobTitleLabel = new GHATextLabel(
+			GHAStrings.get("birth") + ":").smallTitle();
+	private final GHATextLabel ageTitleLabel = new GHATextLabel(
+			GHAStrings.get("age") + ":").smallTitle();
+	private final GHATextLabel bpiTitleLabel = new GHATextLabel(
+			GHAStrings.get("bpi") + ":").smallTitle();
+	private final GHATextLabel bTypeTitleLabel = new GHATextLabel(
+			GHAStrings.get("btype") + ":").smallTitle();
+	private final GHATextLabel weightTitleLabel = new GHATextLabel(
+			GHAStrings.get("weight") + ":").smallTitle();
+	private final GHATextLabel heightTitleLabel = new GHATextLabel(
+			GHAStrings.get("height") + ":").smallTitle();
+	private final GHATextLabel bsaTitleLabel = new GHATextLabel(
+			GHAStrings.get("bsa") + ":").smallTitle();
+	private final GHATextLabel bmiTitleLabel = new GHATextLabel(
+			GHAStrings.get("bmi") + ":").smallTitle();
+	private final GHATextLabel mainDiagnosisTitleLabel = new GHATextLabel(
+			GHAStrings.get("main-diagnosis") + ":").smallTitle();
 	// {
 	// mainDiagnosisTitleLabel.setWidth(150);
 	// }
 	// text for the values
-	private final GHATextLabelSmallSize documentNumberText = new GHATextLabelSmallSize()
-	.bold();
-	private final GHATextLabelSmallSize firstNameText = new GHATextLabelSmallSize()
-	.bold();
-	private final GHATextLabelSmallSize secondNameText = new GHATextLabelSmallSize()
-	.bold();
-	private final GHATextLabelSmallSize firstLastNameText = new GHATextLabelSmallSize()
-	.bold();
-	private final GHATextLabelSmallSize secondLastNameText = new GHATextLabelSmallSize()
-	.bold();
-	private final GHATextLabelSmallSize dobText = new GHATextLabelSmallSize();
-	private final GHATextLabelSmallSize ageText = new GHATextLabelSmallSize();
-	private final GHATextLabelSmallSize bpiText = new GHATextLabelSmallSize();
-	private final GHATextLabelSmallSize bTypeText = new GHATextLabelSmallSize()
-	.bold();
-	private final GHATextLabelSmallSize weightTypeText = new GHATextLabelSmallSize()
-	.bold();
-	private final GHATextLabelSmallSize heightTypeText = new GHATextLabelSmallSize()
-	.bold();
-	private final GHATextLabelSmallSize bsaTypeText = new GHATextLabelSmallSize()
-	.bold();
-	private final GHATextLabelSmallSize bmiTypeText = new GHATextLabelSmallSize()
-	.bold();
-	private final GHATextLabelSmallSize mainDiagnosisText = new GHATextLabelSmallSize()
-	.bold();
+	private final GHATextLabel documentNumberText = new GHATextLabel().small()
+			.bold();
+	private final GHATextLabel firstNameText = new GHATextLabel().small()
+			.bold();
+	private final GHATextLabel secondNameText = new GHATextLabel().small()
+			.bold();
+	private final GHATextLabel firstLastNameText = new GHATextLabel().small()
+			.bold();
+	private final GHATextLabel secondLastNameText = new GHATextLabel().small()
+			.bold();
+	private final GHATextLabel dobText = new GHATextLabel().small().bold();
+	private final GHATextLabel ageText = new GHATextLabel().small().bold();
+	private final GHATextLabel bpiText = new GHATextLabel().small().bold();
+	private final GHATextLabel bTypeText = new GHATextLabel().small()
+			.bold();
+	private final GHATextLabel weightTypeText = new GHATextLabel().small()
+			.bold();
+	private final GHATextLabel heightTypeText = new GHATextLabel().small()
+			.bold();
+	private final GHATextLabel bsaTypeText = new GHATextLabel().small()
+			.bold();
+	private final GHATextLabel bmiTypeText = new GHATextLabel().small()
+			.bold();
+	private final GHATextLabel mainDiagnosisText = new GHATextLabel().small()
+			.bold();
 	// {
 	// mainDiagnosisText.setAutoFit(false);
 	// mainDiagnosisText.setWidth(300);
@@ -148,6 +147,23 @@ CitizenSelectionListener {
 	// centerLayout.addMember(addOption);
 	// }
 
+	@Override
+	public boolean canBeClosen(HideCloseAction closeAction) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean canBeHidden(HideCloseAction closeAction) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public void close() throws UnavailableToCloseException {
+		destroy();
+	}
+
 	// layout for the boxes
 	private VLayout getLeftSideLayout() {
 		final VLayout leftSideLayout = new VLayout();
@@ -172,8 +188,8 @@ CitizenSelectionListener {
 
 		final VLayout alertLayout = new VLayout();
 		alertLayout.setAlign(Alignment.CENTER);
-		alertLayout.addMember(new GHATitleLabelSmallSize(GHAStrings
-				.get("notifications-and-alarms")));
+		alertLayout.addMember(new GHATextLabel(GHAStrings
+				.get("notifications-and-alarms")).smallTitle());
 
 		final HLayout horizontalLayout1 = new HLayout();
 		horizontalLayout1.addMembers(new GHAAlertLabel("Alergia", "yellow"),
@@ -231,23 +247,6 @@ CitizenSelectionListener {
 		bsaTypeText.setContents("TODO");
 		mainDiagnosisText.setContents("TODO");
 
-	}
-
-	@Override
-	public boolean canBeHidden(HideCloseAction closeAction) {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean canBeClosen(HideCloseAction closeAction) {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public void close() throws UnavailableToCloseException {
-		destroy();
 	}
 
 }
