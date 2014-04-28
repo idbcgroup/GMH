@@ -396,7 +396,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 
 		if (eia.getFacility() != null) {
 			facilitySelectItem.setValue(eia.getFacility().getId());
-			facilityCodeTextItem.setValue(eia.getFacility().getId());
+			// facilityCodeTextItem.setValue(eia.getFacility().getId());
 		}
 
 	}
