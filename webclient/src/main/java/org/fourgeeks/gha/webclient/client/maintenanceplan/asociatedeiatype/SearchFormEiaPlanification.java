@@ -245,6 +245,9 @@ public class SearchFormEiaPlanification extends GHASearchForm<Eia> implements
 	}
 
 	protected void search(final Eia eia) {
+
+		// eiaTypeMaintenancePlan, Eia
+		//
 		EIAModel.find(eia, new GHAAsyncCallback<List<Eia>>() {
 
 			@Override
