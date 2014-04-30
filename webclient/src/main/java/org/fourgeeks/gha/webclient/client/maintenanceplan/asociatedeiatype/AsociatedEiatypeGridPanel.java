@@ -9,6 +9,7 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.icons.buttons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
@@ -36,6 +37,7 @@ public class AsociatedEiatypeGridPanel extends GHAFormLayout implements
 		ClosableListener, HideableListener, MaintenancePlanSelectionListener {
 
 	private EIATypeSearchForm searchForm;
+	private SearchFormEiaPlanification searchFormEiaPlanification;
 	private EiaTypeMaintenancePlanGrid grid;
 	private MaintenancePlan maintenancePlan;
 	{
@@ -44,6 +46,10 @@ public class AsociatedEiatypeGridPanel extends GHAFormLayout implements
 
 		searchForm = new EIATypeSearchForm(
 				GHAStrings.get("search-component-eiatype"));
+
+		searchFormEiaPlanification = new SearchFormEiaPlanification(
+				"Busqueda de Equipos Planificación");
+
 		searchForm.addEiaTypeSelectionListener(new EIATypeSelectionListener() {
 
 			@Override
@@ -83,7 +89,23 @@ public class AsociatedEiatypeGridPanel extends GHAFormLayout implements
 						search();
 
 					}
-				}), new GHADeleteButton(new ClickHandler() {
+				}), new GHANewButton(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				EiaTypeMaintenancePlan eiaTypeMaintenancePlan = grid
+						.getSelectedEntity();
+
+				if (eiaTypeMaintenancePlan == null) {
+					GHAErrorMessageProcessor.alert("record-not-selected");
+					return;
+				} else {
+					searchEia(eiaTypeMaintenancePlan);
+				}
+
+			}
+
+		}), new GHADeleteButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				deleteSelected();
@@ -143,6 +165,14 @@ public class AsociatedEiatypeGridPanel extends GHAFormLayout implements
 
 		searchForm.filterBy(blackList);
 		searchForm.open();
+	}
+
+	private void searchEia(EiaTypeMaintenancePlan eiaTypeMaintenancePlan) {
+		// TODO Auto-generated method stub
+		// searchFormEiaPlanification.filterBy(blackList);
+		searchFormEiaPlanification
+				.setEiaTypeMaintenancePlan(eiaTypeMaintenancePlan);
+		searchFormEiaPlanification.open();
 	}
 
 	private void deleteSelected() {

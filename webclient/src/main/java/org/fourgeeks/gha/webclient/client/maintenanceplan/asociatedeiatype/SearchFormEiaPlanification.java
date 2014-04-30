@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eia;
+package org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,22 +6,16 @@ import java.util.List;
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
-import org.fourgeeks.gha.domain.ess.auth.Role;
-import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.domain.mix.Bpi;
+import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABpiSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaStateSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAFacilitySelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAObuSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHARoleSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAWorkingAreaSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHACleanButton;
@@ -29,6 +23,9 @@ import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
+import org.fourgeeks.gha.webclient.client.eia.EIAModel;
+import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
+import org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.VerticalAlignment;
@@ -41,55 +38,25 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
- * @author alacret, emiliot, jfuentes
+ * @author eguerere
  * 
  */
-public class EIASearchForm extends GHASearchForm<Eia> implements
+public class SearchFormEiaPlanification extends GHASearchForm<Eia> implements
 		EIASelectionListener, EiaSelectionProducer {
 
-	private GHATextItem serialNumber;
-	private GHATextItem fixedAssetIdentifier;
-	private GHAEiaStateSelectItem stateSelectItem;
-	private GHAObuSelectItem obuSelectItem;
-	private GHABpiSelectItem bpiObuSelectItem;
-	private GHARoleSelectItem baseRoleSelectItem;
-	private GHAWorkingAreaSelectItem workingAreaLocationSelectItem;
-	private GHAFacilitySelectItem facilityLocationSelectItem;
-
-	protected final EiaResultSet resultSet = new EiaResultSet(
-			ResultSetContainerType.SEARCH_FORM);
-	private GHADynamicForm form;
-
-	{
-		serialNumber = new GHATextItem(GHAStrings.get("serial"));
-		fixedAssetIdentifier = new GHATextItem(
-				GHAStrings.get("fixed-asset-identifier"));
-		stateSelectItem = new GHAEiaStateSelectItem();
-		workingAreaLocationSelectItem = new GHAWorkingAreaSelectItem();
-		facilityLocationSelectItem = new GHAFacilitySelectItem();
-		obuSelectItem = new GHAObuSelectItem();
-		bpiObuSelectItem = new GHABpiSelectItem();
-		baseRoleSelectItem = new GHARoleSelectItem();
-
-		resultSet.addEiaSelectionListener(new EIASelectionListener() {
-			@Override
-			public void select(Eia eia) {
-				hide();
-			}
-		});
-
-		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
-	}
-
 	/**
-	 * 
+	 * @param title
 	 */
-	public EIASearchForm(String title) {
-		super(title);
 
+	private EiaTypeMaintenancePlan eiaTypeMaintenancePlan;
+
+	public SearchFormEiaPlanification(final String title) {
+		super(title);
+		// TODO Auto-generated constructor stub
+		// bpiObuSelectItem,facilityLocationSelectItem,obuSelectItem,
+		// baseRoleSelectItem
 		form.setItems(serialNumber, fixedAssetIdentifier, stateSelectItem,
-				bpiObuSelectItem, workingAreaLocationSelectItem,
-				facilityLocationSelectItem, obuSelectItem, baseRoleSelectItem);
+				workingAreaLocationSelectItem);
 		form.setAutoFocus(true);
 		serialNumber.setSelectOnFocus(true);
 
@@ -101,16 +68,15 @@ public class EIASearchForm extends GHASearchForm<Eia> implements
 					search();
 				}
 			}
-		};
-		// actualCostItem.addKeyUpHandler(searchKeyUpHandler);
+		}; //
 		serialNumber.addKeyUpHandler(searchKeyUpHandler);
 		fixedAssetIdentifier.addKeyUpHandler(searchKeyUpHandler);
 		stateSelectItem.addKeyUpHandler(searchKeyUpHandler);
-		bpiObuSelectItem.addKeyUpHandler(searchKeyUpHandler);
+		// bpiObuSelectItem.addKeyUpHandler(searchKeyUpHandler);
 		workingAreaLocationSelectItem.addKeyUpHandler(searchKeyUpHandler);
-		facilityLocationSelectItem.addKeyUpHandler(searchKeyUpHandler);
-		obuSelectItem.addKeyUpHandler(searchKeyUpHandler);
-		baseRoleSelectItem.addKeyUpHandler(searchKeyUpHandler);
+		// facilityLocationSelectItem.addKeyUpHandler(searchKeyUpHandler);
+		// obuSelectItem.addKeyUpHandler(searchKeyUpHandler);
+		// baseRoleSelectItem.addKeyUpHandler(searchKeyUpHandler);
 
 		final VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHACleanButton(new ClickHandler() {
@@ -148,9 +114,46 @@ public class EIASearchForm extends GHASearchForm<Eia> implements
 		resultSet.addEiaSelectionListener(eiaSelectionListener);
 	}
 
+	private GHATextItem serialNumber;
+	private GHATextItem fixedAssetIdentifier;
+	private GHAEiaStateSelectItem stateSelectItem;
+	// private GHAObuSelectItem obuSelectItem;
+	// private GHABpiSelectItem bpiObuSelectItem;
+	// private GHARoleSelectItem baseRoleSelectItem;
+	private GHAWorkingAreaSelectItem workingAreaLocationSelectItem;
+	// private GHAFacilitySelectItem facilityLocationSelectItem;
+
+	protected final ResulsetEiaPlanification resultSet = new ResulsetEiaPlanification(
+			ResultSetContainerType.SEARCH_FORM);
+	private GHADynamicForm form;
+
+	{
+		serialNumber = new GHATextItem(GHAStrings.get("serial"));
+		fixedAssetIdentifier = new GHATextItem(
+				GHAStrings.get("fixed-asset-identifier"));
+		stateSelectItem = new GHAEiaStateSelectItem();
+		workingAreaLocationSelectItem = new GHAWorkingAreaSelectItem();
+		// facilityLocationSelectItem = new GHAFacilitySelectItem();
+		// obuSelectItem = new GHAObuSelectItem();
+		// bpiObuSelectItem = new GHABpiSelectItem();
+		// baseRoleSelectItem = new GHARoleSelectItem();
+
+		resultSet.addEiaSelectionListener(new EIASelectionListener() {
+			@Override
+			public void select(Eia eia) {
+				hide();
+			}
+		});
+
+		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
+	}
+
 	/**
 	 * 
 	 */
+
+	// public EIASearchForm(String title) { }
+
 	public void clean() {
 		form.clearValues();
 		resultSet.clean();
@@ -201,31 +204,31 @@ public class EIASearchForm extends GHASearchForm<Eia> implements
 			eia.setSerialNumber(serialNumber.getValueAsString());
 		if (fixedAssetIdentifier != null)
 			eia.setFixedAssetIdentifier(fixedAssetIdentifier.getValueAsString());
-		if (obuSelectItem.getValue() != null) {
-			obu.setId(Long.valueOf(obuSelectItem.getValueAsString()));
-			eia.setObu(obu);
-		}
-		if (bpiObuSelectItem.getValue() != null) {
-			final Bpi bpi = new Bpi(Long.valueOf(bpiObuSelectItem
-					.getValueAsString()));
-			obu.setBpi(bpi);
-			eia.setObu(obu);
-		}
-		if (baseRoleSelectItem.getValue() != null) {
-			final Role baseRole = new Role();
-			baseRole.setId(Integer.valueOf(baseRoleSelectItem
-					.getValueAsString()));
-			eia.setResponsibleRole(baseRole);
-		}
+		// if (obuSelectItem.getValue() != null) {
+		// obu.setId(Long.valueOf(obuSelectItem.getValueAsString()));
+		// eia.setObu(obu);
+		// }
+		// if (bpiObuSelectItem.getValue() != null) {
+		// final Bpi bpi = new Bpi(Long.valueOf(bpiObuSelectItem
+		// .getValueAsString()));
+		// obu.setBpi(bpi);
+		// eia.setObu(obu);
+		// }
+		// if (baseRoleSelectItem.getValue() != null) {
+		// final Role baseRole = new Role();
+		// baseRole.setId(Integer.valueOf(baseRoleSelectItem
+		// .getValueAsString()));
+		// eia.setResponsibleRole(baseRole);
+		// }
 		if (stateSelectItem.getValue() != null) {
 			eia.setState(EiaStateEnum.valueOf(stateSelectItem
 					.getValueAsString()));
 		}
-		if (facilityLocationSelectItem.getValue() != null) {
-			eia.setWorkingArea(null);
-			eia.setFacility(new Facility(Integer
-					.valueOf(facilityLocationSelectItem.getValueAsString())));
-		}
+		// if (facilityLocationSelectItem.getValue() != null) {
+		// eia.setWorkingArea(null);
+		// eia.setFacility(new Facility(Integer
+		// .valueOf(facilityLocationSelectItem.getValueAsString())));
+		// }
 		if (workingAreaLocationSelectItem.getValue() != null) {
 			eia.setFacility(null);
 			eia.setWorkingArea(new WorkingArea(Integer
@@ -235,6 +238,9 @@ public class EIASearchForm extends GHASearchForm<Eia> implements
 	}
 
 	protected void search(final Eia eia) {
+
+		// eiaTypeMaintenancePlan, Eia
+		//
 		EIAModel.find(eia, new GHAAsyncCallback<List<Eia>>() {
 
 			@Override
@@ -258,4 +264,21 @@ public class EIASearchForm extends GHASearchForm<Eia> implements
 	public void select(Eia eia) {
 		search(eia);
 	}
+
+	/**
+	 * @return the eiaTypeMaintenancePlan
+	 */
+	public EiaTypeMaintenancePlan getEiaTypeMaintenancePlan() {
+		return eiaTypeMaintenancePlan;
+	}
+
+	/**
+	 * @param eiaTypeMaintenancePlan
+	 *            the eiaTypeMaintenancePlan to set
+	 */
+	public void setEiaTypeMaintenancePlan(
+			EiaTypeMaintenancePlan eiaTypeMaintenancePlan) {
+		this.eiaTypeMaintenancePlan = eiaTypeMaintenancePlan;
+	}
+
 }

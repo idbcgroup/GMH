@@ -34,7 +34,7 @@ public class EiaDamageReport extends AbstractEntity {
 	private EiaDamageStatusEnum damageStatus;
 
 	/** Condición del equipo: Operativo, Detenido, Dañado permanentemente */
-	@NotNull(message = "state-not-null")
+	@NotNull(message = "eia-condition-not-null")
 	private EiaStateEnum eiaCondition;
 
 	/** Prioridad del daño o falla: Normal, Alta */

@@ -3,7 +3,7 @@ package org.fourgeeks.gha.domain.enu;
 import java.util.LinkedHashMap;
 
 public enum EiaDamagePriorityEnum {
-	NORMAL("Normal"), HIGH("Alta");
+	NORMAL("Normal"), HIGH("Alta"), URGENT("Urgente");
 
 	private String name;
 

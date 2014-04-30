@@ -89,7 +89,7 @@ public class GHASelectItem extends SelectItem {
 	 */
 	public GHASelectItem(String title, int width, boolean required,
 			ChangedHandler changedHandler) {
-		this(title,width);
+		this(title, width);
 		setRequired(required);
 		addChangedHandler(changedHandler);
 	}

@@ -149,6 +149,7 @@ public class EIADamageReportAddForm extends GHAAddForm<EiaDamageReport>
 	 */
 	@Override
 	public void select(Eia eia) {
+
 		((EIASelectionListener) form).select(eia);
 
 	}
