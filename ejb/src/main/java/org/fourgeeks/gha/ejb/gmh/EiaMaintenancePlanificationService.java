@@ -10,7 +10,9 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.fourgeeks.gha.domain.enu.EiaMaintenanceState;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
@@ -35,6 +37,43 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 
 	private final static Logger logger = Logger
 			.getLogger(EiaMaintenancePlanificationService.class.getName());
+
+	// private final static Predicate buildFilters(Eia entity, CriteriaBuilder
+	// cb,
+	// Root<Eia> root) {
+	// Predicate predicate = cb.conjunction();
+	// if (entity.getSerialNumber() != null) {
+	// final ParameterExpression<String> p = cb.parameter(String.class,
+	// "serialNumber");
+	// predicate = cb.and(predicate,
+	// cb.like(root.<String> get("serialNumber"), p));
+	// }
+	// if (entity.getFixedAssetIdentifier() != null) {
+	// final ParameterExpression<String> p = cb.parameter(String.class,
+	// "fixedAssetId");
+	// predicate = cb.and(predicate,
+	// cb.like(root.<String> get("fixedAssetIdentifier"), p));
+	// }
+	// if (entity.getEiaType() != null) {
+	// final ParameterExpression<EiaType> p = cb.parameter(EiaType.class,
+	// "eiaType");
+	// predicate = cb.and(predicate,
+	// cb.equal(root.<EiaType> get("eiaType"), p));
+	// }
+	// if (entity.getState() != null) {
+	// final ParameterExpression<EiaStateEnum> p = cb.parameter(
+	// EiaStateEnum.class, "state");
+	// predicate = cb.and(predicate,
+	// cb.equal(root.<EiaStateEnum> get("state"), p));
+	// }
+	// if (entity.getWorkingArea() != null) {
+	// final ParameterExpression<WorkingArea> p = cb.parameter(
+	// WorkingArea.class, "workingArea");
+	// predicate = cb.and(predicate,
+	// cb.equal(root.<WorkingArea> get("workingArea"), p));
+	// }
+	// return predicate;
+	// }
 
 	@Override
 	public void delete(long Id) throws GHAEJBException {
@@ -239,7 +278,6 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 					.createQuery(stringQuery, EiaMaintenancePlanification.class)
 					.setParameter("name_eia", eia)
 					.setParameter("name_plan", plan).getResultList();
-			;
 
 			if (resultList.isEmpty())
 				return false;
@@ -253,5 +291,84 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 					e);
 			throw super.generateGHAEJBException("eia-findByEiaType-fail", em);
 		}
+	}
+
+	@Override
+	public List<EiaPlanificationEntity> findEiaMaintenancePlanificationStatus(
+			Eia eia, EiaTypeMaintenancePlan plan) throws GHAEJBException {
+		try {
+			String queryStr = "SELECT new EiaPlanificationEntity(eia, emp) FROM Eia eia "
+					+ "LEFT JOIN EiaMaintenancePlanification emp.eia = :eia AND emp.plan = :plan";
+
+			String whereStr = "";
+			whereStr = buildWhere(whereStr, eia.getFixedAssetIdentifier(),
+					"eia.fixedAssetIdentifier", "LIKE",
+					"%:fixedAssetIdentifier%");
+
+			whereStr = buildWhere(whereStr, eia.getSerialNumber(),
+					"eia.serialNumber", "LIKE", "%:serialNumber%");
+
+			whereStr = buildWhere(whereStr, eia.getState(), "eia.state", "=",
+					":eiaState");
+
+			whereStr = buildWhere(whereStr, eia.getWorkingArea(),
+					"eia.workingArea", "=", ":workingArea");
+
+			queryStr += whereStr;
+
+			// creo el query y le asigno los parametros
+			TypedQuery<EiaPlanificationEntity> query = em.createQuery(queryStr,
+					EiaPlanificationEntity.class);
+			if (eia.getFixedAssetIdentifier() != null)
+				query.setParameter("fixedAssetIdentifier",
+						eia.getFixedAssetIdentifier());
+
+			if (eia.getSerialNumber() != null)
+				query.setParameter("serialNumber", eia.getSerialNumber());
+
+			if (eia.getWorkingArea() != null)
+				query.setParameter("workingArea", eia.getWorkingArea());
+
+			if (eia.getState() != null)
+				query.setParameter("eiaState", eia.getState());
+
+			// devuelvo la lista de EiaPlanificationEntity
+			return query.getResultList();
+
+		} catch (NoResultException ex) {
+			logger.log(Level.INFO, "No results", ex);
+		} catch (Exception ex) {
+			logger.log(Level.INFO, "Error en metodo EJB findEiasByEiaTypes", ex);
+			throw new GHAEJBException(
+					"Error en metodo EJB findEiasByEiaTypes: "
+							+ ex.getCause().getMessage());
+		}
+
+		return null;
+	}
+
+	/**
+	 * @param query
+	 *            El query
+	 * @param elem
+	 *            El elemento que se desea asignar a la clausula where
+	 * @param campo
+	 *            el camp que representa el emento dentro de la consulta
+	 * @param op
+	 *            la operacion comparacion
+	 * @param param
+	 *            el parametro contra el que se va a realziar la operacion de
+	 *            comparacion
+	 * @return String de la consulta con el parametro deseado en la clausula
+	 *         where
+	 */
+	private String buildWhere(String query, Object elem, String campo,
+			String op, String param) {
+
+		if (elem != null) {
+			query += query.isEmpty() ? " where " : " and ";
+			query += campo + " " + op + " " + param;
+		}
+		return query;
 	}
 }

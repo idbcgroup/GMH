@@ -51,4 +51,16 @@ public interface EiaMaintenancePlanificationServiceRemote {
 	public List<EiaMaintenancePlanification> find(EiaType eiaType)
 			throws GHAEJBException;
 
+	/**
+	 * Returns a list of an Object array containing the Eia and the associated
+	 * EiaMaintenancePlanification
+	 * 
+	 * @param eia
+	 * @param plan
+	 * @return
+	 * @throws GHAEJBException
+	 */
+	public List<EiaPlanificationEntity> findEiaMaintenancePlanificationStatus(
+			Eia eia, EiaTypeMaintenancePlan plan) throws GHAEJBException;
+
 }
