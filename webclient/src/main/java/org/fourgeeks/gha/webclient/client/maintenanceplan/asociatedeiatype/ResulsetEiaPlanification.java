@@ -9,8 +9,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
-import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHACheckButton;
-import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHADeleteButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.buttons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
@@ -20,6 +19,7 @@ import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -40,6 +40,7 @@ public class ResulsetEiaPlanification extends GHAResultSet<Eia> implements
 	private List<EIASelectionListener> listeners;
 	private final EiaPlanificationGrid grid;
 	private final ResultSetContainerType containerType;
+	private final EiasPlanificationAddForm eiasPlanificationAddForm;
 
 	{
 		listeners = new ArrayList<EIASelectionListener>();
@@ -53,6 +54,8 @@ public class ResulsetEiaPlanification extends GHAResultSet<Eia> implements
 		super(GHAStrings.get("search-results"));
 		this.containerType = container;
 		setHeight(GHAUiHelper.getResultSetHeight(containerType));
+
+		eiasPlanificationAddForm = new EiasPlanificationAddForm();
 
 		grid = new EiaPlanificationGrid() {
 			@Override
@@ -70,32 +73,21 @@ public class ResulsetEiaPlanification extends GHAResultSet<Eia> implements
 		});
 		grid.setHeight(GHAUiHelper.getResultSetGridSize(containerType));
 
-		HLayout gridPanel = new HLayout();
-		VLayout sideBar;
+		VLayout sideButtons = GHAUiHelper.createBar(new GHANewButton(
+				new ClickHandler() {
 
-		GHACheckButton checkButton = new GHACheckButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				notifySelectedEia();
-			}
-		});
+					@Override
+					public void onClick(ClickEvent event) {
 
-		if (containerType == ResultSetContainerType.TAB) {
-			sideBar = GHAUiHelper.createBar(checkButton,
-					GHAUiHelper.verticalGraySeparator("2px"),
-					new GHADeleteButton(new ClickHandler() {
-						@Override
-						public void onClick(ClickEvent event) {
-							delete();
-						}
-					}));
-		} else {
-			sideBar = GHAUiHelper.createBar(checkButton);
-			// setHeight(getHeight() - 42);
-		}
+						eiasPlanificationAddForm.open();
 
-		gridPanel.addMembers(grid, sideBar);
-		addMember(gridPanel);
+					}
+
+				}));
+
+		HLayout mainLayout = new HLayout();
+		mainLayout.addMembers(grid, sideButtons);
+		addMember(mainLayout);
 	}
 
 	/*
@@ -179,6 +171,8 @@ public class ResulsetEiaPlanification extends GHAResultSet<Eia> implements
 	}
 
 	private void notifySelectedEia() {
+
+		Window.alert("En el Buton");
 		GHAGridRecord<Eia> selectedRecord = grid.getSelectedRecord();
 		if (selectedRecord == null) {
 			GHAErrorMessageProcessor.alert("record-not-selected");

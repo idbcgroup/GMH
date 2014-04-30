@@ -6,23 +6,16 @@ import java.util.List;
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
-import org.fourgeeks.gha.domain.ess.auth.Role;
-import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
-import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABpiSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaStateSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAFacilitySelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAObuSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHARoleSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAWorkingAreaSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHACleanButton;
@@ -60,10 +53,10 @@ public class SearchFormEiaPlanification extends GHASearchForm<Eia> implements
 	public SearchFormEiaPlanification(final String title) {
 		super(title);
 		// TODO Auto-generated constructor stub
-
+		// bpiObuSelectItem,facilityLocationSelectItem,obuSelectItem,
+		// baseRoleSelectItem
 		form.setItems(serialNumber, fixedAssetIdentifier, stateSelectItem,
-				bpiObuSelectItem, workingAreaLocationSelectItem,
-				facilityLocationSelectItem, obuSelectItem, baseRoleSelectItem);
+				workingAreaLocationSelectItem);
 		form.setAutoFocus(true);
 		serialNumber.setSelectOnFocus(true);
 
@@ -79,11 +72,11 @@ public class SearchFormEiaPlanification extends GHASearchForm<Eia> implements
 		serialNumber.addKeyUpHandler(searchKeyUpHandler);
 		fixedAssetIdentifier.addKeyUpHandler(searchKeyUpHandler);
 		stateSelectItem.addKeyUpHandler(searchKeyUpHandler);
-		bpiObuSelectItem.addKeyUpHandler(searchKeyUpHandler);
+		// bpiObuSelectItem.addKeyUpHandler(searchKeyUpHandler);
 		workingAreaLocationSelectItem.addKeyUpHandler(searchKeyUpHandler);
-		facilityLocationSelectItem.addKeyUpHandler(searchKeyUpHandler);
-		obuSelectItem.addKeyUpHandler(searchKeyUpHandler);
-		baseRoleSelectItem.addKeyUpHandler(searchKeyUpHandler);
+		// facilityLocationSelectItem.addKeyUpHandler(searchKeyUpHandler);
+		// obuSelectItem.addKeyUpHandler(searchKeyUpHandler);
+		// baseRoleSelectItem.addKeyUpHandler(searchKeyUpHandler);
 
 		final VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHACleanButton(new ClickHandler() {
@@ -124,11 +117,11 @@ public class SearchFormEiaPlanification extends GHASearchForm<Eia> implements
 	private GHATextItem serialNumber;
 	private GHATextItem fixedAssetIdentifier;
 	private GHAEiaStateSelectItem stateSelectItem;
-	private GHAObuSelectItem obuSelectItem;
-	private GHABpiSelectItem bpiObuSelectItem;
-	private GHARoleSelectItem baseRoleSelectItem;
+	// private GHAObuSelectItem obuSelectItem;
+	// private GHABpiSelectItem bpiObuSelectItem;
+	// private GHARoleSelectItem baseRoleSelectItem;
 	private GHAWorkingAreaSelectItem workingAreaLocationSelectItem;
-	private GHAFacilitySelectItem facilityLocationSelectItem;
+	// private GHAFacilitySelectItem facilityLocationSelectItem;
 
 	protected final ResulsetEiaPlanification resultSet = new ResulsetEiaPlanification(
 			ResultSetContainerType.SEARCH_FORM);
@@ -140,10 +133,10 @@ public class SearchFormEiaPlanification extends GHASearchForm<Eia> implements
 				GHAStrings.get("fixed-asset-identifier"));
 		stateSelectItem = new GHAEiaStateSelectItem();
 		workingAreaLocationSelectItem = new GHAWorkingAreaSelectItem();
-		facilityLocationSelectItem = new GHAFacilitySelectItem();
-		obuSelectItem = new GHAObuSelectItem();
-		bpiObuSelectItem = new GHABpiSelectItem();
-		baseRoleSelectItem = new GHARoleSelectItem();
+		// facilityLocationSelectItem = new GHAFacilitySelectItem();
+		// obuSelectItem = new GHAObuSelectItem();
+		// bpiObuSelectItem = new GHABpiSelectItem();
+		// baseRoleSelectItem = new GHARoleSelectItem();
 
 		resultSet.addEiaSelectionListener(new EIASelectionListener() {
 			@Override
@@ -211,31 +204,31 @@ public class SearchFormEiaPlanification extends GHASearchForm<Eia> implements
 			eia.setSerialNumber(serialNumber.getValueAsString());
 		if (fixedAssetIdentifier != null)
 			eia.setFixedAssetIdentifier(fixedAssetIdentifier.getValueAsString());
-		if (obuSelectItem.getValue() != null) {
-			obu.setId(Long.valueOf(obuSelectItem.getValueAsString()));
-			eia.setObu(obu);
-		}
-		if (bpiObuSelectItem.getValue() != null) {
-			final Bpi bpi = new Bpi(Long.valueOf(bpiObuSelectItem
-					.getValueAsString()));
-			obu.setBpi(bpi);
-			eia.setObu(obu);
-		}
-		if (baseRoleSelectItem.getValue() != null) {
-			final Role baseRole = new Role();
-			baseRole.setId(Integer.valueOf(baseRoleSelectItem
-					.getValueAsString()));
-			eia.setResponsibleRole(baseRole);
-		}
+		// if (obuSelectItem.getValue() != null) {
+		// obu.setId(Long.valueOf(obuSelectItem.getValueAsString()));
+		// eia.setObu(obu);
+		// }
+		// if (bpiObuSelectItem.getValue() != null) {
+		// final Bpi bpi = new Bpi(Long.valueOf(bpiObuSelectItem
+		// .getValueAsString()));
+		// obu.setBpi(bpi);
+		// eia.setObu(obu);
+		// }
+		// if (baseRoleSelectItem.getValue() != null) {
+		// final Role baseRole = new Role();
+		// baseRole.setId(Integer.valueOf(baseRoleSelectItem
+		// .getValueAsString()));
+		// eia.setResponsibleRole(baseRole);
+		// }
 		if (stateSelectItem.getValue() != null) {
 			eia.setState(EiaStateEnum.valueOf(stateSelectItem
 					.getValueAsString()));
 		}
-		if (facilityLocationSelectItem.getValue() != null) {
-			eia.setWorkingArea(null);
-			eia.setFacility(new Facility(Integer
-					.valueOf(facilityLocationSelectItem.getValueAsString())));
-		}
+		// if (facilityLocationSelectItem.getValue() != null) {
+		// eia.setWorkingArea(null);
+		// eia.setFacility(new Facility(Integer
+		// .valueOf(facilityLocationSelectItem.getValueAsString())));
+		// }
 		if (workingAreaLocationSelectItem.getValue() != null) {
 			eia.setFacility(null);
 			eia.setWorkingArea(new WorkingArea(Integer
