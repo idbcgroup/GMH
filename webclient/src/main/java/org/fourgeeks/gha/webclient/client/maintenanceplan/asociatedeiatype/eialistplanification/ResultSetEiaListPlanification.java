@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.domain.gmh.EiaPlanificationEntity;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
@@ -12,17 +12,12 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.buttons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
-import org.fourgeeks.gha.webclient.client.eia.EIAModel;
-import org.fourgeeks.gha.webclient.client.eia.EIARecord;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
-import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiasPlanificationAddForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.AnimationEffect;
-import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -35,11 +30,11 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author eguerere
  * 
  */
-public class ResultSetEiaPlanification extends GHAResultSet<Eia> implements
-		EiaSelectionProducer {
+public class ResultSetEiaListPlanification extends
+		GHAResultSet<EiaPlanificationEntity> implements EiaSelectionProducer {
 
 	private List<EIASelectionListener> listeners;
-	private final EiaPlanificationGrid grid;
+	private final EiaListPlanificationGrid grid;
 	private final ResultSetContainerType containerType;
 	private final EiasPlanificationAddForm eiasPlanificationAddForm;
 
@@ -51,14 +46,14 @@ public class ResultSetEiaPlanification extends GHAResultSet<Eia> implements
 	 * @param container
 	 * 
 	 */
-	public ResultSetEiaPlanification(ResultSetContainerType container) {
+	public ResultSetEiaListPlanification(ResultSetContainerType container) {
 		super(GHAStrings.get("search-results"));
 		this.containerType = container;
 		setHeight(GHAUiHelper.getResultSetHeight(containerType));
 
 		eiasPlanificationAddForm = new EiasPlanificationAddForm();
 
-		grid = new EiaPlanificationGrid() {
+		grid = new EiaListPlanificationGrid() {
 			@Override
 			public void onResize(ResizeEvent event) {
 				super.onResize(event);
@@ -76,14 +71,10 @@ public class ResultSetEiaPlanification extends GHAResultSet<Eia> implements
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHANewButton(
 				new ClickHandler() {
-
 					@Override
 					public void onClick(ClickEvent event) {
-
 						eiasPlanificationAddForm.open();
-
 					}
-
 				}));
 
 		HLayout mainLayout = new HLayout();
@@ -106,64 +97,64 @@ public class ResultSetEiaPlanification extends GHAResultSet<Eia> implements
 
 	@Override
 	public void clean() {
-		grid.setData(new EIARecord[] {});
+		grid.setData(new EiaListMaintenanceRecord[] {});
 		showResultsSize(null, true);
 	}
 
-	private void delete() {
-		if (grid.getSelectedRecord() == null) {
-			GHAErrorMessageProcessor.alert("record-not-selected");
-			return;
-		}
-
-		if (grid.getSelectedRecords().length > 1) {
-			GHAErrorMessageProcessor.confirm("eias-delete-confirm",
-					new BooleanCallback() {
-
-						@Override
-						public void execute(Boolean value) {
-							if (value) {
-								List<Eia> entities = grid.getSelectedEntities();
-								EIAModel.delete(entities,
-										new GHAAsyncCallback<Void>() {
-
-											@Override
-											public void onSuccess(Void result) {
-												grid.removeSelectedData();
-												refreshResultsSize(grid
-														.getRecords().length);
-												GHAErrorMessageProcessor
-														.alert("eias-delete-success");
-											}
-										});
-							}
-						}
-					});
-		} else {
-			GHAErrorMessageProcessor.confirm("eia-delete-confirm",
-					new BooleanCallback() {
-
-						@Override
-						public void execute(Boolean value) {
-							if (value) {
-								List<Eia> entities = grid.getSelectedEntities();
-								EIAModel.delete(entities,
-										new GHAAsyncCallback<Void>() {
-
-											@Override
-											public void onSuccess(Void result) {
-												grid.removeSelectedData();
-												refreshResultsSize(grid
-														.getRecords().length);
-												GHAErrorMessageProcessor
-														.alert("eia-delete-success");
-											}
-										});
-							}
-						}
-					});
-		}
-	}
+	// private void delete() {
+	// if (grid.getSelectedRecord() == null) {
+	// GHAErrorMessageProcessor.alert("record-not-selected");
+	// return;
+	// }
+	//
+	// if (grid.getSelectedRecords().length > 1) {
+	// GHAErrorMessageProcessor.confirm("eias-delete-confirm",
+	// new BooleanCallback() {
+	//
+	// @Override
+	// public void execute(Boolean value) {
+	// if (value) {
+	// List<Eia> entities = grid.getSelectedEntities();
+	// EIAModel.delete(entities,
+	// new GHAAsyncCallback<Void>() {
+	//
+	// @Override
+	// public void onSuccess(Void result) {
+	// grid.removeSelectedData();
+	// refreshResultsSize(grid
+	// .getRecords().length);
+	// GHAErrorMessageProcessor
+	// .alert("eias-delete-success");
+	// }
+	// });
+	// }
+	// }
+	// });
+	// } else {
+	// GHAErrorMessageProcessor.confirm("eia-delete-confirm",
+	// new BooleanCallback() {
+	//
+	// @Override
+	// public void execute(Boolean value) {
+	// if (value) {
+	// List<Eia> entities = grid.getSelectedEntities();
+	// EIAModel.delete(entities,
+	// new GHAAsyncCallback<Void>() {
+	//
+	// @Override
+	// public void onSuccess(Void result) {
+	// grid.removeSelectedData();
+	// refreshResultsSize(grid
+	// .getRecords().length);
+	// GHAErrorMessageProcessor
+	// .alert("eia-delete-success");
+	// }
+	// });
+	// }
+	// }
+	// });
+	// }
+	// }
 
 	@Override
 	public void notifyEia(Eia eia) {
@@ -172,14 +163,13 @@ public class ResultSetEiaPlanification extends GHAResultSet<Eia> implements
 	}
 
 	private void notifySelectedEia() {
-
-		Window.alert("En el Buton");
-		GHAGridRecord<Eia> selectedRecord = grid.getSelectedRecord();
+		GHAGridRecord<EiaListMaintenanceRecord> selectedRecord = grid
+				.getSelectedRecord();
 		if (selectedRecord == null) {
 			GHAErrorMessageProcessor.alert("record-not-selected");
 			return;
 		}
-		notifyEia(((EIARecord) selectedRecord).toEntity());
+		// notifyEia(((EiaListMaintenanceRecord) selectedRecord).toEntity());
 		hide();
 		grid.removeSelectedData();
 	}
@@ -196,16 +186,11 @@ public class ResultSetEiaPlanification extends GHAResultSet<Eia> implements
 	}
 
 	@Override
-	public void setRecords(List<Eia> records, boolean notifyIfOnlyOneResult) {
-		// if only one record is on the list, notify the element and return
-		if (notifyIfOnlyOneResult && records.size() == 1) {
-			notifyEia(records.get(0));
-			hide();
-			return;
-		}
+	public void setRecords(List<EiaPlanificationEntity> records,
+			boolean notifyIfOnlyOneResult) {
 		showResultsSize(records, false);
-		ListGridRecord[] array = EIAUtil.toGridRecords(records).toArray(
-				new EIARecord[] {});
+		ListGridRecord[] array = EiaPlanificationEntityUtil.toGridRecords(
+				records).toArray(new EiaListMaintenanceRecord[] {});
 		grid.setData(array);
 		if (!isVisible())
 			this.animateShow(AnimationEffect.FADE);

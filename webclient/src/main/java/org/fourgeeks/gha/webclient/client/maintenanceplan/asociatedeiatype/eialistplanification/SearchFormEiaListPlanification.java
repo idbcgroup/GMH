@@ -1,7 +1,9 @@
 package org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.eialistplanification;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gmh.Eia;
@@ -10,6 +12,7 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAWorkingAreaSelectItem;
@@ -38,28 +41,39 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author eguerere
  * 
  */
-public class SearchFormEiaPlanification extends GHASearchForm<Eia> implements
-		EIASelectionListener, EiaSelectionProducer {
+public class SearchFormEiaListPlanification extends GHASearchForm<Eia>
+		implements EIASelectionListener, EiaSelectionProducer {
 
 	private GHATextItem serialNumber;
 	private GHATextItem fixedAssetIdentifier;
-	// private GHAEiaStateSelectItem stateSelectItem;
-	// private GHAObuSelectItem obuSelectItem;
-	// private GHABpiSelectItem bpiObuSelectItem;
-	// private GHARoleSelectItem baseRoleSelectItem;
 	private GHAWorkingAreaSelectItem workingAreaLocationSelectItem;
-	// private GHAFacilitySelectItem facilityLocationSelectItem;
 	private EiaTypeMaintenancePlan eiaTypeMaintenancePlan;
+	protected final ResultSetEiaListPlanification resultSet = new ResultSetEiaListPlanification(
+			ResultSetContainerType.SEARCH_FORM);
+	private GHADynamicForm form;
+
+	{
+		serialNumber = new GHATextItem(GHAStrings.get("serial"));
+		fixedAssetIdentifier = new GHATextItem(
+				GHAStrings.get("fixed-asset-identifier"));
+		workingAreaLocationSelectItem = new GHAWorkingAreaSelectItem();
+
+		resultSet.addEiaSelectionListener(new EIASelectionListener() {
+			@Override
+			public void select(Eia eia) {
+				hide();
+			}
+		});
+
+		form = new GHADynamicForm(3, FormType.NORMAL_FORM);
+	}
 
 	/**
 	 * @param title
 	 */
-	public SearchFormEiaPlanification(final String title) {
+	public SearchFormEiaListPlanification(final String title) {
 		super(title);
-		// TODO Auto-generated constructor stub
-		// bpiObuSelectItem,facilityLocationSelectItem,obuSelectItem,
-		// baseRoleSelectItem
-		form.setItems(serialNumber, fixedAssetIdentifier, // stateSelectItem,
+		form.setItems(serialNumber, fixedAssetIdentifier,
 				workingAreaLocationSelectItem);
 		form.setAutoFocus(true);
 		serialNumber.setSelectOnFocus(true);
@@ -72,15 +86,10 @@ public class SearchFormEiaPlanification extends GHASearchForm<Eia> implements
 					search();
 				}
 			}
-		}; //
+		};
 		serialNumber.addKeyUpHandler(searchKeyUpHandler);
 		fixedAssetIdentifier.addKeyUpHandler(searchKeyUpHandler);
-		// stateSelectItem.addKeyUpHandler(searchKeyUpHandler);
-		// bpiObuSelectItem.addKeyUpHandler(searchKeyUpHandler);
 		workingAreaLocationSelectItem.addKeyUpHandler(searchKeyUpHandler);
-		// facilityLocationSelectItem.addKeyUpHandler(searchKeyUpHandler);
-		// obuSelectItem.addKeyUpHandler(searchKeyUpHandler);
-		// baseRoleSelectItem.addKeyUpHandler(searchKeyUpHandler);
 
 		final VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHACleanButton(new ClickHandler() {
@@ -117,36 +126,6 @@ public class SearchFormEiaPlanification extends GHASearchForm<Eia> implements
 			EIASelectionListener eiaSelectionListener) {
 		resultSet.addEiaSelectionListener(eiaSelectionListener);
 	}
-
-	protected final ResultSetEiaPlanification resultSet = new ResultSetEiaPlanification(
-			ResultSetContainerType.SEARCH_FORM);
-	private GHADynamicForm form;
-
-	{
-		serialNumber = new GHATextItem(GHAStrings.get("serial"));
-		fixedAssetIdentifier = new GHATextItem(
-				GHAStrings.get("fixed-asset-identifier"));
-		// stateSelectItem = new GHAEiaStateSelectItem();
-		workingAreaLocationSelectItem = new GHAWorkingAreaSelectItem();
-		// facilityLocationSelectItem = new GHAFacilitySelectItem();
-		// obuSelectItem = new GHAObuSelectItem();
-		// bpiObuSelectItem = new GHABpiSelectItem();
-		// baseRoleSelectItem = new GHARoleSelectItem();
-
-		resultSet.addEiaSelectionListener(new EIASelectionListener() {
-			@Override
-			public void select(Eia eia) {
-				hide();
-			}
-		});
-
-		form = new GHADynamicForm(3, FormType.NORMAL_FORM);
-	}
-
-	/**
-	 * 
-	 */
-	// public EIASearchForm(String title) { }
 
 	public void clean() {
 		form.clearValues();
@@ -197,31 +176,6 @@ public class SearchFormEiaPlanification extends GHASearchForm<Eia> implements
 			eia.setSerialNumber(serialNumber.getValueAsString());
 		if (fixedAssetIdentifier != null)
 			eia.setFixedAssetIdentifier(fixedAssetIdentifier.getValueAsString());
-		// if (obuSelectItem.getValue() != null) {
-		// obu.setId(Long.valueOf(obuSelectItem.getValueAsString()));
-		// eia.setObu(obu);
-		// }
-		// if (bpiObuSelectItem.getValue() != null) {
-		// final Bpi bpi = new Bpi(Long.valueOf(bpiObuSelectItem
-		// .getValueAsString()));
-		// obu.setBpi(bpi);
-		// eia.setObu(obu);
-		// }
-		// if (baseRoleSelectItem.getValue() != null) {
-		// final Role baseRole = new Role();
-		// baseRole.setId(Integer.valueOf(baseRoleSelectItem
-		// .getValueAsString()));
-		// eia.setResponsibleRole(baseRole);
-		// }
-		// if (stateSelectItem.getValue() != null) {
-		// eia.setState(EiaStateEnum.valueOf(stateSelectItem
-		// .getValueAsString()));
-		// }
-		// if (facilityLocationSelectItem.getValue() != null) {
-		// eia.setWorkingArea(null);
-		// eia.setFacility(new Facility(Integer
-		// .valueOf(facilityLocationSelectItem.getValueAsString())));
-		// }
 		if (workingAreaLocationSelectItem.getValue() != null) {
 			eia.setFacility(null);
 			eia.setWorkingArea(new WorkingArea(Integer
@@ -231,32 +185,46 @@ public class SearchFormEiaPlanification extends GHASearchForm<Eia> implements
 	}
 
 	protected void search(final Eia eia) {
-
-		// eiaTypeMaintenancePlan, Eia
 		EiaMaintenancePlanificationModel.findEiaMaintenancePlanificationStatus(
 				eia, eiaTypeMaintenancePlan,
 
 				new GHAAsyncCallback<List<EiaPlanificationEntity>>() {
 					@Override
 					public void onSuccess(List<EiaPlanificationEntity> result) {
-
-						Window.alert("La cantidad de registros es --> "
-								+ result.size());
-						// List<Eia> newList = new ArrayList<Eia>();
-						// if (blackList != null) {
-						// final List<AbstractEntity> tmpList = GHAUtil
-						// .binarySearchFilterEntity(result, blackList);
-						// final List<Eia> newTmpList = new ArrayList<Eia>();
-						// for (final AbstractEntity entity : tmpList)
-						// newTmpList.add((Eia) entity);
-						// newList = newTmpList;
-						// } else
-						// newList = result;
-						// resultSet.setRecords(newList, false);
+						try {
+							Window.alert("El objeto es3: -->"
+									+ result.get(0).getEmp());
+							Window.alert("1");
+							List<EiaPlanificationEntity> newList = new ArrayList<EiaPlanificationEntity>();
+							Window.alert("2");
+							if (blackList != null) {
+								Window.alert("if 1");
+								final List<AbstractEntity> tmpList = GHAUtil
+										.binarySearchFilterEntity(result,
+												blackList);
+								Window.alert("if 2");
+								final List<EiaPlanificationEntity> newTmpList = new ArrayList<EiaPlanificationEntity>();
+								Window.alert("if 3");
+								for (final AbstractEntity entity : tmpList)
+									newTmpList
+											.add((EiaPlanificationEntity) entity);
+								Window.alert("if 4");
+								newList = newTmpList;
+								Window.alert("if 5");
+							} else {
+								Window.alert("else 1");
+								newList = result;
+								Window.alert("else 2");
+							}
+							Window.alert("3");
+							resultSet.setRecords(newList, false);
+							Window.alert("4");
+						} catch (Exception e) {
+							Window.alert(" la excepcion es " + e.toString());
+						}
 					}
-
 				});
-		//
+
 		// EiaMaintenancePlanificationModel.find(eia,
 		// new GHAAsyncCallback<List<Eia>>() {
 		// @Override

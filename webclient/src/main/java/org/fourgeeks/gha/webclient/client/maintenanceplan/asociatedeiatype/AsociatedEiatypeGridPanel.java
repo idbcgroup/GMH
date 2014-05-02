@@ -21,7 +21,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabe
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.eialistplanification.SearchFormEiaPlanification;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.eialistplanification.SearchFormEiaListPlanification;
 
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -38,7 +38,7 @@ public class AsociatedEiatypeGridPanel extends GHAFormLayout implements
 		ClosableListener, HideableListener, MaintenancePlanSelectionListener {
 
 	private EIATypeSearchForm searchForm;
-	private SearchFormEiaPlanification searchFormEiaPlanification;
+	private SearchFormEiaListPlanification searchFormEiaPlanification;
 	private EiaTypeMaintenancePlanGrid grid;
 	private MaintenancePlan maintenancePlan;
 	{
@@ -48,7 +48,7 @@ public class AsociatedEiatypeGridPanel extends GHAFormLayout implements
 		searchForm = new EIATypeSearchForm(
 				GHAStrings.get("search-component-eiatype"));
 
-		searchFormEiaPlanification = new SearchFormEiaPlanification(
+		searchFormEiaPlanification = new SearchFormEiaListPlanification(
 				"Busqueda de Equipos Planificación");
 
 		searchForm.addEiaTypeSelectionListener(new EIATypeSelectionListener() {

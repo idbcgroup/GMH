@@ -3,8 +3,6 @@ package org.fourgeeks.gha.domain.gmh;
 import javax.persistence.Entity;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 
 /**
  * 
@@ -23,6 +21,7 @@ public class EiaPlanificationEntity extends AbstractEntity {
 	}
 
 	public EiaPlanificationEntity(Eia eia, EiaMaintenancePlanification emp) {
+		super();
 		this.eia = eia;
 		this.emp = emp;
 	}
