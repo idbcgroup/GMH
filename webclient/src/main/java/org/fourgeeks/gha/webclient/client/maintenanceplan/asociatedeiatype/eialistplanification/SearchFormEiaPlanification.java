@@ -1,10 +1,9 @@
-package org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype;
+package org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.eialistplanification;
 
 import java.util.List;
 
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
-import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaPlanificationEntity;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
@@ -42,12 +41,19 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class SearchFormEiaPlanification extends GHASearchForm<Eia> implements
 		EIASelectionListener, EiaSelectionProducer {
 
+	private GHATextItem serialNumber;
+	private GHATextItem fixedAssetIdentifier;
+	// private GHAEiaStateSelectItem stateSelectItem;
+	// private GHAObuSelectItem obuSelectItem;
+	// private GHABpiSelectItem bpiObuSelectItem;
+	// private GHARoleSelectItem baseRoleSelectItem;
+	private GHAWorkingAreaSelectItem workingAreaLocationSelectItem;
+	// private GHAFacilitySelectItem facilityLocationSelectItem;
+	private EiaTypeMaintenancePlan eiaTypeMaintenancePlan;
+
 	/**
 	 * @param title
 	 */
-
-	private EiaTypeMaintenancePlan eiaTypeMaintenancePlan;
-
 	public SearchFormEiaPlanification(final String title) {
 		super(title);
 		// TODO Auto-generated constructor stub
@@ -112,15 +118,6 @@ public class SearchFormEiaPlanification extends GHASearchForm<Eia> implements
 		resultSet.addEiaSelectionListener(eiaSelectionListener);
 	}
 
-	private GHATextItem serialNumber;
-	private GHATextItem fixedAssetIdentifier;
-	// private GHAEiaStateSelectItem stateSelectItem;
-	// private GHAObuSelectItem obuSelectItem;
-	// private GHABpiSelectItem bpiObuSelectItem;
-	// private GHARoleSelectItem baseRoleSelectItem;
-	private GHAWorkingAreaSelectItem workingAreaLocationSelectItem;
-	// private GHAFacilitySelectItem facilityLocationSelectItem;
-
 	protected final ResultSetEiaPlanification resultSet = new ResultSetEiaPlanification(
 			ResultSetContainerType.SEARCH_FORM);
 	private GHADynamicForm form;
@@ -143,13 +140,12 @@ public class SearchFormEiaPlanification extends GHASearchForm<Eia> implements
 			}
 		});
 
-		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
+		form = new GHADynamicForm(3, FormType.NORMAL_FORM);
 	}
 
 	/**
 	 * 
 	 */
-
 	// public EIASearchForm(String title) { }
 
 	public void clean() {
@@ -194,9 +190,7 @@ public class SearchFormEiaPlanification extends GHASearchForm<Eia> implements
 
 	@Override
 	public void search() {
-		final Obu obu = new Obu();
 		final Eia eia = new Eia();
-		eia.setState(null);
 		eia.setState(EiaStateEnum.IN_OPERATION);
 
 		if (serialNumber.getValue() != null)

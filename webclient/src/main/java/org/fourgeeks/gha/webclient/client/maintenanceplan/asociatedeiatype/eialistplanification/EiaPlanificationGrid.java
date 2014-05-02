@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype;
+package org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.eialistplanification;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
@@ -25,18 +25,18 @@ public class EiaPlanificationGrid extends GhaGrid<Eia> {
 		GHAGridField faiGridField = new GHAGridField("fai", "Id Activo Fijo");
 		GHAGridField locationGridField = new GHAGridField("location",
 				"Ubicación");
-		GHAGridField bpiGridField = new GHAGridField("bpi", "Institución");
+		// GHAGridField bpiGridField = new GHAGridField("bpi", "Institución");
 		GHAGridField statusGridField = new GHAGridField("state", "Estado");
 
 		// los que van ocultos por defecto
-		GHAGridField obuGridField = new GHAGridField("obu",
-				"Dept. Responsable", true);
-		GHAGridField roleGridField = new GHAGridField("role",
-				"Rol Responsable", true);
-		GHAGridField typeFiled = new GHAGridField("type", "Tipo de equipo",
-				true);
-		GHAGridField brandFiled = new GHAGridField("brand", "Marca", true);
-		GHAGridField modelFiled = new GHAGridField("model", "Modelo", true);
+		// GHAGridField obuGridField = new GHAGridField("obu",
+		// "Dept. Responsable", true);
+		// GHAGridField roleGridField = new GHAGridField("role",
+		// "Rol Responsable", true);
+		// GHAGridField typeFiled = new GHAGridField("type", "Tipo de equipo",
+		// true);
+		// GHAGridField brandFiled = new GHAGridField("brand", "Marca", true);
+		// GHAGridField modelFiled = new GHAGridField("model", "Modelo", true);
 
 		GHAGridField statusPlanification = new GHAGridField(
 				"statusPlanification", "Estado Planificación");
@@ -44,13 +44,15 @@ public class EiaPlanificationGrid extends GhaGrid<Eia> {
 		statusPlanification.setCanEdit(true);
 
 		setFields(idGridField, serialGridField, faiGridField,
-				locationGridField, bpiGridField, statusGridField, obuGridField,
-				roleGridField, typeFiled, brandFiled, modelFiled,
+				locationGridField, statusGridField, // obuGridField,
+													// bpiGridField,
+				// roleGridField, typeFiled, brandFiled, modelFiled,
 				statusPlanification);
 
 		headerMenuItems = generateHeaderMenuItems(idGridField, serialGridField,
-				faiGridField, locationGridField, bpiGridField, statusGridField,
-				obuGridField, roleGridField, typeFiled, brandFiled, modelFiled,
+				faiGridField, locationGridField, statusGridField, // bpiGridField,
+				// obuGridField, roleGridField, typeFiled, brandFiled,
+				// modelFiled,
 				statusPlanification);
 
 		setCanHover(true);

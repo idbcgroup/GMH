@@ -21,6 +21,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabe
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.eialistplanification.SearchFormEiaPlanification;
 
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;

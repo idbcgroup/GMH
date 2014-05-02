@@ -316,24 +316,22 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 					"eia.workingArea", "=", ":workingArea");
 
 			queryStr += whereStr;
-			System.out.println("El query es: " + queryStr);
-			int ordinal = eia.getState().ordinal();
-			System.out.println("eia.getState(): " + ordinal);
 			// creo el query y le asigno los parametros
 			TypedQuery<EiaPlanificationEntity> query = em.createQuery(queryStr,
 					EiaPlanificationEntity.class);
 			if (eia.getFixedAssetIdentifier() != null)
 				query.setParameter("fixedAssetIdentifier",
-						eia.getFixedAssetIdentifier());
+						"%" + eia.getFixedAssetIdentifier() + "%");
 
 			if (eia.getSerialNumber() != null)
-				query.setParameter("serialNumber", eia.getSerialNumber());
+				query.setParameter("serialNumber", "%" + eia.getSerialNumber()
+						+ "%");
 
 			if (eia.getWorkingArea() != null)
 				query.setParameter("workingArea", eia.getWorkingArea());
 
-			query.setParameter("state", ordinal);
-			query.setParameter("eiaType", eia.getEiaType());
+			query.setParameter("state", eia.getState());
+			query.setParameter("eiaType", plan.getEiaType());
 
 			// devuelvo la lista de EiaPlanificationEntity
 			return query.getResultList();

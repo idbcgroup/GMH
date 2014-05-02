@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype;
+package org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.eialistplanification;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,7 @@ import org.fourgeeks.gha.webclient.client.eia.EIARecord;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiasPlanificationAddForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.user.client.Window;
