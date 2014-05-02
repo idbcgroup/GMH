@@ -1,21 +1,18 @@
 package org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.gmh.EiaPlanificationEntity;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaStateSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAWorkingAreaSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHACleanButton;
@@ -23,11 +20,12 @@ import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
-import org.fourgeeks.gha.webclient.client.eia.EIAModel;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer;
+import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.EiaMaintenancePlanificationModel;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -55,7 +53,7 @@ public class SearchFormEiaPlanification extends GHASearchForm<Eia> implements
 		// TODO Auto-generated constructor stub
 		// bpiObuSelectItem,facilityLocationSelectItem,obuSelectItem,
 		// baseRoleSelectItem
-		form.setItems(serialNumber, fixedAssetIdentifier, stateSelectItem,
+		form.setItems(serialNumber, fixedAssetIdentifier, // stateSelectItem,
 				workingAreaLocationSelectItem);
 		form.setAutoFocus(true);
 		serialNumber.setSelectOnFocus(true);
@@ -71,7 +69,7 @@ public class SearchFormEiaPlanification extends GHASearchForm<Eia> implements
 		}; //
 		serialNumber.addKeyUpHandler(searchKeyUpHandler);
 		fixedAssetIdentifier.addKeyUpHandler(searchKeyUpHandler);
-		stateSelectItem.addKeyUpHandler(searchKeyUpHandler);
+		// stateSelectItem.addKeyUpHandler(searchKeyUpHandler);
 		// bpiObuSelectItem.addKeyUpHandler(searchKeyUpHandler);
 		workingAreaLocationSelectItem.addKeyUpHandler(searchKeyUpHandler);
 		// facilityLocationSelectItem.addKeyUpHandler(searchKeyUpHandler);
@@ -116,14 +114,14 @@ public class SearchFormEiaPlanification extends GHASearchForm<Eia> implements
 
 	private GHATextItem serialNumber;
 	private GHATextItem fixedAssetIdentifier;
-	private GHAEiaStateSelectItem stateSelectItem;
+	// private GHAEiaStateSelectItem stateSelectItem;
 	// private GHAObuSelectItem obuSelectItem;
 	// private GHABpiSelectItem bpiObuSelectItem;
 	// private GHARoleSelectItem baseRoleSelectItem;
 	private GHAWorkingAreaSelectItem workingAreaLocationSelectItem;
 	// private GHAFacilitySelectItem facilityLocationSelectItem;
 
-	protected final ResulsetEiaPlanification resultSet = new ResulsetEiaPlanification(
+	protected final ResultSetEiaPlanification resultSet = new ResultSetEiaPlanification(
 			ResultSetContainerType.SEARCH_FORM);
 	private GHADynamicForm form;
 
@@ -131,7 +129,7 @@ public class SearchFormEiaPlanification extends GHASearchForm<Eia> implements
 		serialNumber = new GHATextItem(GHAStrings.get("serial"));
 		fixedAssetIdentifier = new GHATextItem(
 				GHAStrings.get("fixed-asset-identifier"));
-		stateSelectItem = new GHAEiaStateSelectItem();
+		// stateSelectItem = new GHAEiaStateSelectItem();
 		workingAreaLocationSelectItem = new GHAWorkingAreaSelectItem();
 		// facilityLocationSelectItem = new GHAFacilitySelectItem();
 		// obuSelectItem = new GHAObuSelectItem();
@@ -199,6 +197,7 @@ public class SearchFormEiaPlanification extends GHASearchForm<Eia> implements
 		final Obu obu = new Obu();
 		final Eia eia = new Eia();
 		eia.setState(null);
+		eia.setState(EiaStateEnum.IN_OPERATION);
 
 		if (serialNumber.getValue() != null)
 			eia.setSerialNumber(serialNumber.getValueAsString());
@@ -220,10 +219,10 @@ public class SearchFormEiaPlanification extends GHASearchForm<Eia> implements
 		// .getValueAsString()));
 		// eia.setResponsibleRole(baseRole);
 		// }
-		if (stateSelectItem.getValue() != null) {
-			eia.setState(EiaStateEnum.valueOf(stateSelectItem
-					.getValueAsString()));
-		}
+		// if (stateSelectItem.getValue() != null) {
+		// eia.setState(EiaStateEnum.valueOf(stateSelectItem
+		// .getValueAsString()));
+		// }
 		// if (facilityLocationSelectItem.getValue() != null) {
 		// eia.setWorkingArea(null);
 		// eia.setFacility(new Facility(Integer
@@ -240,24 +239,47 @@ public class SearchFormEiaPlanification extends GHASearchForm<Eia> implements
 	protected void search(final Eia eia) {
 
 		// eiaTypeMaintenancePlan, Eia
-		//
-		EIAModel.find(eia, new GHAAsyncCallback<List<Eia>>() {
+		EiaMaintenancePlanificationModel.findEiaMaintenancePlanificationStatus(
+				eia, eiaTypeMaintenancePlan,
 
-			@Override
-			public void onSuccess(List<Eia> result) {
-				List<Eia> newList = new ArrayList<Eia>();
-				if (blackList != null) {
-					final List<AbstractEntity> tmpList = GHAUtil
-							.binarySearchFilterEntity(result, blackList);
-					final List<Eia> newTmpList = new ArrayList<Eia>();
-					for (final AbstractEntity entity : tmpList)
-						newTmpList.add((Eia) entity);
-					newList = newTmpList;
-				} else
-					newList = result;
-				resultSet.setRecords(newList, false);
-			}
-		});
+				new GHAAsyncCallback<List<EiaPlanificationEntity>>() {
+					@Override
+					public void onSuccess(List<EiaPlanificationEntity> result) {
+
+						Window.alert("La cantidad de registros es --> "
+								+ result.size());
+						// List<Eia> newList = new ArrayList<Eia>();
+						// if (blackList != null) {
+						// final List<AbstractEntity> tmpList = GHAUtil
+						// .binarySearchFilterEntity(result, blackList);
+						// final List<Eia> newTmpList = new ArrayList<Eia>();
+						// for (final AbstractEntity entity : tmpList)
+						// newTmpList.add((Eia) entity);
+						// newList = newTmpList;
+						// } else
+						// newList = result;
+						// resultSet.setRecords(newList, false);
+					}
+
+				});
+		//
+		// EiaMaintenancePlanificationModel.find(eia,
+		// new GHAAsyncCallback<List<Eia>>() {
+		// @Override
+		// public void onSuccess(List<Eia> result) {
+		// List<Eia> newList = new ArrayList<Eia>();
+		// if (blackList != null) {
+		// final List<AbstractEntity> tmpList = GHAUtil
+		// .binarySearchFilterEntity(result, blackList);
+		// final List<Eia> newTmpList = new ArrayList<Eia>();
+		// for (final AbstractEntity entity : tmpList)
+		// newTmpList.add((Eia) entity);
+		// newList = newTmpList;
+		// } else
+		// newList = result;
+		// resultSet.setRecords(newList, false);
+		// }
+		// });
 	}
 
 	@Override

@@ -34,7 +34,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author eguerere
  * 
  */
-public class ResulsetEiaPlanification extends GHAResultSet<Eia> implements
+public class ResultSetEiaPlanification extends GHAResultSet<Eia> implements
 		EiaSelectionProducer {
 
 	private List<EIASelectionListener> listeners;
@@ -50,7 +50,7 @@ public class ResulsetEiaPlanification extends GHAResultSet<Eia> implements
 	 * @param container
 	 * 
 	 */
-	public ResulsetEiaPlanification(ResultSetContainerType container) {
+	public ResultSetEiaPlanification(ResultSetContainerType container) {
 		super(GHAStrings.get("search-results"));
 		this.containerType = container;
 		setHeight(GHAUiHelper.getResultSetHeight(containerType));

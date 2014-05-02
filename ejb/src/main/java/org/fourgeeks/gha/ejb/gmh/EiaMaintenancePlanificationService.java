@@ -18,6 +18,7 @@ import org.fourgeeks.gha.domain.enu.EiaMaintenanceState;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
+import org.fourgeeks.gha.domain.gmh.EiaPlanificationEntity;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
@@ -297,25 +298,27 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 	public List<EiaPlanificationEntity> findEiaMaintenancePlanificationStatus(
 			Eia eia, EiaTypeMaintenancePlan plan) throws GHAEJBException {
 		try {
-			String queryStr = "SELECT new EiaPlanificationEntity(eia, emp) FROM Eia eia "
-					+ "LEFT JOIN EiaMaintenancePlanification emp.eia = :eia AND emp.plan = :plan";
+			String queryStr = "SELECT new EiaPlanificationEntity(eia, p) FROM Eia eia "
+					+ "LEFT JOIN eia.eMaintenancePlan p ";
 
-			String whereStr = "";
+			String whereStr = "WHERE eia.eiaType =:eiaType";
+
 			whereStr = buildWhere(whereStr, eia.getFixedAssetIdentifier(),
-					"eia.fixedAssetIdentifier", "LIKE",
-					"%:fixedAssetIdentifier%");
+					"eia.fixedAssetIdentifier", "LIKE", ":fixedAssetIdentifier");
 
 			whereStr = buildWhere(whereStr, eia.getSerialNumber(),
-					"eia.serialNumber", "LIKE", "%:serialNumber%");
+					"eia.serialNumber", "LIKE", ":serialNumber");
 
 			whereStr = buildWhere(whereStr, eia.getState(), "eia.state", "=",
-					":eiaState");
+					":state");
 
 			whereStr = buildWhere(whereStr, eia.getWorkingArea(),
 					"eia.workingArea", "=", ":workingArea");
 
 			queryStr += whereStr;
-
+			System.out.println("El query es: " + queryStr);
+			int ordinal = eia.getState().ordinal();
+			System.out.println("eia.getState(): " + ordinal);
 			// creo el query y le asigno los parametros
 			TypedQuery<EiaPlanificationEntity> query = em.createQuery(queryStr,
 					EiaPlanificationEntity.class);
@@ -329,8 +332,8 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 			if (eia.getWorkingArea() != null)
 				query.setParameter("workingArea", eia.getWorkingArea());
 
-			if (eia.getState() != null)
-				query.setParameter("eiaState", eia.getState());
+			query.setParameter("state", ordinal);
+			query.setParameter("eiaType", eia.getEiaType());
 
 			// devuelvo la lista de EiaPlanificationEntity
 			return query.getResultList();
@@ -366,7 +369,7 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 			String op, String param) {
 
 		if (elem != null) {
-			query += query.isEmpty() ? " where " : " and ";
+			query += query.isEmpty() ? " WHERE " : " AND ";
 			query += campo + " " + op + " " + param;
 		}
 		return query;
