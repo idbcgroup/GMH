@@ -192,33 +192,33 @@ public class SearchFormEiaListPlanification extends GHASearchForm<Eia>
 					@Override
 					public void onSuccess(List<EiaPlanificationEntity> result) {
 						try {
-							Window.alert("El objeto es3: -->"
-									+ result.get(0).getEmp());
-							Window.alert("1");
+							// Window.alert("El objeto es3: -->"
+							// + result.get(0).getEmp());
+							// Window.alert("1");
 							List<EiaPlanificationEntity> newList = new ArrayList<EiaPlanificationEntity>();
-							Window.alert("2");
+							// Window.alert("2");
 							if (blackList != null) {
-								Window.alert("if 1");
+								// Window.alert("if 1");
 								final List<AbstractEntity> tmpList = GHAUtil
 										.binarySearchFilterEntity(result,
 												blackList);
-								Window.alert("if 2");
+								// Window.alert("if 2");
 								final List<EiaPlanificationEntity> newTmpList = new ArrayList<EiaPlanificationEntity>();
-								Window.alert("if 3");
+								// Window.alert("if 3");
 								for (final AbstractEntity entity : tmpList)
 									newTmpList
 											.add((EiaPlanificationEntity) entity);
-								Window.alert("if 4");
+								// Window.alert("if 4");
 								newList = newTmpList;
-								Window.alert("if 5");
+								// Window.alert("if 5");
 							} else {
-								Window.alert("else 1");
+								// Window.alert("else 1");
 								newList = result;
-								Window.alert("else 2");
+								// Window.alert("else 2");
 							}
-							Window.alert("3");
+							// Window.alert("3");
 							resultSet.setRecords(newList, false);
-							Window.alert("4");
+							// Window.alert("4");
 						} catch (Exception e) {
 							Window.alert(" la excepcion es " + e.toString());
 						}

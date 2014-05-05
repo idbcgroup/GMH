@@ -2,6 +2,7 @@ package org.fourgeeks.gha.ejb.gmh;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -298,9 +299,12 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 	public List<EiaPlanificationEntity> findEiaMaintenancePlanificationStatus(
 			Eia eia, EiaTypeMaintenancePlan plan) throws GHAEJBException {
 		try {
-			String queryStr = "SELECT new EiaPlanificationEntity(eia, p) FROM Eia eia "
-					+ "LEFT JOIN eia.eMaintenancePlan p ";
+			String queryStr = "SELECT eia FROM Eia eia ";
 
+			// String queryStr =
+			// "SELECT new EiaPlanificationEntity(eia, p) FROM Eia eia "
+			// + "LEFT JOIN eia.eMaintenancePlan p ";
+			//
 			String whereStr = "WHERE eia.eiaType =:eiaType";
 
 			whereStr = buildWhere(whereStr, eia.getFixedAssetIdentifier(),
@@ -316,9 +320,9 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 					"eia.workingArea", "=", ":workingArea");
 
 			queryStr += whereStr;
+
 			// creo el query y le asigno los parametros
-			TypedQuery<EiaPlanificationEntity> query = em.createQuery(queryStr,
-					EiaPlanificationEntity.class);
+			TypedQuery<Eia> query = em.createQuery(queryStr, Eia.class);
 			if (eia.getFixedAssetIdentifier() != null)
 				query.setParameter("fixedAssetIdentifier",
 						"%" + eia.getFixedAssetIdentifier() + "%");
@@ -334,7 +338,40 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 			query.setParameter("eiaType", plan.getEiaType());
 
 			// devuelvo la lista de EiaPlanificationEntity
-			return query.getResultList();
+			List<Eia> tempList = query.getResultList();
+
+			String queryStr2 = "SELECT emp FROM EiaMaintenancePlanification emp ";
+			String whereStr2 = "WHERE emp.plan =:plan";
+
+			queryStr2 += whereStr2;
+
+			TypedQuery<EiaMaintenancePlanification> query2 = em.createQuery(
+					queryStr2, EiaMaintenancePlanification.class);
+
+			query2.setParameter("plan", plan);
+
+			List<EiaMaintenancePlanification> tempList2 = query2
+					.getResultList();
+
+			System.out.println("tempList.size(): " + tempList.size()
+					+ " tempList2.size(): " + tempList2.size());
+
+			boolean hasPlan = false;
+			List<EiaPlanificationEntity> resultList = new ArrayList<EiaPlanificationEntity>();
+			for (Eia eiaTemp : tempList) {
+				hasPlan = false;
+				for (EiaMaintenancePlanification empTemp : tempList2) {
+					if (empTemp.getEia().equals(eiaTemp)) {
+						resultList.add(new EiaPlanificationEntity(eiaTemp,
+								empTemp));
+						hasPlan = true;
+						break;
+					}
+				}
+				if (!hasPlan)
+					resultList.add(new EiaPlanificationEntity(eiaTemp, null));
+			}
+			return resultList;
 
 		} catch (NoResultException ex) {
 			logger.log(Level.INFO, "No results", ex);
