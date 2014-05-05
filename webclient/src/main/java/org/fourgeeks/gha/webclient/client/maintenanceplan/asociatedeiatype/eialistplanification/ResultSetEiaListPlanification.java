@@ -8,15 +8,14 @@ import org.fourgeeks.gha.domain.gmh.EiaPlanificationEntity;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
-import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.buttons.GHANewButton;
-import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiasPlanificationAddForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -74,7 +73,17 @@ public class ResultSetEiaListPlanification extends
 					@Override
 					public void onClick(ClickEvent event) {
 
-						eiasPlanificationAddForm.open();
+						if (grid.getRecords().length > 0) {
+
+							List<EiaPlanificationEntity> eiaList = grid
+									.getEntities();
+
+							eiasPlanificationAddForm.select(eiaList);
+							eiasPlanificationAddForm.open();
+
+						} else {
+							Window.alert("Deben Existir Registros");
+						}
 					}
 				}));
 
@@ -171,15 +180,15 @@ public class ResultSetEiaListPlanification extends
 	}
 
 	private void notifySelectedEia() {
-		GHAGridRecord<EiaListMaintenanceRecord> selectedRecord = grid
-				.getSelectedRecord();
-		if (selectedRecord == null) {
-			GHAErrorMessageProcessor.alert("record-not-selected");
-			return;
-		}
-		// notifyEia(((EiaListMaintenanceRecord) selectedRecord).toEntity());
-		hide();
-		grid.removeSelectedData();
+		// // GHAGridRecord<EiaListMaintenanceRecord> selectedRecord =
+		// // grid.getSelectedRecord();
+		// if (selectedRecord == null) {
+		// GHAErrorMessageProcessor.alert("record-not-selected");
+		// return;
+		// }
+		// // notifyEia(((EiaListMaintenanceRecord) selectedRecord).toEntity());
+		// hide();
+		// grid.removeSelectedData();
 	}
 
 	@Override

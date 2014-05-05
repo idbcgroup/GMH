@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.eialistplanification;
 
+import org.fourgeeks.gha.domain.gmh.EiaPlanificationEntity;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 
@@ -13,7 +14,7 @@ import com.smartgwt.client.widgets.menu.events.MenuItemClickEvent;
  * 
  */
 
-public class EiaListPlanificationGrid extends GhaGrid<EiaListMaintenanceRecord> {
+public class EiaListPlanificationGrid extends GhaGrid<EiaPlanificationEntity> {
 	private final MenuItem[] headerMenuItems;
 
 	EiaListPlanificationGrid() {

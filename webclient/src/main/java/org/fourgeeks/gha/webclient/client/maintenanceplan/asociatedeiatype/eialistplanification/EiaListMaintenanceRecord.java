@@ -14,13 +14,14 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
  */
 public class EiaListMaintenanceRecord extends
 		GHAGridRecord<EiaPlanificationEntity> {
-	private EiaPlanificationEntity entity;
-	private Eia eiaEntity;
-	private EiaMaintenancePlanification planificationEntity;
+	private final EiaPlanificationEntity entity;
+
+	private final Eia eiaEntity;
+	private final EiaMaintenancePlanification planificationEntity;
 
 	/**
-	 * @param eiaEntity
-	 * @param planificationEntity
+	 * 
+	 * @param entity
 	 */
 	public EiaListMaintenanceRecord(EiaPlanificationEntity entity) {
 		this.entity = entity;
@@ -65,5 +66,19 @@ public class EiaListMaintenanceRecord extends
 	@Override
 	public EiaPlanificationEntity toEntity() {
 		return entity;
+	}
+
+	/**
+	 * @return the eiaEntity
+	 */
+	public Eia getEiaEntity() {
+		return eiaEntity;
+	}
+
+	/**
+	 * @return the planificationEntity
+	 */
+	public EiaMaintenancePlanification getPlanificationEntity() {
+		return planificationEntity;
 	}
 }

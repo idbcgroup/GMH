@@ -27,7 +27,6 @@ import org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer;
 import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.EiaMaintenancePlanificationModel;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -191,37 +190,22 @@ public class SearchFormEiaListPlanification extends GHASearchForm<Eia>
 				new GHAAsyncCallback<List<EiaPlanificationEntity>>() {
 					@Override
 					public void onSuccess(List<EiaPlanificationEntity> result) {
-						try {
-							// Window.alert("El objeto es3: -->"
-							// + result.get(0).getEmp());
-							// Window.alert("1");
-							List<EiaPlanificationEntity> newList = new ArrayList<EiaPlanificationEntity>();
-							// Window.alert("2");
-							if (blackList != null) {
-								// Window.alert("if 1");
-								final List<AbstractEntity> tmpList = GHAUtil
-										.binarySearchFilterEntity(result,
-												blackList);
-								// Window.alert("if 2");
-								final List<EiaPlanificationEntity> newTmpList = new ArrayList<EiaPlanificationEntity>();
-								// Window.alert("if 3");
-								for (final AbstractEntity entity : tmpList)
-									newTmpList
-											.add((EiaPlanificationEntity) entity);
-								// Window.alert("if 4");
-								newList = newTmpList;
-								// Window.alert("if 5");
-							} else {
-								// Window.alert("else 1");
-								newList = result;
-								// Window.alert("else 2");
-							}
-							// Window.alert("3");
-							resultSet.setRecords(newList, false);
-							// Window.alert("4");
-						} catch (Exception e) {
-							Window.alert(" la excepcion es " + e.toString());
+						List<EiaPlanificationEntity> newList = new ArrayList<EiaPlanificationEntity>();
+
+						if (blackList != null) {
+							final List<AbstractEntity> tmpList = GHAUtil
+									.binarySearchFilterEntity(result, blackList);
+							final List<EiaPlanificationEntity> newTmpList = new ArrayList<EiaPlanificationEntity>();
+
+							for (final AbstractEntity entity : tmpList)
+								newTmpList.add((EiaPlanificationEntity) entity);
+
+							newList = newTmpList;
+
+						} else {
+							newList = result;
 						}
+						resultSet.setRecords(newList, false);
 					}
 				});
 
@@ -262,9 +246,10 @@ public class SearchFormEiaListPlanification extends GHASearchForm<Eia>
 	 */
 	public void setEiaTypeMaintenancePlan(
 			EiaTypeMaintenancePlan eiaTypeMaintenancePlan) {
+
 		this.eiaTypeMaintenancePlan = eiaTypeMaintenancePlan;
-		resultSet.getEiasPlanificationAddForm().setEiaTypeMplan(
-				eiaTypeMaintenancePlan);
+		resultSet.getEiasPlanificationAddForm().select(eiaTypeMaintenancePlan);
+
 	}
 
 }
