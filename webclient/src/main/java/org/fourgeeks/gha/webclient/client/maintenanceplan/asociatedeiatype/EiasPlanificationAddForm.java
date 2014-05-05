@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -29,8 +30,10 @@ public class EiasPlanificationAddForm extends
 		EIASelectionListener, EIATypeSelectionListener,
 		MaintenancePlanificationSelectionProducer {
 
+	private EiaTypeMaintenancePlan eiaTypeMplan;
+
 	{
-		form = new EiasPlanificationMaintenanceForm();
+		form = new EiasPlanificationMaintenanceForm(this);
 	}
 
 	/**	 */
@@ -109,6 +112,21 @@ public class EiasPlanificationAddForm extends
 	@Override
 	public void select(EiaType eiaType) {
 		((EIATypeSelectionListener) form).select(eiaType);
+	}
+
+	/**
+	 * @return the eiaTypeMplan
+	 */
+	public EiaTypeMaintenancePlan getEiaTypeMplan() {
+		return eiaTypeMplan;
+	}
+
+	/**
+	 * @param eiaTypeMplan
+	 *            the eiaTypeMplan to set
+	 */
+	public void setEiaTypeMplan(EiaTypeMaintenancePlan eiaTypeMplan) {
+		this.eiaTypeMplan = eiaTypeMplan;
 	}
 
 }

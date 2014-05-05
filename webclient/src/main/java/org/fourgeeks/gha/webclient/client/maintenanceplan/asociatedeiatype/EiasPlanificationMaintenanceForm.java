@@ -40,6 +40,7 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -64,6 +65,9 @@ public class EiasPlanificationMaintenanceForm extends
 	private GHAMaintenancePlanStateSelectItem planStateSelectItem;
 	private GHAMaintenancePlanificationStateSelectItem planificationStateSelectItem;
 	private GHAMaintenancePlanSelectItem planSelectItem;
+	private MaintenancePlan selectedMplan;
+	private final EiasPlanificationAddForm addForm;
+
 	private EiaType selectedEiaType;
 
 	{
@@ -108,24 +112,25 @@ public class EiasPlanificationMaintenanceForm extends
 			}
 		});
 
-		planSelectItem.addChangedHandler(new ChangedHandler() {
-			@Override
-			public void onChanged(ChangedEvent event) {
-				changedHandler.onChanged(event);
-
-				final MaintenancePlan mPlan = planSelectItem
-						.getValueAsMaintenancePlan();
-				planStateSelectItem.setValue(mPlan.getState());
-				frequencyItem.setValue(mPlan.getFrequency());
-				frequencyPoTSelectItem.setValue(mPlan.getPot());
-			}
-		});
-		planSelectItem.setVisible(false);
+		/*
+		 * planSelectItem.addChangedHandler(new ChangedHandler() {
+		 * 
+		 * @Override public void onChanged(ChangedEvent event) {
+		 * changedHandler.onChanged(event);
+		 * 
+		 * final MaintenancePlan mPlan = planSelectItem
+		 * .getValueAsMaintenancePlan();
+		 * planStateSelectItem.setValue(mPlan.getState());
+		 * frequencyItem.setValue(mPlan.getFrequency());
+		 * frequencyPoTSelectItem.setValue(mPlan.getPot()); } });
+		 */
+		planSelectItem.setVisible(true);
 
 	}
 
 	/** */
-	public EiasPlanificationMaintenanceForm() {
+	public EiasPlanificationMaintenanceForm(EiasPlanificationAddForm addForm) {
+		this.addForm = addForm;
 		final HLayout mainPanel = new HLayout();
 		form.setItems(beginningDateDateItem, new GHASpacerItem(2),
 				planSelectItem, new GHASpacerItem(2), frequencyItem,
@@ -152,7 +157,7 @@ public class EiasPlanificationMaintenanceForm extends
 	@Override
 	public void clear() {
 		super.clear();
-
+		Window.alert("en el mensaje clear");
 		beginningDateDateItem.clearValue();
 		planSelectItem.clearValue();
 		providerSelectItem.clearValue();
@@ -281,6 +286,12 @@ public class EiasPlanificationMaintenanceForm extends
 		selectedEia = eia;
 		planSelectItem.fillByEiaType(selectedEiaType);
 
+		MaintenancePlan mPlan = addForm.getEiaTypeMplan().getMaintenancePlan();
+
+		planStateSelectItem.setValue(mPlan.getState());
+		frequencyItem.setValue(mPlan.getFrequency());
+		frequencyPoTSelectItem.setValue(mPlan.getPot());
+
 		Date dia_actual = new Date();
 		DateTimeFormat dtf = DateTimeFormat.getFormat("dd/MM/yyyy");
 		beginningDateDateItem.setValue(dtf.format(dia_actual));
@@ -327,6 +338,21 @@ public class EiasPlanificationMaintenanceForm extends
 	@Override
 	public void update(GHAAsyncCallback<EiaMaintenancePlanification> callback) {
 		// TODO Auto-generated method stub
+	}
+
+	/**
+	 * @return the selectedMplan
+	 */
+	public MaintenancePlan getSelectedMplan() {
+		return selectedMplan;
+	}
+
+	/**
+	 * @param selectedMplan
+	 *            the selectedMplan to set
+	 */
+	public void setSelectedMplan(MaintenancePlan selectedMplan) {
+		this.selectedMplan = selectedMplan;
 	}
 
 }

@@ -73,6 +73,7 @@ public class ResultSetEiaListPlanification extends
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
+
 						eiasPlanificationAddForm.open();
 					}
 				}));
@@ -80,6 +81,13 @@ public class ResultSetEiaListPlanification extends
 		HLayout mainLayout = new HLayout();
 		mainLayout.addMembers(grid, sideButtons);
 		addMember(mainLayout);
+	}
+
+	/**
+	 * @return the eiasPlanificationAddForm
+	 */
+	public EiasPlanificationAddForm getEiasPlanificationAddForm() {
+		return eiasPlanificationAddForm;
 	}
 
 	/*

@@ -263,6 +263,8 @@ public class SearchFormEiaListPlanification extends GHASearchForm<Eia>
 	public void setEiaTypeMaintenancePlan(
 			EiaTypeMaintenancePlan eiaTypeMaintenancePlan) {
 		this.eiaTypeMaintenancePlan = eiaTypeMaintenancePlan;
+		resultSet.getEiasPlanificationAddForm().setEiaTypeMplan(
+				eiaTypeMaintenancePlan);
 	}
 
 }
