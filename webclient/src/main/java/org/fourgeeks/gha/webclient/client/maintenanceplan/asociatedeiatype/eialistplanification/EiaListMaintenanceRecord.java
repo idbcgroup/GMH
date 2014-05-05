@@ -41,6 +41,11 @@ public class EiaListMaintenanceRecord extends
 			setAttribute("fai", eiaEntity.getFixedAssetIdentifier());
 		if (eiaEntity.getState() != null)
 			setAttribute("state", eiaEntity.getState());
+		if (eiaEntity.getResponsibleRole() != null)
+			setAttribute("role", eiaEntity.getResponsibleRole().getName());
+		if (eiaEntity.getProvider() != null)
+			setAttribute("provider", eiaEntity.getMaintenanceProvider()
+					.getObu().getName());
 		if (planificationEntity == null)
 			setAttribute("statusPlanification", false);
 		else {

@@ -23,17 +23,20 @@ public class EiaListPlanificationGrid extends GhaGrid<EiaListMaintenanceRecord> 
 				"Serial");
 		GHAGridField faiGridField = new GHAGridField("fai", "Id Activo Fijo");
 		GHAGridField statusGridField = new GHAGridField("state", "Estado");
-
+		GHAGridField cargoField = new GHAGridField("role", "Cargo responsable");
+		GHAGridField proveedorField = new GHAGridField("provider",
+				"Proveedor del servicio");
 		GHAGridField statusPlanification = new GHAGridField(
 				"statusPlanification", "Estado Planificación");
 		statusPlanification.setType(ListGridFieldType.BOOLEAN);
 		statusPlanification.setCanEdit(true);
 
 		setFields(idGridField, serialGridField, faiGridField, statusGridField,
-				statusPlanification);
+				cargoField, proveedorField, statusPlanification);
 
 		headerMenuItems = generateHeaderMenuItems(idGridField, serialGridField,
-				faiGridField, statusGridField, statusPlanification);
+				faiGridField, statusGridField, cargoField, proveedorField,
+				statusPlanification);
 
 		setCanHover(true);
 		setShowHover(true);
