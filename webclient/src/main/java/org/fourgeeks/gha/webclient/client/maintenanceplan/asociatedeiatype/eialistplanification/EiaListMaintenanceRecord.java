@@ -3,6 +3,7 @@
  */
 package org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.eialistplanification;
 
+import org.fourgeeks.gha.domain.enu.MaintenancePlanificationState;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaPlanificationEntity;
@@ -14,13 +15,14 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
  */
 public class EiaListMaintenanceRecord extends
 		GHAGridRecord<EiaPlanificationEntity> {
-	private EiaPlanificationEntity entity;
-	private Eia eiaEntity;
-	private EiaMaintenancePlanification planificationEntity;
+	private final EiaPlanificationEntity entity;
+
+	private final Eia eiaEntity;
+	private final EiaMaintenancePlanification planificationEntity;
 
 	/**
-	 * @param eiaEntity
-	 * @param planificationEntity
+	 * 
+	 * @param entity
 	 */
 	public EiaListMaintenanceRecord(EiaPlanificationEntity entity) {
 		this.entity = entity;
@@ -64,6 +66,19 @@ public class EiaListMaintenanceRecord extends
 	 */
 	@Override
 	public EiaPlanificationEntity toEntity() {
+
+		if (entity.getEmp() == null) {
+			EiaMaintenancePlanification eiaPlan = new EiaMaintenancePlanification();
+			entity.setEmp(eiaPlan);
+		}
+
+		if (getAttributeAsBoolean("statusPlanification").booleanValue())
+			entity.getEmp().setPlanificationState(
+					MaintenancePlanificationState.ACTIVE);
+		else
+			entity.getEmp().setPlanificationState(
+					MaintenancePlanificationState.INACTIVE);
+
 		return entity;
 	}
 }
