@@ -77,7 +77,6 @@ public class ResultSetEiaListPlanification extends
 
 							List<EiaPlanificationEntity> eiaList = grid
 									.getEntities();
-
 							eiasPlanificationAddForm.select(eiaList);
 							eiasPlanificationAddForm.open();
 
