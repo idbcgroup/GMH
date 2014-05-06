@@ -62,7 +62,6 @@ public class SearchFormEiaListPlanification extends GHASearchForm<Eia>
 			@Override
 			public void select(Eia eia) {
 				hide();
-				// TODO prueba
 			}
 		});
 
