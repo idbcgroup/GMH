@@ -162,18 +162,22 @@ public class EiasPlanificationMaintenanceForm extends
 					.getId());
 			planification.setJobResponsable(job);
 
-			if (beginningDateDateItem.getValueAsDate() != null)
-				planification
-						.setBeginningDate(EIAUtil
-								.getLogicalDate(beginningDateDateItem
-										.getValueAsDate()));
-
 			planification.setPlanificationState(listEiaPlan.get(index).getEmp()
 					.getPlanificationState());
 			// se verifica que la planificacion exista preguntando si el ID es
 			// distinto de cero
-			if (listEiaPlan.get(index).getEmp().getId() != 0)
+			if (listEiaPlan.get(index).getEmp().getId() != 0) {
 				planification.setId(listEiaPlan.get(index).getEmp().getId());
+				planification.setBeginningDate(listEiaPlan.get(index).getEmp()
+						.getBeginningDate());
+			} else {
+				// SI el id no existe se agrega la fecha de lo contrario, no se
+				// modifica
+				if (beginningDateDateItem.getValueAsDate() != null)
+					planification.setBeginningDate(EIAUtil
+							.getLogicalDate(beginningDateDateItem
+									.getValueAsDate()));
+			}
 
 			listPlanification.add(planification);
 
