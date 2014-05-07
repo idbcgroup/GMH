@@ -64,4 +64,11 @@ public class GWTEiaMaintenancePlanificationImpl extends RemoteServiceServlet
 		return serviceRemote.findEiaMaintenancePlanificationStatus(eia, plan);
 	}
 
+	@Override
+	public List<EiaMaintenancePlanification> save(
+			List<EiaMaintenancePlanification> listPlanif)
+			throws GHAEJBException {
+		return serviceRemote.save(listPlanif);
+	}
+
 }

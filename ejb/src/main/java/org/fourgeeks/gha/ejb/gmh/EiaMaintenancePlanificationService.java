@@ -40,43 +40,6 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 	private final static Logger logger = Logger
 			.getLogger(EiaMaintenancePlanificationService.class.getName());
 
-	// private final static Predicate buildFilters(Eia entity, CriteriaBuilder
-	// cb,
-	// Root<Eia> root) {
-	// Predicate predicate = cb.conjunction();
-	// if (entity.getSerialNumber() != null) {
-	// final ParameterExpression<String> p = cb.parameter(String.class,
-	// "serialNumber");
-	// predicate = cb.and(predicate,
-	// cb.like(root.<String> get("serialNumber"), p));
-	// }
-	// if (entity.getFixedAssetIdentifier() != null) {
-	// final ParameterExpression<String> p = cb.parameter(String.class,
-	// "fixedAssetId");
-	// predicate = cb.and(predicate,
-	// cb.like(root.<String> get("fixedAssetIdentifier"), p));
-	// }
-	// if (entity.getEiaType() != null) {
-	// final ParameterExpression<EiaType> p = cb.parameter(EiaType.class,
-	// "eiaType");
-	// predicate = cb.and(predicate,
-	// cb.equal(root.<EiaType> get("eiaType"), p));
-	// }
-	// if (entity.getState() != null) {
-	// final ParameterExpression<EiaStateEnum> p = cb.parameter(
-	// EiaStateEnum.class, "state");
-	// predicate = cb.and(predicate,
-	// cb.equal(root.<EiaStateEnum> get("state"), p));
-	// }
-	// if (entity.getWorkingArea() != null) {
-	// final ParameterExpression<WorkingArea> p = cb.parameter(
-	// WorkingArea.class, "workingArea");
-	// predicate = cb.and(predicate,
-	// cb.equal(root.<WorkingArea> get("workingArea"), p));
-	// }
-	// return predicate;
-	// }
-
 	@Override
 	public void delete(long Id) throws GHAEJBException {
 		try {
@@ -408,5 +371,31 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 			query += campo + " " + op + " " + param;
 		}
 		return query;
+	}
+
+	@Override
+	public List<EiaMaintenancePlanification> save(
+			List<EiaMaintenancePlanification> listPlanif)
+			throws GHAEJBException {
+		try {
+			List<EiaMaintenancePlanification> returnList = new ArrayList<EiaMaintenancePlanification>();
+
+			for (EiaMaintenancePlanification planif : listPlanif) {
+
+				if (planif.getId() == 0) {
+					em.persist(planif);
+					em.flush();
+				} else
+					em.merge(planif);
+				returnList.add(em.find(EiaMaintenancePlanification.class,
+						planif.getId()));
+			}
+			return returnList;
+		} catch (Exception e) {
+			logger.log(Level.INFO,
+					"ERROR: saving EiaMaintenancePlanification ", e);
+			throw super.generateGHAEJBException("eia-save-fail", em);
+
+		}
 	}
 }

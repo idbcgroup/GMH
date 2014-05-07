@@ -588,3 +588,4 @@ ES,eiacomponent-save-success,Componente agregado satisfactoriamente al Equipo,VE
 ES,ccdi-invalid-category-for-element,
 ES,both-plans-have-the-same-maintenance-activities,Ambos Planes poseen las mismas actividades,VEM-WARNING
 ES,eia-condition-not-null,Debe indicar la Condición del equipo,VEM-VALIDATION
+ES,exists-eia-grid,Debe existir al menos un registro en el grid,VEM-WARNING
