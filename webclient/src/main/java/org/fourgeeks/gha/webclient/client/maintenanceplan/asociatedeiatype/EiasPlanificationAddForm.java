@@ -25,7 +25,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author eguerere
  */
 public class EiasPlanificationAddForm extends
-		GHAAddForm<EiaMaintenancePlanification> implements
+		GHAAddForm<List<EiaMaintenancePlanification>> implements
 		EiaTypeMaintenancePlanificationListener, EiaTypeMaintenancePlanProducer {
 
 	private EiaTypeMaintenancePlan eiaTypeMplan;
@@ -94,9 +94,9 @@ public class EiasPlanificationAddForm extends
 
 	@Override
 	protected void save() {
-		form.save(new GHAAsyncCallback<EiaMaintenancePlanification>() {
+		form.save(new GHAAsyncCallback<List<EiaMaintenancePlanification>>() {
 			@Override
-			public void onSuccess(EiaMaintenancePlanification result) {
+			public void onSuccess(List<EiaMaintenancePlanification> result) {
 				form.clear();
 				GHAErrorMessageProcessor
 						.alert("eiaMaintenancePlanification-save-success");

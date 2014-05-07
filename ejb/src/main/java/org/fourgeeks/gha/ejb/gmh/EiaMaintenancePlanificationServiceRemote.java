@@ -64,4 +64,16 @@ public interface EiaMaintenancePlanificationServiceRemote {
 	public List<EiaPlanificationEntity> findEiaMaintenancePlanificationStatus(
 			Eia eia, EiaTypeMaintenancePlan plan) throws GHAEJBException;
 
+	/**
+	 * Saves a EiaMaintenancePlanification list in the DB
+	 * 
+	 * @param planif
+	 *            the EiaMaintenancePlanification list to save
+	 * @return the saved EiaMaintenancePlanification list
+	 * @throws GHAEJBException
+	 */
+	public List<EiaMaintenancePlanification> save(
+			List<EiaMaintenancePlanification> listPlanif)
+			throws GHAEJBException;
+
 }

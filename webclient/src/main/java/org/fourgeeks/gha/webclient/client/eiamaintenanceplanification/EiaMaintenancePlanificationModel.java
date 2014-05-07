@@ -53,4 +53,13 @@ public class EiaMaintenancePlanificationModel {
 		service.findEiaMaintenancePlanificationStatus(eia, plan, callback);
 	}
 
+	/**
+	 * 
+	 * @param entities
+	 * @param callback
+	 */
+	public static void save(List<EiaMaintenancePlanification> entities,
+			GHAAsyncCallback<List<EiaMaintenancePlanification>> callback) {
+		service.save(entities, callback);
+	}
 }

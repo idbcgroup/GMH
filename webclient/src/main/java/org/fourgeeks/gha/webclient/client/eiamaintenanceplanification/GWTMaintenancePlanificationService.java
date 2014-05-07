@@ -31,4 +31,8 @@ public interface GWTMaintenancePlanificationService extends RemoteService {
 	public List<EiaPlanificationEntity> findEiaMaintenancePlanificationStatus(
 			Eia eia, EiaTypeMaintenancePlan plan) throws GHAEJBException;
 
+	public List<EiaMaintenancePlanification> save(
+			List<EiaMaintenancePlanification> listPlanif)
+			throws GHAEJBException;
+
 }

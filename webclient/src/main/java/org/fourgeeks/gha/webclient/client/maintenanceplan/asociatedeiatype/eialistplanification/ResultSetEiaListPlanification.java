@@ -5,17 +5,18 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaPlanificationEntity;
+import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.icons.buttons.GHANewButton;
+import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiasPlanificationAddForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -36,6 +37,16 @@ public class ResultSetEiaListPlanification extends
 	private final EiaListPlanificationGrid grid;
 	private final ResultSetContainerType containerType;
 	private final EiasPlanificationAddForm eiasPlanificationAddForm;
+	private EiaTypeMaintenancePlan eiaTypeMaintenancePlan;
+
+	public EiaTypeMaintenancePlan getEiaTypeMaintenancePlan() {
+		return eiaTypeMaintenancePlan;
+	}
+
+	public void setEiaTypeMaintenancePlan(
+			EiaTypeMaintenancePlan eiaTypeMaintenancePlan) {
+		this.eiaTypeMaintenancePlan = eiaTypeMaintenancePlan;
+	}
 
 	{
 		listeners = new ArrayList<EIASelectionListener>();
@@ -78,10 +89,12 @@ public class ResultSetEiaListPlanification extends
 							List<EiaPlanificationEntity> eiaList = grid
 									.getEntities();
 							eiasPlanificationAddForm.select(eiaList);
+							eiasPlanificationAddForm
+									.select(eiaTypeMaintenancePlan);
 							eiasPlanificationAddForm.open();
 
 						} else {
-							Window.alert("Deben Existir Registros");
+							GHAErrorMessageProcessor.alert("exists-eia-grid");
 						}
 					}
 				}));
@@ -116,61 +129,6 @@ public class ResultSetEiaListPlanification extends
 		grid.setData(new EiaListMaintenanceRecord[] {});
 		showResultsSize(null, true);
 	}
-
-	// private void delete() {
-	// if (grid.getSelectedRecord() == null) {
-	// GHAErrorMessageProcessor.alert("record-not-selected");
-	// return;
-	// }
-	//
-	// if (grid.getSelectedRecords().length > 1) {
-	// GHAErrorMessageProcessor.confirm("eias-delete-confirm",
-	// new BooleanCallback() {
-	//
-	// @Override
-	// public void execute(Boolean value) {
-	// if (value) {
-	// List<Eia> entities = grid.getSelectedEntities();
-	// EIAModel.delete(entities,
-	// new GHAAsyncCallback<Void>() {
-	//
-	// @Override
-	// public void onSuccess(Void result) {
-	// grid.removeSelectedData();
-	// refreshResultsSize(grid
-	// .getRecords().length);
-	// GHAErrorMessageProcessor
-	// .alert("eias-delete-success");
-	// }
-	// });
-	// }
-	// }
-	// });
-	// } else {
-	// GHAErrorMessageProcessor.confirm("eia-delete-confirm",
-	// new BooleanCallback() {
-	//
-	// @Override
-	// public void execute(Boolean value) {
-	// if (value) {
-	// List<Eia> entities = grid.getSelectedEntities();
-	// EIAModel.delete(entities,
-	// new GHAAsyncCallback<Void>() {
-	//
-	// @Override
-	// public void onSuccess(Void result) {
-	// grid.removeSelectedData();
-	// refreshResultsSize(grid
-	// .getRecords().length);
-	// GHAErrorMessageProcessor
-	// .alert("eia-delete-success");
-	// }
-	// });
-	// }
-	// }
-	// });
-	// }
-	// }
 
 	@Override
 	public void notifyEia(Eia eia) {

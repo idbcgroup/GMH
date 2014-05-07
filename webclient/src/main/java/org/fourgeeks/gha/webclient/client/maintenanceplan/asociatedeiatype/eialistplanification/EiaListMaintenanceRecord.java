@@ -51,10 +51,12 @@ public class EiaListMaintenanceRecord extends
 		if (planificationEntity == null)
 			setAttribute("statusPlanification", false);
 		else {
-			if (planificationEntity.getPlanificationState() != null)
-				setAttribute("statusPlanification",
-						planificationEntity.getPlanificationState());
-			else
+			if (planificationEntity.getPlanificationState() != null) {
+				if (planificationEntity.getPlanificationState() == MaintenancePlanificationState.ACTIVE)
+					setAttribute("statusPlanification", true);
+				else
+					setAttribute("statusPlanification", false);
+			} else
 				setAttribute("statusPlanification", false);
 		}
 	}
