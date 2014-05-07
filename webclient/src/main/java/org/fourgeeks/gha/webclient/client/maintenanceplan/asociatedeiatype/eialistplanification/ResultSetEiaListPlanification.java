@@ -38,6 +38,7 @@ public class ResultSetEiaListPlanification extends
 	private final ResultSetContainerType containerType;
 	private final EiasPlanificationAddForm eiasPlanificationAddForm;
 	private EiaTypeMaintenancePlan eiaTypeMaintenancePlan;
+	private ResultSetEiaListPlanification instance = this;
 
 	public EiaTypeMaintenancePlan getEiaTypeMaintenancePlan() {
 		return eiaTypeMaintenancePlan;
@@ -91,6 +92,7 @@ public class ResultSetEiaListPlanification extends
 							eiasPlanificationAddForm.select(eiaList);
 							eiasPlanificationAddForm
 									.select(eiaTypeMaintenancePlan);
+							eiasPlanificationAddForm.setResultset(instance);
 							eiasPlanificationAddForm.open();
 
 						} else {
