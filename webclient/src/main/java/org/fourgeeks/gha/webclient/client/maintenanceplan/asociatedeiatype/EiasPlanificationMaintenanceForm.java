@@ -223,8 +223,10 @@ public class EiasPlanificationMaintenanceForm extends
 						hasUnCommittedChanges = false;
 						// notifyMaintenancePlanification(result);
 						clear();
-						if (callback != null)
+						if (callback != null) {
 							callback.onSuccess(result);
+
+						}
 					}
 				});
 	}

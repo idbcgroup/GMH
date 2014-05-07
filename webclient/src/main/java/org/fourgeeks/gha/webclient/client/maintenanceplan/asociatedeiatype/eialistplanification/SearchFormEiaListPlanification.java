@@ -208,24 +208,6 @@ public class SearchFormEiaListPlanification extends GHASearchForm<Eia>
 						resultSet.setRecords(newList, false);
 					}
 				});
-
-		// EiaMaintenancePlanificationModel.find(eia,
-		// new GHAAsyncCallback<List<Eia>>() {
-		// @Override
-		// public void onSuccess(List<Eia> result) {
-		// List<Eia> newList = new ArrayList<Eia>();
-		// if (blackList != null) {
-		// final List<AbstractEntity> tmpList = GHAUtil
-		// .binarySearchFilterEntity(result, blackList);
-		// final List<Eia> newTmpList = new ArrayList<Eia>();
-		// for (final AbstractEntity entity : tmpList)
-		// newTmpList.add((Eia) entity);
-		// newList = newTmpList;
-		// } else
-		// newList = result;
-		// resultSet.setRecords(newList, false);
-		// }
-		// });
 	}
 
 	@Override

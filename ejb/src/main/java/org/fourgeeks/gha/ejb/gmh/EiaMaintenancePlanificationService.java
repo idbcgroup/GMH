@@ -378,8 +378,7 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 			List<EiaMaintenancePlanification> listPlanif)
 			throws GHAEJBException {
 		try {
-			// List<EiaMaintenancePlanification> returnList = new
-			// ArrayList<EiaMaintenancePlanification>();
+			List<EiaMaintenancePlanification> returnList = new ArrayList<EiaMaintenancePlanification>();
 
 			for (EiaMaintenancePlanification planif : listPlanif) {
 
@@ -388,10 +387,10 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 					em.flush();
 				} else
 					em.merge(planif);
-				// returnList.add(em.find(EiaMaintenancePlanification.class,
-				// planif.getId()));
+				returnList.add(em.find(EiaMaintenancePlanification.class,
+						planif.getId()));
 			}
-			return null;
+			return returnList;
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: saving EiaMaintenancePlanification ", e);
