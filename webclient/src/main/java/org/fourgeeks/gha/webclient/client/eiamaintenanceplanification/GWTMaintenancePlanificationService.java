@@ -5,6 +5,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
+import org.fourgeeks.gha.domain.gmh.EiaPlanificationEntity;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 
@@ -26,5 +27,12 @@ public interface GWTMaintenancePlanificationService extends RemoteService {
 
 	public boolean existMantenancePlanification(Eia eia,
 			EiaTypeMaintenancePlan plan) throws GHAEJBException;
+
+	public List<EiaPlanificationEntity> findEiaMaintenancePlanificationStatus(
+			Eia eia, EiaTypeMaintenancePlan plan) throws GHAEJBException;
+
+	public List<EiaMaintenancePlanification> save(
+			List<EiaMaintenancePlanification> listPlanif)
+			throws GHAEJBException;
 
 }

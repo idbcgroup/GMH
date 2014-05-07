@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
+import org.fourgeeks.gha.domain.gmh.EiaPlanificationEntity;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceRemote;
@@ -55,6 +56,19 @@ public class GWTEiaMaintenancePlanificationImpl extends RemoteServiceServlet
 			EiaTypeMaintenancePlan plan) throws GHAEJBException {
 		return serviceRemote.existMantenancePlanification(eia, plan);
 
+	}
+
+	@Override
+	public List<EiaPlanificationEntity> findEiaMaintenancePlanificationStatus(
+			Eia eia, EiaTypeMaintenancePlan plan) throws GHAEJBException {
+		return serviceRemote.findEiaMaintenancePlanificationStatus(eia, plan);
+	}
+
+	@Override
+	public List<EiaMaintenancePlanification> save(
+			List<EiaMaintenancePlanification> listPlanif)
+			throws GHAEJBException {
+		return serviceRemote.save(listPlanif);
 	}
 
 }

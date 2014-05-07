@@ -48,4 +48,5 @@ public class EiaTypeMaintenancePlanModel {
 			GHAAsyncCallback<List<EiaTypeMaintenancePlan>> callback) {
 		service.findByMaintenancePlan(maintenancePlan, callback);
 	}
+
 }

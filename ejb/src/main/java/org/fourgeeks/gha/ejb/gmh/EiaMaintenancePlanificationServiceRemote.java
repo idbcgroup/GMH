@@ -7,6 +7,7 @@ import javax.ejb.Remote;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
+import org.fourgeeks.gha.domain.gmh.EiaPlanificationEntity;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 
@@ -49,6 +50,30 @@ public interface EiaMaintenancePlanificationServiceRemote {
 	 * @throws GHAEJBException
 	 */
 	public List<EiaMaintenancePlanification> find(EiaType eiaType)
+			throws GHAEJBException;
+
+	/**
+	 * Returns a list of an EiaPlanificationEntity array containing the Eia and
+	 * the associated EiaMaintenancePlanification
+	 * 
+	 * @param eia
+	 * @param plan
+	 * @return
+	 * @throws GHAEJBException
+	 */
+	public List<EiaPlanificationEntity> findEiaMaintenancePlanificationStatus(
+			Eia eia, EiaTypeMaintenancePlan plan) throws GHAEJBException;
+
+	/**
+	 * Saves a EiaMaintenancePlanification list in the DB
+	 * 
+	 * @param planif
+	 *            the EiaMaintenancePlanification list to save
+	 * @return the saved EiaMaintenancePlanification list
+	 * @throws GHAEJBException
+	 */
+	public List<EiaMaintenancePlanification> save(
+			List<EiaMaintenancePlanification> listPlanif)
 			throws GHAEJBException;
 
 }

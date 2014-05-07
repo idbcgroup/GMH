@@ -2,6 +2,7 @@ package org.fourgeeks.gha.ejb.gmh;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,12 +11,15 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.fourgeeks.gha.domain.enu.EiaMaintenanceState;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
+import org.fourgeeks.gha.domain.gmh.EiaPlanificationEntity;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
@@ -239,7 +243,6 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 					.createQuery(stringQuery, EiaMaintenancePlanification.class)
 					.setParameter("name_eia", eia)
 					.setParameter("name_plan", plan).getResultList();
-			;
 
 			if (resultList.isEmpty())
 				return false;
@@ -252,6 +255,148 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 					"Error: finding in the method existMantenancePlanification by eia and EiaTypeMaintenancePlan ",
 					e);
 			throw super.generateGHAEJBException("eia-findByEiaType-fail", em);
+		}
+	}
+
+	@Override
+	public List<EiaPlanificationEntity> findEiaMaintenancePlanificationStatus(
+			Eia eia, EiaTypeMaintenancePlan plan) throws GHAEJBException {
+		try {
+			String queryStr = "SELECT eia FROM Eia eia ";
+
+			// String queryStr =
+			// "SELECT new EiaPlanificationEntity(eia, p) FROM Eia eia "
+			// + "LEFT JOIN eia.eMaintenancePlan p ";
+			//
+			String whereStr = "WHERE eia.eiaType =:eiaType";
+
+			whereStr = buildWhere(whereStr, eia.getFixedAssetIdentifier(),
+					"eia.fixedAssetIdentifier", "LIKE", ":fixedAssetIdentifier");
+
+			whereStr = buildWhere(whereStr, eia.getSerialNumber(),
+					"eia.serialNumber", "LIKE", ":serialNumber");
+
+			whereStr = buildWhere(whereStr, eia.getState(), "eia.state", "=",
+					":state");
+
+			whereStr = buildWhere(whereStr, eia.getWorkingArea(),
+					"eia.workingArea", "=", ":workingArea");
+
+			queryStr += whereStr;
+
+			// creo el query y le asigno los parametros
+			TypedQuery<Eia> query = em.createQuery(queryStr, Eia.class);
+			if (eia.getFixedAssetIdentifier() != null)
+				query.setParameter("fixedAssetIdentifier",
+						"%" + eia.getFixedAssetIdentifier() + "%");
+
+			if (eia.getSerialNumber() != null)
+				query.setParameter("serialNumber", "%" + eia.getSerialNumber()
+						+ "%");
+
+			if (eia.getWorkingArea() != null)
+				query.setParameter("workingArea", eia.getWorkingArea());
+
+			query.setParameter("state", eia.getState());
+			query.setParameter("eiaType", plan.getEiaType());
+
+			// devuelvo la lista de EiaPlanificationEntity
+			List<Eia> tempList = query.getResultList();
+
+			String queryStr2 = "SELECT emp FROM EiaMaintenancePlanification emp ";
+			String whereStr2 = "WHERE emp.plan =:plan";
+
+			queryStr2 += whereStr2;
+
+			TypedQuery<EiaMaintenancePlanification> query2 = em.createQuery(
+					queryStr2, EiaMaintenancePlanification.class);
+
+			query2.setParameter("plan", plan);
+
+			List<EiaMaintenancePlanification> tempList2 = query2
+					.getResultList();
+
+			System.out.println("tempList.size(): " + tempList.size()
+					+ " tempList2.size(): " + tempList2.size());
+
+			boolean hasPlan = false;
+			List<EiaPlanificationEntity> resultList = new ArrayList<EiaPlanificationEntity>();
+			for (Eia eiaTemp : tempList) {
+				hasPlan = false;
+				for (EiaMaintenancePlanification empTemp : tempList2) {
+					if (empTemp.getEia().equals(eiaTemp)) {
+						resultList.add(new EiaPlanificationEntity(eiaTemp,
+								empTemp));
+						hasPlan = true;
+						break;
+					}
+				}
+				if (!hasPlan)
+					resultList.add(new EiaPlanificationEntity(eiaTemp, null));
+			}
+			return resultList;
+
+		} catch (NoResultException ex) {
+			logger.log(Level.INFO, "No results", ex);
+		} catch (Exception ex) {
+			logger.log(Level.INFO, "Error en metodo EJB findEiasByEiaTypes", ex);
+			throw new GHAEJBException(
+					"Error en metodo EJB findEiasByEiaTypes: "
+							+ ex.getCause().getMessage());
+		}
+
+		return null;
+	}
+
+	/**
+	 * @param query
+	 *            El query
+	 * @param elem
+	 *            El elemento que se desea asignar a la clausula where
+	 * @param campo
+	 *            el camp que representa el emento dentro de la consulta
+	 * @param op
+	 *            la operacion comparacion
+	 * @param param
+	 *            el parametro contra el que se va a realziar la operacion de
+	 *            comparacion
+	 * @return String de la consulta con el parametro deseado en la clausula
+	 *         where
+	 */
+	private String buildWhere(String query, Object elem, String campo,
+			String op, String param) {
+
+		if (elem != null) {
+			query += query.isEmpty() ? " WHERE " : " AND ";
+			query += campo + " " + op + " " + param;
+		}
+		return query;
+	}
+
+	@Override
+	public List<EiaMaintenancePlanification> save(
+			List<EiaMaintenancePlanification> listPlanif)
+			throws GHAEJBException {
+		try {
+			// List<EiaMaintenancePlanification> returnList = new
+			// ArrayList<EiaMaintenancePlanification>();
+
+			for (EiaMaintenancePlanification planif : listPlanif) {
+
+				if (planif.getId() == 0) {
+					em.persist(planif);
+					em.flush();
+				} else
+					em.merge(planif);
+				// returnList.add(em.find(EiaMaintenancePlanification.class,
+				// planif.getId()));
+			}
+			return null;
+		} catch (Exception e) {
+			logger.log(Level.INFO,
+					"ERROR: saving EiaMaintenancePlanification ", e);
+			throw super.generateGHAEJBException("eia-save-fail", em);
+
 		}
 	}
 }

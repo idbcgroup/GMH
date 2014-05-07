@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
+import org.fourgeeks.gha.domain.gmh.EiaPlanificationEntity;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -46,4 +47,19 @@ public class EiaMaintenancePlanificationModel {
 		service.existMantenancePlanification(eia, plan, callback);
 	}
 
+	public static void findEiaMaintenancePlanificationStatus(Eia eia,
+			EiaTypeMaintenancePlan plan,
+			GHAAsyncCallback<List<EiaPlanificationEntity>> callback) {
+		service.findEiaMaintenancePlanificationStatus(eia, plan, callback);
+	}
+
+	/**
+	 * 
+	 * @param entities
+	 * @param callback
+	 */
+	public static void save(List<EiaMaintenancePlanification> entities,
+			GHAAsyncCallback<List<EiaMaintenancePlanification>> callback) {
+		service.save(entities, callback);
+	}
 }
