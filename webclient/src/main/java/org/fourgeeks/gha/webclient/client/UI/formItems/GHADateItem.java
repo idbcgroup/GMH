@@ -6,6 +6,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.datepicker.client.CalendarUtil;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.DateDisplayFormat;
 import com.smartgwt.client.util.DateUtil;
@@ -158,13 +159,16 @@ public class GHADateItem extends DateItem {
 	/**
 	 * Se utiliza para validar que la fecha introducida sea mayor o igual a la
 	 * actual
+	 * 
+	 * @return
 	 * */
 	public DateRangeValidator getValidatorDateMax() {
 		final DateRangeValidator drv = new DateRangeValidator();
 		final long currentTimeMillis = System.currentTimeMillis();
-		drv.setMin(new Date(currentTimeMillis));
-		// final Date endDate = new Date(currentTimeMillis);
-		// drv.setMax(endDate);
+		CalendarUtil cal = new CalendarUtil();
+		Date dia_actual = new Date(currentTimeMillis);
+		CalendarUtil.addDaysToDate(dia_actual, -1);
+		drv.setMin(dia_actual);
 		drv.setErrorMessage(GHAStrings
 				.get("date-must-be-upper-or-equal-than-today"));
 		drv.setValidateOnChange(true);
