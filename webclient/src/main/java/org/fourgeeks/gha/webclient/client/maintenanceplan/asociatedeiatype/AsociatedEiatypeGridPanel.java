@@ -21,7 +21,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.labels.GHATopTitleLabe
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionProducer;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.eialistplanification.SearchFormEiaListPlanification;
 
 import com.smartgwt.client.util.BooleanCallback;
@@ -36,8 +35,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class AsociatedEiatypeGridPanel extends GHAFormLayout implements
-		ClosableListener, HideableListener, MaintenancePlanSelectionListener,
-		MaintenancePlanSelectionProducer {
+		ClosableListener, HideableListener, MaintenancePlanSelectionListener {
 
 	private EIATypeSearchForm searchForm;
 	private SearchFormEiaListPlanification searchFormEiaPlanification;
@@ -54,6 +52,7 @@ public class AsociatedEiatypeGridPanel extends GHAFormLayout implements
 				"Busqueda de Equipos Planificación");
 
 		searchForm.addEiaTypeSelectionListener(new EIATypeSelectionListener() {
+
 			@Override
 			public void select(EiaType eiaType) {
 				// clean the search form
@@ -82,29 +81,37 @@ public class AsociatedEiatypeGridPanel extends GHAFormLayout implements
 		GHATopTitleLabel title = new GHATopTitleLabel(
 				GHAStrings.get("eia-type-on-maintenance-plan"));
 		addMember(title);
+
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				new ClickHandler() {
+
 					@Override
 					public void onClick(ClickEvent event) {
 						search();
+
 					}
 				}), new GHANewButton(new ClickHandler() {
+
 			@Override
 			public void onClick(ClickEvent event) {
 				EiaTypeMaintenancePlan eiaTypeMaintenancePlan = grid
 						.getSelectedEntity();
+
 				if (eiaTypeMaintenancePlan == null) {
 					GHAErrorMessageProcessor.alert("record-not-selected");
 					return;
 				} else {
 					searchEia(eiaTypeMaintenancePlan);
 				}
+
 			}
+
 		}), new GHADeleteButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				deleteSelected();
 			}
+
 		}));
 
 		HLayout mainLayout = new HLayout();
@@ -162,12 +169,15 @@ public class AsociatedEiatypeGridPanel extends GHAFormLayout implements
 	}
 
 	private void searchEia(EiaTypeMaintenancePlan eiaTypeMaintenancePlan) {
+		// TODO Auto-generated method stub
+		// searchFormEiaPlanification.filterBy(blackList);
 		searchFormEiaPlanification
 				.setEiaTypeMaintenancePlan(eiaTypeMaintenancePlan);
 		searchFormEiaPlanification.open();
 	}
 
 	private void deleteSelected() {
+		// final EiaTypeMaintenancePlan entity = grid.getSelectedEntity();
 		final List<EiaTypeMaintenancePlan> selectedEntities = grid
 				.getSelectedEntities();
 
@@ -219,23 +229,5 @@ public class AsociatedEiatypeGridPanel extends GHAFormLayout implements
 					}
 				});
 
-	}
-
-	@Override
-	public void addMaintenancePlanSelectionListener(
-			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
-		searchFormEiaPlanification
-				.addMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
-	}
-
-	@Override
-	public void removeMaintenancePlanSelectionListener(
-			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
-		searchFormEiaPlanification
-				.removeMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
-	}
-
-	@Override
-	public void notifyMaintenancePlan(MaintenancePlan maintenancePlan) {
 	}
 }

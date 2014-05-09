@@ -13,8 +13,12 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
  */
 public class EiaMaintenanceGrid extends GhaGrid<EiaTypeMaintenancePlan> {
 
-	final GHAGridField numberGridField, typeGridField, codeGridField,
-			nameGridField, quantityGridField, costGridField, statusGridField;
+	final GHAGridField numberGridField;
+	final GHAGridField typeGridField;
+	final GHAGridField codeGridField;
+	final GHAGridField nameGridField;
+	final GHAGridField quantityGridField;
+	final GHAGridField costGridField;
 
 	/**
 	 * 
@@ -27,11 +31,9 @@ public class EiaMaintenanceGrid extends GhaGrid<EiaTypeMaintenancePlan> {
 		nameGridField = new GHAGridField("name", "Nombre");
 		quantityGridField = new GHAGridField("quantity", "Cantidad/Duración");
 		costGridField = new GHAGridField("cost", "Costo");
-		statusGridField = new GHAGridField("status",
-				"Estatus de la planificación");
 
 		setEmptyMessage("No existen equipos para mostrar");
 		setFields(numberGridField, typeGridField, codeGridField, nameGridField,
-				quantityGridField, costGridField, statusGridField);
+				quantityGridField, costGridField);
 	}
 }

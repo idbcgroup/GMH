@@ -3,7 +3,6 @@
  */
 package org.fourgeeks.gha.webclient.client.maintenanceplan.eiaplanification;
 
-import org.fourgeeks.gha.domain.enu.MaintenancePlanificationState;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
@@ -18,7 +17,7 @@ public class EiaMaintenanceRecord extends GHAGridRecord<Eia> {
 
 	/**
 	 * @param eiaEntity
-	 * @param planificationEntity
+	 * @param planificationEntity 
 	 */
 	public EiaMaintenanceRecord(Eia eiaEntity,
 			EiaMaintenancePlanification planificationEntity) {
@@ -34,13 +33,9 @@ public class EiaMaintenanceRecord extends GHAGridRecord<Eia> {
 		setAttribute("type", eiaEntity.getEiaType().getName());
 		setAttribute("code", eiaEntity.getCode());
 		setAttribute("name", eiaEntity.getSerialNumber());
-		// TODO Calcular los valores de "quantity" y "cost"
+		//TODO Calcular los valores de "quantity" y "cost"
 		setAttribute("quantity", 0);
 		setAttribute("cost", 0);
-		if (planificationEntity.getPlanificationState() == MaintenancePlanificationState.ACTIVE)
-			setAttribute("status", "Activo");
-		else if (planificationEntity.getPlanificationState() == MaintenancePlanificationState.INACTIVE)
-			setAttribute("status", "Inactivo");
 	}
 
 	/*

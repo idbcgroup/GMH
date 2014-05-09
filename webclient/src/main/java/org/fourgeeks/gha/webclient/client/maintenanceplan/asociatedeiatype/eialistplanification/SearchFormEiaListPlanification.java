@@ -9,7 +9,6 @@ import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaPlanificationEntity;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -26,8 +25,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer;
 import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.EiaMaintenancePlanificationModel;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionProducer;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.VerticalAlignment;
@@ -44,8 +41,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class SearchFormEiaListPlanification extends GHASearchForm<Eia>
-		implements EIASelectionListener, EiaSelectionProducer,
-		MaintenancePlanSelectionProducer {
+		implements EIASelectionListener, EiaSelectionProducer {
 
 	private GHATextItem serialNumber;
 	private GHATextItem fixedAssetIdentifier;
@@ -239,21 +235,4 @@ public class SearchFormEiaListPlanification extends GHASearchForm<Eia>
 
 	}
 
-	@Override
-	public void addMaintenancePlanSelectionListener(
-			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
-		resultSet
-				.addMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
-	}
-
-	@Override
-	public void removeMaintenancePlanSelectionListener(
-			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
-		resultSet
-				.removeMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
-	}
-
-	@Override
-	public void notifyMaintenancePlan(MaintenancePlan maintenancePlan) {
-	}
 }
