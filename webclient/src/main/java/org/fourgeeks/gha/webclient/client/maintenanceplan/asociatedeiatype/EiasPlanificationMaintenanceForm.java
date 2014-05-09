@@ -12,7 +12,6 @@ import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.gar.Job;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaPlanificationEntity;
-import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -30,8 +29,8 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormTyp
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.EiaMaintenancePlanificationModel;
-import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.MaintenancePlanificationSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.eialistplanification.EiaTypeMaintenancePlanProducer;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionProducer;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.eialistplanification.EiaTypeMaintenancePlanificationListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -44,15 +43,11 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  */
 public class EiasPlanificationMaintenanceForm extends
 		GHAForm<List<EiaMaintenancePlanification>> implements
-		EiaTypeMaintenancePlanificationListener, EiaTypeMaintenancePlanProducer {
+		EiaTypeMaintenancePlanificationListener,
+		MaintenancePlanSelectionProducer {
 
-	private List<MaintenancePlanificationSelectionListener> listeners;
 	private List<EiaPlanificationEntity> listEiaPlan;
-	// private Eia selectedEia;
-
 	private GHADynamicForm form;
-	// private GHABspSelectItem providerSelectItem;
-	// private GHAJobSelectItem roleSelectItem;
 	private GHADateItem beginningDateDateItem;
 	private GHATextItem frequencyItem;
 	private GHAPeriodOfTimeSelectItem frequencyPoTSelectItem;
@@ -60,21 +55,16 @@ public class EiasPlanificationMaintenanceForm extends
 	private GHAMaintenancePlanificationStateSelectItem planificationStateSelectItem;
 	private GHAMaintenancePlanSelectItem planSelectItem;
 	private MaintenancePlan selectedMplan;
-	private final EiasPlanificationAddForm addForm;
-
 	private EiaTypeMaintenancePlan selectedEiatypeMplan;
-
-	private EiaType selectedEiaType;
+	private List<MaintenancePlanSelectionListener> listeners;
 
 	{
-		listeners = new ArrayList<MaintenancePlanificationSelectionListener>();
-
+		listeners = new ArrayList<MaintenancePlanSelectionListener>();
 		planificationStateSelectItem = new GHAMaintenancePlanificationStateSelectItem(
 				false, changedHandler);
 		planStateSelectItem = new GHAMaintenancePlanStateSelectItem(false,
 				changedHandler);
 		planStateSelectItem.setDisabled(true);
-
 		planSelectItem = new GHAMaintenancePlanSelectItem(true, changedHandler);
 		planSelectItem.setColSpan(2);
 		beginningDateDateItem = new GHADateItem("Fecha de inicio",
@@ -88,30 +78,14 @@ public class EiasPlanificationMaintenanceForm extends
 		frequencyPoTSelectItem = new GHAPeriodOfTimeSelectItem();
 		frequencyPoTSelectItem.setValue((TimePeriodEnum) null);
 		frequencyPoTSelectItem.setDisabled(true);
-		// selectDateItem.setDefaultValue(VAL_SOME_EIATYPES);
-
 		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
-
-		/*
-		 * planSelectItem.addChangedHandler(new ChangedHandler() {
-		 * 
-		 * @Override public void onChanged(ChangedEvent event) {
-		 * changedHandler.onChanged(event);
-		 * 
-		 * final MaintenancePlan mPlan = planSelectItem
-		 * .getValueAsMaintenancePlan();
-		 * planStateSelectItem.setValue(mPlan.getState());
-		 * frequencyItem.setValue(mPlan.getFrequency());
-		 * frequencyPoTSelectItem.setValue(mPlan.getPot()); } });
-		 */
 		planSelectItem.setDisabled(true);
 		planificationStateSelectItem.setDisabled(true);
 
 	}
 
 	/** */
-	public EiasPlanificationMaintenanceForm(EiasPlanificationAddForm addForm) {
-		this.addForm = addForm;
+	public EiasPlanificationMaintenanceForm() {
 		final HLayout mainPanel = new HLayout();
 		form.setItems(beginningDateDateItem, new GHASpacerItem(2),
 				planSelectItem, new GHASpacerItem(2), frequencyItem,
@@ -146,7 +120,6 @@ public class EiasPlanificationMaintenanceForm extends
 		final List<EiaMaintenancePlanification> listPlanification = new ArrayList<EiaMaintenancePlanification>();
 
 		for (int index = 0; index < listEiaPlan.size(); index++) {
-
 			if ((listEiaPlan.get(index).getEmp().getId() == 0)
 					&& (listEiaPlan.get(index).getEmp().getPlanificationState() == MaintenancePlanificationState.INACTIVE)) {
 				continue;
@@ -193,7 +166,6 @@ public class EiasPlanificationMaintenanceForm extends
 				violationsList.add(violation.getMessage());
 			}
 
-			// GHAAlertManager.alert(violationsList);
 			GHAErrorMessageProcessor.alert(violationsList.get(violationsList
 					.size() - 1));
 		}
@@ -209,9 +181,7 @@ public class EiasPlanificationMaintenanceForm extends
 	@Override
 	public void save(
 			final GHAAsyncCallback<List<EiaMaintenancePlanification>> callback) {
-
 		final List<EiaMaintenancePlanification> entity = extract();
-
 		if (entity == null)
 			return;
 
@@ -221,11 +191,10 @@ public class EiasPlanificationMaintenanceForm extends
 					public void onSuccess(
 							List<EiaMaintenancePlanification> result) {
 						hasUnCommittedChanges = false;
-						// notifyMaintenancePlanification(result);
 						clear();
+						notifyMaintenancePlan(selectedMplan);
 						if (callback != null) {
 							callback.onSuccess(result);
-
 						}
 					}
 				});
@@ -245,29 +214,6 @@ public class EiasPlanificationMaintenanceForm extends
 	@Override
 	public void update(
 			GHAAsyncCallback<List<EiaMaintenancePlanification>> callback) {
-	}
-
-	@Override
-	public void addEiaTypeMaintenancePlanSelectionListener(
-			EiaTypeMaintenancePlanificationListener listener) {
-
-	}
-
-	@Override
-	public void removeEiaTypeMaintenancePlanSelectionListener(
-			EiaTypeMaintenancePlanificationListener listener) {
-
-	}
-
-	@Override
-	public void notifyEiaTypeMaintenancePlan(EiaTypeMaintenancePlan plan) {
-
-	}
-
-	@Override
-	public void notifyListEiaPlanificationEntity(
-			List<EiaPlanificationEntity> eiaPlan) {
-
 	}
 
 	@Override
@@ -311,4 +257,22 @@ public class EiasPlanificationMaintenanceForm extends
 		this.selectedMplan = selectedMplan;
 	}
 
+	@Override
+	public void addMaintenancePlanSelectionListener(
+			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
+		listeners.add(maintenancePlanSelectionListener);
+	}
+
+	@Override
+	public void removeMaintenancePlanSelectionListener(
+			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
+		listeners.remove(maintenancePlanSelectionListener);
+	}
+
+	@Override
+	public void notifyMaintenancePlan(MaintenancePlan maintenancePlan) {
+		for (MaintenancePlanSelectionListener listener : listeners) {
+			listener.select(maintenancePlan);
+		}
+	}
 }

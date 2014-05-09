@@ -5,13 +5,14 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanPanel;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionProducer;
 
 /**
  * @author emiliot
  * 
  */
 public class AsociatedEiaTypeSubTab extends GHASubTab implements
-		MaintenancePlanSelectionListener {
+		MaintenancePlanSelectionListener, MaintenancePlanSelectionProducer {
 
 	private final AsociatedEiatypeGridPanel eiatypeGridPanel;
 
@@ -35,4 +36,21 @@ public class AsociatedEiaTypeSubTab extends GHASubTab implements
 		eiatypeGridPanel.select(maintenancePlan);
 	}
 
+	@Override
+	public void addMaintenancePlanSelectionListener(
+			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
+		eiatypeGridPanel
+				.addMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
+	}
+
+	@Override
+	public void removeMaintenancePlanSelectionListener(
+			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
+		eiatypeGridPanel
+				.removeMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
+	}
+
+	@Override
+	public void notifyMaintenancePlan(MaintenancePlan maintenancePlan) {
+	}
 }
