@@ -6,6 +6,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaPlanificationEntity;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
@@ -14,6 +15,8 @@ import org.fourgeeks.gha.webclient.client.UI.pmewindows.GHAErrorMessageProcessor
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionProducer;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiasPlanificationAddForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -21,8 +24,6 @@ import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
-import com.smartgwt.client.widgets.grid.events.CellDoubleClickEvent;
-import com.smartgwt.client.widgets.grid.events.CellDoubleClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -31,7 +32,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class ResultSetEiaListPlanification extends
-		GHAResultSet<EiaPlanificationEntity> implements EiaSelectionProducer {
+		GHAResultSet<EiaPlanificationEntity> implements EiaSelectionProducer,
+		MaintenancePlanSelectionProducer {
 
 	private List<EIASelectionListener> listeners;
 	private final EiaListPlanificationGrid grid;
@@ -39,15 +41,6 @@ public class ResultSetEiaListPlanification extends
 	private final EiasPlanificationAddForm eiasPlanificationAddForm;
 	private EiaTypeMaintenancePlan eiaTypeMaintenancePlan;
 	private ResultSetEiaListPlanification instance = this;
-
-	public EiaTypeMaintenancePlan getEiaTypeMaintenancePlan() {
-		return eiaTypeMaintenancePlan;
-	}
-
-	public void setEiaTypeMaintenancePlan(
-			EiaTypeMaintenancePlan eiaTypeMaintenancePlan) {
-		this.eiaTypeMaintenancePlan = eiaTypeMaintenancePlan;
-	}
 
 	{
 		listeners = new ArrayList<EIASelectionListener>();
@@ -71,13 +64,6 @@ public class ResultSetEiaListPlanification extends
 				grid.setHeight(GHAUiHelper.getResultSetGridSize(containerType));
 			}
 		};
-		grid.addCellDoubleClickHandler(new CellDoubleClickHandler() {
-
-			@Override
-			public void onCellDoubleClick(CellDoubleClickEvent event) {
-				notifySelectedEia();
-			}
-		});
 		grid.setHeight(GHAUiHelper.getResultSetGridSize(containerType));
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHANewButton(
@@ -138,18 +124,6 @@ public class ResultSetEiaListPlanification extends
 			listener.select(eia);
 	}
 
-	private void notifySelectedEia() {
-		// // GHAGridRecord<EiaListMaintenanceRecord> selectedRecord =
-		// // grid.getSelectedRecord();
-		// if (selectedRecord == null) {
-		// GHAErrorMessageProcessor.alert("record-not-selected");
-		// return;
-		// }
-		// // notifyEia(((EiaListMaintenanceRecord) selectedRecord).toEntity());
-		// hide();
-		// grid.removeSelectedData();
-	}
-
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getResultSetHeight(containerType));
@@ -172,4 +146,30 @@ public class ResultSetEiaListPlanification extends
 			this.animateShow(AnimationEffect.FADE);
 	}
 
+	public EiaTypeMaintenancePlan getEiaTypeMaintenancePlan() {
+		return eiaTypeMaintenancePlan;
+	}
+
+	public void setEiaTypeMaintenancePlan(
+			EiaTypeMaintenancePlan eiaTypeMaintenancePlan) {
+		this.eiaTypeMaintenancePlan = eiaTypeMaintenancePlan;
+	}
+
+	@Override
+	public void addMaintenancePlanSelectionListener(
+			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
+		eiasPlanificationAddForm
+				.addMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
+	}
+
+	@Override
+	public void removeMaintenancePlanSelectionListener(
+			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
+		eiasPlanificationAddForm
+				.removeMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
+	}
+
+	@Override
+	public void notifyMaintenancePlan(MaintenancePlan maintenancePlan) {
+	}
 }
