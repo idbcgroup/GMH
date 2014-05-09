@@ -23,16 +23,29 @@ public class EiaMaintenanceUtil {
 				"Esta clase no debe ser instanciada");
 	}
 
+	//
+	// /**
+	// *
+	// * @param entity
+	// * @return record
+	// */
+	// public static EiaMaintenancePlanRecord toEiaMaintenancePlanGridRecord(
+	// Eia entity) {
+	// EiaMaintenancePlanRecord record = new EiaMaintenancePlanRecord(entity);
+	// record.setEiaMaintenancePlanAttributes();
+	// return record;
+	// }
+
 	/**
 	 * 
-	 * @param eiaEntities
-	 * @param empEntities
+	 * @param eiaEntities 
+	 * @param empEntities 
 	 * @return list
 	 */
 	public static List<EiaMaintenanceRecord> toEiaMaintenancePlanGridRecords(
 			List<Eia> eiaEntities, List<EiaMaintenancePlanification> empEntities) {
 		List<EiaMaintenanceRecord> list = new ArrayList<EiaMaintenanceRecord>();
-
+		
 		for (int i = 0; i < eiaEntities.size(); i++) {
 			EiaMaintenanceRecord record = new EiaMaintenanceRecord(
 					eiaEntities.get(i), empEntities.get(i));
