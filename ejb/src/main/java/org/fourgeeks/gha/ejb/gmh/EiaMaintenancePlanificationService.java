@@ -263,11 +263,6 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 			Eia eia, EiaTypeMaintenancePlan plan) throws GHAEJBException {
 		try {
 			String queryStr = "SELECT eia FROM Eia eia ";
-
-			// String queryStr =
-			// "SELECT new EiaPlanificationEntity(eia, p) FROM Eia eia "
-			// + "LEFT JOIN eia.eMaintenancePlan p ";
-			//
 			String whereStr = "WHERE eia.eiaType =:eiaType";
 
 			whereStr = buildWhere(whereStr, eia.getFixedAssetIdentifier(),
@@ -344,7 +339,6 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 					"Error en metodo EJB findEiasByEiaTypes: "
 							+ ex.getCause().getMessage());
 		}
-
 		return null;
 	}
 
@@ -365,7 +359,6 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 	 */
 	private String buildWhere(String query, Object elem, String campo,
 			String op, String param) {
-
 		if (elem != null) {
 			query += query.isEmpty() ? " WHERE " : " AND ";
 			query += campo + " " + op + " " + param;
@@ -379,9 +372,7 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 			throws GHAEJBException {
 		try {
 			List<EiaMaintenancePlanification> returnList = new ArrayList<EiaMaintenancePlanification>();
-
 			for (EiaMaintenancePlanification planif : listPlanif) {
-
 				if (planif.getId() == 0) {
 					em.persist(planif);
 					em.flush();
@@ -395,7 +386,6 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 			logger.log(Level.INFO,
 					"ERROR: saving EiaMaintenancePlanification ", e);
 			throw super.generateGHAEJBException("eia-save-fail", em);
-
 		}
 	}
 }

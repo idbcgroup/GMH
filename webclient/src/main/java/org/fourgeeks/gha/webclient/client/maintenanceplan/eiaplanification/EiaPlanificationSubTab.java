@@ -38,4 +38,7 @@ public class EiaPlanificationSubTab extends GHASubTab implements
 		eiaGridPanel.select(maintenancePlan);
 	}
 
+	public EiaPlanificationGridPanel getEiaGridPanel() {
+		return eiaGridPanel;
+	}
 }
