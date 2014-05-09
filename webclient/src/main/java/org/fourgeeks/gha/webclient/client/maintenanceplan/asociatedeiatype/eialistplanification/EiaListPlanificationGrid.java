@@ -31,16 +31,13 @@ public class EiaListPlanificationGrid extends GhaGrid<EiaPlanificationEntity> {
 				"statusPlanification", "Estado Planificación");
 		statusPlanification.setType(ListGridFieldType.BOOLEAN);
 		statusPlanification.setCanEdit(true);
-		GHAGridField existsPlanGridField = new GHAGridField("existsplan",
-				"Existe Planificación");
 
 		setFields(idGridField, serialGridField, faiGridField, statusGridField,
-				cargoField, proveedorField, statusPlanification,
-				existsPlanGridField);
+				cargoField, proveedorField, statusPlanification);
 
 		headerMenuItems = generateHeaderMenuItems(idGridField, serialGridField,
 				faiGridField, statusGridField, cargoField, proveedorField,
-				statusPlanification, existsPlanGridField);
+				statusPlanification);
 
 		setCanHover(true);
 		setShowHover(true);
