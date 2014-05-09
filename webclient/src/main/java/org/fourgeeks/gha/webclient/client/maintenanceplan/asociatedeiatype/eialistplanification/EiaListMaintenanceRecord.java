@@ -48,11 +48,9 @@ public class EiaListMaintenanceRecord extends
 		if (eiaEntity.getProvider() != null)
 			setAttribute("provider", eiaEntity.getMaintenanceProvider()
 					.getObu().getName());
-		if (planificationEntity == null) {
+		if (planificationEntity == null)
 			setAttribute("statusPlanification", false);
-			setAttribute("existsplan", "NO");
-		} else {
-			setAttribute("existsplan", "SI");
+		else {
 			if (planificationEntity.getPlanificationState() != null) {
 				if (planificationEntity.getPlanificationState() == MaintenancePlanificationState.ACTIVE)
 					setAttribute("statusPlanification", true);

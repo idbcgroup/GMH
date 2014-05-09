@@ -37,7 +37,8 @@ public class EiaPlanificationGridPanel extends GHAFormLayout implements
 	 */
 	public EiaPlanificationGridPanel() {
 		super();
-		GHATopTitleLabel title = new GHATopTitleLabel(GHAStrings.get("eia-on-maintenance-plan"));
+		GHATopTitleLabel title = new GHATopTitleLabel(
+				GHAStrings.get("eia-on-maintenance-plan"));
 		addMember(title);
 
 		HLayout mainLayout = new HLayout();
@@ -45,11 +46,9 @@ public class EiaPlanificationGridPanel extends GHAFormLayout implements
 		addMember(mainLayout);
 	}
 
-	
 	private void loadData() {
 		MaintenancePlanModel.findEiaByMaintenancePlan(maintenancePlan,
 				new GHAAsyncCallback<List<EiaMaintenancePlanification>>() {
-
 					@Override
 					public void onSuccess(
 							List<EiaMaintenancePlanification> result) {
@@ -59,7 +58,6 @@ public class EiaPlanificationGridPanel extends GHAFormLayout implements
 							equipmentList.add(eiaMaintenancePlanification
 									.getEia());
 						}
-
 						ListGridRecord array[] = EiaMaintenanceUtil
 								.toEiaMaintenancePlanGridRecords(equipmentList,
 										result).toArray(
