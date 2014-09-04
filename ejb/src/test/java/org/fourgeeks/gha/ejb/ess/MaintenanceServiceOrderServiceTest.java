@@ -22,7 +22,7 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenance;
-import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
+import org.fourgeeks.gha.domain.gmh.GlaLog;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
@@ -35,7 +35,7 @@ import org.fourgeeks.gha.ejb.gar.ObuServiceRemote;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.BuildingLocationServiceRemote;
-import org.fourgeeks.gha.ejb.gmh.EiaDamageReportServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.GlaLogServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceLocal;
 import org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaMaintenanceServiceRemote;
@@ -114,8 +114,8 @@ public class MaintenanceServiceOrderServiceTest extends
 	@EJB(lookup = "java:global/test/EiaMaintenanceService")
 	private EiaMaintenanceServiceRemote maintenanceService;
 
-	@EJB(lookup = "java:global/test/EiaDamageReportService")
-	private EiaDamageReportServiceRemote damageReportService;
+	@EJB(lookup = "java:global/test/GlaLogService")
+	private GlaLogServiceRemote damageReportService;
 
 	@EJB(lookup = "java:global/test/EiaMaintenancePlanificationService!"
 			+ "org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceLocal")
@@ -143,7 +143,7 @@ public class MaintenanceServiceOrderServiceTest extends
 	@EJB(lookup = "java:global/test/MaintenanceServiceOrderService")
 	private MaintenanceServiceOrderServiceLocal serviceOrderService;
 
-	private EiaDamageReport eiaDamageReport;
+	private GlaLog glaLog;
 	private EiaMaintenancePlanification planif;
 	private EiaTypeMaintenancePlan eiaTypeMPlan;
 	private MaintenancePlan maintenancePlan;
@@ -272,18 +272,18 @@ public class MaintenanceServiceOrderServiceTest extends
 					citizenServiceRemote, institutionServiceRemote, bpuService,
 					bpiServiceRemote);
 			final Bpu bpu = bpuHelper.createBpu();
-			eiaDamageReport = new EiaDamageReport();
-			eiaDamageReport.setEia(eia);
-			eiaDamageReport.setDamageStatus(EiaDamageStatusEnum.DAMAGE);
-			eiaDamageReport.setPriority(EiaDamagePriorityEnum.NORMAL);
-			eiaDamageReport.setEiaCondition(EiaStateEnum.ACQUIRED);
-			eiaDamageReport.setUserWhoRegistered(bpu);
-			eiaDamageReport.setUserWhoReported(bpu);
-			eiaDamageReport = damageReportService.save(eiaDamageReport);
+			glaLog = new GlaLog();
+			glaLog.setEia(eia);
+			glaLog.setDamageStatus(EiaDamageStatusEnum.DAMAGE);
+			glaLog.setPriority(EiaDamagePriorityEnum.NORMAL);
+			glaLog.setEiaCondition(EiaStateEnum.ACQUIRED);
+			glaLog.setUserWhoRegistered(bpu);
+			glaLog.setUserWhoReported(bpu);
+			glaLog = damageReportService.save(glaLog);
 
 			maintenance = new EiaCorrectiveMaintenance();
-			maintenance.setDamageReport(eiaDamageReport);
-			maintenance.setDescription(eiaDamageReport.getDamageMotive());
+			maintenance.setDamageReport(glaLog);
+			maintenance.setDescription(glaLog.getDamageMotive());
 			maintenance = maintenanceService
 					.saveCorrectiveMaintenance(maintenance);
 
@@ -329,7 +329,7 @@ public class MaintenanceServiceOrderServiceTest extends
 			planifServiceRemote.delete(planif.getId());
 			eiaTypeMPlanService.delete(eiaTypeMPlan.getId());
 			maintenancePlanService.delete(maintenancePlan.getId());
-			damageReportService.delete(eiaDamageReport.getId());
+			damageReportService.delete(glaLog.getId());
 			bpuHelper.removeBpu();
 			eiaHelper.removeEia();
 

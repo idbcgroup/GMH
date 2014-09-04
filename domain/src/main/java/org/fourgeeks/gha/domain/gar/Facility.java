@@ -32,10 +32,6 @@ public class Facility extends AbstractEntity {
 	@JoinColumn(name = "workingAreaFk")
 	private WorkingArea workingArea;
 
-	@ManyToOne
-	@JoinColumn(name = "facilityCategoryFk")
-	private FacilityCategory facilityCategory;
-
 	@OneToOne
 	@JoinColumn(name = "resourceFk")
 	private ServiceAndResource serviceResource;
@@ -75,14 +71,6 @@ public class Facility extends AbstractEntity {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public FacilityCategory getFacilityCategory() {
-		return facilityCategory;
-	}
-
-	public void setFacilityCategory(FacilityCategory facilityCategory) {
-		this.facilityCategory = facilityCategory;
 	}
 
 	public ServiceAndResource getServiceResource() {

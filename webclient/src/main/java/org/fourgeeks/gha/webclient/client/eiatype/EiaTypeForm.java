@@ -12,7 +12,7 @@ import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
+import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
@@ -249,7 +249,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 			eiaType.setMobility(EiaMobilityEnum.valueOf(mobilityItem
 					.getValueAsString()));
 		if (categoryItem.getValue() != null) {
-			eiaType.setEiaTypeCategory(new EiaTypeCategory(categoryItem
+			eiaType.setEiaTypeCategory(new ServiceResourceCategory(categoryItem
 					.getValue().toString()));
 		}
 		if (subTypeItem.getValue() != null)

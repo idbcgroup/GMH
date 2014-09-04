@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.materialcategory;
 
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.ServicesResourceCategory;
 
 /**
  * @author alacret
@@ -21,7 +21,7 @@ public interface MaterialCategorySelectionProducer {
 
 	/**
 	 * 
-	 * @param materialCategory
+	 * @param servicesResourceCategory
 	 */
-	public void notifyMaterialCategory(MaterialCategory materialCategory);
+	public void notifyMaterialCategory(ServicesResourceCategory servicesResourceCategory);
 }

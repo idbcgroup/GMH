@@ -12,7 +12,7 @@ import javax.validation.ConstraintViolation;
 
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialBrand;
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.ServicesResourceCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -179,7 +179,7 @@ public class MaterialBrandForm extends GHAForm<MaterialBrand> implements
 					.getValueAsString()));
 		material.setModel(modelItem.getValueAsString());
 		if (categoryItem.getValue() != null) {
-			material.setMaterialCategory(new MaterialCategory(categoryItem
+			material.setMaterialCategory(new ServicesResourceCategory(categoryItem
 					.getValue().toString()));
 		}
 

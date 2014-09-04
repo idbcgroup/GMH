@@ -66,18 +66,14 @@ import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.glm.Material;
-import org.fourgeeks.gha.domain.glm.MaterialBrand;
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
+import org.fourgeeks.gha.domain.glm.ServicesResourceCategory;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
-import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
-import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
+import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 import org.fourgeeks.gha.domain.gom.CCDIDefinition;
 import org.fourgeeks.gha.domain.gom.CCDILevelDefinition;
 import org.fourgeeks.gha.domain.gom.CCDILevelValue;
@@ -647,8 +643,8 @@ public class InitialData {
 				final Role bRole = em.find(Role.class, 1L);
 
 				for (int i = 1; i < 4; ++i) {
-					final Eia eia = new Eia(bRole, em.find(EiaType.class,
-							"387016000" + Long.toString(i)), obu,
+					final Eia eia = new Eia(em.find(EiaType.class, "387016000"
+							+ Long.toString(i)), obu,
 							EiaStateEnum.values()[i % 3], "GHAEQ-00" + i,
 							mProvider, "S9023423" + i);
 					eia.setCode("eia-00" + i);
@@ -665,7 +661,7 @@ public class InitialData {
 	}
 
 	private void eiaTypeCategoryTestData() {
-		final String query = "SELECT COUNT(t) from EiaTypeCategory t";
+		final String query = "SELECT COUNT(t) from ServiceResourceCategory t";
 		try {
 			final int count = ((Number) em.createQuery(query).getSingleResult())
 					.intValue();
@@ -673,7 +669,7 @@ public class InitialData {
 				throw new NoResultException();
 		} catch (final NoResultException e) {
 			try {
-				logger.info("Creating test data: EiaTypeCategory");
+				logger.info("Creating test data: ServiceResourceCategory");
 				final List<CCDILevelValue> ccdiCategories = em
 						.createNamedQuery(
 								"CCDILevelValue.findAllByDefinitionCode",
@@ -683,7 +679,7 @@ public class InitialData {
 					if (!ccdi.getLevelDefinition().getDefinition().getCode()
 							.equals("Equipos"))
 						continue;
-					final EiaTypeCategory category = new EiaTypeCategory();
+					final ServiceResourceCategory category = new ServiceResourceCategory();
 					category.setName(ccdi.getName());
 					category.setCode(ccdi.getCode());
 					em.persist(category);
@@ -693,7 +689,7 @@ public class InitialData {
 				em.flush();
 			} catch (final Exception e1) {
 				logger.log(Level.INFO,
-						"error Creating EiaTypeCategory test data", e1);
+						"error Creating ServiceResourceCategory test data", e1);
 			}
 		}
 	}
@@ -726,11 +722,11 @@ public class InitialData {
 					eiaType.setName(strings[1]);
 					eiaType.setMobility(EiaMobilityEnum.values()[Integer
 							.parseInt(strings[2])]);
-					eiaType.setEiaTypeCategory(em.find(EiaTypeCategory.class,
-							strings[3]));
-					eiaType.setCode(ccdiServiceRemote
-							.getNextElementCode(eiaType.getEiaTypeCategory()
-									.getCode()));
+					// eiaType.setEiaTypeCategory(em.find(ServiceResourceCategory.class,
+					// strings[3]));
+					// eiaType.setCode(ccdiServiceRemote
+					// .getNextElementCode(eiaType.getEiaTypeCategory()
+					// .getCode()));
 
 					eiaType.setSubtype(EiaSubTypeEnum.values()[Integer
 							.parseInt(strings[4])]);
@@ -992,11 +988,7 @@ public class InitialData {
 					activity.setEstimatedCostCurrency(CurrencyTypeEnum.BS);
 					activity.setIsSubProtocol(isSubprotocol[i]);
 
-					final MaintenanceActivity maintenanceActivity = new MaintenanceActivity();
-					maintenanceActivity.setActivity(activity);
-
 					em.persist(activity);
-					em.persist(maintenanceActivity);
 				}
 				em.flush();
 			} catch (final Exception e1) {
@@ -1046,29 +1038,6 @@ public class InitialData {
 		} catch (final NoResultException e) {
 			try {
 				logger.info("Creating test data: MaintenanceProtocols");
-				final List<MaintenancePlan> plans = em.createNamedQuery(
-						"MaintenancePlan.getAll", MaintenancePlan.class)
-						.getResultList();
-				final List<MaintenanceActivity> entities = em
-						.createNamedQuery("MaintenanceActivity.getAll",
-								MaintenanceActivity.class).getResultList();
-
-				for (int i = 0; i < 4; ++i) {
-					em.persist(new MaintenanceProtocol(plans.get(0), entities
-							.get(i), i + 1));
-					em.persist(new MaintenanceProtocol(plans.get(1), entities
-							.get(i), i + 1));
-				}
-
-				em.persist(new MaintenanceProtocol(plans.get(0), entities
-						.get(4), 5));
-				em.persist(new MaintenanceProtocol(plans.get(1), entities
-						.get(5), 5));
-
-				// subprotocol activity
-				em.persist(new MaintenanceProtocol(plans.get(0), entities
-						.get(6), 6));
-
 				em.flush();
 			} catch (final Exception e1) {
 				logger.log(Level.INFO,
@@ -1120,7 +1089,7 @@ public class InitialData {
 	 * 
 	 */
 	private void materialCategoryTestData() {
-		final String query = "SELECT COUNT(t) from MaterialCategory t";
+		final String query = "SELECT COUNT(t) from ServicesResourceCategory t";
 		try {
 			final int count = ((Number) em.createQuery(query).getSingleResult())
 					.intValue();
@@ -1128,7 +1097,7 @@ public class InitialData {
 				throw new NoResultException();
 		} catch (final NoResultException e) {
 			try {
-				logger.info("Creating test data: MaterialCategory");
+				logger.info("Creating test data: ServicesResourceCategory");
 				final List<CCDILevelValue> ccdiCategories = em
 						.createNamedQuery(
 								"CCDILevelValue.findAllByDefinitionCode",
@@ -1138,8 +1107,7 @@ public class InitialData {
 					if (!ccdi.getLevelDefinition().getDefinition().getCode()
 							.equals("Material"))
 						continue;
-					final MaterialCategory category = new MaterialCategory();
-					category.setName(ccdi.getName());
+					final ServicesResourceCategory category = new ServicesResourceCategory();
 					category.setCode(ccdi.getCode());
 					em.persist(category);
 					em.flush();
@@ -1179,7 +1147,7 @@ public class InitialData {
 					material.setType(MaterialTypeEnum.values()[Integer
 							.parseInt(strings[0])]);
 					material.setMaterialCategory(em.find(
-							MaterialCategory.class, strings[1]));
+							ServicesResourceCategory.class, strings[1]));
 					material.setDescription(strings[2]);
 					material.setName(strings[3]);
 					material.setExternalCode(strings[4]);
@@ -1193,13 +1161,13 @@ public class InitialData {
 					em.flush();
 					material = em.find(Material.class, material.getCode());
 
-					final MaterialBrand materialBrand = new MaterialBrand();
-					materialBrand.setMaterial(material);
-					materialBrand.setBrand(em.find(Brand.class,
-							Long.parseLong(strings[7])));
-					materialBrand.setAmount(Integer.parseInt(strings[8]));
-
-					em.persist(materialBrand);
+					// final MaterialBrand materialBrand = new MaterialBrand();
+					// materialBrand.setMaterial(material);
+					// materialBrand.setBrand(em.find(Brand.class,
+					// Long.parseLong(strings[7])));
+					// materialBrand.setAmount(Integer.parseInt(strings[8]));
+					//
+					// em.persist(materialBrand);
 					em.flush();
 				}
 
@@ -1561,19 +1529,6 @@ public class InitialData {
 		} catch (final NoResultException e) {
 			try {
 				logger.info("Creating test data: ProtocolsAndChecklist");
-				final MaintenanceActivity parentActivity = em.find(
-						MaintenanceActivity.class, Long.valueOf(7));
-				final List<MaintenanceActivity> activities = em
-						.createNamedQuery("MaintenanceActivity.getAll",
-								MaintenanceActivity.class).getResultList();
-
-				em.persist(new SubProtocolAndChecklist(parentActivity
-						.getActivity(), activities.get(7).getActivity(), 1));
-				em.persist(new SubProtocolAndChecklist(parentActivity
-						.getActivity(), activities.get(8).getActivity(), 2));
-				em.persist(new SubProtocolAndChecklist(parentActivity
-						.getActivity(), activities.get(9).getActivity(), 3));
-
 				em.flush();
 			} catch (final Exception e1) {
 				logger.log(Level.INFO,

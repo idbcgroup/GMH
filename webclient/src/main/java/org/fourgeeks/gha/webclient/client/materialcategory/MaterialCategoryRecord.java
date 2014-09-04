@@ -1,35 +1,35 @@
 package org.fourgeeks.gha.webclient.client.materialcategory;
 
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.ServicesResourceCategory;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 
 /**
- * @author alacret Wrapper class for represent a MaterialCategory as a Record
+ * @author alacret Wrapper class for represent a ServicesResourceCategory as a Record
  *         for grid components
  */
-public class MaterialCategoryRecord extends GHAGridRecord<MaterialCategory> {
+public class MaterialCategoryRecord extends GHAGridRecord<ServicesResourceCategory> {
 
-	private final MaterialCategory materialCategory;
+	private final ServicesResourceCategory servicesResourceCategory;
 
 	/**
-	 * @param materialCategory
+	 * @param servicesResourceCategory
 	 */
-	public MaterialCategoryRecord(MaterialCategory materialCategory) {
-		this.materialCategory = materialCategory;
-		setAttribute("code", materialCategory.getCode());
-		setAttribute("name", materialCategory.getName());
-		// setAttribute("description", materialCategory.getDescription());
-		// setAttribute("model", materialCategory.getModel());
-		// setAttribute("extCode", materialCategory.getExternalCode());
+	public MaterialCategoryRecord(ServicesResourceCategory servicesResourceCategory) {
+		this.servicesResourceCategory = servicesResourceCategory;
+		setAttribute("code", servicesResourceCategory.getCode());
+		setAttribute("name", servicesResourceCategory.getName());
+		// setAttribute("description", servicesResourceCategory.getDescription());
+		// setAttribute("model", servicesResourceCategory.getModel());
+		// setAttribute("extCode", servicesResourceCategory.getExternalCode());
 		//
-		// if (materialCategory.getType() != null)
-		// setAttribute("type", materialCategory.getType().toString());
+		// if (servicesResourceCategory.getType() != null)
+		// setAttribute("type", servicesResourceCategory.getType().toString());
 
 	}
 
 	@Override
-	public MaterialCategory toEntity() {
-		return materialCategory;
+	public ServicesResourceCategory toEntity() {
+		return servicesResourceCategory;
 	}
 
 }

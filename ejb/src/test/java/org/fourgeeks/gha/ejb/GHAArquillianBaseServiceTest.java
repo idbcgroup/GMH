@@ -78,17 +78,17 @@ import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialBrand;
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.ServicesResourceCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenance;
-import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
+import org.fourgeeks.gha.domain.gmh.GlaLog;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
+import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
@@ -149,8 +149,8 @@ import org.fourgeeks.gha.ejb.gmh.BrandService;
 import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.BuildingLocationService;
 import org.fourgeeks.gha.ejb.gmh.BuildingLocationServiceRemote;
-import org.fourgeeks.gha.ejb.gmh.EiaDamageReportService;
-import org.fourgeeks.gha.ejb.gmh.EiaDamageReportServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.GlaLogService;
+import org.fourgeeks.gha.ejb.gmh.GlaLogServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationService;
 import org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceLocal;
 import org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceRemote;
@@ -257,13 +257,13 @@ public abstract class GHAArquillianBaseServiceTest {
 				.addClass(Eia.class)
 				.addClass(EiaHelper.class)
 				.addClass(EiaStateEnum.class)
-				.addClass(EiaDamageReport.class)
+				.addClass(GlaLog.class)
 				.addClass(EiaMaintenancePlanification.class)
 				.addClass(EiaDamageStatusEnum.class)
 				.addClass(EiaMobilityEnum.class)
 				.addClass(EiaTypeEnum.class)
 				.addClass(EiaSubTypeEnum.class)
-				.addClass(EiaTypeCategory.class)
+				.addClass(ServiceResourceCategory.class)
 				.addClass(EiaTypeCategoryService.class)
 				.addClass(EiaTypeCategoryServiceRemote.class)
 				.addClass(EiaType.class)
@@ -384,7 +384,7 @@ public abstract class GHAArquillianBaseServiceTest {
 				.addClass(UserLogonStatusEnum.class)
 				.addClass(MaintenanceCancelationCause.class)
 				.addClass(MaintenanceServiceOrder.class)
-				.addClass(MaterialCategory.class)
+				.addClass(ServicesResourceCategory.class)
 				.addClass(MaintenanceServiceOrderService.class)
 				.addClass(MaintenanceServiceOrderServiceLocal.class)
 				.addClass(MaintenancePlanificationState.class)
@@ -393,8 +393,8 @@ public abstract class GHAArquillianBaseServiceTest {
 				.addClass(ManufacturerServiceRemote.class)
 				.addClass(ViewFunction.class)
 				.addClass(FunctionBpu.class)
-				.addClass(EiaDamageReportService.class)
-				.addClass(EiaDamageReportServiceRemote.class)
+				.addClass(GlaLogService.class)
+				.addClass(GlaLogServiceRemote.class)
 				.addClass(EiaTypeMaintenancePlanService.class)
 				.addClass(EiaTypeMaintenancePlanServiceRemote.class)
 				.addClass(MaintenancePlanService.class)

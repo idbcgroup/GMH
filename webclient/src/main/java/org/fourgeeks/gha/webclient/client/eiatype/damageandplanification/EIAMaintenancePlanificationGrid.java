@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.damageandplanification;
 
 import java.util.Date;
 
-import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
+import org.fourgeeks.gha.domain.gmh.GlaLog;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 
@@ -13,7 +13,7 @@ import com.smartgwt.client.widgets.grid.ListGridRecord;
 /**
  * @author naramirez
  */
-public class EIAMaintenancePlanificationGrid extends GhaGrid<EiaDamageReport> {
+public class EIAMaintenancePlanificationGrid extends GhaGrid<GlaLog> {
 
 	/**
 	 * 

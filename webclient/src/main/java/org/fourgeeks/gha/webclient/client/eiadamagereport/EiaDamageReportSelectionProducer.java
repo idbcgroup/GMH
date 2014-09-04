@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eiadamagereport;
 
-import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
+import org.fourgeeks.gha.domain.gmh.GlaLog;
 
 public interface EiaDamageReportSelectionProducer {
 	/**
@@ -16,8 +16,8 @@ public interface EiaDamageReportSelectionProducer {
 			EiaDamageReportSelectionListener eiaDamageReportSelectionListener);
 
 	/**
-	 * @param eiaDamageReport
+	 * @param glaLog
 	 */
-	public void notifyEiaDamageReport(EiaDamageReport eiaDamageReport);
+	public void notifyEiaDamageReport(GlaLog glaLog);
 
 }

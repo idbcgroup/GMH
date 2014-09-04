@@ -33,11 +33,11 @@ import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenance;
-import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
+import org.fourgeeks.gha.domain.gmh.GlaLog;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
+import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
@@ -126,8 +126,8 @@ public class EiaMaintenanceServiceTest extends GHAArquillianBaseServiceTest {
 	@EJB(lookup = "java:global/test/EiaMaintenanceService")
 	private EiaMaintenanceServiceRemote service;
 
-	@EJB(lookup = "java:global/test/EiaDamageReportService")
-	private EiaDamageReportServiceRemote damageReportService;
+	@EJB(lookup = "java:global/test/GlaLogService")
+	private GlaLogServiceRemote damageReportService;
 
 	@EJB(lookup = "java:global/test/EiaMaintenancePlanificationService!"
 			+ "org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceLocal")
@@ -149,7 +149,7 @@ public class EiaMaintenanceServiceTest extends GHAArquillianBaseServiceTest {
 	@EJB(lookup = "java:global/test/BpuService")
 	private BpuServiceRemote bpuService;
 
-	private EiaDamageReport savedEiaDamageReport;
+	private GlaLog savedEiaDamageReport;
 	private EiaMaintenancePlanification savedEiaMPlani;
 	private EiaTypeMaintenancePlan savedEiaTypeMPlan;
 	private MaintenancePlan savedMaintenancePlan;
@@ -165,7 +165,7 @@ public class EiaMaintenanceServiceTest extends GHAArquillianBaseServiceTest {
 	private LegalEntity savedLegalEntity;
 	private Role savedRole;
 	private EiaType savedEiatype;
-	private EiaTypeCategory savedEiatypeCategory;
+	private ServiceResourceCategory savedEiatypeCategory;
 	private Brand savedBrand;
 	private Manufacturer savedManufacturer;
 	private CCDIDefinition savedCCDIDefinition;
@@ -223,7 +223,7 @@ public class EiaMaintenanceServiceTest extends GHAArquillianBaseServiceTest {
 			savedBrand = brandServiceRemote.save(b);
 
 			// Creating an Eiatye CAtegory
-			final EiaTypeCategory category = new EiaTypeCategory();
+			final ServiceResourceCategory category = new ServiceResourceCategory();
 			category.setName(savedCCDILevelValue2.getName());
 			category.setCode(savedCCDILevelValue2.getCode());
 			savedEiatypeCategory = eiaTypeCategoryServiceRemote.save(category);
@@ -320,14 +320,14 @@ public class EiaMaintenanceServiceTest extends GHAArquillianBaseServiceTest {
 					bpiServiceRemote);
 			Bpu savedBpu = bpuHelper.createBpu();
 
-			EiaDamageReport eiaDamageReport = new EiaDamageReport();
-			eiaDamageReport.setEiaCondition(EiaStateEnum.CREATED);
-			eiaDamageReport.setEia(savedEia);
-			eiaDamageReport.setDamageStatus(EiaDamageStatusEnum.DAMAGE);
-			eiaDamageReport.setPriority(EiaDamagePriorityEnum.NORMAL);
-			eiaDamageReport.setUserWhoRegistered(savedBpu);
-			eiaDamageReport.setUserWhoReported(savedBpu);
-			savedEiaDamageReport = damageReportService.save(eiaDamageReport);
+			GlaLog glaLog = new GlaLog();
+			glaLog.setEiaCondition(EiaStateEnum.CREATED);
+			glaLog.setEia(savedEia);
+			glaLog.setDamageStatus(EiaDamageStatusEnum.DAMAGE);
+			glaLog.setPriority(EiaDamagePriorityEnum.NORMAL);
+			glaLog.setUserWhoRegistered(savedBpu);
+			glaLog.setUserWhoReported(savedBpu);
+			savedEiaDamageReport = damageReportService.save(glaLog);
 
 		} catch (GHAEJBException e) {
 			unset();

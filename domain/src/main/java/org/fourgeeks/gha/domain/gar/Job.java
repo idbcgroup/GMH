@@ -23,10 +23,6 @@ public class Job extends AbstractEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne
-	@JoinColumn(name = "jobCategoryFk")
-	private JobCategory jobCategory;
-
 	@OneToOne
 	@JoinColumn(name = "resourceFk")
 	private ServiceAndResource resource;
@@ -53,20 +49,6 @@ public class Job extends AbstractEntity {
 	public Job(Obu obu, Role role) {
 		this.obu = obu;
 		this.role = role;
-	}
-
-	/**
-	 * @return
-	 */
-	public JobCategory getJobCategory() {
-		return jobCategory;
-	}
-
-	/**
-	 * @param jobCategory
-	 */
-	public void setJobCategory(JobCategory jobCategory) {
-		this.jobCategory = jobCategory;
 	}
 
 	/**

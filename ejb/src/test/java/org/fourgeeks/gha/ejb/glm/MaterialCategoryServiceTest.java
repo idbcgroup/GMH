@@ -5,7 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.ServicesResourceCategory;
 import org.fourgeeks.gha.ejb.GHAArquillianBaseServiceTest;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.After;
@@ -37,14 +37,14 @@ public class MaterialCategoryServiceTest extends GHAArquillianBaseServiceTest {
 	@Test
 	public void test() {
 		Assert.assertNotNull(service);
-		MaterialCategory category1 = new MaterialCategory();
+		ServicesResourceCategory category1 = new ServicesResourceCategory();
 		category1.setName("test-1");
 		category1.setCode("T010101");
-		MaterialCategory category2 = new MaterialCategory();
+		ServicesResourceCategory category2 = new ServicesResourceCategory();
 		category2.setName("test-2");
 		category2.setCode("T010102");
 
-		MaterialCategory test1 = null;
+		ServicesResourceCategory test1 = null;
 		try {
 			test1 = service.save(category1);
 		} catch (GHAEJBException e) {
@@ -58,7 +58,7 @@ public class MaterialCategoryServiceTest extends GHAArquillianBaseServiceTest {
 		Assert.assertEquals(category1.getCode(), test1.getCode());
 
 		try {
-			MaterialCategory test2 = service.save(category2);
+			ServicesResourceCategory test2 = service.save(category2);
 			Assert.assertNotNull(test2);
 			Assert.assertEquals(category2.getName(), test2.getName());
 			Assert.assertEquals(category2.getCode(), test2.getCode());
@@ -69,7 +69,7 @@ public class MaterialCategoryServiceTest extends GHAArquillianBaseServiceTest {
 		}
 
 		try {
-			List<MaterialCategory> categories = service.getAll();
+			List<ServicesResourceCategory> categories = service.getAll();
 			Assert.assertNotNull(categories);
 			categories = null;
 
@@ -83,20 +83,20 @@ public class MaterialCategoryServiceTest extends GHAArquillianBaseServiceTest {
 		}
 
 		try {
-			MaterialCategory criteria = new MaterialCategory();
+			ServicesResourceCategory criteria = new ServicesResourceCategory();
 			criteria.setName("test-");
 
-			List<MaterialCategory> categories = service.find(criteria);
+			List<ServicesResourceCategory> categories = service.find(criteria);
 
 			System.out.println("DEBUG");
-			for (MaterialCategory category : categories)
+			for (ServicesResourceCategory category : categories)
 				System.out.println(category.getName());
 			System.out.println("DEBUG");
 
 			Assert.assertNotNull(categories);
 			Assert.assertEquals(2, categories.size());
 
-			for (MaterialCategory category : categories)
+			for (ServicesResourceCategory category : categories)
 				Assert.assertEquals(true, category.getName().startsWith("test"));
 		} catch (GHAEJBException e) {
 			System.out
@@ -106,10 +106,10 @@ public class MaterialCategoryServiceTest extends GHAArquillianBaseServiceTest {
 		}
 
 		try {
-			MaterialCategory update = new MaterialCategory();
+			ServicesResourceCategory update = new ServicesResourceCategory();
 			update.setCode("T010101");
 			update.setName("test-name-change");
-			MaterialCategory updateRes = service.update(update);
+			ServicesResourceCategory updateRes = service.update(update);
 			Assert.assertNotNull(updateRes);
 			Assert.assertEquals(update.getName(), updateRes.getName());
 		} catch (GHAEJBException e) {

@@ -9,9 +9,9 @@ import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
+import org.fourgeeks.gha.domain.gmh.GlaLog;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.ejb.gmh.EiaDamageReportServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.GlaLogServiceRemote;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.GWTEiaDamageReportService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -26,8 +26,8 @@ public class GWTEiaDamageReportServiceImpl extends RemoteServiceServlet
 
 	private static final long serialVersionUID = 1L;
 
-	@EJB(lookup = "java:global/ear-1/ejb-1/EiaDamageReportService")
-	EiaDamageReportServiceRemote serviceRemote;
+	@EJB(lookup = "java:global/ear-1/ejb-1/GlaLogService")
+	GlaLogServiceRemote serviceRemote;
 
 	@Override
 	public boolean delete(long Id) throws GHAEJBException {
@@ -36,32 +36,32 @@ public class GWTEiaDamageReportServiceImpl extends RemoteServiceServlet
 	}
 
 	@Override
-	public List<EiaDamageReport> findByEiaType(EiaType eiaType)
+	public List<GlaLog> findByEiaType(EiaType eiaType)
 			throws GHAEJBException {
-		List<EiaDamageReport> eiaDamageReports = serviceRemote
+		List<GlaLog> glaLogs = serviceRemote
 				.findByEiaType(eiaType);
 
-		return eiaDamageReports;
+		return glaLogs;
 	}
 
 	@Override
-	public List<EiaDamageReport> getAll() throws GHAEJBException {
-		List<EiaDamageReport> eiaDamageReports = serviceRemote.getAll();
-		return eiaDamageReports;
+	public List<GlaLog> getAll() throws GHAEJBException {
+		List<GlaLog> glaLogs = serviceRemote.getAll();
+		return glaLogs;
 	}
 
 	@Override
-	public EiaDamageReport save(EiaDamageReport eiaDamageReport)
+	public GlaLog save(GlaLog glaLog)
 			throws GHAEJBException {
-		EiaDamageReport savedDamageReport = serviceRemote.save(eiaDamageReport);
+		GlaLog savedDamageReport = serviceRemote.save(glaLog);
 		return savedDamageReport;
 	}
 
 	@Override
-	public EiaDamageReport update(EiaDamageReport eiaDamageReport)
+	public GlaLog update(GlaLog glaLog)
 			throws GHAEJBException {
-		EiaDamageReport updatedEiaDamageReport = serviceRemote
-				.update(eiaDamageReport);
+		GlaLog updatedEiaDamageReport = serviceRemote
+				.update(glaLog);
 
 		return updatedEiaDamageReport;
 	}

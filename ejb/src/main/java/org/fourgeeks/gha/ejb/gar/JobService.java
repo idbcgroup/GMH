@@ -20,7 +20,6 @@ import javax.persistence.criteria.Root;
 import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Job;
-import org.fourgeeks.gha.domain.gar.JobCategory;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
@@ -41,13 +40,6 @@ public class JobService extends GHAEJBExceptionService implements
 	private static Predicate buildFilters(Job entity, CriteriaBuilder cb,
 			Root<Job> root) {
 		Predicate criteria = cb.conjunction();
-
-		if (entity.getJobCategory() != null) {
-			ParameterExpression<JobCategory> p = cb.parameter(
-					JobCategory.class, "jobCategory");
-			criteria = cb.and(criteria,
-					cb.equal(root.<JobCategory> get("jobCategory"), p));
-		}
 
 		if (entity.getObu() != null) {
 			ParameterExpression<Obu> p = cb.parameter(Obu.class, "obu");
@@ -110,9 +102,6 @@ public class JobService extends GHAEJBExceptionService implements
 				cQuery.where(criteria);
 				q = em.createQuery(cQuery);
 
-				if (job.getJobCategory() != null) {
-					q.setParameter("jobCategory", job.getJobCategory());
-				}
 				if (job.getObu() != null) {
 					q.setParameter("obu", job.getObu());
 				}

@@ -8,7 +8,7 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.ServicesResourceCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
@@ -47,7 +47,7 @@ public class MaterialCategoryForm extends GHAFormLayout implements
 			hasUnCommittedChanges = true;
 		}
 	};
-	private MaterialCategory updateEntity;
+	private ServicesResourceCategory updateEntity;
 
 	{
 		listeners = new ArrayList<MaterialCategorySelectionListener>();
@@ -104,9 +104,9 @@ public class MaterialCategoryForm extends GHAFormLayout implements
 	/**
 	 * @return
 	 */
-	private MaterialCategory extract() {
-		final MaterialCategory materialCategory = new MaterialCategory();
-		materialCategory.setCode(codeItem.getValueAsString());
+	private ServicesResourceCategory extract() {
+		final ServicesResourceCategory servicesResourceCategory = new ServicesResourceCategory();
+		servicesResourceCategory.setCode(codeItem.getValueAsString());
 		// materialCategory.setExternalCode(externalCodeItem.getValueAsString());
 		// materialCategory.setName(nameItem.getValueAsString());
 		// materialCategory.setDescription(descriptionItem.getValueAsString());
@@ -114,15 +114,15 @@ public class MaterialCategoryForm extends GHAFormLayout implements
 		// materialCategory.setType(MaterialTypeEnum.valueOf(typeItem
 		// .getValueAsString()));
 		// materialCategory.setModel(modelItem.getValueAsString());
-		final Set<ConstraintViolation<MaterialCategory>> violations = validator
-				.validate(materialCategory);
+		final Set<ConstraintViolation<ServicesResourceCategory>> violations = validator
+				.validate(servicesResourceCategory);
 		if (violations.isEmpty())
-			return materialCategory;
+			return servicesResourceCategory;
 		if (form.validate() && violations.isEmpty())
-			return materialCategory;
+			return servicesResourceCategory;
 		else {
 			final List<String> violationsList = new ArrayList<String>();
-			for (final Iterator<ConstraintViolation<MaterialCategory>> it = violations
+			for (final Iterator<ConstraintViolation<ServicesResourceCategory>> it = violations
 					.iterator(); it.hasNext();) {
 				violationsList.add(it.next().getMessage());
 			}
@@ -144,7 +144,7 @@ public class MaterialCategoryForm extends GHAFormLayout implements
 	}
 
 	@Override
-	public void notifyMaterialCategory(MaterialCategory material) {
+	public void notifyMaterialCategory(ServicesResourceCategory material) {
 		for (final MaterialCategorySelectionListener listener : listeners)
 			listener.select(material);
 	}
@@ -166,30 +166,30 @@ public class MaterialCategoryForm extends GHAFormLayout implements
 	/**
 	 * @param ghaAsyncCallback
 	 */
-	public void save(final GHAAsyncCallback<MaterialCategory> ghaAsyncCallback) {
-		final MaterialCategory materialCategory = extract();
-		if (materialCategory != null)
-			MaterialCategoryModel.save(materialCategory,
-					new GHAAsyncCallback<MaterialCategory>() {
+	public void save(final GHAAsyncCallback<ServicesResourceCategory> ghaAsyncCallback) {
+		final ServicesResourceCategory servicesResourceCategory = extract();
+		if (servicesResourceCategory != null)
+			MaterialCategoryModel.save(servicesResourceCategory,
+					new GHAAsyncCallback<ServicesResourceCategory>() {
 
 						@Override
-						public void onSuccess(MaterialCategory result) {
+						public void onSuccess(ServicesResourceCategory result) {
 							hasUnCommittedChanges = false;
 							notifyMaterialCategory(result);
 							cancel();
 							if (ghaAsyncCallback != null)
-								ghaAsyncCallback.onSuccess(materialCategory);
+								ghaAsyncCallback.onSuccess(servicesResourceCategory);
 						}
 					});
 	}
 
 	/**
-	 * @param materialCategory
+	 * @param servicesResourceCategory
 	 */
-	public void setMaterialCategory(MaterialCategory materialCategory) {
-		this.updateEntity = materialCategory;
+	public void setMaterialCategory(ServicesResourceCategory servicesResourceCategory) {
+		this.updateEntity = servicesResourceCategory;
 
-		codeItem.setValue(materialCategory.getCode());
+		codeItem.setValue(servicesResourceCategory.getCode());
 		// externalCodeItem.setValue(materialCategory.getExternalCode());
 		// nameItem.setValue(materialCategory.getName());
 		// descriptionItem.setValue(materialCategory.getDescription());

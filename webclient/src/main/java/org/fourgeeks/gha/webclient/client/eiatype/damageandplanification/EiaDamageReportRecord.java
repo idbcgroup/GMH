@@ -4,21 +4,21 @@ import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
+import org.fourgeeks.gha.domain.gmh.GlaLog;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 
-public class EiaDamageReportRecord extends GHAGridRecord<EiaDamageReport> {
+public class EiaDamageReportRecord extends GHAGridRecord<GlaLog> {
 
-	private EiaDamageReport eiaDamageReport;
+	private GlaLog glaLog;
 
-	public EiaDamageReportRecord(EiaDamageReport eiaDamageReport) {
-		this.eiaDamageReport = eiaDamageReport;
-		Eia eia = eiaDamageReport.getEia();
+	public EiaDamageReportRecord(GlaLog glaLog) {
+		this.glaLog = glaLog;
+		Eia eia = glaLog.getEia();
 
-		setAttribute("reportId", eiaDamageReport.getId() == 0 ? ""
-				: eiaDamageReport.getId());
+		setAttribute("reportId", glaLog.getId() == 0 ? ""
+				: glaLog.getId());
 
 		setAttribute("id", eia.getId());
 		setAttribute("serialNumber", eia.getSerialNumber());
@@ -53,8 +53,8 @@ public class EiaDamageReportRecord extends GHAGridRecord<EiaDamageReport> {
 	}
 
 	@Override
-	public EiaDamageReport toEntity() {
-		return this.eiaDamageReport;
+	public GlaLog toEntity() {
+		return this.glaLog;
 	}
 
 }

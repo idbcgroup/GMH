@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.materialcategory;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.ServicesResourceCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
@@ -30,7 +30,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 @Deprecated
-public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
+public class MaterialCategorySearchForm extends GHASearchForm<ServicesResourceCategory>
 implements MaterialCategorySelectionListener,
 MaterialCategorySelectionProducer {
 
@@ -54,7 +54,7 @@ MaterialCategorySelectionProducer {
 		resultSet
 		.addMaterialSelectionListener(new MaterialCategorySelectionListener() {
 			@Override
-			public void select(MaterialCategory material) {
+			public void select(ServicesResourceCategory material) {
 				notifyMaterialCategory(material);
 				hide();
 			}
@@ -130,7 +130,7 @@ MaterialCategorySelectionProducer {
 	}
 
 	@Override
-	public void notifyMaterialCategory(MaterialCategory materialCategory) {
+	public void notifyMaterialCategory(ServicesResourceCategory servicesResourceCategory) {
 	}
 
 	@Override
@@ -141,7 +141,7 @@ MaterialCategorySelectionProducer {
 
 	@Override
 	public void search() {
-		final MaterialCategory material = new MaterialCategory();
+		final ServicesResourceCategory material = new ServicesResourceCategory();
 		material.setCode(codeTextItem.getValueAsString());
 		material.setName(nameTextItem.getValueAsString());
 		// material.setDescription(descriptionTextItem.getValueAsString());
@@ -157,22 +157,22 @@ MaterialCategorySelectionProducer {
 	/**
 	 * @param materialCateogry
 	 */
-	protected void search(final MaterialCategory materialCateogry) {
+	protected void search(final ServicesResourceCategory materialCateogry) {
 		MaterialCategoryModel.find(materialCateogry,
-				new GHAAsyncCallback<List<MaterialCategory>>() {
+				new GHAAsyncCallback<List<ServicesResourceCategory>>() {
 
 			@Override
-			public void onSuccess(List<MaterialCategory> results) {
-				List<MaterialCategory> newList = null;
+			public void onSuccess(List<ServicesResourceCategory> results) {
+				List<ServicesResourceCategory> newList = null;
 				// if (blackList != null) {
 				// List<AbstractCodeEntity> tmpList = GHAUtil
 				// .binarySearchFilterCodeEntity(results,
 				// blackList);
-				// List<MaterialCategory> newTmpList = new
-				// ArrayList<MaterialCategory>();
+				// List<ServicesResourceCategory> newTmpList = new
+				// ArrayList<ServicesResourceCategory>();
 				// for (AbstractCodeEntity abstractCodeEntity : tmpList)
 				// newTmpList
-				// .add((MaterialCategory) abstractCodeEntity);
+				// .add((ServicesResourceCategory) abstractCodeEntity);
 				// newList = newTmpList;
 				// } else
 				newList = results;
@@ -183,8 +183,8 @@ MaterialCategorySelectionProducer {
 	}
 
 	@Override
-	public void select(MaterialCategory materialCategory) {
-		search(materialCategory);
+	public void select(ServicesResourceCategory servicesResourceCategory) {
+		search(servicesResourceCategory);
 	}
 
 }

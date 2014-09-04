@@ -18,7 +18,7 @@ import org.fourgeeks.gha.domain.enu.CCDIValueTypeEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialBrand;
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.ServicesResourceCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
@@ -146,12 +146,12 @@ public class MaterialBrandServiceTest extends GHAArquillianBaseServiceTest {
 			insuline = ccdiService.createLevelValue(insuline);
 			penicilline = ccdiService.createLevelValue(penicilline);
 
-			MaterialCategory category1 = new MaterialCategory();
+			ServicesResourceCategory category1 = new ServicesResourceCategory();
 			category1.setName(hypodermic.getName());
 			category1.setCode(hypodermic.getCode());
 			materialCategoryService.save(category1);
 
-			MaterialCategory category2 = new MaterialCategory();
+			ServicesResourceCategory category2 = new ServicesResourceCategory();
 			category2.setName(puncture.getName());
 			category2.setCode(puncture.getCode());
 			materialCategoryService.save(category2);
@@ -189,8 +189,8 @@ public class MaterialBrandServiceTest extends GHAArquillianBaseServiceTest {
 			Assert.fail(e.getCause().getMessage());
 		}
 
-		MaterialCategory hypodermic = null;
-		MaterialCategory puncture = null;
+		ServicesResourceCategory hypodermic = null;
+		ServicesResourceCategory puncture = null;
 		try {
 			hypodermic = materialCategoryService.find("T010101");
 			puncture = materialCategoryService.find("T010102");

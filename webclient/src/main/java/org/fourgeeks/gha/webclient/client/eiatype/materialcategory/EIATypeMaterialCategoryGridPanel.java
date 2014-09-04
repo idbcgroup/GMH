@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.materialcategory;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.ServicesResourceCategory;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaterialCategory;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -66,14 +66,14 @@ implements EIATypeSelectionListener, HideableListener, ClosableListener {
 		MaterialCategorySelectionListener materialSelectionListener = new MaterialCategorySelectionListener() {
 
 			@Override
-			public void select(MaterialCategory materialCategory) {
+			public void select(ServicesResourceCategory servicesResourceCategory) {
 				// clean the search form
 				EIATypeMaterialCategoryGridPanel.this.searchForm.clean();
 
 				final EiaTypeMaterialCategory eiaTypeMaterialCategory = new EiaTypeMaterialCategory();
 				eiaTypeMaterialCategory
 				.setEiaType(EIATypeMaterialCategoryGridPanel.this.eiaType);
-				eiaTypeMaterialCategory.setMaterialCategory(materialCategory);
+				eiaTypeMaterialCategory.setMaterialCategory(servicesResourceCategory);
 				EIATypeMaterialCategoryModel.save(eiaTypeMaterialCategory,
 						new GHAAsyncCallback<EiaTypeMaterialCategory>() {
 
@@ -202,9 +202,9 @@ implements EIATypeSelectionListener, HideableListener, ClosableListener {
 
 	private void search() {
 		ListGridRecord[] records = grid.getRecords();
-		List<MaterialCategory> blackList = null;
+		List<ServicesResourceCategory> blackList = null;
 		if (records.length != 0) {
-			blackList = new ArrayList<MaterialCategory>();
+			blackList = new ArrayList<ServicesResourceCategory>();
 			for (int i = 0; i < records.length; i++)
 				blackList.add(((EIATypeMaterialCategoryRecord) records[i])
 						.toEntity().getMaterialCategory());

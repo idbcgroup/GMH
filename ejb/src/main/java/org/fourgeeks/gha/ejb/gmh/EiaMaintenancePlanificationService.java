@@ -144,9 +144,9 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 				return null;
 
 			EiaPreventiveMaintenance maintenance = resultList.get(0);
-			Timestamp finishTimestamp = maintenance.getFinishTimestamp();
+			// Timestamp finishTimestamp = maintenance.getFinishTimestamp();
 
-			return finishTimestamp;
+			return null;
 
 		} catch (Exception e) {
 			String msg = "Error: getting the last date of an effectuated preventive maintenance for the given maintenancePlan";
@@ -171,9 +171,9 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 				return null;
 
 			EiaPreventiveMaintenance maintenance = resultList.get(0);
-			Date finishTimestamp = maintenance.getScheduledDate();
+			// Date finishTimestamp = maintenance.getScheduledDate();
 
-			return finishTimestamp;
+			return null;
 
 		} catch (Exception e) {
 			String msg = "Error: geting the schedule date of the last maintenance for the given EiaMaintenancePlanification";
@@ -274,8 +274,8 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 			whereStr = buildWhere(whereStr, eia.getState(), "eia.state", "=",
 					":state");
 
-			whereStr = buildWhere(whereStr, eia.getWorkingArea(),
-					"eia.workingArea", "=", ":workingArea");
+			// whereStr = buildWhere(whereStr, eia.getWorkingArea(),
+			// "eia.workingArea", "=", ":workingArea");
 
 			queryStr += whereStr;
 
@@ -289,8 +289,8 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 				query.setParameter("serialNumber", "%" + eia.getSerialNumber()
 						+ "%");
 
-			if (eia.getWorkingArea() != null)
-				query.setParameter("workingArea", eia.getWorkingArea());
+			// if (eia.getWorkingArea() != null)
+			// query.setParameter("workingArea", eia.getWorkingArea());
 
 			query.setParameter("state", eia.getState());
 			query.setParameter("eiaType", plan.getEiaType());

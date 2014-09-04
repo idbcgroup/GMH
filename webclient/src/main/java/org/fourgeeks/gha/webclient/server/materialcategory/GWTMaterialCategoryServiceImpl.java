@@ -9,7 +9,7 @@ import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.ServicesResourceCategory;
 import org.fourgeeks.gha.ejb.glm.MaterialCategoryServiceRemote;
 import org.fourgeeks.gha.webclient.client.materialcategory.GWTMaterialCategoryService;
 
@@ -48,12 +48,12 @@ public class GWTMaterialCategoryServiceImpl extends RemoteServiceServlet
 	 * 
 	 * @see
 	 * org.fourgeeks.gha.webclient.client.material.GWTMaterialCategoryService
-	 * #find(org.fourgeeks.gha.domain.glm.MaterialCategory)
+	 * #find(org.fourgeeks.gha.domain.glm.ServicesResourceCategory)
 	 */
 	@Override
-	public List<MaterialCategory> find(MaterialCategory materialCategory)
+	public List<ServicesResourceCategory> find(ServicesResourceCategory servicesResourceCategory)
 			throws GHAEJBException {
-		return ejbService.find(materialCategory);
+		return ejbService.find(servicesResourceCategory);
 	}
 
 	/*
@@ -64,7 +64,7 @@ public class GWTMaterialCategoryServiceImpl extends RemoteServiceServlet
 	 * #find(long)
 	 */
 	@Override
-	public MaterialCategory find(String code) throws GHAEJBException {
+	public ServicesResourceCategory find(String code) throws GHAEJBException {
 		return ejbService.find(code);
 	}
 
@@ -76,7 +76,7 @@ public class GWTMaterialCategoryServiceImpl extends RemoteServiceServlet
 	 * #getAll()
 	 */
 	@Override
-	public List<MaterialCategory> getAll() throws GHAEJBException {
+	public List<ServicesResourceCategory> getAll() throws GHAEJBException {
 		return ejbService.getAll();
 	}
 
@@ -88,7 +88,7 @@ public class GWTMaterialCategoryServiceImpl extends RemoteServiceServlet
 	 * #getAll(int, int)
 	 */
 	@Override
-	public List<MaterialCategory> getAll(int offset, int size)
+	public List<ServicesResourceCategory> getAll(int offset, int size)
 			throws GHAEJBException {
 		return ejbService.getAll(offset, size);
 	}
@@ -98,12 +98,12 @@ public class GWTMaterialCategoryServiceImpl extends RemoteServiceServlet
 	 * 
 	 * @see
 	 * org.fourgeeks.gha.webclient.client.material.GWTMaterialCategoryService
-	 * #save(org.fourgeeks.gha.domain.glm.MaterialCategory)
+	 * #save(org.fourgeeks.gha.domain.glm.ServicesResourceCategory)
 	 */
 	@Override
-	public MaterialCategory save(MaterialCategory materialCategory)
+	public ServicesResourceCategory save(ServicesResourceCategory servicesResourceCategory)
 			throws GHAEJBException {
-		return ejbService.save(materialCategory);
+		return ejbService.save(servicesResourceCategory);
 	}
 
 	/*
@@ -111,11 +111,11 @@ public class GWTMaterialCategoryServiceImpl extends RemoteServiceServlet
 	 * 
 	 * @see
 	 * org.fourgeeks.gha.webclient.client.material.GWTMaterialCategoryService
-	 * #update(org.fourgeeks.gha.domain.glm.MaterialCategory)
+	 * #update(org.fourgeeks.gha.domain.glm.ServicesResourceCategory)
 	 */
 	@Override
-	public MaterialCategory update(MaterialCategory materialCategory)
+	public ServicesResourceCategory update(ServicesResourceCategory servicesResourceCategory)
 			throws GHAEJBException {
-		return ejbService.update(materialCategory);
+		return ejbService.update(servicesResourceCategory);
 	}
 }

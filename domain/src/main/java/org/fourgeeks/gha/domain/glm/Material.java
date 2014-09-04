@@ -38,7 +38,7 @@ public class Material extends ServiceAndResource {
 	@NotNull(message = "category-not-null")
 	@ManyToOne
 	@JoinColumn(name = "materialCategoryFk", nullable = false)
-	private MaterialCategory materialCategory;
+	private ServicesResourceCategory servicesResourceCategory;
 
 	private String description;
 
@@ -69,8 +69,8 @@ public class Material extends ServiceAndResource {
 		return externalCode;
 	}
 
-	public MaterialCategory getMaterialCategory() {
-		return materialCategory;
+	public ServicesResourceCategory getMaterialCategory() {
+		return servicesResourceCategory;
 	}
 
 	public String getModel() {
@@ -97,8 +97,8 @@ public class Material extends ServiceAndResource {
 		this.externalCode = externalCode;
 	}
 
-	public void setMaterialCategory(MaterialCategory materialCategory) {
-		this.materialCategory = materialCategory;
+	public void setMaterialCategory(ServicesResourceCategory servicesResourceCategory) {
+		this.servicesResourceCategory = servicesResourceCategory;
 	}
 
 	public void setModel(String model) {

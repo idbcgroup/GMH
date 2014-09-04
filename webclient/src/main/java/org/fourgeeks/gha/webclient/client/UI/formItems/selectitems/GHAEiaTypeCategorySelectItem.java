@@ -6,7 +6,7 @@ package org.fourgeeks.gha.webclient.client.UI.formItems.selectitems;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
+import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
@@ -97,12 +97,12 @@ public class GHAEiaTypeCategorySelectItem extends GHASelectItem {
 	public void fill() {
 		final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
 		GHACache.INSTANCE
-				.getEiaTypeCategories(new GHAAsyncCallback<List<EiaTypeCategory>>() {
+				.getEiaTypeCategories(new GHAAsyncCallback<List<ServiceResourceCategory>>() {
 
 					@Override
-					public void onSuccess(List<EiaTypeCategory> result) {
+					public void onSuccess(List<ServiceResourceCategory> result) {
 						String s = "";
-						for (EiaTypeCategory category : result) {
+						for (ServiceResourceCategory category : result) {
 							valueMap.put(category.getCode(), category.getName());
 						}
 						setValueMap(valueMap);

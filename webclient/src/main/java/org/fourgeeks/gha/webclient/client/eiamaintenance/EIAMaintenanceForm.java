@@ -11,7 +11,7 @@ import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenance;
-import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
+import org.fourgeeks.gha.domain.gmh.GlaLog;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenance;
@@ -477,7 +477,7 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 					.getEstimatedMaintenancePoT());
 		failureDescriptionTextAreaItem.setValue(entity.getDescription());
 
-		final EiaDamageReport damageReport = entity.getDamageReport();
+		final GlaLog damageReport = entity.getDamageReport();
 		final Eia eia = damageReport.getEia();
 
 		setInitialEiaState(entity, eia);

@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.materialcategory;
 
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.ServicesResourceCategory;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.imageitems.buttons.GHACancelButton;
@@ -20,7 +20,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class MaterialCategoryAddForm extends GHAAddForm<MaterialCategory>
+public class MaterialCategoryAddForm extends GHAAddForm<ServicesResourceCategory>
 implements MaterialCategorySelectionProducer {
 
 	protected MaterialCategoryForm form;
@@ -122,8 +122,8 @@ implements MaterialCategorySelectionProducer {
 	}
 
 	@Override
-	public void notifyMaterialCategory(MaterialCategory materialCategory) {
-		form.notifyMaterialCategory(materialCategory);
+	public void notifyMaterialCategory(ServicesResourceCategory servicesResourceCategory) {
+		form.notifyMaterialCategory(servicesResourceCategory);
 	}
 
 	@Override
@@ -141,10 +141,10 @@ implements MaterialCategorySelectionProducer {
 
 	@Override
 	protected void save() {
-		form.save(new GHAAsyncCallback<MaterialCategory>() {
+		form.save(new GHAAsyncCallback<ServicesResourceCategory>() {
 
 			@Override
-			public void onSuccess(MaterialCategory arg0) {
+			public void onSuccess(ServicesResourceCategory arg0) {
 				GHAErrorMessageProcessor.alert("material-save-success");
 				form.cancel();
 				hide();

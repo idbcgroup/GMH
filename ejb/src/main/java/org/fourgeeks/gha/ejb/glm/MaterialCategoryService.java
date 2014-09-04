@@ -18,7 +18,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.ServicesResourceCategory;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
@@ -37,17 +37,11 @@ public class MaterialCategoryService extends GHAEJBExceptionService implements
 			.getLogger(MaterialCategoryService.class.getName());
 
 	final private static Predicate buildFilters(
-			MaterialCategory materialCategory, CriteriaBuilder cb,
-			Root<MaterialCategory> root) {
+			ServicesResourceCategory servicesResourceCategory,
+			CriteriaBuilder cb, Root<ServicesResourceCategory> root) {
 		Predicate predicate = cb.conjunction();
 
-		if (materialCategory.getName() != null) {
-			ParameterExpression<String> p = cb.parameter(String.class, "name");
-			predicate = cb.and(predicate,
-					cb.like(cb.lower(root.<String> get("name")), p));
-		}
-
-		if (materialCategory.getCode() != null) {
+		if (servicesResourceCategory.getCode() != null) {
 			ParameterExpression<String> p = cb.parameter(String.class, "code");
 			predicate = cb.and(predicate,
 					cb.equal(root.<String> get("code"), p));
@@ -65,11 +59,12 @@ public class MaterialCategoryService extends GHAEJBExceptionService implements
 	@Override
 	public void delete(String code) throws GHAEJBException {
 		try {
-			MaterialCategory entity = em.find(MaterialCategory.class, code);
+			ServicesResourceCategory entity = em.find(
+					ServicesResourceCategory.class, code);
 			em.remove(entity);
 		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: unable to delete MaterialCategory",
-					e);
+			logger.log(Level.INFO,
+					"ERROR: unable to delete ServicesResourceCategory", e);
 			throw super.generateGHAEJBException("materialCategory-delete-fail",
 					RuntimeParameters.getLang(), em);
 		}
@@ -83,13 +78,14 @@ public class MaterialCategoryService extends GHAEJBExceptionService implements
 	 * .gha.domain.glm.MaterialCategory)
 	 */
 	@Override
-	public List<MaterialCategory> find(MaterialCategory entity)
+	public List<ServicesResourceCategory> find(ServicesResourceCategory entity)
 			throws GHAEJBException {
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
-			CriteriaQuery<MaterialCategory> cQuery = cb
-					.createQuery(MaterialCategory.class);
-			Root<MaterialCategory> root = cQuery.from(MaterialCategory.class);
+			CriteriaQuery<ServicesResourceCategory> cQuery = cb
+					.createQuery(ServicesResourceCategory.class);
+			Root<ServicesResourceCategory> root = cQuery
+					.from(ServicesResourceCategory.class);
 
 			cQuery.select(root);
 			cQuery.orderBy(cb.asc(root.<String> get("name")));
@@ -99,11 +95,7 @@ public class MaterialCategoryService extends GHAEJBExceptionService implements
 				return getAll();
 
 			cQuery.where(criteria);
-			TypedQuery<MaterialCategory> q = em.createQuery(cQuery);
-
-			if (entity.getName() != null)
-				q.setParameter("name", "%" + entity.getName().toLowerCase()
-						+ "%");
+			TypedQuery<ServicesResourceCategory> q = em.createQuery(cQuery);
 
 			if (entity.getCode() != null)
 				q.setParameter("code", entity.getCode());
@@ -128,11 +120,11 @@ public class MaterialCategoryService extends GHAEJBExceptionService implements
 	 * org.fourgeeks.gha.domain.glm.MaterialCategoryServiceRemote#find(long)
 	 */
 	@Override
-	public MaterialCategory find(String code) throws GHAEJBException {
+	public ServicesResourceCategory find(String code) throws GHAEJBException {
 		try {
-			return em.find(MaterialCategory.class, code);
+			return em.find(ServicesResourceCategory.class, code);
 		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: finding MaterialCategory", e);
+			logger.log(Level.INFO, "ERROR: finding ServicesResourceCategory", e);
 			throw super.generateGHAEJBException("materialCategory-find-fail",
 					RuntimeParameters.getLang(), em);
 		}
@@ -144,10 +136,10 @@ public class MaterialCategoryService extends GHAEJBExceptionService implements
 	 * @see org.fourgeeks.gha.domain.glm.MaterialCategoryServiceRemote#getAll()
 	 */
 	@Override
-	public List<MaterialCategory> getAll() throws GHAEJBException {
+	public List<ServicesResourceCategory> getAll() throws GHAEJBException {
 		try {
-			return em.createNamedQuery("MaterialCategory.getAll",
-					MaterialCategory.class).getResultList();
+			return em.createNamedQuery("ServicesResourceCategory.getAll",
+					ServicesResourceCategory.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all MaterialCategories",
 					ex);
@@ -164,13 +156,13 @@ public class MaterialCategoryService extends GHAEJBExceptionService implements
 	 * int)
 	 */
 	@Override
-	public List<MaterialCategory> getAll(int offset, int size)
+	public List<ServicesResourceCategory> getAll(int offset, int size)
 			throws GHAEJBException {
 		try {
 			return em
-					.createNamedQuery("MaterialCategory.getAll",
-							MaterialCategory.class).setFirstResult(offset)
-					.setMaxResults(size).getResultList();
+					.createNamedQuery("ServicesResourceCategory.getAll",
+							ServicesResourceCategory.class)
+					.setFirstResult(offset).setMaxResults(size).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all MaterialCategories",
 					ex);
@@ -187,12 +179,14 @@ public class MaterialCategoryService extends GHAEJBExceptionService implements
 	 * .gha.domain.glm.MaterialCategory)
 	 */
 	@Override
-	public MaterialCategory save(MaterialCategory materialCategory)
+	public ServicesResourceCategory save(
+			ServicesResourceCategory servicesResourceCategory)
 			throws GHAEJBException {
 		try {
-			em.persist(materialCategory);
+			em.persist(servicesResourceCategory);
 			em.flush();
-			return em.find(MaterialCategory.class, materialCategory.getCode());
+			return em.find(ServicesResourceCategory.class,
+					servicesResourceCategory.getCode());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving materialCategory ", e);
 			throw super.generateGHAEJBException("materialCategory-save-fail",
@@ -208,15 +202,16 @@ public class MaterialCategoryService extends GHAEJBExceptionService implements
 	 * .fourgeeks.gha.domain.glm.MaterialCategory)
 	 */
 	@Override
-	public MaterialCategory update(MaterialCategory materialCategory)
+	public ServicesResourceCategory update(
+			ServicesResourceCategory servicesResourceCategory)
 			throws GHAEJBException {
 		try {
-			MaterialCategory res = em.merge(materialCategory);
+			ServicesResourceCategory res = em.merge(servicesResourceCategory);
 			em.flush();
 			return res;
 		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: unable to update MaterialCategory ",
-					e);
+			logger.log(Level.INFO,
+					"ERROR: unable to update ServicesResourceCategory ", e);
 			throw super.generateGHAEJBException("materialCategory-update-fail",
 					RuntimeParameters.getLang(), em);
 		}

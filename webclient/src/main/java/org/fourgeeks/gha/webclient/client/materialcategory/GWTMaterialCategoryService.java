@@ -6,7 +6,7 @@ package org.fourgeeks.gha.webclient.client.materialcategory;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.ServicesResourceCategory;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -25,11 +25,11 @@ public interface GWTMaterialCategoryService extends RemoteService {
 	public void delete(String code) throws GHAEJBException;
 
 	/**
-	 * @param MaterialCategory
+	 * @param ServicesResourceCategory
 	 * @return the list of MaterialCategories
 	 * @throws GHAEJBException
 	 */
-	public List<MaterialCategory> find(MaterialCategory materialCategory)
+	public List<ServicesResourceCategory> find(ServicesResourceCategory servicesResourceCategory)
 			throws GHAEJBException;
 
 	/**
@@ -37,13 +37,13 @@ public interface GWTMaterialCategoryService extends RemoteService {
 	 * @return the MaterialCategorys
 	 * @throws GHAEJBException
 	 */
-	public MaterialCategory find(String code) throws GHAEJBException;
+	public ServicesResourceCategory find(String code) throws GHAEJBException;
 
 	/**
 	 * @return the list of MaterialCategories
 	 * @throws GHAEJBException
 	 */
-	public List<MaterialCategory> getAll() throws GHAEJBException;
+	public List<ServicesResourceCategory> getAll() throws GHAEJBException;
 
 	/**
 	 * @param offset
@@ -51,22 +51,22 @@ public interface GWTMaterialCategoryService extends RemoteService {
 	 * @return the list of MaterialCategories
 	 * @throws GHAEJBException
 	 */
-	public List<MaterialCategory> getAll(int offset, int size)
+	public List<ServicesResourceCategory> getAll(int offset, int size)
 			throws GHAEJBException;
 
 	/**
-	 * @param MaterialCategory
-	 * @return the saved MaterialCategory
+	 * @param ServicesResourceCategory
+	 * @return the saved ServicesResourceCategory
 	 * @throws GHAEJBException
 	 */
-	public MaterialCategory save(MaterialCategory materialCategory)
+	public ServicesResourceCategory save(ServicesResourceCategory servicesResourceCategory)
 			throws GHAEJBException;
 
 	/**
-	 * @param MaterialCategory
-	 * @return the updated MaterialCategory
+	 * @param ServicesResourceCategory
+	 * @return the updated ServicesResourceCategory
 	 * @throws GHAEJBException
 	 */
-	public MaterialCategory update(MaterialCategory materialCategory)
+	public ServicesResourceCategory update(ServicesResourceCategory servicesResourceCategory)
 			throws GHAEJBException;
 }

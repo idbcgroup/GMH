@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eiatype.materialcategory;
 
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.ServicesResourceCategory;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaterialCategory;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 
@@ -19,9 +19,9 @@ public class EIATypeMaterialCategoryRecord extends
 	public EIATypeMaterialCategoryRecord(
 			EiaTypeMaterialCategory eiaTypeMaterialCategory) {
 		this.eiaTypeMaterialCategory = eiaTypeMaterialCategory;
-		MaterialCategory materialCategory = eiaTypeMaterialCategory
+		ServicesResourceCategory servicesResourceCategory = eiaTypeMaterialCategory
 				.getMaterialCategory();
-		if (materialCategory == null)
+		if (servicesResourceCategory == null)
 			return;
 		// setAttribute("code", materialCategory.getCode());
 		// setAttribute("name", materialCategory.getName());

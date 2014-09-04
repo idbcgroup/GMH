@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eiatype.damageandplanification;
 
-import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
+import org.fourgeeks.gha.domain.gmh.GlaLog;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
@@ -119,10 +119,10 @@ EiaDamageReportSelectionProducer {
 	 * 
 	 * @see org.fourgeeks.gha.webclient.client.eiadamagereport.
 	 * EiaDamageReportSelectionProducer
-	 * #notifyEiaDamageReport(org.fourgeeks.gha.domain.gmh.EiaDamageReport)
+	 * #notifyEiaDamageReport(org.fourgeeks.gha.domain.gmh.GlaLog)
 	 */
 	@Override
-	public void notifyEiaDamageReport(EiaDamageReport eiaDamageReport) {
+	public void notifyEiaDamageReport(GlaLog glaLog) {
 	}
 
 	/**

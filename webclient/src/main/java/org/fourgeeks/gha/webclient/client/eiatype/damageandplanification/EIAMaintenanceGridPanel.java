@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.damageandplanification;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
+import org.fourgeeks.gha.domain.gmh.GlaLog;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -149,7 +149,7 @@ public class EIAMaintenanceGridPanel extends VLayout implements
 	}
 
 	@Override
-	public void select(EiaDamageReport eiaDamageReport) {
+	public void select(GlaLog glaLog) {
 		if (eiaType != null)
 			loadData();
 	}

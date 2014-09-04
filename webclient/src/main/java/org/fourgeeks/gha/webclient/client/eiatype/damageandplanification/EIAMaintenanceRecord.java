@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.damageandplanification;
 import org.fourgeeks.gha.domain.enu.EiaMaintenanceState;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenance;
-import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
+import org.fourgeeks.gha.domain.gmh.GlaLog;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenance;
@@ -27,7 +27,7 @@ public class EIAMaintenanceRecord extends GHAGridRecord<EiaMaintenance> {
 		Eia eia = null;
 		if (entity instanceof EiaCorrectiveMaintenance) {
 			EiaCorrectiveMaintenance maintenance = (EiaCorrectiveMaintenance) entity;
-			EiaDamageReport damageReport = maintenance.getDamageReport();
+			GlaLog damageReport = maintenance.getDamageReport();
 			eia = damageReport.getEia();
 			setAttribute("type", GHAStrings.get("corrective"));
 		} else {

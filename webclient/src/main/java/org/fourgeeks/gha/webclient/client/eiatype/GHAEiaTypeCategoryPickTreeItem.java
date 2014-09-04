@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
+import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
@@ -56,10 +56,10 @@ public class GHAEiaTypeCategoryPickTreeItem extends GHAPickTreeItem {
 	private void fill() {
 		final Tree tree = new Tree();
 		GHACache.INSTANCE
-		.getEiaTypeCategories(new GHAAsyncCallback<List<EiaTypeCategory>>() {
+		.getEiaTypeCategories(new GHAAsyncCallback<List<ServiceResourceCategory>>() {
 
 			@Override
-			public void onSuccess(List<EiaTypeCategory> result) {
+			public void onSuccess(List<ServiceResourceCategory> result) {
 				Collections.sort(result);
 
 				final String codes[] = new String[result.size()];

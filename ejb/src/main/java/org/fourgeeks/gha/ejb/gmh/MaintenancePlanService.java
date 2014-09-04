@@ -21,7 +21,6 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.enu.EiaMaintenanceState;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
@@ -358,11 +357,6 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 	 */
 	private BigDecimal getPlanEstimatedCost(List<MaintenanceProtocol> protocol) {
 		double acum = 0;
-		for (MaintenanceProtocol entity : protocol) {
-			Activity activity = entity.getMaintenanceActivity().getActivity();
-			BigDecimal estimatedCost = activity.getEstimatedCost();
-			acum += estimatedCost.doubleValue();
-		}
 		return BigDecimal.valueOf(acum);
 	}
 
@@ -382,28 +376,7 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 		int hours, days, weeks, months, semesters, years;
 		hours = days = weeks = months = semesters = years = 0;
 
-		for (MaintenanceProtocol entity : protocol) {
-			Activity activity = entity.getMaintenanceActivity().getActivity();
-			TimePeriodEnum periodOfTime = activity.getEstimatedDurationPoT();
-			if (periodOfTime == TimePeriodEnum.HOURS)
-				hours += activity.getEstimatedDuration().intValue();
-			else if (periodOfTime == TimePeriodEnum.DAYS)
-				days += activity.getEstimatedDuration().intValue();
-			else if (periodOfTime == TimePeriodEnum.WEEKS)
-				weeks += activity.getEstimatedDuration().intValue();
-			else if (periodOfTime == TimePeriodEnum.MONTHS)
-				months += activity.getEstimatedDuration().intValue();
-			else if (periodOfTime == TimePeriodEnum.SEMESTERS)
-				semesters += activity.getEstimatedDuration().intValue();
-			else if (periodOfTime == TimePeriodEnum.YEARS)
-				years += activity.getEstimatedDuration().intValue();
-		}
-
-		totalDays += (hours / DAY) + days + (weeks * WEEK) + (months * MONTH)
-				+ (semesters * SEMESTER) + (years * YEAR);
-
-		int totalEstimatedDays = (int) Math.ceil(totalDays);
-		return totalEstimatedDays;
+		return 0;
 	}
 
 	/*

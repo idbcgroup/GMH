@@ -8,7 +8,7 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
+import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 
 /**
  * @author Emilio
@@ -22,20 +22,20 @@ public interface EiaTypeCategoryServiceRemote {
 	 * @param entity
 	 * @throws GHAEJBException
 	 */
-	public void delete(EiaTypeCategory entity) throws GHAEJBException;
+	public void delete(ServiceResourceCategory entity) throws GHAEJBException;
 
 	/**
 	 * @return all the categories for eiatype
 	 * @throws GHAEJBException
 	 */
-	public List<EiaTypeCategory> getAll() throws GHAEJBException;
+	public List<ServiceResourceCategory> getAll() throws GHAEJBException;
 
 	/**
-	 * @param eiaTypeCategory
+	 * @param serviceResourceCategory
 	 * @return the eiatypecategory saved
 	 * @throws GHAEJBException
 	 * 
 	 */
-	public EiaTypeCategory save(EiaTypeCategory eiaTypeCategory)
+	public ServiceResourceCategory save(ServiceResourceCategory serviceResourceCategory)
 			throws GHAEJBException;
 }

@@ -20,8 +20,6 @@ import org.fourgeeks.gha.domain.enu.DepreciationMethodEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
-import org.fourgeeks.gha.domain.ess.WorkingArea;
-import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.Bsp;
@@ -63,11 +61,6 @@ public class Eia extends AbstractEntity {
 	/** Fecha de Contabilización length =22 */
 	private BigDecimal adquisitionCostLocal;
 
-	@NotNull(message = "base-role-not-null")
-	@ManyToOne
-	@JoinColumn(name = "baseRoleFk", nullable = false)
-	private Role responsibleRole;
-
 	@Size(max = 20)
 	private String code;
 	/** Denominación Moneda del Costo de Adquisición del equipo length =60 */
@@ -107,13 +100,6 @@ public class Eia extends AbstractEntity {
 	private int lifeTime;
 	/** Tiempo de Vida Equipo length =4 */
 	private TimePeriodEnum lifeTimePoT;
-
-	/**
-	 * Working Area and Facility where the EIA is located
-	 */
-	@ManyToOne
-	@JoinColumn(name = "workingAreaFk")
-	private WorkingArea workingArea;
 
 	@ManyToOne
 	@JoinColumn(name = "facilityFk")
@@ -182,7 +168,6 @@ public class Eia extends AbstractEntity {
 	}
 
 	/**
-	 * @param responsibleRole
 	 * @param eiaType
 	 * @param obu
 	 * @param state
@@ -190,10 +175,10 @@ public class Eia extends AbstractEntity {
 	 * @param maintenanceProvider
 	 * @param serialNumber
 	 */
-	public Eia(Role responsibleRole, EiaType eiaType, Obu obu,
-			EiaStateEnum state, String fixedAssetIdentifier,
-			Bsp maintenanceProvider, String serialNumber) {
-		this.responsibleRole = responsibleRole;
+	public Eia(EiaType eiaType, Obu obu, EiaStateEnum state,
+			String fixedAssetIdentifier, Bsp maintenanceProvider,
+			String serialNumber) {
+
 		this.eiaType = eiaType;
 		this.obu = obu;
 		this.state = state;
@@ -377,20 +362,12 @@ public class Eia extends AbstractEntity {
 		return receptionDate;
 	}
 
-	public Role getResponsibleRole() {
-		return responsibleRole;
-	}
-
 	public String getSerialNumber() {
 		return serialNumber;
 	}
 
 	public EiaStateEnum getState() {
 		return state;
-	}
-
-	public WorkingArea getWorkingArea() {
-		return workingArea;
 	}
 
 	public void setAcceptationDate(Date acceptationDate) {
@@ -443,14 +420,6 @@ public class Eia extends AbstractEntity {
 		this.depreciationTime = depreciationTime;
 	}
 
-	// public void setDesincorporatedDate(Date desincorporatedDate) {
-	// this.desincorporatedDate = desincorporatedDate;
-	// }
-	//
-	// public void setDesincorporateReason(String desincorporateReason) {
-	// this.desincorporateReason = desincorporateReason;
-	// }
-
 	public void setDepreciationTimePoT(TimePeriodEnum depreciationTimePoT) {
 		this.depreciationTimePoT = depreciationTimePoT;
 	}
@@ -474,11 +443,6 @@ public class Eia extends AbstractEntity {
 	public void setInstallationProvider(ExternalProvider installationProvider) {
 		this.installationProvider = installationProvider;
 	}
-
-	// public void setMaintenanceLocation(BuildingLocation maintenanceLocation)
-	// {
-	// this.maintenanceLocation = maintenanceLocation;
-	// }
 
 	public void setIntWarrantyBegin(Date intWarrantyBegin) {
 		this.intWarrantyBegin = intWarrantyBegin;
@@ -556,28 +520,11 @@ public class Eia extends AbstractEntity {
 		this.receptionDate = receptionDate;
 	}
 
-	// public EiaMaintenancePlan geteMaintenancePlan() {
-	// return eMaintenancePlan;
-	// }
-
-	public void setResponsibleRole(Role responsibleRole) {
-		this.responsibleRole = responsibleRole;
-	}
-
 	public void setSerialNumber(String serialNumber) {
 		this.serialNumber = serialNumber;
 	}
 
-	// public void seteMaintenancePlan(EiaMaintenancePlan eMaintenancePlan) {
-	// this.eMaintenancePlan = eMaintenancePlan;
-	// }
-
 	public void setState(EiaStateEnum state) {
 		this.state = state;
 	}
-
-	public void setWorkingArea(WorkingArea workingArea) {
-		this.workingArea = workingArea;
-	}
-
 }

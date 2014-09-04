@@ -10,11 +10,11 @@ import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.ServicesResourceCategory;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
+import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.webclient.client.bpi.BpiModel;
@@ -61,8 +61,8 @@ public enum GHACache {
 	private List<Facility> facilities;
 	private List<Bpi> bpis;
 	private List<Bpu> bpus;
-	private List<EiaTypeCategory> eiaTypeCategories;
-	private List<MaterialCategory> materialCategories;
+	private List<ServiceResourceCategory> serviceResourceCategories;
+	private List<ServicesResourceCategory> servicesResourceCategories;
 	private List<Bsp> bsps;
 
 	{
@@ -247,21 +247,21 @@ public enum GHACache {
 	 * @param callback
 	 */
 	public void getEiaTypeCategories(
-			final GHAAsyncCallback<List<EiaTypeCategory>> callback) {
-		if (eiaTypeCategories == null)
+			final GHAAsyncCallback<List<ServiceResourceCategory>> callback) {
+		if (serviceResourceCategories == null)
 			getEiaTypeCategoriesFromServer(callback);
 		else
-			callback.onSuccess(eiaTypeCategories);
+			callback.onSuccess(serviceResourceCategories);
 	}
 
 	private void getEiaTypeCategoriesFromServer(
-			final GHAAsyncCallback<List<EiaTypeCategory>> callback) {
+			final GHAAsyncCallback<List<ServiceResourceCategory>> callback) {
 		EiaTypeCategoryModel
-				.getAll(new GHAAsyncCallback<List<EiaTypeCategory>>() {
+				.getAll(new GHAAsyncCallback<List<ServiceResourceCategory>>() {
 
 					@Override
-					public void onSuccess(final List<EiaTypeCategory> result) {
-						eiaTypeCategories = result;
+					public void onSuccess(final List<ServiceResourceCategory> result) {
+						serviceResourceCategories = result;
 						callback.onSuccess(result);
 					}
 				});
@@ -371,21 +371,21 @@ public enum GHACache {
 	}
 
 	public void getMaterialCategories(
-			final GHAAsyncCallback<List<MaterialCategory>> callback) {
-		if (materialCategories == null)
+			final GHAAsyncCallback<List<ServicesResourceCategory>> callback) {
+		if (servicesResourceCategories == null)
 			getMaterialCategoriesFromServer(callback);
 		else
-			callback.onSuccess(materialCategories);
+			callback.onSuccess(servicesResourceCategories);
 	}
 
 	private void getMaterialCategoriesFromServer(
-			final GHAAsyncCallback<List<MaterialCategory>> callback) {
+			final GHAAsyncCallback<List<ServicesResourceCategory>> callback) {
 		MaterialCategoryModel
-				.getAll(new GHAAsyncCallback<List<MaterialCategory>>() {
+				.getAll(new GHAAsyncCallback<List<ServicesResourceCategory>>() {
 
 					@Override
-					public void onSuccess(final List<MaterialCategory> result) {
-						materialCategories = result;
+					public void onSuccess(final List<ServicesResourceCategory> result) {
+						servicesResourceCategories = result;
 						callback.onSuccess(result);
 					}
 				});
@@ -448,8 +448,8 @@ public enum GHACache {
 		workingAreas = null;
 		facilities = null;
 		bpis = null;
-		materialCategories = null;
-		eiaTypeCategories = null;
+		servicesResourceCategories = null;
+		serviceResourceCategories = null;
 	}
 
 }

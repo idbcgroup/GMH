@@ -18,7 +18,7 @@ import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
+import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.gom.CCDIDefinition;
 import org.fourgeeks.gha.domain.gom.CCDILevelDefinition;
@@ -75,7 +75,7 @@ public class EiaHelper {
 	private LegalEntity savedLegalEntity;
 	private Role savedRole;
 	private EiaType savedEiatype;
-	private EiaTypeCategory savedEiatypeCategory;
+	private ServiceResourceCategory savedEiatypeCategory;
 	private Brand savedBrand;
 	private Manufacturer savedManufacturer;
 	private CCDIDefinition savedCCDIDefinition;
@@ -184,7 +184,7 @@ public class EiaHelper {
 			savedBrand = brandServiceRemote.save(b);
 
 			// Creating an Eiatye CAtegory
-			final EiaTypeCategory category = new EiaTypeCategory();
+			final ServiceResourceCategory category = new ServiceResourceCategory();
 			category.setName(savedCCDILevelValue2.getName());
 			category.setCode(savedCCDILevelValue2.getCode());
 			savedEiatypeCategory = eiaTypeCategoryServiceRemote.save(category);

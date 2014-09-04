@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.ServicesResourceCategory;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
@@ -56,10 +56,10 @@ public class GHAMaterialCategoryPickTreeItem extends GHAPickTreeItem {
 	private void fill() {
 		final Tree tree = new Tree();
 		GHACache.INSTANCE
-		.getMaterialCategories(new GHAAsyncCallback<List<MaterialCategory>>() {
+		.getMaterialCategories(new GHAAsyncCallback<List<ServicesResourceCategory>>() {
 
 			@Override
-			public void onSuccess(List<MaterialCategory> result) {
+			public void onSuccess(List<ServicesResourceCategory> result) {
 				Collections.sort(result);
 
 				final String codes[] = new String[result.size()];

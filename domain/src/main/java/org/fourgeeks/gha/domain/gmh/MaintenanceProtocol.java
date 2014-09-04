@@ -35,10 +35,6 @@ public class MaintenanceProtocol extends AbstractEntity {
 	@JoinColumn(name = "maintenancePlanFk", columnDefinition = "bigint REFERENCES maintenanceplan(id) ON UPDATE CASCADE ON DELETE CASCADE")
 	private MaintenancePlan maintenancePlan;
 
-	@ManyToOne
-	@JoinColumn(name = "maintenanceActivityFk", columnDefinition = "bigint REFERENCES maintenanceactivity(id) ON UPDATE CASCADE ON DELETE CASCADE")
-	private MaintenanceActivity maintenanceActivity;
-
 	private int ordinal;
 
 	/** */
@@ -50,18 +46,9 @@ public class MaintenanceProtocol extends AbstractEntity {
 	 * @param maintenanceActivity
 	 * @param ordinal
 	 */
-	public MaintenanceProtocol(MaintenancePlan maintenancePlan,
-			MaintenanceActivity maintenanceActivity, int ordinal) {
+	public MaintenanceProtocol(MaintenancePlan maintenancePlan, int ordinal) {
 		this.maintenancePlan = maintenancePlan;
-		this.maintenanceActivity = maintenanceActivity;
 		this.ordinal = ordinal;
-	}
-
-	/**
-	 * @return the maintenanceActivity
-	 */
-	public MaintenanceActivity getMaintenanceActivity() {
-		return maintenanceActivity;
 	}
 
 	/**
@@ -76,14 +63,6 @@ public class MaintenanceProtocol extends AbstractEntity {
 	 */
 	public int getOrdinal() {
 		return ordinal;
-	}
-
-	/**
-	 * @param maintenanceActivity
-	 *            the maintenanceActivity to set
-	 */
-	public void setMaintenanceActivity(MaintenanceActivity maintenanceActivity) {
-		this.maintenanceActivity = maintenanceActivity;
 	}
 
 	/**

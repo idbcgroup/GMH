@@ -72,12 +72,12 @@ import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenance;
-import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
+import org.fourgeeks.gha.domain.gmh.GlaLog;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
+import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
@@ -153,13 +153,13 @@ public class MaintenanceActivityServiceTest {
 				.addClass(DocumentTypeEnum.class)
 				.addClass(Eia.class)
 				.addClass(EiaStateEnum.class)
-				.addClass(EiaDamageReport.class)
+				.addClass(GlaLog.class)
 				.addClass(EiaMaintenancePlanification.class)
 				.addClass(EiaDamageStatusEnum.class)
 				.addClass(EiaMobilityEnum.class)
 				.addClass(EiaTypeEnum.class)
 				.addClass(EiaSubTypeEnum.class)
-				.addClass(EiaTypeCategory.class)
+				.addClass(ServiceResourceCategory.class)
 				.addClass(EiaType.class)
 				.addClass(EiaTypeComponent.class)
 				.addClass(EiaTypeMaintenancePlan.class)

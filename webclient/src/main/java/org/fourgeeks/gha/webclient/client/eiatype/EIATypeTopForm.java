@@ -5,7 +5,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
+import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
@@ -128,7 +128,7 @@ implements EIATypeSelectionListener {
 					.getValueAsString()), null));
 		eiaType.setModel(modelItem.getValueAsString());
 		if (categoryItem.getValue() != null)
-			eiaType.setEiaTypeCategory(new EiaTypeCategory(categoryItem
+			eiaType.setEiaTypeCategory(new ServiceResourceCategory(categoryItem
 					.getValue().toString()));
 		if (subTypeItem.getValue() != null)
 			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem

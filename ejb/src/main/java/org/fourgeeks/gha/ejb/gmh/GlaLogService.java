@@ -13,58 +13,55 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.GlaLog;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 import org.fourgeeks.gha.ejb.pdt.PDTMessageProducerLocal;
 
 /**
- * Session Bean implementation class EiaDamageReportService
+ * Session Bean implementation class GlaLogService
  */
 @Stateless
-public class EiaDamageReportService extends GHAEJBExceptionService implements
-		EiaDamageReportServiceRemote {
+public class GlaLogService extends GHAEJBExceptionService implements
+		GlaLogServiceRemote {
 	@PersistenceContext
 	private EntityManager em;
 
 	@EJB
 	private PDTMessageProducerLocal pdtProducerService;
 
-	private final static Logger logger = Logger
-			.getLogger(EiaDamageReportService.class.getName());
+	private final static Logger logger = Logger.getLogger(GlaLogService.class
+			.getName());
 
 	@Override
 	public boolean delete(long Id) throws GHAEJBException {
 		try {
-			EiaDamageReport entity = em.find(EiaDamageReport.class, Id);
+			GlaLog entity = em.find(GlaLog.class, Id);
 			em.remove(entity);
 			return true;
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: unable to delete eiaDamageReport = "
-							+ EiaDamageReport.class.getName() + " with id="
-							+ Long.toString(Id), e);
+			logger.log(Level.INFO, "ERROR: unable to delete eiaDamageReport = "
+					+ GlaLog.class.getName() + " with id=" + Long.toString(Id),
+					e);
 			throw super.generateGHAEJBException("eia-delete-fail", em);
 		}
 	}
 
 	@Override
-	public List<EiaDamageReport> findByEiaType(EiaType eiaType)
-			throws GHAEJBException {
+	public List<GlaLog> findByEiaType(EiaType eiaType) throws GHAEJBException {
 		try {
 			ArrayList<EiaStateEnum> stateList = new ArrayList<EiaStateEnum>();
 			stateList.add(EiaStateEnum.DAMAGED);
 			stateList.add(EiaStateEnum.MAINTENANCE);
 
-			String stringQuery = "SELECT edr, eia FROM EiaDamageReport edr RIGHT JOIN edr.eia eia "
+			String stringQuery = "SELECT edr, eia FROM GlaLog edr RIGHT JOIN edr.eia eia "
 					+ "WHERE eia.eiaType = :eiaType AND eia.state IN :eiaStates order by edr.id";
 			List<?> resultList = em.createQuery(stringQuery)
 					.setParameter("eiaType", eiaType)
 					.setParameter("eiaStates", stateList).getResultList();
 
-			List<EiaDamageReport> edrList = toEiaDamageReportList(resultList);
+			List<GlaLog> edrList = toEiaDamageReportList(resultList);
 			return edrList;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding eiaDamageReport by eiatype",
@@ -74,10 +71,10 @@ public class EiaDamageReportService extends GHAEJBExceptionService implements
 	}
 
 	@Override
-	public List<EiaDamageReport> getAll() throws GHAEJBException {
+	public List<GlaLog> getAll() throws GHAEJBException {
 		try {
-			return em.createNamedQuery("EiaDamageReport.getAll",
-					EiaDamageReport.class).getResultList();
+			return em.createNamedQuery("GlaLog.getAll", GlaLog.class)
+					.getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all eiaDamageReports",
 					ex);
@@ -86,23 +83,20 @@ public class EiaDamageReportService extends GHAEJBExceptionService implements
 	}
 
 	@Override
-	public EiaDamageReport save(EiaDamageReport eiaDamageReport)
-			throws GHAEJBException {
+	public GlaLog save(GlaLog glaLog) throws GHAEJBException {
 
 		try {
 			// guardando el damageReport en BD
-			em.persist(eiaDamageReport);
+			em.persist(glaLog);
 			em.flush();
 
 			// definiendo parametros para el PDT
 			HashMap<String, Object> params = new HashMap<String, Object>();
-			params.put("eiaDamageReport", eiaDamageReport);
-			params.put("eia", eiaDamageReport.getEia());
-
+			params.put("eiaDamageReport", glaLog);
 			// enviando el mensaje a la cola de mensajes del PDT
 			pdtProducerService.sendMessage("corrective-maintenance", params);
 
-			return em.find(EiaDamageReport.class, eiaDamageReport.getId());
+			return em.find(GlaLog.class, glaLog.getId());
 		} catch (Exception e) {
 
 			logger.log(Level.INFO, "ERROR: saving eiaDamageReport ", e);
@@ -111,23 +105,23 @@ public class EiaDamageReportService extends GHAEJBExceptionService implements
 		}
 	}
 
-	private List<EiaDamageReport> toEiaDamageReportList(List<?> resultList) {
-		ArrayList<EiaDamageReport> edrList = new ArrayList<EiaDamageReport>();
+	private List<GlaLog> toEiaDamageReportList(List<?> resultList) {
+		ArrayList<GlaLog> edrList = new ArrayList<GlaLog>();
 
 		for (Object elem : resultList) {
 			Object[] aux = (Object[]) elem;
 
-			EiaDamageReport edrFinal = new EiaDamageReport();
-			edrFinal.setEia((Eia) aux[1]);
+			GlaLog edrFinal = new GlaLog();
+
 			if (aux[0] != null) {
-				EiaDamageReport edr = (EiaDamageReport) aux[0];
+				GlaLog edr = (GlaLog) aux[0];
 				edrFinal.setDamageMotive(edr.getDamageMotive());
 				edrFinal.setDamageStatus(edr.getDamageStatus());
 				edrFinal.setDateTimestamp(edr.getDateTimestamp());
 				edrFinal.setId(edr.getId());
 				edrFinal.setPriority(edr.getPriority());
 				edrFinal.setUserWhoRegistered(edr.getUserWhoRegistered());
-				edrFinal.setUserWhoReported(edr.getUserWhoReported());
+
 			}
 
 			edrList.add(edrFinal);
@@ -136,10 +130,9 @@ public class EiaDamageReportService extends GHAEJBExceptionService implements
 	}
 
 	@Override
-	public EiaDamageReport update(EiaDamageReport eiaDamageReport)
-			throws GHAEJBException {
+	public GlaLog update(GlaLog glaLog) throws GHAEJBException {
 		try {
-			EiaDamageReport res = em.merge(eiaDamageReport);
+			GlaLog res = em.merge(glaLog);
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update eiaDamageReport ",

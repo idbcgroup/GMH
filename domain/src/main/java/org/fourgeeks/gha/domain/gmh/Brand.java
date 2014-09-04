@@ -11,9 +11,11 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.HasKey;
+import org.fourgeeks.gha.domain.glm.Material;
 
 /**
  * @author emiliot, vivi.torresg
@@ -39,6 +41,30 @@ public class Brand extends AbstractEntity implements HasKey {
 
 	@Column(nullable = false)
 	private String name;
+
+	@ManyToOne
+	@NotNull(message = "material-not-null")
+	@JoinColumn(name = "materialFk", nullable = false)
+	private Material material;
+
+	@ManyToOne
+	@JoinColumn(name = "eiaTypeFk", nullable = false, columnDefinition = "varchar(255) REFERENCES eiatype(code) ON UPDATE CASCADE ON DELETE CASCADE")
+	private EiaType eiaType;
+
+	/**
+	 * @return the material
+	 */
+	public Material getMaterial() {
+		return material;
+	}
+
+	/**
+	 * @param material
+	 *            the material to set
+	 */
+	public void setMaterial(Material material) {
+		this.material = material;
+	}
 
 	/**
 	 * 

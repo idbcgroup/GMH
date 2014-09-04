@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.eiadamagereport;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
+import org.fourgeeks.gha.domain.gmh.GlaLog;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -14,15 +14,15 @@ public interface GWTEiaDamageReportService extends RemoteService {
 
 	public boolean delete(long Id) throws GHAEJBException;
 
-	public List<EiaDamageReport> findByEiaType(EiaType eiaType)
+	public List<GlaLog> findByEiaType(EiaType eiaType)
 			throws GHAEJBException;
 
-	public List<EiaDamageReport> getAll() throws GHAEJBException;
+	public List<GlaLog> getAll() throws GHAEJBException;
 
-	public EiaDamageReport save(EiaDamageReport eiaDamageReport)
+	public GlaLog save(GlaLog glaLog)
 			throws GHAEJBException;
 
-	public EiaDamageReport update(EiaDamageReport eiaDamageReport)
+	public GlaLog update(GlaLog glaLog)
 			throws GHAEJBException;
 
 }

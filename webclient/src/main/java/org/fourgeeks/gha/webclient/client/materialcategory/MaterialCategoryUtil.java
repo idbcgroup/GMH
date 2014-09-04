@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.materialcategory;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.ServicesResourceCategory;
 
 /**
  * @author alacret Utilities for MaterialCategories
@@ -22,8 +22,8 @@ public class MaterialCategoryUtil {
 	 * @return the MaterialRecord that represents the Material
 	 */
 	public static MaterialCategoryRecord toGridRecord(
-			MaterialCategory materialCategory) {
-		return new MaterialCategoryRecord(materialCategory);
+			ServicesResourceCategory servicesResourceCategory) {
+		return new MaterialCategoryRecord(servicesResourceCategory);
 	}
 
 	/**
@@ -33,10 +33,10 @@ public class MaterialCategoryUtil {
 	 * @return the MaterialRecord list that represents the Material list
 	 */
 	public static List<MaterialCategoryRecord> toGridRecords(
-			List<MaterialCategory> materialsCategories) {
+			List<ServicesResourceCategory> materialsCategories) {
 		List<MaterialCategoryRecord> list = new ArrayList<MaterialCategoryRecord>();
-		for (MaterialCategory materialCategory : materialsCategories)
-			list.add(new MaterialCategoryRecord(materialCategory));
+		for (ServicesResourceCategory servicesResourceCategory : materialsCategories)
+			list.add(new MaterialCategoryRecord(servicesResourceCategory));
 		return list;
 	}
 

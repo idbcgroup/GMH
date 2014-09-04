@@ -9,7 +9,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialBrand;
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.ServicesResourceCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -199,7 +199,7 @@ MaterialBrandSelectionProducer {
 					.getValueAsString()), null));
 
 		if (categoryItem.getValue() != null) {
-			material.setMaterialCategory(new MaterialCategory(categoryItem
+			material.setMaterialCategory(new ServicesResourceCategory(categoryItem
 					.getValue().toString()));
 		}
 		materialBrand.setMaterial(material);

@@ -12,7 +12,7 @@ import org.fourgeeks.gha.domain.enu.EiaDamageStatusEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
+import org.fourgeeks.gha.domain.gmh.GlaLog;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -43,7 +43,7 @@ import com.smartgwt.client.widgets.form.validator.RegExpValidator;
  * @author naramirez
  * 
  */
-public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
+public class EIADamageReportForm extends GHAForm<GlaLog> implements
 		EIASelectionListener, EiaDamageReportSelectionProducer {
 	private GHATextItem codeTextItem, serialTextItem, fixedAssetIdTextItem,
 			facilityCodeTextItem;
@@ -199,42 +199,42 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		toggleForm(false);
 	}
 
-	private EiaDamageReport extract() {
+	private GlaLog extract() {
 		// if (!hasUnCommittedChanges)
 		// return null;
 
-		final EiaDamageReport eiaDamageReport = new EiaDamageReport();
+		final GlaLog glaLog = new GlaLog();
 
 		eia.setState(EiaStateEnum.DAMAGED);
-		eiaDamageReport.setEia(eia);
+		glaLog.setEia(eia);
 
-		eiaDamageReport.setDamageMotive(damageMotiveTextAreaItem
+		glaLog.setDamageMotive(damageMotiveTextAreaItem
 				.getValueAsString());
 
 		if (damageStatusSelectItem.getValueAsString() != null)
-			eiaDamageReport.setDamageStatus(EiaDamageStatusEnum
+			glaLog.setDamageStatus(EiaDamageStatusEnum
 					.valueOf(damageStatusSelectItem.getValueAsString()));
 
 		if (equipmentCondSelectItem.getValueAsString() != null)
-			eiaDamageReport.setEiaCondition(EiaStateEnum
+			glaLog.setEiaCondition(EiaStateEnum
 					.valueOf(equipmentCondSelectItem.getValueAsString()));
 
 		if (damagePrioritySelectItem.getValueAsString() != null)
-			eiaDamageReport.setPriority(EiaDamagePriorityEnum
+			glaLog.setPriority(EiaDamagePriorityEnum
 					.valueOf(damagePrioritySelectItem.getValueAsString()));
 
 		if (userWhoRegistedSelectItem.getValueAsString() != null) {
 			final Bpu userWhoRegistered = new Bpu();
 			userWhoRegistered.setId(Long.valueOf(userWhoRegistedSelectItem
 					.getValueAsString()));
-			eiaDamageReport.setUserWhoRegistered(userWhoRegistered);
+			glaLog.setUserWhoRegistered(userWhoRegistered);
 		}
 
 		if (userWhoReportedSelectItem.getValueAsString() != null) {
 			final Bpu userWhoReported = new Bpu();
 			userWhoReported.setId(Long.valueOf(userWhoReportedSelectItem
 					.getValueAsString()));
-			eiaDamageReport.setUserWhoReported(userWhoReported);
+			glaLog.setUserWhoReported(userWhoReported);
 		}
 
 		LogicalTime time = null;
@@ -248,17 +248,17 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		final Timestamp timestamp = EIADamageAndPlanificationUtil.getTimestamp(
 				date, time);
 
-		eiaDamageReport.setDateTimestamp(timestamp);
+		glaLog.setDateTimestamp(timestamp);
 
 		// VALIDANDO LOS DATOS
-		Set<ConstraintViolation<EiaDamageReport>> violations = null;
-		violations = validator.validate(eiaDamageReport);
+		Set<ConstraintViolation<GlaLog>> violations = null;
+		violations = validator.validate(glaLog);
 
 		if (reportForm.validate() && violations.isEmpty())
-			return eiaDamageReport;
+			return glaLog;
 		else {
 			final List<String> violationsList = new ArrayList<String>();
-			for (final ConstraintViolation<EiaDamageReport> violation : violations)
+			for (final ConstraintViolation<GlaLog> violation : violations)
 				violationsList.add(violation.getMessage());
 			// GHAAlertManager.alert(violationsList);
 
@@ -318,9 +318,9 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	}
 
 	@Override
-	public void notifyEiaDamageReport(EiaDamageReport eiaDamageReport) {
+	public void notifyEiaDamageReport(GlaLog glaLog) {
 		for (final EiaDamageReportSelectionListener listener : listeners)
-			listener.select(eiaDamageReport);
+			listener.select(glaLog);
 	}
 
 	@Override
@@ -345,13 +345,13 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	}
 
 	@Override
-	public void save(final GHAAsyncCallback<EiaDamageReport> callback) {
-		final EiaDamageReport eiaDamageReport = extract();
-		if (eiaDamageReport != null) {
-			EiaDamageReportModel.save(eiaDamageReport,
-					new GHAAsyncCallback<EiaDamageReport>() {
+	public void save(final GHAAsyncCallback<GlaLog> callback) {
+		final GlaLog glaLog = extract();
+		if (glaLog != null) {
+			EiaDamageReportModel.save(glaLog,
+					new GHAAsyncCallback<GlaLog>() {
 						@Override
-						public void onSuccess(EiaDamageReport result) {
+						public void onSuccess(GlaLog result) {
 							hasUnCommittedChanges = false;
 							notifyEiaDamageReport(result);
 							clear();
@@ -402,7 +402,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	}
 
 	@Override
-	public void set(EiaDamageReport entity) {
+	public void set(GlaLog entity) {
 	}
 
 	@Override
@@ -432,6 +432,6 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	}
 
 	@Override
-	public void update(GHAAsyncCallback<EiaDamageReport> callback) {
+	public void update(GHAAsyncCallback<GlaLog> callback) {
 	}
 }

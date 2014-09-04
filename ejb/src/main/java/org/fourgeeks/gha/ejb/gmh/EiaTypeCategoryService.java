@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
+import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 
 /**
@@ -27,14 +27,14 @@ public class EiaTypeCategoryService extends GHAEJBExceptionService implements
 			.getLogger(EiaTypeCategoryService.class.getName());
 
 	@Override
-	public void delete(final EiaTypeCategory entity) throws GHAEJBException {
+	public void delete(final ServiceResourceCategory entity) throws GHAEJBException {
 		if (entity == null) {
 			logger.log(Level.INFO, "ERROR: unable to delete eiatypecategory");
 			throw super.generateGHAEJBException("eiaTypeCategory-delete-fail",
 					em);
 		}
 		try {
-			final EiaTypeCategory entity2 = em.find(EiaTypeCategory.class,
+			final ServiceResourceCategory entity2 = em.find(ServiceResourceCategory.class,
 					entity.getCode());
 			em.remove(entity2);
 		} catch (final Exception e) {
@@ -45,10 +45,10 @@ public class EiaTypeCategoryService extends GHAEJBExceptionService implements
 	}
 
 	@Override
-	public List<EiaTypeCategory> getAll() throws GHAEJBException {
+	public List<ServiceResourceCategory> getAll() throws GHAEJBException {
 		try {
-			List<EiaTypeCategory> res = em.createNamedQuery(
-					"EiaTypeCategory.getAll", EiaTypeCategory.class)
+			List<ServiceResourceCategory> res = em.createNamedQuery(
+					"ServiceResourceCategory.getAll", ServiceResourceCategory.class)
 					.getResultList();
 			return res;
 		} catch (final Exception ex) {
@@ -59,14 +59,14 @@ public class EiaTypeCategoryService extends GHAEJBExceptionService implements
 	}
 
 	@Override
-	public EiaTypeCategory save(final EiaTypeCategory eiaTypeCategory)
+	public ServiceResourceCategory save(final ServiceResourceCategory serviceResourceCategory)
 			throws GHAEJBException {
 		try {
-			if (eiaTypeCategory == null)
+			if (serviceResourceCategory == null)
 				throw super.generateGHAEJBException("object-null", em);
-			em.persist(eiaTypeCategory);
+			em.persist(serviceResourceCategory);
 			em.flush();
-			return em.find(EiaTypeCategory.class, eiaTypeCategory.getCode());
+			return em.find(ServiceResourceCategory.class, serviceResourceCategory.getCode());
 		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: saving eiatypeCategory", e);
 			throw super

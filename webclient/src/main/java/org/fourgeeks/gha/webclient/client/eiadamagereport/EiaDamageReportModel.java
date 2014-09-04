@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.eiadamagereport;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
+import org.fourgeeks.gha.domain.gmh.GlaLog;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 
@@ -17,21 +17,21 @@ public class EiaDamageReportModel {
 	}
 
 	public static void findByEiaType(EiaType eiaType,
-			GHAAsyncCallback<List<EiaDamageReport>> callback) {
+			GHAAsyncCallback<List<GlaLog>> callback) {
 		service.findByEiaType(eiaType, callback);
 	}
 
-	public static void getAll(GHAAsyncCallback<List<EiaDamageReport>> callback) {
+	public static void getAll(GHAAsyncCallback<List<GlaLog>> callback) {
 		service.getAll(callback);
 	}
 
-	public static void save(EiaDamageReport eiaDamageReport,
-			GHAAsyncCallback<EiaDamageReport> callback) {
-		service.save(eiaDamageReport, callback);
+	public static void save(GlaLog glaLog,
+			GHAAsyncCallback<GlaLog> callback) {
+		service.save(glaLog, callback);
 	}
 
-	public static void update(EiaDamageReport eiaDamageReport,
-			GHAAsyncCallback<EiaDamageReport> callback) {
-		service.update(eiaDamageReport, callback);
+	public static void update(GlaLog glaLog,
+			GHAAsyncCallback<GlaLog> callback) {
+		service.update(glaLog, callback);
 	}
 }

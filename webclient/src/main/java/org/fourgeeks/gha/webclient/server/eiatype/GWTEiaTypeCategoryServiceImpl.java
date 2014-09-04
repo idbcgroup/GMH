@@ -9,7 +9,7 @@ import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
+import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeCategoryServiceRemote;
 import org.fourgeeks.gha.webclient.client.eiatype.GWTEiaTypeCategoryService;
 
@@ -32,7 +32,7 @@ public class GWTEiaTypeCategoryServiceImpl extends RemoteServiceServlet
 	EiaTypeCategoryServiceRemote categoryService;
 
 	@Override
-	public List<EiaTypeCategory> getAll() throws GHAEJBException {
+	public List<ServiceResourceCategory> getAll() throws GHAEJBException {
 		return categoryService.getAll();
 	}
 

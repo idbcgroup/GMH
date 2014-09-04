@@ -25,8 +25,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
-import org.fourgeeks.gha.domain.ess.WorkingArea;
-import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
@@ -57,13 +55,13 @@ public class EiaService extends GHAEJBExceptionService implements
 	private final static Predicate buildFilters(Eia entity, CriteriaBuilder cb,
 			Root<Eia> root, Join<Eia, Obu> obuJoin) {
 		Predicate predicate = cb.conjunction();
-		if (entity.getResponsibleRole() != null) {
-			// logger.log(Level.INFO, "responsible role");
-			final ParameterExpression<Role> p = cb.parameter(Role.class,
-					"baseRole");
-			predicate = cb.and(predicate,
-					cb.equal(root.<Role> get("responsibleRole"), p));
-		}
+		// if (entity.getResponsibleRole() != null) {
+		// // logger.log(Level.INFO, "responsible role");
+		// final ParameterExpression<Role> p = cb.parameter(Role.class,
+		// "baseRole");
+		// predicate = cb.and(predicate,
+		// cb.equal(root.<Role> get("responsibleRole"), p));
+		// }
 		if (entity.getCode() != null) {
 			// logger.log(Level.INFO, "code");
 			final ParameterExpression<String> p = cb.parameter(String.class,
@@ -122,13 +120,13 @@ public class EiaService extends GHAEJBExceptionService implements
 			predicate = cb.and(predicate,
 					cb.equal(root.<BigDecimal> get("actualCost"), p));
 		}
-		if (entity.getWorkingArea() != null) {
-			// logger.log(Level.INFO, "workingarea");
-			final ParameterExpression<WorkingArea> p = cb.parameter(
-					WorkingArea.class, "workingArea");
-			predicate = cb.and(predicate,
-					cb.equal(root.<WorkingArea> get("workingArea"), p));
-		}
+		// if (entity.getWorkingArea() != null) {
+		// // logger.log(Level.INFO, "workingarea");
+		// final ParameterExpression<WorkingArea> p = cb.parameter(
+		// WorkingArea.class, "workingArea");
+		// predicate = cb.and(predicate,
+		// cb.equal(root.<WorkingArea> get("workingArea"), p));
+		// }
 		if (entity.getFacility() != null) {
 			// logger.log(Level.INFO, "facility");
 			final ParameterExpression<Facility> p = cb.parameter(
@@ -207,9 +205,9 @@ public class EiaService extends GHAEJBExceptionService implements
 				cQuery.where(criteria);
 				q = em.createQuery(cQuery);
 
-				if (entity.getResponsibleRole() != null) {
-					q.setParameter("baseRole", entity.getResponsibleRole());
-				}
+				// if (entity.getResponsibleRole() != null) {
+				// q.setParameter("baseRole", entity.getResponsibleRole());
+				// }
 				if (entity.getCode() != null) {
 					q.setParameter("code", entity.getCode());
 				}
@@ -239,9 +237,9 @@ public class EiaService extends GHAEJBExceptionService implements
 				if (entity.getActualCost() != null) {
 					q.setParameter("actualCost", entity.getActualCost());
 				}
-				if (entity.getWorkingArea() != null) {
-					q.setParameter("workingArea", entity.getWorkingArea());
-				}
+				// if (entity.getWorkingArea() != null) {
+				// q.setParameter("workingArea", entity.getWorkingArea());
+				// }
 				if (entity.getFacility() != null) {
 					q.setParameter("facility", entity.getFacility());
 				}

@@ -5,7 +5,6 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
@@ -70,15 +69,6 @@ public interface MaintenanceProtocolServiceRemote {
 	 */
 	public List<MaintenanceProtocol> findByMaintenancePlan(MaintenancePlan plan)
 			throws GHAEJBException;
-
-	/**
-	 * @param activity
-	 * @return a list of {@link MaintenanceActivity} with the
-	 *         (MaintenanceActivity, MaintenancePlan) pair
-	 * @throws GHAEJBException
-	 */
-	public List<MaintenanceProtocol> findByMantenanceActivity(
-			MaintenanceActivity act) throws GHAEJBException;
 
 	/**
 	 * Return Stadistic information about the protocol of the plan like:

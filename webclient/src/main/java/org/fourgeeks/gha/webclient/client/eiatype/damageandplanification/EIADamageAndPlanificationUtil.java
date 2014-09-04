@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
+import org.fourgeeks.gha.domain.gmh.GlaLog;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 
@@ -26,14 +26,14 @@ public class EIADamageAndPlanificationUtil {
 
 	/**
 	 * @param eiaDamageReportRecords
-	 *            the list of {@link EiaDamageReport} entities
+	 *            the list of {@link GlaLog} entities
 	 * @return A list of {@link EiaDamageReportRecord} whit the data contained
-	 *         in the {@link EiaDamageReport} entities
+	 *         in the {@link GlaLog} entities
 	 */
 	public static List<EiaDamageReportRecord> toDamageReportGridRecords(
-			List<EiaDamageReport> eiaDamageReportRecords) {
+			List<GlaLog> eiaDamageReportRecords) {
 		List<EiaDamageReportRecord> list = new ArrayList<EiaDamageReportRecord>();
-		for (EiaDamageReport eia : eiaDamageReportRecords)
+		for (GlaLog eia : eiaDamageReportRecords)
 			list.add(new EiaDamageReportRecord(eia));
 		return list;
 	}

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
+import org.fourgeeks.gha.domain.gmh.GlaLog;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
@@ -62,7 +62,7 @@ public class EiaDamageReportGridPanel extends VLayout implements
 
 		addEiaDamageReportSelectionListener(new EiaDamageReportSelectionListener() {
 			@Override
-			public void select(EiaDamageReport eiaDamageReport) {
+			public void select(GlaLog glaLog) {
 				loadData();
 			}
 		});
@@ -157,11 +157,11 @@ public class EiaDamageReportGridPanel extends VLayout implements
 	}
 
 	@Override
-	public void notifyEiaDamageReport(EiaDamageReport eiaDamageReport) {
+	public void notifyEiaDamageReport(GlaLog glaLog) {
 	}
 
 	@Override
-	public void select(EiaDamageReport eiaDamageReport) {
+	public void select(GlaLog glaLog) {
 		loadData();
 	}
 }

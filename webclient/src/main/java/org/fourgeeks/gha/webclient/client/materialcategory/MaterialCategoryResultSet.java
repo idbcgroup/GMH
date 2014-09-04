@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.materialcategory;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.ServicesResourceCategory;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
@@ -21,7 +21,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
  * @author alacret
  *
  */
-public class MaterialCategoryResultSet extends GHAResultSet<MaterialCategory>
+public class MaterialCategoryResultSet extends GHAResultSet<ServicesResourceCategory>
 		implements MaterialCategorySelectionProducer {
 	private List<MaterialCategorySelectionListener> listeners;
 	private MaterialCategoryGrid grid;
@@ -75,16 +75,16 @@ public class MaterialCategoryResultSet extends GHAResultSet<MaterialCategory>
 	}
 
 	@Override
-	public void notifyMaterialCategory(MaterialCategory materialCategory) {
+	public void notifyMaterialCategory(ServicesResourceCategory servicesResourceCategory) {
 		for (MaterialCategorySelectionListener listener : listeners)
-			listener.select(materialCategory);
+			listener.select(servicesResourceCategory);
 	}
 
 	/**
-	 * notify selected {@link MaterialCategory} from the grid
+	 * notify selected {@link ServicesResourceCategory} from the grid
 	 */
 	private void notifySelectMaterialCategory() {
-		MaterialCategory selectedEntity = grid.getSelectedEntity();
+		ServicesResourceCategory selectedEntity = grid.getSelectedEntity();
 		if (selectedEntity == null) {
 			GHAErrorMessageProcessor.alert("record-not-selected");
 			return;
@@ -101,7 +101,7 @@ public class MaterialCategoryResultSet extends GHAResultSet<MaterialCategory>
 	}
 
 	@Override
-	public void setRecords(List<MaterialCategory> records,
+	public void setRecords(List<ServicesResourceCategory> records,
 			boolean notifyIfOnlyOneResult) {
 		// if only one record is on the list, notify the element and return
 		if (notifyIfOnlyOneResult && records.size() == 1) {

@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.materialcategory;
 
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.ServicesResourceCategory;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
@@ -9,7 +9,7 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
  * @author alacret
  * 
  */
-public class MaterialCategoryGrid extends GhaGrid<MaterialCategory> {
+public class MaterialCategoryGrid extends GhaGrid<ServicesResourceCategory> {
 
 	/**
 	 * 

@@ -42,6 +42,10 @@ public class EiaType extends ServiceAndResource {
 	// @JoinColumn(name = "manufacturerFk")
 	// private Manufacturer manufacturer;
 
+	@ManyToOne
+	@JoinColumn(name = "serviceResourceCategoryFk")
+	private ServiceResourceCategory sRCategory;
+
 	@NotNull(message = "name-not-null")
 	@Size(min = 1, max = 255, message = "El Nombre debe tener entre 1 y 255 caracteres")
 	@Column(nullable = false)
@@ -86,11 +90,6 @@ public class EiaType extends ServiceAndResource {
 	// @NotNull(message = "sub-type-not-null")
 	// @Column(nullable = false)
 	private EiaSubTypeEnum subtype;
-
-	@ManyToOne
-	@NotNull(message = "eiatype-category-not-null")
-	@JoinColumn(name = "eiaTypeCategoryFk", nullable = false)
-	private EiaTypeCategory eiaTypeCategory;
 
 	/**
 	 * 
@@ -151,13 +150,6 @@ public class EiaType extends ServiceAndResource {
 		return description;
 	}
 
-	/**
-	 * @return the category of the eiatype
-	 */
-	public EiaTypeCategory getEiaTypeCategory() {
-		return eiaTypeCategory;
-	}
-
 	public String getEiaUmdns() {
 		return eiaUmdns;
 	}
@@ -198,10 +190,6 @@ public class EiaType extends ServiceAndResource {
 
 	public void setDescription(final String description) {
 		this.description = description;
-	}
-
-	public void setEiaTypeCategory(final EiaTypeCategory eiaTypeCategory) {
-		this.eiaTypeCategory = eiaTypeCategory;
 	}
 
 	public void setEiaUmdns(final String eiaUmdns) {

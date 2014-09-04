@@ -7,6 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
@@ -16,18 +17,13 @@ import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.gar.Bpu;
 
 /**
- * @author naramirez
+ * @author naramirez,eduardoguerere
  * 
  */
 @Entity
-@NamedQueries(value = { @NamedQuery(name = "EiaDamageReport.getAll", query = "SELECT edr from EiaDamageReport edr order by edr.id") })
-public class EiaDamageReport extends AbstractEntity {
+@NamedQueries(value = { @NamedQuery(name = "GlaLog.getAll", query = "SELECT edr from GlaLog edr order by edr.id") })
+public class GlaLog extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
-
-	@ManyToOne
-	@JoinColumn(name = "eiaFk", nullable = false)
-	/** El equipo que se va a reportar como dañado o con falla */
-	private Eia eia;
 
 	/** Estatus del daño: Equipo con falla, Equipo dañado */
 	@NotNull(message = "damageStatus-not-null")
@@ -41,11 +37,24 @@ public class EiaDamageReport extends AbstractEntity {
 	@NotNull(message = "damagePriority-not-null")
 	private EiaDamagePriorityEnum priority;
 
-	/** Persona que reportó la falla o daño */
-	@ManyToOne
-	@NotNull(message = "userWhoReported-not-null")
-	@JoinColumn(name = "userWhoReportedFk", nullable = false)
-	private Bpu userWhoReported;
+	@OneToOne
+	@JoinColumn(name = "resourceFk")
+	private ServiceAndResource serviceResource;
+
+	/**
+	 * @return the serviceResource
+	 */
+	public ServiceAndResource getServiceResource() {
+		return serviceResource;
+	}
+
+	/**
+	 * @param serviceResource
+	 *            the serviceResource to set
+	 */
+	public void setServiceResource(ServiceAndResource serviceResource) {
+		this.serviceResource = serviceResource;
+	}
 
 	/** Persona que hizo el registro de la falla o daño */
 	@ManyToOne
@@ -62,7 +71,7 @@ public class EiaDamageReport extends AbstractEntity {
 	/**
 	 * 
 	 */
-	public EiaDamageReport() {
+	public GlaLog() {
 	}
 
 	/**
@@ -87,13 +96,6 @@ public class EiaDamageReport extends AbstractEntity {
 	}
 
 	/**
-	 * @return the eia
-	 */
-	public Eia getEia() {
-		return eia;
-	}
-
-	/**
 	 * @return the priority
 	 */
 	public EiaDamagePriorityEnum getPriority() {
@@ -105,13 +107,6 @@ public class EiaDamageReport extends AbstractEntity {
 	 */
 	public Bpu getUserWhoRegistered() {
 		return userWhoRegistered;
-	}
-
-	/**
-	 * @return the userWhoReported
-	 */
-	public Bpu getUserWhoReported() {
-		return userWhoReported;
 	}
 
 	/**
@@ -147,14 +142,6 @@ public class EiaDamageReport extends AbstractEntity {
 	}
 
 	/**
-	 * @param eia
-	 *            the eia to set
-	 */
-	public void setEia(Eia eia) {
-		this.eia = eia;
-	}
-
-	/**
 	 * @param priority
 	 *            the priority to set
 	 */
@@ -168,14 +155,6 @@ public class EiaDamageReport extends AbstractEntity {
 	 */
 	public void setUserWhoRegistered(Bpu userWhoRegistered) {
 		this.userWhoRegistered = userWhoRegistered;
-	}
-
-	/**
-	 * @param userWhoReported
-	 *            the userWhoReported to set
-	 */
-	public void setUserWhoReported(Bpu userWhoReported) {
-		this.userWhoReported = userWhoReported;
 	}
 
 	/**

@@ -1,7 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eiadamagereport;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
+import org.fourgeeks.gha.domain.gmh.GlaLog;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -21,7 +21,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author naramirez
  * 
  */
-public class EIADamageReportAddForm extends GHAAddForm<EiaDamageReport>
+public class EIADamageReportAddForm extends GHAAddForm<GlaLog>
 		implements EIASelectionListener, EiaDamageReportSelectionProducer {
 
 	{
@@ -85,12 +85,12 @@ public class EIADamageReportAddForm extends GHAAddForm<EiaDamageReport>
 	 * 
 	 * @see org.fourgeeks.gha.webclient.client.eiadamagereport.
 	 * EiaDamageReportSelectionProducer
-	 * #notifyEiaDamageReport(org.fourgeeks.gha.domain.gmh.EiaDamageReport)
+	 * #notifyEiaDamageReport(org.fourgeeks.gha.domain.gmh.GlaLog)
 	 */
 	@Override
-	public void notifyEiaDamageReport(EiaDamageReport eiaDamageReport) {
+	public void notifyEiaDamageReport(GlaLog glaLog) {
 		((EiaDamageReportSelectionProducer) form)
-				.notifyEiaDamageReport(eiaDamageReport);
+				.notifyEiaDamageReport(glaLog);
 	}
 
 	/*
@@ -130,9 +130,9 @@ public class EIADamageReportAddForm extends GHAAddForm<EiaDamageReport>
 	 */
 	@Override
 	protected void save() {
-		form.save(new GHAAsyncCallback<EiaDamageReport>() {
+		form.save(new GHAAsyncCallback<GlaLog>() {
 			@Override
-			public void onSuccess(EiaDamageReport result) {
+			public void onSuccess(GlaLog result) {
 				GHAErrorMessageProcessor.alert("eiaDamageReport-save-success");
 				hide();
 				notifyEiaDamageReport(result);
